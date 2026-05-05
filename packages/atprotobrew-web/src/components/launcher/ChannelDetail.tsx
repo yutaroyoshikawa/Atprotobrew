@@ -1,8 +1,4 @@
-import { Link, useNavigate, useParams } from "react-router-dom";
-import type { InstalledChannel } from "../../types/channel";
-import { AppButton } from "common/core/components/AppButton";
-import { AppText } from "common/core/components/AppText";
-import { AppH1 } from "common/core/components/AppH1";
+import { useParams } from "react-router-dom";
 
 export function ChannelDetail() {
   const { id } = useParams<{ id: string }>();
