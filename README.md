@@ -1,38 +1,15 @@
-## 技術スタック
+# Basic Style Dictionary
 
-### フロントエンド
+This example code is bare-bones to show you what this framework can do. If you have the style-dictionary module installed globally, you can `cd` into this directory and run:
 
-- React 
-- React Router
+```bash
+npx style-dictionary build
+```
 
-#### 認証
+Otherwise, install Style Dictionary locally for this project first, `cd` into this directory and run:
 
-@atproto/oauth-client-browser による OAuth 認証を行う。
-初期状態では、要認証画面を表示し、 OAuth 認証フローによって認証を行う。
+```bash
+npm init -y && npm install style-dictionary
+```
 
-### バックエンド
-
-- hono
-
-### AT Protocol
-
-Atproto brew のランチャー用 Lexicon を定義。 
-
-## 概要
-
-- Wii のホーム画面のような UI の AT Protocol サービスをチャンネルに見立てたランチャーツール
-- チャンネル一覧には、Atproto brew store チャンネルを配置
-
-## Atproto brew store Channel
-
-- 各 AT protocol サービスのチャンネル一覧が表示される。（例：Bluesky Channel, Tokimeki Channel）
-- 一覧の内任意の項目をクリックすると、チャンネル概要ページに遷移。
-- チャンネル概要ページには、チャンネルサムネイル・チャンネル説明・開発者名・更新日・更新内容・バージョン・インストールボタンが表示される。
-- チャンネルをインストールすると、ランチャーホームのチャンネル一覧にサービスチャンネルが追加される。
-
-## HOME
-
-- ユーザーがインストールしたチャンネル一覧が表示される。
-- チャンネルをクリックするとチャンネル詳細画面が表示される。
-- チャンネル詳細画面には、チャンネルサムネイル・起動ボタン・ホームに戻るボタンが表示される。
-- 起動ボタンをクリックすると、該当サービスにリダイレクトされる。
+and then run the above command.

@@ -1,54 +1,12 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { STORE_CHANNELS } from "../../data/storeChannels";
-import type { InstalledChannel } from "../../types/channel";
 
-interface StoreItemDetailProps {
-	installedChannels: InstalledChannel[];
-	onInstall: (channel: InstalledChannel) => void;
-	onUninstall: (id: string) => void;
-}
+export function StoreItemDetail() {
+  const { id } = useParams<{ id: string }>();
 
-export function StoreItemDetail({ installedChannels, onInstall, onUninstall }: StoreItemDetailProps) {
-	const { id } = useParams<{ id: string }>();
-	const navigate = useNavigate();
-	const channel = STORE_CHANNELS.find((ch) => ch.id === id);
-	const isInstalled = installedChannels.some((ch) => ch.id === id);
-
-	if (!channel) {
-		return (
-			<div className="min-h-screen bg-sky-50 flex items-center justify-center">
-				<div className="text-center">
-					<p className="text-slate-500">チャンネルが見つかりません。</p>
-					<button
-						type="button"
-						onClick={() => navigate("/store")}
-						className="mt-4 text-blue-600 text-sm hover:underline cursor-pointer"
-					>
-						Storeに戻る
-					</button>
-				</div>
-			</div>
-		);
-	}
-
-	const handleInstall = () => {
-		onInstall({
-			id: channel.id,
-			letter: channel.letter,
-			color: channel.color,
-			name: channel.name,
-			url: channel.url,
-		});
-		navigate("/");
-	};
-
-	const handleUninstall = () => {
-		onUninstall(channel.id);
-	};
-
-	return (
-		<div className="min-h-screen bg-sky-50 flex flex-col">
-			<header className="bg-white/80 backdrop-blur-sm border-b border-gray-200 px-6 py-3 flex items-center gap-3 sticky top-0 z-10">
+  return (
+    <div className="min-h-screen bg-sky-50 flex flex-col">
+      {/* <header className="bg-white/80 backdrop-blur-sm border-b border-gray-200 px-6 py-3 flex items-center gap-3 sticky top-0 z-10">
 				<button
 					type="button"
 					onClick={() => navigate("/store")}
@@ -108,7 +66,7 @@ export function StoreItemDetail({ installedChannels, onInstall, onUninstall }: S
 						</button>
 					)}
 				</div>
-			</main>
-		</div>
-	);
+			</main> */}
+    </div>
+  );
 }

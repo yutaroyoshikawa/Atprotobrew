@@ -1,0 +1,12 @@
+import { type ComponentProps, type ReactNode } from "react";
+import { H2, styled } from "tamagui";
+
+interface AppH2Props extends ComponentProps<typeof StyledH2> {
+  children: ReactNode;
+}
+
+export function AppH2({ children, ...props }: AppH2Props) {
+  return <StyledH2 {...props}>{children}</StyledH2>;
+}
+
+const StyledH2 = styled(H2, {});
