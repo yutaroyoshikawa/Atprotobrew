@@ -1,0 +1,55 @@
+/**
+ * Do not edit directly, this file was auto-generated.
+ */
+
+:root {
+  --border-heavy: [object Object];
+  --border-wireframe: [object Object];
+  --color-black: #000000;
+  --color-white: #ffffff;
+  --color-orange-100: #fffaf0;
+  --color-orange-200: #feebc8;
+  --color-orange-300: #fbd38d;
+  --color-orange-400: #f6ad55;
+  --color-orange-500: #ed8936;
+  --color-orange-600: #dd6b20;
+  --color-orange-700: #c05621;
+  --color-orange-800: #9c4221;
+  --color-orange-900: #7b341e;
+  --font-family-sans: Open Sans, sans-serif;
+  --font-family-serif: Times New Roman, serif;
+  --font-size-body: 16px;
+  --font-size-heading: 28px;
+  --font-weight-light: thin;
+  --font-weight-regular: regular;
+  --font-weight-bold: extra-bold;
+  --font-line-height-normal: 1.2;
+  --font-line-height-large: 1.8;
+  --shadow-sm: [object Object];
+  --shadow-lg: [object Object];
+  --size-0: 0px;
+  --size-1: 4px;
+  --size-2: 8px;
+  --size-3: 12px;
+  --size-4: 16px;
+  --size-5: 20px;
+  --size-6: 24px;
+  --size-7: 28px;
+  --size-8: 32px;
+  --size-9: 36px;
+  --size-10: 40px;
+  --size-11: 44px;
+  --size-12: 48px;
+  --size-13: 52px;
+  --size-14: 56px;
+  --size-15: 60px;
+  --size-max: 9999px;
+  --transition-duration-instant: 0ms;
+  --transition-duration-short: 100ms;
+  --transition-duration-medium: 300ms;
+  --transition-duration-long: 600ms;
+  --transition-easing-accelerate: 0.5,0,1,1;
+  --transition-easing-decelerate: 0,0,0.5,1;
+  --transition-emphasis: [object Object];
+  --transition-fade: [object Object];
+}

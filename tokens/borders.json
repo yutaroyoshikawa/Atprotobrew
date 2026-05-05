@@ -1,0 +1,14 @@
+{
+  "border": {
+    "heavy": {
+      "value": { "color": "#000000", "width": "4px", "style": "solid" }
+    },
+    "wireframe": {
+      "value": {
+        "color": "#dd6b20",
+        "width": "8px",
+        "style": "dashed"
+      }
+    }
+  }
+}

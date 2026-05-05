@@ -1,11 +1,11 @@
 {
 	"expo": {
-		"name": "atproto-brew-native",
-		"slug": "atproto-brew-native",
+		"name": "Atprotobrew",
+		"slug": "atprotobrew-app",
 		"version": "1.0.0",
 		"orientation": "portrait",
 		"icon": "./assets/images/icon.png",
-		"scheme": "atprotobrewnative",
+		"scheme": "atprotobrewapp",
 		"userInterfaceStyle": "automatic",
 		"newArchEnabled": true,
 		"ios": {

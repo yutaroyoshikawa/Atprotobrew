@@ -1,7 +1,8 @@
 module.exports = (api) => {
 	api.cache(true);
+
 	return {
-		presets: [["babel-preset-expo", { jsxImportSource: "nativewind" }], "nativewind/babel"],
-		plugins: ["babel-plugin-react-compiler", "@lingui/babel-plugin-lingui-macro"],
+		presets: ["babel-preset-expo"],
+		plugins: ["babel-plugin-react-compiler", "@lingui/babel-plugin-lingui-macro", 'react-native-worklets/plugin'],
 	};
 };

@@ -1,5 +1,5 @@
 {
-	"name": "common",
+	"name": "@atprotobrew/common",
 	"main": "expo-router/entry",
 	"version": "1.0.0",
 	"type": "module",
@@ -13,20 +13,35 @@
 		"libgui:build": "lingui compile"
 	},
 	"exports": {
-		"./components/*": {
-			"import": "./src/components/*.tsx"
+		"./core/components/*": {
+			"import": "./src/core/components/*.tsx"
 		},
-		"./lib/*": {
-			"import": "./src/components/*.ts"
+		"./core/modules/*": {
+			"import": "./src/core/modules/*.ts"
+		},
+		"./theme": {
+			"import": "./src/theme/index.ts"
+		},
+		"./auth/components/*": {
+			"import": "./src/features/auth/components/*.tsx"
+		},
+		"./channel/components/*": {
+			"import": "./src/features/channel/components/*.tsx"
+		},
+		"./channel/modules/*": {
+			"import": "./src/features/channel/modules/*.ts"
 		}
 	},
 	"dependencies": {
+		"@atpassport/client": "^0.1.31",
+		"@atprotobrew/atproto": "workspace:^",
 		"@lingui/react": "^5.9.5",
 		"@react-navigation/native": "^7.0.0",
-		"@rn-primitives/portal": "~1.4.0",
-		"@rn-primitives/slot": "^1.4.0",
+		"@tamagui/config": "2.0.0-rc.41",
+		"@tamagui/core": "2.0.0-rc.41",
+		"@tanstack/react-form": "^1.29.1",
+		"@tanstack/react-query": "^5.100.9",
 		"class-variance-authority": "^0.7.1",
-		"clsx": "^2.1.1",
 		"expo": "~55.0.9",
 		"expo-constants": "~55.0.9",
 		"expo-linking": "~55.0.9",
@@ -35,25 +50,18 @@
 		"expo-status-bar": "~55.0.4",
 		"expo-system-ui": "~55.0.11",
 		"lucide-react-native": "^0.545.0",
-		"nativewind": "^4.2.3",
 		"react": "19.2.0",
-		"react-dom": "19.2.0",
-		"react-native": "0.83.2",
+		"react-native": "0.83.4",
 		"react-native-reanimated": "4.2.1",
 		"react-native-safe-area-context": "~5.6.2",
 		"react-native-screens": "~4.23.0",
-		"react-native-svg": "15.15.3",
-		"react-native-web": "^0.21.0",
+		"react-native-svg": "^15.15.3",
 		"react-native-worklets": "0.7.2",
-		"solito": "^5.0.0",
-		"tailwind-merge": "^3.5.0",
-		"tailwindcss": "^4.2.2",
-		"tailwindcss-animate": "^1.0.7"
+		"tamagui": "2.0.0-rc.41",
+		"zod": "^4.4.3"
 	},
 	"devDependencies": {
 		"@babel/core": "^7.26.0",
-		"@lingui/babel-plugin-lingui-macro": "^5.9.5",
-		"@lingui/vite-plugin": "^5.9.5",
 		"@types/react": "~19.2.10",
 		"typescript": "^6.0.3"
 	},
