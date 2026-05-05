@@ -1,4 +1,4 @@
-import { ComponentProps } from "react";
+import { type ComponentProps } from "react";
 import { Separator, styled } from "tamagui";
 
 interface AppSeparatorProps extends ComponentProps<typeof StyledSeparator> {}

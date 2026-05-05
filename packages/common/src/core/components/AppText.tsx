@@ -1,4 +1,4 @@
-import { ComponentProps, type ReactNode } from "react";
+import { type ComponentProps, type ReactNode } from "react";
 import { Text, styled } from "tamagui";
 
 interface AppTextProps extends ComponentProps<typeof StyledText> {

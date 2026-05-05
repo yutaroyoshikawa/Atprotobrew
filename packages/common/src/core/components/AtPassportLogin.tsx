@@ -1,5 +1,5 @@
-import { AtPassportUI, AtPassportIcon } from "@atpassport/client/ui";
-import { ComponentProps } from "react";
+import { AtPassportUI } from "@atpassport/client/ui";
+import { type ComponentProps } from "react";
 import { styled, Text, View } from "tamagui";
 
 interface AtPassportLoginProps extends ComponentProps<typeof StyledView> {}
