@@ -1,0 +1,155 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+    types:
+      - opened
+      - synchronize
+      - reopened
+      - ready_for_review
+
+concurrency:
+  group: deploy-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  issues: write
+  pull-requests: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository)
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+
+      - name: Setup Node.js
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: 22
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1 # v4.3.0
+        with:
+          version: 10.32.1
+          cache: true
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Deploy preview
+        id: deploy-preview
+        if: github.event_name == 'pull_request'
+        uses: cloudflare/wrangler-action@9acf94ace14e7dc412b076f2c5c20b8ce93c79cd # v3.15.0
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: versions upload --message "Preview for PR #${{ github.event.number }} (${{ github.head_ref }})"
+          packageManager: pnpm
+
+      - name: Comment preview URL
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b # v7.1.0
+        env:
+          PREVIEW_URL: ${{ steps.deploy-preview.outputs.deployment-url }}
+        with:
+          script: |
+            const marker = '<!-- atprotobrew-preview -->';
+            const previewUrl = process.env.PREVIEW_URL;
+            const branch = context.payload.pull_request.head.ref;
+            const body = `${marker}\n### Preview deployed\n\n- Branch: \`${branch}\`\n- URL: ${previewUrl}\n`;
+
+            const { owner, repo } = context.repo;
+            const comments = await github.paginate(github.rest.issues.listComments, {
+              owner,
+              repo,
+              issue_number: context.issue.number,
+              per_page: 100,
+            });
+
+            const existing = comments.find((comment) => comment.user?.type === 'Bot' && comment.body?.includes(marker));
+
+            if (existing) {
+              await github.rest.issues.updateComment({
+                owner,
+                repo,
+                comment_id: existing.id,
+                body,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner,
+                repo,
+                issue_number: context.issue.number,
+                body,
+              });
+            }
+
+      - name: Deploy production
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        id: deploy-production
+        uses: cloudflare/wrangler-action@9acf94ace14e7dc412b076f2c5c20b8ce93c79cd # v3.15.0
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: deploy --minify
+          packageManager: pnpm
+
+      - name: Comment production URL
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b # v7.1.0
+        env:
+          PRODUCTION_URL: ${{ steps.deploy-production.outputs.deployment-url }}
+        with:
+          script: |
+            const marker = '<!-- atprotobrew-production -->';
+            const productionUrl = process.env.PRODUCTION_URL;
+
+            const { owner, repo } = context.repo;
+            const prs = await github.rest.repos.listPullRequestsAssociatedWithCommit({
+              owner,
+              repo,
+              commit_sha: context.sha,
+            });
+
+            const pr = prs.data.find((item) => item.merged_at) ?? prs.data[0];
+
+            if (!pr) {
+              core.info('No pull request associated with this commit. Skipping comment.');
+              return;
+            }
+
+            const body = `${marker}\n### Production deployed\n\n- PR: #${pr.number}\n- URL: ${productionUrl}\n`;
+            const comments = await github.paginate(github.rest.issues.listComments, {
+              owner,
+              repo,
+              issue_number: pr.number,
+              per_page: 100,
+            });
+
+            const existing = comments.find((comment) => comment.user?.type === 'Bot' && comment.body?.includes(marker));
+
+            if (existing) {
+              await github.rest.issues.updateComment({
+                owner,
+                repo,
+                comment_id: existing.id,
+                body,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner,
+                repo,
+                issue_number: pr.number,
+                body,
+              });
+            }
