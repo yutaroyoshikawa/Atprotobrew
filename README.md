@@ -1,15 +1,20 @@
-# Basic Style Dictionary
+# Atprotobrew
 
-This example code is bare-bones to show you what this framework can do. If you have the style-dictionary module installed globally, you can `cd` into this directory and run:
+Atprotobrew is a launcher application for services built on the AT Protocol.
 
-```bash
-npx style-dictionary build
-```
+## Features
 
-Otherwise, install Style Dictionary locally for this project first, `cd` into this directory and run:
+- **Atprotobrew Store**: Install compatible launchers directly from the store.
+- **Multilingual Support (i18n)**: Supports both English and Japanese.
 
-```bash
-npm init -y && npm install style-dictionary
-```
+## Directory Structure
 
-and then run the above command.
+- `/packages/atprotobrew-app`: iOS/Android client for Atprotobrew (React Native).
+- `/packages/atprotobrew-web`: Web client for Atprotobrew (React).
+- `/packages/back`: Backend server for Atprotobrew.
+- `/packages/atproto`: AT Protocol-related code, including Lexicons.
+- `/packages/common`: Shared code for UI components and logic across multiple packages.
+
+## License
+
+MIT
