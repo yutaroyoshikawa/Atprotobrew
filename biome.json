@@ -4,17 +4,17 @@
 	"files": {
 		"includes": [
 			"**",
-			"!!/**/worker-configuration.d.ts",
-			"!!/**/node_modules/**/*",
-			"!!/**/dist/**/*",
-			"!!/**/lexicons/**/*"
+			"!**/worker-configuration.d.ts",
+			"!**/node_modules/**/*",
+			"!**/dist/**/*",
+			"!**/lexicons/**/*"
 		]
 	},
 	"linter": {
 		"rules": {
 			"suspicious": { "noUnknownAtRules": "off", "noConfusingVoidType": "info" },
 			"correctness": { "noUnknownTypeSelector": "off", "useExhaustiveDependencies": "info" },
-			"complexity": { "noBannedTypes": "info", "noStaticOnlyClass": "info" }
+			"complexity": { "noBannedTypes": "off", "noStaticOnlyClass": "off" }
 		}
 	}
 }
