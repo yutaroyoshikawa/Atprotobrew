@@ -19,8 +19,7 @@ concurrency:
 
 permissions:
   contents: read
-  issues: write
-  pull-requests: read
+  pull-requests: write
 
 jobs:
   deploy:
@@ -56,43 +55,31 @@ jobs:
           command: versions upload --message "Preview for PR #${{ github.event.number }} (${{ github.head_ref }})"
           packageManager: pnpm
 
-      - name: Comment preview URL
+      - name: Create preview comment file
         if: github.event_name == 'pull_request'
-        uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b # v7.1.0
         env:
           PREVIEW_URL: ${{ steps.deploy-preview.outputs.deployment-url }}
-        with:
-          script: |
-            const marker = '<!-- atprotobrew-preview -->';
-            const previewUrl = process.env.PREVIEW_URL;
-            const branch = context.payload.pull_request.head.ref;
-            const body = `${marker}\n### Preview deployed\n\n- Branch: \`${branch}\`\n- URL: ${previewUrl}\n`;
+          PREVIEW_BRANCH: ${{ github.head_ref }}
+        run: |
+          cat << EOF > comment-preview.md
+          ## Preview deployed
+          <table>
+            <tr>
+              <th scope="row">Branch</th>
+              <td>${PREVIEW_BRANCH}</td>
+            </tr>
+            <tr>
+              <th scope="row">Preview URL</th>
+              <td><a href="${PREVIEW_URL}" target="_blank" rel="noopener noreferrer">${PREVIEW_URL}</a></td>
+            </tr>
+          </table>
+          EOF
 
-            const { owner, repo } = context.repo;
-            const comments = await github.paginate(github.rest.issues.listComments, {
-              owner,
-              repo,
-              issue_number: context.issue.number,
-              per_page: 100,
-            });
-
-            const existing = comments.find((comment) => comment.user?.type === 'Bot' && comment.body?.includes(marker));
-
-            if (existing) {
-              await github.rest.issues.updateComment({
-                owner,
-                repo,
-                comment_id: existing.id,
-                body,
-              });
-            } else {
-              await github.rest.issues.createComment({
-                owner,
-                repo,
-                issue_number: context.issue.number,
-                body,
-              });
-            }
+      - name: Create PR comment (preview)
+        if: ${{ steps.deploy-preview.outcome == 'success' }}
+        run: gh pr comment ${{ github.event.number }} --body-file comment-preview.md
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Deploy production
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
@@ -104,52 +91,39 @@ jobs:
           command: deploy --minify
           packageManager: pnpm
 
-      - name: Comment production URL
+      - name: Resolve PR number
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b # v7.1.0
+        id: pr-number
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          pr_number=$(gh api repos/${{ github.repository }}/commits/${{ github.sha }}/pulls \
+            -H "Accept: application/vnd.github+json" \
+            -q 'map(select(.merged_at != null))[0].number // .[0].number // empty')
+          echo "number=$pr_number" >> "$GITHUB_OUTPUT"
+
+      - name: Create production comment file
+        if: ${{ steps.deploy-production.outcome == 'success' && steps.pr-number.outputs.number != '' }}
         env:
           PRODUCTION_URL: ${{ steps.deploy-production.outputs.deployment-url }}
-        with:
-          script: |
-            const marker = '<!-- atprotobrew-production -->';
-            const productionUrl = process.env.PRODUCTION_URL;
+          PR_NUMBER: ${{ steps.pr-number.outputs.number }}
+        run: |
+          cat << EOF > comment-production.md
+          ## Production deployed
+          <table>
+            <tr>
+              <th scope="row">PR</th>
+              <td>#${PR_NUMBER}</td>
+            </tr>
+            <tr>
+              <th scope="row">Production URL</th>
+              <td><a href="${PRODUCTION_URL}" target="_blank" rel="noopener noreferrer">${PRODUCTION_URL}</a></td>
+            </tr>
+          </table>
+          EOF
 
-            const { owner, repo } = context.repo;
-            const prs = await github.rest.repos.listPullRequestsAssociatedWithCommit({
-              owner,
-              repo,
-              commit_sha: context.sha,
-            });
-
-            const pr = prs.data.find((item) => item.merged_at) ?? prs.data[0];
-
-            if (!pr) {
-              core.info('No pull request associated with this commit. Skipping comment.');
-              return;
-            }
-
-            const body = `${marker}\n### Production deployed\n\n- PR: #${pr.number}\n- URL: ${productionUrl}\n`;
-            const comments = await github.paginate(github.rest.issues.listComments, {
-              owner,
-              repo,
-              issue_number: pr.number,
-              per_page: 100,
-            });
-
-            const existing = comments.find((comment) => comment.user?.type === 'Bot' && comment.body?.includes(marker));
-
-            if (existing) {
-              await github.rest.issues.updateComment({
-                owner,
-                repo,
-                comment_id: existing.id,
-                body,
-              });
-            } else {
-              await github.rest.issues.createComment({
-                owner,
-                repo,
-                issue_number: pr.number,
-                body,
-              });
-            }
+      - name: Create PR comment (production)
+        if: ${{ steps.deploy-production.outcome == 'success' && steps.pr-number.outputs.number != '' }}
+        run: gh pr comment ${{ steps.pr-number.outputs.number }} --body-file comment-production.md
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
