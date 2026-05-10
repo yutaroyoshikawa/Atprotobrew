@@ -240,7 +240,15 @@ export const schemaDict = {
       },
       launcherViewItem: {
         type: 'object',
-        required: ['thumbnail', 'record'],
+        required: [
+          'title',
+          'description',
+          'author',
+          'launch',
+          'thumbnail',
+          'uri',
+          'record',
+        ],
         properties: {
           title: {
             type: 'string',
@@ -252,12 +260,19 @@ export const schemaDict = {
             type: 'string',
           },
           launch: {
-            type: 'unknown',
-            description: 'TODO',
+            type: 'union',
+            refs: [
+              'lex:org.tarororo.brew.storeItem#launchWeb',
+              'lex:org.tarororo.brew.storeItem#launchStore',
+            ],
           },
           thumbnail: {
             type: 'string',
             format: 'uri',
+          },
+          uri: {
+            type: 'string',
+            format: 'at-uri',
           },
           record: {
             type: 'unknown',
@@ -322,7 +337,10 @@ export const schemaDict = {
             },
             launch: {
               type: 'union',
-              refs: ['lex:org.tarororo.brew.storeItem#launchWeb'],
+              refs: [
+                'lex:org.tarororo.brew.storeItem#launchWeb',
+                'lex:org.tarororo.brew.storeItem#launchStore',
+              ],
             },
             thumbnail: {
               type: 'blob',
@@ -339,6 +357,11 @@ export const schemaDict = {
             format: 'uri',
           },
         },
+      },
+      launchStore: {
+        type: 'object',
+        required: [],
+        properties: {},
       },
     },
   },

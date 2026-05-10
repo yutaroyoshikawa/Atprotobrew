@@ -19,7 +19,7 @@ export interface Record {
   title: string
   description: string
   author: string
-  launch: $Typed<LaunchWeb> | { $type: string }
+  launch: $Typed<LaunchWeb> | $Typed<LaunchStore> | { $type: string }
   thumbnail: BlobRef
   [k: string]: unknown
 }
@@ -47,4 +47,18 @@ export function isLaunchWeb<V>(v: V) {
 
 export function validateLaunchWeb<V>(v: V) {
   return validate<LaunchWeb & V>(v, id, hashLaunchWeb)
+}
+
+export interface LaunchStore {
+  $type?: 'org.tarororo.brew.storeItem#launchStore'
+}
+
+const hashLaunchStore = 'launchStore'
+
+export function isLaunchStore<V>(v: V) {
+  return is$typed(v, id, hashLaunchStore)
+}
+
+export function validateLaunchStore<V>(v: V) {
+  return validate<LaunchStore & V>(v, id, hashLaunchStore)
 }

@@ -35,7 +35,7 @@
 		},
 		"launcherViewItem": {
 			"type": "object",
-			"required": ["thumbnail", "record"],
+			"required": ["title", "description", "author", "launch", "thumbnail", "uri", "record"],
 			"properties": {
 				"title": {
 					"type": "string"
@@ -47,11 +47,16 @@
 					"type": "string"
 				},
 				"launch": {
-					"type": "unknown","description":"TODO"
+					"type": "union",
+					"refs": ["org.tarororo.brew.storeItem#launchWeb", "org.tarororo.brew.storeItem#launchStore"]
 				},
 				"thumbnail": {
 					"type": "string",
 					"format": "uri"
+				},
+				"uri": {
+					"type": "string",
+					"format": "at-uri"
 				},
 				"record": {
 					"type": "unknown"

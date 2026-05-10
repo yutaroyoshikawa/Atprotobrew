@@ -3,6 +3,7 @@
  */
 
 import { l } from '@atproto/lex'
+import * as BrewStoreItem from './storeItem.defs.js'
 
 const $nsid = 'org.tarororo.brew.getLauncher'
 
@@ -41,15 +42,15 @@ export { launcherView }
 
 type LauncherViewItem = {
   $type?: 'org.tarororo.brew.getLauncher#launcherViewItem'
-  title?: string
-  description?: string
-  author?: string
-
-  /**
-   * TODO
-   */
-  launch?: l.LexMap
+  title: string
+  description: string
+  author: string
+  launch:
+    | l.$Typed<BrewStoreItem.LaunchWeb>
+    | l.$Typed<BrewStoreItem.LaunchStore>
+    | l.Unknown$TypedObject
   thumbnail: l.UriString
+  uri: l.AtUriString
   record: l.LexMap
 }
 
@@ -59,11 +60,22 @@ const launcherViewItem = l.typedObject<LauncherViewItem>(
   $nsid,
   'launcherViewItem',
   l.object({
-    title: l.optional(l.string()),
-    description: l.optional(l.string()),
-    author: l.optional(l.string()),
-    launch: l.optional(l.lexMap()),
+    title: l.string(),
+    description: l.string(),
+    author: l.string(),
+    launch: l.typedUnion(
+      [
+        l.typedRef<BrewStoreItem.LaunchWeb>(
+          (() => BrewStoreItem.launchWeb) as any,
+        ),
+        l.typedRef<BrewStoreItem.LaunchStore>(
+          (() => BrewStoreItem.launchStore) as any,
+        ),
+      ],
+      false,
+    ),
     thumbnail: l.string({ format: 'uri' }),
+    uri: l.string({ format: 'at-uri' }),
     record: l.lexMap(),
   }),
 )

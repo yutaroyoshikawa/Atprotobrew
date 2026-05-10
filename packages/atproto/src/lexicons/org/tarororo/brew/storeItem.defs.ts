@@ -13,7 +13,7 @@ type Main = {
   title: string
   description: string
   author: string
-  launch: l.$Typed<LaunchWeb> | l.Unknown$TypedObject
+  launch: l.$Typed<LaunchWeb> | l.$Typed<LaunchStore> | l.Unknown$TypedObject
   thumbnail: l.BlobRef
 }
 
@@ -27,7 +27,10 @@ const main = l.record<'any', Main>(
     description: l.string(),
     author: l.string(),
     launch: l.typedUnion(
-      [l.typedRef<LaunchWeb>((() => launchWeb) as any)],
+      [
+        l.typedRef<LaunchWeb>((() => launchWeb) as any),
+        l.typedRef<LaunchStore>((() => launchStore) as any),
+      ],
       false,
     ),
     thumbnail: l.blob(),
@@ -63,3 +66,15 @@ const launchWeb = l.typedObject<LaunchWeb>(
 )
 
 export { launchWeb }
+
+type LaunchStore = { $type?: 'org.tarororo.brew.storeItem#launchStore' }
+
+export type { LaunchStore }
+
+const launchStore = l.typedObject<LaunchStore>(
+  $nsid,
+  'launchStore',
+  l.object({}),
+)
+
+export { launchStore }

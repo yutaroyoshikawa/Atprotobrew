@@ -9,6 +9,7 @@ import {
   is$typed as _is$typed,
   type OmitKey,
 } from '../../../../util'
+import type * as OrgTarororoBrewStoreItem from './storeItem.js'
 
 const is$typed = _is$typed,
   validate = _validate
@@ -40,12 +41,15 @@ export type LauncherView = LauncherViewItem[]
 
 export interface LauncherViewItem {
   $type?: 'org.tarororo.brew.getLauncher#launcherViewItem'
-  title?: string
-  description?: string
-  author?: string
-  /** TODO */
-  launch?: { [_ in string]: unknown }
+  title: string
+  description: string
+  author: string
+  launch:
+    | $Typed<OrgTarororoBrewStoreItem.LaunchWeb>
+    | $Typed<OrgTarororoBrewStoreItem.LaunchStore>
+    | { $type: string }
   thumbnail: string
+  uri: string
   record: { [_ in string]: unknown }
 }
 

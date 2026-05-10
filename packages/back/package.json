@@ -14,7 +14,8 @@
 		"@evex-dev/xrpc-hono": "^1.0.4",
 		"drizzle-orm": "^0.45.2",
 		"hono": "^4.12.14",
-		"key-encoder": "^2.0.3"
+		"key-encoder": "^2.0.3",
+		"multiformats": "^14.0.0"
 	},
 	"devDependencies": {
 		"@types/node": "^24.12.2",
