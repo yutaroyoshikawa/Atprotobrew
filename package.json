@@ -9,7 +9,7 @@
 		"common": "pnpm -F 'common'",
 		"back": "pnpm -F 'back'",
 		"atproto": "pnpm -F 'atproto'",
-		"check": "biome check --write",
+		"check": "biome check --write --staged",
 		"sd:build": "style-dictionary build --config sd.config.mjs"
 	},
 	"keywords": [],

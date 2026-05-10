@@ -12,7 +12,7 @@
 	},
 	"linter": {
 		"rules": {
-			"suspicious": { "noUnknownAtRules": "off", "noConfusingVoidType": "info" },
+			"suspicious": { "noUnknownAtRules": "off" },
 			"correctness": { "noUnknownTypeSelector": "off", "useExhaustiveDependencies": "info" },
 			"complexity": { "noBannedTypes": "off", "noStaticOnlyClass": "off" }
 		}

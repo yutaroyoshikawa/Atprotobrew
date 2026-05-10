@@ -12,20 +12,20 @@ import {
 
 const is$typed = _is$typed,
   validate = _validate
-const id = 'com.atproto.repo.strongRef'
+const id = 'com.atproto.repo.defs'
 
-export interface Main {
-  $type?: 'com.atproto.repo.strongRef'
+export interface CommitMeta {
+  $type?: 'com.atproto.repo.defs#commitMeta'
   cid: string
-  uri: string
+  rev: string
 }
 
-const hashMain = 'main'
+const hashCommitMeta = 'commitMeta'
 
-export function isMain<V>(v: V) {
-  return is$typed(v, id, hashMain)
+export function isCommitMeta<V>(v: V) {
+  return is$typed(v, id, hashCommitMeta)
 }
 
-export function validateMain<V>(v: V) {
-  return validate<Main & V>(v, id, hashMain)
+export function validateCommitMeta<V>(v: V) {
+  return validate<CommitMeta & V>(v, id, hashCommitMeta)
 }

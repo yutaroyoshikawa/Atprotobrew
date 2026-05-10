@@ -3,9 +3,8 @@
 	"type": "module",
 	"scripts": {
 		"dev": "wrangler dev",
-		"deploy": "wrangler deploy --minify",
 		"cf-typegen": "wrangler types --env-interface CloudflareBindings ./src/worker-configuration.d.ts",
-		"lex:build": "gen-xrpc-hono ./src/lexicons/ ../atproto/lexicons/**/**/**/*.json"
+		"lexgen": "gen-xrpc-hono --yes ./src/lexicons/ ../atproto/lexicons/**/**/**/*.json"
 	},
 	"dependencies": {
 		"@atproto/crypto": "^0.4.5",

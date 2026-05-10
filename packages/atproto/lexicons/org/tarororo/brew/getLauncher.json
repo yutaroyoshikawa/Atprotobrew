@@ -19,8 +19,7 @@
 							"ref": "#launcherView"
 						},
 						"record": {
-							"type": "ref",
-							"ref": "org.tarororo.brew.launcher"
+							"type": "unknown"
 						}
 					}
 				},
@@ -38,13 +37,24 @@
 			"type": "object",
 			"required": ["thumbnail", "record"],
 			"properties": {
+				"title": {
+					"type": "string"
+				},
+				"description": {
+					"type": "string"
+				},
+				"author": {
+					"type": "string"
+				},
+				"launch": {
+					"type": "unknown","description":"TODO"
+				},
 				"thumbnail": {
 					"type": "string",
 					"format": "uri"
 				},
 				"record": {
-					"type": "ref",
-					"ref": "org.tarororo.brew.storeItem"
+					"type": "unknown"
 				}
 			}
 		}
