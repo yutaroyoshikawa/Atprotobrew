@@ -21,7 +21,7 @@
 					},
 					"launch": {
 						"type": "union",
-						"refs": ["#launchWeb"]
+						"refs": ["#launchWeb", "#launchStore"]
 					},
 					"thumbnail": {
 						"type": "blob"
@@ -38,6 +38,11 @@
 					"format": "uri"
 				}
 			}
+		},
+		"launchStore": {
+			"type": "object",
+			"required": [],
+			"properties": {}
 		}
 	}
 }

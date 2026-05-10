@@ -19,8 +19,7 @@
 							"ref": "#launcherView"
 						},
 						"record": {
-							"type": "ref",
-							"ref": "org.tarororo.brew.launcher"
+							"type": "unknown"
 						}
 					}
 				},
@@ -36,15 +35,31 @@
 		},
 		"launcherViewItem": {
 			"type": "object",
-			"required": ["thumbnail", "record"],
+			"required": ["title", "description", "author", "launch", "thumbnail", "uri", "record"],
 			"properties": {
+				"title": {
+					"type": "string"
+				},
+				"description": {
+					"type": "string"
+				},
+				"author": {
+					"type": "string"
+				},
+				"launch": {
+					"type": "union",
+					"refs": ["org.tarororo.brew.storeItem#launchWeb", "org.tarororo.brew.storeItem#launchStore"]
+				},
 				"thumbnail": {
 					"type": "string",
 					"format": "uri"
 				},
+				"uri": {
+					"type": "string",
+					"format": "at-uri"
+				},
 				"record": {
-					"type": "ref",
-					"ref": "org.tarororo.brew.storeItem"
+					"type": "unknown"
 				}
 			}
 		}
