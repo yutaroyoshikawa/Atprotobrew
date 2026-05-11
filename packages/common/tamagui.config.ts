@@ -1,6 +1,5 @@
 import { defaultConfig } from "@tamagui/config/v5";
 import { createTamagui } from "tamagui";
-import { createAnimations } from "@tamagui/animations-react-native";
 
 export const config = createTamagui({
   ...defaultConfig,
@@ -21,22 +20,6 @@ export const config = createTamagui({
       color: "#fff",
     },
   },
-  animations: createAnimations({
-    bouncy: {
-      damping: 10,
-      mass: 0.9,
-      stiffness: 100,
-    },
-    lazy: {
-      damping: 18,
-      stiffness: 50,
-    },
-    quick: {
-      damping: 20,
-      mass: 1.2,
-      stiffness: 250,
-    },
-  }),
   media: {
     ...defaultConfig.media,
     // add your own media queries here, if wanted

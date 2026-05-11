@@ -9,8 +9,8 @@
 		"ios": "expo start -c --ios",
 		"web": "expo start -c --web",
 		"clean": "rm -rf .expo node_modules",
-		"lingui:exact": "lingui extract",
-		"libgui:build": "lingui compile"
+		"i18n:extract": "lingui extract",
+		"i18n:compile": "lingui compile"
 	},
 	"exports": {
 		"./core/components/*": {
@@ -18,6 +18,12 @@
 		},
 		"./core/modules/*": {
 			"import": "./src/core/modules/*.ts"
+		},
+		"./core/stores/*": {
+			"import": "./src/core/stores/*.ts"
+		},
+		"./core/types/*": {
+			"import": "./src/core/types/*.ts"
 		},
 		"./theme": {
 			"import": "./src/theme/index.ts"
@@ -30,18 +36,22 @@
 		},
 		"./channel/modules/*": {
 			"import": "./src/features/channel/modules/*.ts"
+		},
+		"./i18n/locales/*": {
+			"import": "./locales/*/messages.ts"
 		}
 	},
 	"dependencies": {
 		"@atpassport/client": "^0.1.31",
 		"@atprotobrew/atproto": "workspace:^",
-		"@lingui/react": "^5.9.5",
 		"@react-navigation/native": "^7.0.0",
+		"@tamagui/animations-react-native": "2.0.0-rc.42",
 		"@tamagui/config": "2.0.0-rc.41",
 		"@tamagui/core": "2.0.0-rc.41",
 		"@tanstack/react-form": "^1.29.1",
 		"@tanstack/react-query": "^5.100.9",
 		"class-variance-authority": "^0.7.1",
+		"date-fns": "^4.1.0",
 		"expo": "~55.0.9",
 		"expo-constants": "~55.0.9",
 		"expo-linking": "~55.0.9",
@@ -49,6 +59,7 @@
 		"expo-splash-screen": "~55.0.13",
 		"expo-status-bar": "~55.0.4",
 		"expo-system-ui": "~55.0.11",
+		"jotai": "^2.20.0",
 		"lucide-react-native": "^0.545.0",
 		"react": "19.2.0",
 		"react-native": "0.83.4",

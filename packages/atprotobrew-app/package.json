@@ -9,7 +9,9 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "lint": "expo lint",
-    "storybook-generate": "sb-rn-get-stories"
+    "storybook-generate": "sb-rn-get-stories",
+    "i18n:extract": "lingui extract",
+    "i18n:compile": "lingui compile"
   },
   "dependencies": {
     "@atprotobrew/atproto": "workspace:^",
@@ -51,8 +53,8 @@
     "storybook": "^10.3.5"
   },
   "devDependencies": {
-    "@lingui/babel-plugin-lingui-macro": "^5.9.5",
     "@lingui/cli": "^6.0.1",
+    "@lingui/metro-transformer": "^6.0.1",
     "@types/react": "~19.2.14",
     "babel-plugin-react-compiler": "^1.0.0",
     "typescript": "^5.9.3"

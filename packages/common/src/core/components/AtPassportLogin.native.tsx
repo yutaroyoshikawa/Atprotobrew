@@ -1,6 +1,7 @@
-import { AtPassportUI, AtPassportIcon } from "@atpassport/client/ui";
+import { AtPassportUI } from "@atpassport/client/ui";
 import { type ComponentProps } from "react";
 import { styled, Text, View } from "tamagui";
+import { SvgXml } from "react-native-svg";
 import { type AppLanguage } from "../types/i18n";
 
 interface AtPassportLoginProps extends ComponentProps<typeof StyledView> {
@@ -10,7 +11,7 @@ interface AtPassportLoginProps extends ComponentProps<typeof StyledView> {
 export function AtPassportLogin(props: AtPassportLoginProps) {
   return (
     <StyledView {...props}>
-      <StyledIcon />
+      <StyledIcon xml={AtPassportUI.getIconSvg(20)} />
       {props.lang === "ja" && <StyledText>{AtPassportUI.ja.title}</StyledText>}
       {props.lang === "en" && <StyledText>{AtPassportUI.en.title}</StyledText>}
     </StyledView>
@@ -41,6 +42,6 @@ const StyledText = styled(Text, {
   fontWeight: 800,
 });
 
-const StyledIcon = styled(AtPassportIcon, {
+const StyledIcon = styled(SvgXml, {
   color: "#1c7ed6",
 });

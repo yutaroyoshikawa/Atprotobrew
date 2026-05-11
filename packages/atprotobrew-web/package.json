@@ -6,18 +6,22 @@
 	"scripts": {
 		"dev": "vite",
 		"build": "tsc -b && vite build",
-		"preview": "vite preview"
+		"preview": "vite preview",
+		"i18n:extract": "lingui extract",
+		"i18n:compile": "lingui compile"
 	},
 	"dependencies": {
 		"@atproto/oauth-client-browser": "^0.3.41",
 		"@atprotobrew/atproto": "workspace:^",
 		"@atprotobrew/common": "workspace:^",
+		"@tanstack/react-form": "^1.29.1",
 		"react": "19.2.0",
 		"react-dom": "^19.2.0",
 		"react-native-web": "~0.21.2",
 		"react-router-dom": "^7.14.1"
 	},
 	"devDependencies": {
+		"@lingui/vite-plugin": "^6.0.1",
 		"@tailwindcss/postcss": "^4.2.4",
 		"@tailwindcss/vite": "^4.2.2",
 		"@tamagui/vite-plugin": "2.0.0-rc.41",
@@ -33,6 +37,7 @@
 		"tailwindcss": "^4.2.2",
 		"typescript": "~6.0.2",
 		"vite": "^8.0.4",
-		"vite-plugin-babel": "^1.6.0"
+		"vite-plugin-babel": "^1.6.0",
+		"vite-plugin-babel-macros": "^1.0.6"
 	}
 }

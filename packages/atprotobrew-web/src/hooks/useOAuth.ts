@@ -1,5 +1,5 @@
 import type { OAuthSession } from "@atproto/oauth-client-browser";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { getOAuthClient, onSessionDeleted } from "./useOAuthClient";
 import { Client, type AtIdentifierString } from "@atproto/lex";
 

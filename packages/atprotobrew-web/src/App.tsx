@@ -1,4 +1,4 @@
-import { Suspense, useState } from "react";
+import { Suspense } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { AuthGate } from "./components/auth/AuthGate";
 import { ChannelDetail } from "./components/launcher/ChannelDetail";
@@ -9,16 +9,29 @@ import { useOAuth } from "./hooks/useOAuth";
 import { UIProvider } from "@atprotobrew/common/core/components/UIProvider";
 import { AppQueryProvider } from "@atprotobrew/common/core/components/AppQueryProvider";
 import { getAppQueryClient } from "@atprotobrew/common/core/modules/appQuery";
+import { AppI18nProvider } from "@atprotobrew/common/core/components/AppI18nProvider";
+import type { CatalogLoader } from "@atprotobrew/common/core/types/i18n";
 
 const appQueryClient = getAppQueryClient();
 
+const webCatalogLoader: CatalogLoader = async (lang) => {
+  switch (lang) {
+    case "ja":
+      return (await import("../locales/ja/messages")).messages;
+    case "en":
+      return (await import("../locales/en/messages")).messages;
+  }
+};
+
 export default function App() {
   return (
-    <UIProvider>
-      <AppQueryProvider client={appQueryClient}>
-        <Router />
-      </AppQueryProvider>
-    </UIProvider>
+    <AppI18nProvider extraLoaders={[webCatalogLoader]}>
+      <UIProvider>
+        <AppQueryProvider client={appQueryClient}>
+          <Router />
+        </AppQueryProvider>
+      </UIProvider>
+    </AppI18nProvider>
   );
 }
 
