@@ -17,9 +17,7 @@ export function AppButton({ onPress, children, ...props }: AppButtonProps) {
 const StyledButton = styled(Button, {
   width: "100%",
   cursor: "pointer",
-  flexDirection: "column",
-  display: "flex",
-  shrink: 0,
+  justify: "center",
 
   backgroundImage:
     "linear-gradient(180deg, rgba(255,255,255,0.7) 0%, rgba(200,220,255,0.5) 100%)",
@@ -32,11 +30,9 @@ const StyledButton = styled(Button, {
 
   hoverStyle: {
     borderColor: "rgba(100,160,240,1.0)",
-    transition: { duration: 200, borderColor: "bouncy" },
   },
   pressStyle: {
     scale: 0.95,
-    transition: { duration: 200, scale: "quick" },
   },
   focusVisibleStyle: {
     outlineWidth: 2,
@@ -50,13 +46,12 @@ const StyledButton = styled(Button, {
       tile: {
         width: "100%",
         padding: 0,
-        border: "none",
         fontWeight: 800,
+        textAlign: "center",
         color: "rgba(56, 62, 63, 1.0)",
       },
       circle: {
         padding: 0,
-        border: "none",
         width: 40,
         height: 40,
         borderRadius: 9999,
