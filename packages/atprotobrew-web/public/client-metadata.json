@@ -1,5 +1,5 @@
 {
-	"client_id": "https://brew.tarororo.org/oauth/web/client-metadata.json",
+	"client_id": "https://brew.tarororo.org/client-metadata.json",
 	"client_name": "atproto brew",
 	"client_uri": "https://brew.tarororo.org",
 	"redirect_uris": ["https://brew.tarororo.org/"],
