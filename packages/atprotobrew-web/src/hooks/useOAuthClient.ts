@@ -19,10 +19,7 @@ function getClientId(): string {
     return buildLoopbackClientId(window.location);
   }
 
-  return (
-    (import.meta.env.VITE_CLIENT_ID as string | undefined) ??
-    `${window.location.origin}/oauth/web/client-metadata.json`
-  );
+  return `${window.location.origin}/client-metadata.json`;
 }
 
 export function getOAuthClient(): Promise<BrowserOAuthClient> {
