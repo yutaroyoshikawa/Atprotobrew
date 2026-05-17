@@ -1,6 +1,10 @@
 import type { OAuthSession } from "@atproto/oauth-client-browser";
 import { useEffect, useRef, useState } from "react";
-import { getOAuthClient, onSessionDeleted } from "./useOAuthClient";
+import {
+  getOAuthClient,
+  onSessionDeleted,
+  saveHandleResolver,
+} from "./useOAuthClient";
 import { Client, type AtIdentifierString } from "@atproto/lex";
 
 export type AuthState =
@@ -68,8 +72,9 @@ export function useOAuth() {
     };
   }, []);
 
-  const login = async (handle: string) => {
-    const client = await getOAuthClient();
+  const login = async (handle: string, handleResolver: string) => {
+    saveHandleResolver(handleResolver);
+    const client = await getOAuthClient(handleResolver);
 
     await client.signInRedirect(handle);
   };

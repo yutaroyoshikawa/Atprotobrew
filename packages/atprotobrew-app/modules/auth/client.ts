@@ -1,6 +1,7 @@
-import type { AtprotoDid } from "@atproto/oauth-client-expo";
-import { ExpoOAuthClient } from "@atproto/oauth-client-expo";
+import { type AtprotoDid, ExpoOAuthClient } from "@atproto/oauth-client-expo";
 import clientMetadataJson from "../../../atprotobrew-web/public/oauth/native/client-metadata.json";
+
+export const DEFAULT_HANDLE_RESOLVER = "https://bsky.social";
 
 type SessionDeletedHandler = (sub: AtprotoDid, cause: unknown) => void;
 
@@ -18,33 +19,36 @@ function isCustomSchemeUriList(
 }
 
 const deleteHandlers = new Set<SessionDeletedHandler>();
+const clientCache = new Map<string, ExpoOAuthClient>();
 
-let client: ExpoOAuthClient | null = null;
+export function getExpoOAuthClient(
+  handleResolver: string = DEFAULT_HANDLE_RESOLVER,
+): ExpoOAuthClient {
+  const cached = clientCache.get(handleResolver);
+  if (cached) return cached;
 
-export function getExpoOAuthClient(): ExpoOAuthClient {
-  if (!client) {
-    const { redirect_uris } = clientMetadataJson;
+  const { redirect_uris } = clientMetadataJson;
 
-    if (!isCustomSchemeUriList(redirect_uris)) {
-      throw new Error(
-        `redirect_uris must start with a custom scheme URI (e.g. "org.example.app:/..."): ${JSON.stringify(redirect_uris)}`,
-      );
-    }
-
-    client = new ExpoOAuthClient({
-      clientMetadata: {
-        ...clientMetadataJson,
-        redirect_uris,
-      },
-      handleResolver: "https://bsky.social",
-      onDelete: (sub: AtprotoDid, cause: unknown) => {
-        for (const handler of deleteHandlers) {
-          handler(sub, cause);
-        }
-      },
-    });
+  if (!isCustomSchemeUriList(redirect_uris)) {
+    throw new Error(
+      `redirect_uris must start with a custom scheme URI (e.g. "org.example.app:/..."): ${JSON.stringify(redirect_uris)}`,
+    );
   }
 
+  const client = new ExpoOAuthClient({
+    clientMetadata: {
+      ...clientMetadataJson,
+      redirect_uris,
+    },
+    handleResolver,
+    onDelete: (sub: AtprotoDid, cause: unknown) => {
+      for (const handler of deleteHandlers) {
+        handler(sub, cause);
+      }
+    },
+  });
+
+  clientCache.set(handleResolver, client);
   return client;
 }
 

@@ -54,10 +54,12 @@ const StyledNavigation = styled(XStack, {
   height: 100,
   paddingInline: "$space.10",
   paddingBlockEnd: "$space.10",
+  z: 1,
 });
 
 const Background = styled(View, {
   position: "fixed",
+  z: 0,
   width: "100%",
 });
 

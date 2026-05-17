@@ -5,7 +5,7 @@ import { useAuth } from "./useAuth";
 
 interface AuthContextValue {
   authState: AuthState;
-  login: (handle: string) => Promise<void>;
+  login: (handle: string, handleResolver: string) => Promise<void>;
   logout: () => Promise<void>;
 }
 

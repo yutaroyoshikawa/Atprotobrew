@@ -5,7 +5,7 @@ import { putLauncher } from "./putLauncher";
 import type * as org from "@atprotobrew/atproto/lexicons/org";
 
 export function useFetchStoreItems({ client }: { client: Client }) {
-  const queryKey = [lexicon.$lxm] as const;
+  const queryKey = [lexicon.$nsid] as const;
 
   const queryValues = useSuspenseQuery({
     queryKey,

@@ -1,5 +1,13 @@
 import { Suspense } from "react";
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import {
+  BrowserRouter,
+  Navigate,
+  Outlet,
+  Route,
+  Routes,
+  useOutletContext,
+} from "react-router-dom";
+import { AtPassportCallback } from "./components/auth/AtPassportCallback";
 import { AuthGate } from "./components/auth/AuthGate";
 import { ChannelDetail } from "./components/launcher/ChannelDetail";
 import { Launcher } from "./components/launcher/Launcher";
@@ -28,7 +36,17 @@ export default function App() {
     <AppI18nProvider extraLoaders={[webCatalogLoader]}>
       <UIProvider>
         <AppQueryProvider client={appQueryClient}>
-          <Router />
+          <BrowserRouter>
+            <Suspense
+              fallback={
+                <div className="min-h-screen bg-sky-50 flex items-center justify-center">
+                  <div className="w-8 h-8 border-2 border-blue-600 border-t-transparent rounded-full animate-spin" />
+                </div>
+              }
+            >
+              <Router />
+            </Suspense>
+          </BrowserRouter>
         </AppQueryProvider>
       </UIProvider>
     </AppI18nProvider>
@@ -36,9 +54,31 @@ export default function App() {
 }
 
 function Router() {
-  const { authState, logout, login } = useOAuth();
+  const oauthValues = useOAuth();
 
-  if (authState.status === "loading") {
+  return (
+    <Routes>
+      <Route
+        path="/atpassport/callback"
+        element={<AtPassportCallbackRoute authCtx={oauthValues} />}
+      />
+
+      <Route element={<ProtectedLayout authCtx={oauthValues} />}>
+        <Route path="/" element={<LauncerRoute />} />
+        <Route path="/store" element={<StoreRoute />} />
+        <Route path="/store/:id" element={<StoreItemDetail />} />
+        <Route path="/channel/:id" element={<ChannelDetail />} />
+
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Route>
+    </Routes>
+  );
+}
+
+type AuthContext = ReturnType<typeof useOAuth>;
+
+function ProtectedLayout({ authCtx }: { authCtx: AuthContext }) {
+  if (authCtx.authState.status === "loading") {
     return (
       <div className="min-h-screen bg-sky-50 flex items-center justify-center">
         <div className="w-8 h-8 border-2 border-blue-600 border-t-transparent rounded-full animate-spin" />
@@ -46,52 +86,39 @@ function Router() {
     );
   }
 
-  if (authState.status === "unauthenticated") {
-    return <AuthGate onRequestLogin={login} />;
+  if (authCtx.authState.status === "unauthenticated") {
+    return <AuthGate onRequestLogin={authCtx.login} />;
+  }
+
+  return <Outlet context={authCtx} />;
+}
+
+function AtPassportCallbackRoute({ authCtx }: { authCtx: AuthContext }) {
+  return <AtPassportCallback login={authCtx.login} />;
+}
+
+function LauncerRoute() {
+  const { authState, logout } = useOutletContext<AuthContext>();
+
+  if (authState.status !== "authenticated") {
+    return null;
   }
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <Suspense
-              fallback={
-                <div className="min-h-screen bg-sky-50 flex items-center justify-center">
-                  <div className="w-8 h-8 border-2 border-blue-600 border-t-transparent rounded-full animate-spin" />
-                </div>
-              }
-            >
-              <Launcher
-                client={authState.client}
-                identifier={authState.identifier}
-                onLogout={logout}
-              />
-            </Suspense>
-          }
-        />
-        <Route
-          path="/store"
-          element={
-            <Suspense
-              fallback={
-                <div className="min-h-screen bg-sky-50 flex items-center justify-center">
-                  <div className="w-8 h-8 border-2 border-blue-600 border-t-transparent rounded-full animate-spin" />
-                </div>
-              }
-            >
-              <Store
-                client={authState.client}
-                identifier={authState.identifier}
-              />
-            </Suspense>
-          }
-        />
-        <Route path="/store/:id" element={<StoreItemDetail />} />
-        <Route path="/channel/:id" element={<ChannelDetail />} />
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Routes>
-    </BrowserRouter>
+    <Launcher
+      client={authState.client}
+      identifier={authState.identifier}
+      onLogout={logout}
+    />
   );
+}
+
+function StoreRoute() {
+  const { authState } = useOutletContext<AuthContext>();
+
+  if (authState.status !== "authenticated") {
+    return null;
+  }
+
+  return <Store client={authState.client} identifier={authState.identifier} />;
 }
