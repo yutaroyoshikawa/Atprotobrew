@@ -81,7 +81,7 @@ export function AuthForm({ onSubmit, onAtPassportLogin }: AuthFormProps) {
               <form.Field name="handleResolver">
                 {(field) => (
                   <>
-                    <Trans render={AppText}>PDS URL</Trans>
+                    <AppText>PDS URL</AppText>
                     <AppInput
                       id={field.name}
                       type="url"
