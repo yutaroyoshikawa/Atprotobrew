@@ -5,7 +5,6 @@ import { AppCard } from "../../../core/components/AppCard";
 import { AppForm, AppFormTrigger } from "../../../core/components/AppForm";
 import { AppH1 } from "../../../core/components/AppH1";
 import { AppInput } from "../../../core/components/AppInput";
-import { AppLabel } from "../../../core/components/AppLabel";
 import { AppText } from "../../../core/components/AppText";
 import { AppVStack } from "../../../core/components/AppVStack";
 import { useForm } from "@tanstack/react-form";
@@ -14,18 +13,23 @@ import { AppSeparator } from "../../../core/components/AppSeparator";
 import { Trans } from "@lingui/react/macro";
 import { useLocale } from "../../../core/modules/i18n";
 
+const DEFAULT_HANDLE_RESOLVER = "https://bsky.social";
+
 interface FormInputs {
   handle: string;
+  handleResolver: string;
 }
 
 interface AuthFormProps {
   onSubmit?: (inputs: FormInputs) => Promise<void>;
+  onAtPassportLogin?: () => void;
 }
 
-export function AuthForm({ onSubmit }: AuthFormProps) {
+export function AuthForm({ onSubmit, onAtPassportLogin }: AuthFormProps) {
   const form = useForm({
     defaultValues: {
       handle: "",
+      handleResolver: DEFAULT_HANDLE_RESOLVER,
     } satisfies FormInputs,
     onSubmit: (props) => onSubmit?.(props.value),
   });
@@ -47,22 +51,44 @@ export function AuthForm({ onSubmit }: AuthFormProps) {
               <form.Field name="handle">
                 {(field) => (
                   <>
-                    <AppLabel htmlFor={field.name}>
-                      <Trans>ハンドル</Trans>
-                    </AppLabel>
+                    <Trans render={AppText}>ハンドル</Trans>
                     <AppInput
                       id={field.name}
                       prefix="@"
                       type="text"
                       value={field.state.value}
                       name={field.name}
-                      onChange={(e) => {
-                        if ("value" in e.target) {
-                          field.handleChange(e.target.value);
-                        }
-                      }}
+                      onChangeText={field.handleChange}
                       placeholder="user.bsky.social"
                       autoComplete="username"
+                      autoCapitalize="none"
+                      autoCorrect="off"
+                      spellCheck={false}
+                      disabled={form.state.isSubmitting}
+                    />
+
+                    {!field.state.meta.isValid && (
+                      <AppText kind="error" role="alert">
+                        {field.state.meta.errors.join(", ")}
+                      </AppText>
+                    )}
+                  </>
+                )}
+              </form.Field>
+            </AppVStack>
+
+            <AppVStack gap={3}>
+              <form.Field name="handleResolver">
+                {(field) => (
+                  <>
+                    <Trans render={AppText}>PDS URL</Trans>
+                    <AppInput
+                      id={field.name}
+                      type="url"
+                      value={field.state.value}
+                      name={field.name}
+                      onChangeText={field.handleChange}
+                      placeholder={DEFAULT_HANDLE_RESOLVER}
                       autoCapitalize="none"
                       autoCorrect="off"
                       spellCheck={false}
@@ -86,7 +112,13 @@ export function AuthForm({ onSubmit }: AuthFormProps) {
                   {isSubmitting ? (
                     <Trans render={AppButton}>リダイレクト中…</Trans>
                   ) : (
-                    <Trans render={AppButton}>ログイン</Trans>
+                    <Trans
+                      render={(props) => (
+                        <AppButton {...props} onPress={form.handleSubmit} />
+                      )}
+                    >
+                      ログイン
+                    </Trans>
                   )}
                 </AppFormTrigger>
               )}
@@ -96,7 +128,7 @@ export function AuthForm({ onSubmit }: AuthFormProps) {
 
         <AppSeparator />
 
-        <AtPassportLogin lang={locale} />
+        <AtPassportLogin lang={locale} onPress={onAtPassportLogin} />
       </AppVStack>
     </AppCard>
   );

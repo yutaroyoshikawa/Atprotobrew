@@ -1,23 +1,23 @@
 import { AtPassportUI, AtPassportIcon } from "@atpassport/client/ui";
 import { type ComponentProps } from "react";
-import { styled, Text, View } from "tamagui";
+import { Button, styled, Text, View } from "tamagui";
 import { type AppLanguage } from "../types/i18n";
 
-interface AtPassportLoginProps extends ComponentProps<typeof StyledView> {
+interface AtPassportLoginProps extends ComponentProps<typeof StyledButton> {
   lang: AppLanguage;
 }
 
 export function AtPassportLogin(props: AtPassportLoginProps) {
   return (
-    <StyledView {...props}>
+    <StyledButton {...props}>
       <StyledIcon />
       {props.lang === "ja" && <StyledText>{AtPassportUI.ja.title}</StyledText>}
       {props.lang === "en" && <StyledText>{AtPassportUI.en.title}</StyledText>}
-    </StyledView>
+    </StyledButton>
   );
 }
 
-const StyledView = styled(View, {
+const StyledButton = styled(Button, {
   width: "100%",
   display: "flex",
   flexDirection: "row",

@@ -5,8 +5,8 @@
   "scripts": {
     "start": "expo start",
     "reset-project": "node ./scripts/reset-project.js",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
+    "android": "expo run:android",
+    "ios": "expo run:ios",
     "web": "expo start --web",
     "lint": "expo lint",
     "storybook-generate": "sb-rn-get-stories",
@@ -14,6 +14,7 @@
     "i18n:compile": "lingui compile"
   },
   "dependencies": {
+    "@atproto/oauth-client-expo": "^0.0.10",
     "@atprotobrew/atproto": "workspace:^",
     "@atprotobrew/common": "workspace:^",
     "@babel/core": "^7.29.0",
@@ -31,6 +32,7 @@
     "babel-loader": "^8.4.1",
     "expo": "^55.0.15",
     "expo-constants": "~55.0.14",
+    "expo-crypto": "^55.0.15",
     "expo-font": "~55.0.6",
     "expo-haptics": "~55.0.14",
     "expo-image": "~55.0.8",

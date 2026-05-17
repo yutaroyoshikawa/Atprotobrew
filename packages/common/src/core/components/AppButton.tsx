@@ -20,7 +20,7 @@ const StyledButton = styled(Button, {
   justify: "center",
 
   backgroundImage:
-    "linear-gradient(180deg, rgba(255,255,255,0.7) 0%, rgba(200,220,255,0.5) 100%)",
+    "linear-gradient(180deg, rgba(255,255,255,1.0) 0%, rgba(200,220,255,1.0) 100%)",
 
   borderWidth: 1.5,
   borderColor: "rgba(52, 190, 237, 1.0)",

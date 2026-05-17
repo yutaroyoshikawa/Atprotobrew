@@ -9,7 +9,7 @@ export function useFetchLaunchers({
   client: Client;
   identifier: AtIdentifierString;
 }) {
-  const queryKey = [lexicon.$lxm, identifier] as const;
+  const queryKey = [lexicon.$nsid, identifier] as const;
 
   const queryValues = useSuspenseQuery({
     queryKey,

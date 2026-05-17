@@ -6,5 +6,4 @@ export const languageAtom = atomWithStorage<AppLanguage>(
   "app-language",
   "ja",
   createJSONStorage(() => AsyncStorage),
-  { getOnInit: true },
 );

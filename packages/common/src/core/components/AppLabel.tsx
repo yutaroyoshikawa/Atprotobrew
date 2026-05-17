@@ -3,12 +3,11 @@ import { Label, styled } from "tamagui";
 
 interface AppLabelProps extends ComponentProps<typeof StyledLabel> {
   children: ReactNode;
-  htmlFor?: string;
 }
 
-export function AppLabel({ children, htmlFor, ...props }: AppLabelProps) {
+export function AppLabel({ children, ...props }: AppLabelProps) {
   return (
-    <StyledLabel htmlFor={htmlFor} {...props}>
+    <StyledLabel {...props} aria-required>
       {children}
     </StyledLabel>
   );

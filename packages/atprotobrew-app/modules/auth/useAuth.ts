@@ -1,9 +1,14 @@
 import type { AtprotoDid, OAuthSession } from "@atproto/oauth-client-expo";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useEffect, useRef, useState } from "react";
-import { getExpoOAuthClient, onSessionDeleted } from "./client";
+import {
+  DEFAULT_HANDLE_RESOLVER,
+  getExpoOAuthClient,
+  onSessionDeleted,
+} from "./client";
 
 const AUTH_DID_KEY = "@atprotobrew/auth_did";
+const AUTH_HANDLE_RESOLVER_KEY = "@atprotobrew/auth_handle_resolver";
 
 export type AuthState =
   | { status: "loading" }
@@ -24,43 +29,41 @@ export function useAuth() {
     const unsubscribe = onSessionDeleted((sub: AtprotoDid) => {
       if (sessionRef.current?.sub !== sub) return;
       sessionRef.current = null;
-      AsyncStorage.removeItem(AUTH_DID_KEY).catch(() => {});
+      AsyncStorage.multiRemove([AUTH_DID_KEY, AUTH_HANDLE_RESOLVER_KEY]).catch(
+        () => {},
+      );
       setAuthState({ status: "unauthenticated" });
     });
 
-    AsyncStorage.getItem(AUTH_DID_KEY)
-      .then(async (storedDid) => {
-        if (cancelled) {
-          return;
-        }
+    AsyncStorage.multiGet([AUTH_DID_KEY, AUTH_HANDLE_RESOLVER_KEY])
+      .then(async ([[, storedDid], [, storedResolver]]) => {
+        if (cancelled) return;
 
         if (!storedDid || !isAtprotoDid(storedDid)) {
           if (storedDid) {
-            await AsyncStorage.removeItem(AUTH_DID_KEY);
+            await AsyncStorage.multiRemove([
+              AUTH_DID_KEY,
+              AUTH_HANDLE_RESOLVER_KEY,
+            ]);
           }
-
           setAuthState({ status: "unauthenticated" });
-
           return;
         }
 
-        const oauthClient = getExpoOAuthClient();
+        const handleResolver = storedResolver ?? DEFAULT_HANDLE_RESOLVER;
+        const oauthClient = getExpoOAuthClient(handleResolver);
         const session = await oauthClient.restore(storedDid);
 
-        if (cancelled) {
-          return;
-        }
+        if (cancelled) return;
 
         sessionRef.current = session;
-
-        setAuthState({
-          status: "authenticated",
-          session,
-          sub: session.sub,
-        });
+        setAuthState({ status: "authenticated", session, sub: session.sub });
       })
       .catch(async () => {
-        await AsyncStorage.removeItem(AUTH_DID_KEY).catch(() => {});
+        await AsyncStorage.multiRemove([
+          AUTH_DID_KEY,
+          AUTH_HANDLE_RESOLVER_KEY,
+        ]).catch(() => {});
 
         if (!cancelled) {
           setAuthState({ status: "unauthenticated" });
@@ -73,15 +76,19 @@ export function useAuth() {
     };
   }, []);
 
-  const login = async (handle: string): Promise<void> => {
-    const oauthClient = getExpoOAuthClient();
-
+  const login = async (
+    handle: string,
+    handleResolver: string,
+  ): Promise<void> => {
+    const oauthClient = getExpoOAuthClient(handleResolver);
     const session = await oauthClient.signIn(handle);
 
-    await AsyncStorage.setItem(AUTH_DID_KEY, session.sub);
+    await AsyncStorage.multiSet([
+      [AUTH_DID_KEY, session.sub],
+      [AUTH_HANDLE_RESOLVER_KEY, handleResolver],
+    ]);
 
     sessionRef.current = session;
-
     setAuthState({ status: "authenticated", session, sub: session.sub });
   };
 
@@ -96,7 +103,10 @@ export function useAuth() {
 
     sessionRef.current = null;
 
-    await AsyncStorage.removeItem(AUTH_DID_KEY).catch(() => {});
+    await AsyncStorage.multiRemove([
+      AUTH_DID_KEY,
+      AUTH_HANDLE_RESOLVER_KEY,
+    ]).catch(() => {});
 
     setAuthState({ status: "unauthenticated" });
   };

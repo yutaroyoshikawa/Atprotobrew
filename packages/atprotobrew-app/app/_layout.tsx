@@ -1,9 +1,11 @@
-import { Stack } from "expo-router";
-import { UIProvider } from "@atprotobrew/common/core/components/UIProvider";
-import { AppQueryProvider } from "@atprotobrew/common/core/components/AppQueryProvider";
-import { getAppQueryClient } from "@atprotobrew/common/core/modules/appQuery";
+import "../modules/polyfill";
 import { AppI18nProvider } from "@atprotobrew/common/core/components/AppI18nProvider";
-import { CatalogLoader } from "@atprotobrew/common/core/types/i18n";
+import { AppQueryProvider } from "@atprotobrew/common/core/components/AppQueryProvider";
+import { UIProvider } from "@atprotobrew/common/core/components/UIProvider";
+import { getAppQueryClient } from "@atprotobrew/common/core/modules/appQuery";
+import type { CatalogLoader } from "@atprotobrew/common/core/types/i18n";
+import { Stack } from "expo-router";
+import { AuthProvider } from "../modules/auth/AuthProvider";
 
 const queryClient = getAppQueryClient();
 
@@ -21,7 +23,9 @@ export default function RootLayout() {
     <AppI18nProvider extraLoaders={[catalogLoader]}>
       <UIProvider>
         <AppQueryProvider client={queryClient}>
-          <Stack />
+          <AuthProvider>
+            <Stack />
+          </AuthProvider>
         </AppQueryProvider>
       </UIProvider>
     </AppI18nProvider>
