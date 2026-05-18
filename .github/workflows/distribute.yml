@@ -35,9 +35,11 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
       
-      - name: Pull EAS environment variables
+      - name: Restore google-services.json
         working-directory: packages/atprotobrew-app
-        run: pnpm exec eas env:pull --environment preview
+        env:
+          GOOGLE_SERVICES_JSON_CONTENT: ${{ secrets.GOOGLE_SERVICES_JSON }}
+        run: echo "$GOOGLE_SERVICES_JSON_CONTENT" > google-services.json
 
       - name: Build Android APK locally
         working-directory: packages/atprotobrew-app
@@ -80,9 +82,11 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Pull EAS environment variables
+      - name: Restore GoogleService-Info.plist
         working-directory: packages/atprotobrew-app
-        run: pnpm exec eas env:pull --environment preview
+        env:
+          GOOGLE_SERVICE_INFO_PLIST_CONTENT: ${{ secrets.GOOGLE_SERVICE_INFO_PLIST }}
+        run: echo "$GOOGLE_SERVICE_INFO_PLIST_CONTENT" > GoogleService-Info.plist
 
       - name: Build iOS IPA locally
         working-directory: packages/atprotobrew-app

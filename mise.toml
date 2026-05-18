@@ -5,7 +5,7 @@ pnpm = "11.1.2"
 ruby = "4.0.4"
 
 [env]
-mise.file = ".env"
+mise.file = [".env", ".env.local"]
 
 [settings]
 idiomatic_version_file_enable_tools = ["node"]

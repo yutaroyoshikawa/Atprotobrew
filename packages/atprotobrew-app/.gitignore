@@ -18,6 +18,8 @@ expo-env.d.ts
 *.key
 *.mobileprovision
 
+.eas/
+
 # Metro
 .metro-health-check*
 
@@ -47,3 +49,5 @@ storybook-static
 
 google-services.json
 GoogleService-Info.plist
+
+
