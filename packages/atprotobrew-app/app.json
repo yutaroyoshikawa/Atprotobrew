@@ -9,12 +9,16 @@
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
-      "googleServicesFile": "./GoogleService-Info.plist",
+      "googleServicesFile": "$GOOGLE_SERVICES_INFO_PLIST",
       "supportsTablet": true,
-      "bundleIdentifier": "org.tarororo.atprotobrew"
+      "bundleIdentifier": "org.tarororo.atprotobrew",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
+
     },
     "android": {
-      "googleServicesFile": "./google-services.json",
+      "googleServicesFile": "$GOOGLE_SERVICES_JSON",
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
         "foregroundImage": "./assets/images/android-icon-foreground.png",
