@@ -20,7 +20,7 @@ jobs:
           cache: true
 
       - name: Setup Android SDK
-        uses: android-actions/setup-android@v3
+        uses: android-actions/setup-android@v4
 
       - name: Cache Gradle
         uses: actions/cache@v4
@@ -34,6 +34,10 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+      
+      - name: Pull EAS environment variables
+        working-directory: packages/atprotobrew-app
+        run: pnpm exec eas env:pull --environment preview
 
       - name: Build Android APK locally
         working-directory: packages/atprotobrew-app
@@ -75,6 +79,10 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+
+      - name: Pull EAS environment variables
+        working-directory: packages/atprotobrew-app
+        run: pnpm exec eas env:pull --environment preview
 
       - name: Build iOS IPA locally
         working-directory: packages/atprotobrew-app
