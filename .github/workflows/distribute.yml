@@ -8,6 +8,8 @@ on:
 jobs:
   android:
     runs-on: ubuntu-latest
+    env:
+      EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
     steps:
       - uses: actions/checkout@v6
 
@@ -17,22 +19,25 @@ jobs:
           install: true
           cache: true
 
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Cache Gradle
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: gradle-${{ runner.os }}-${{ hashFiles('**/build.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            gradle-${{ runner.os }}-
+
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Build Android APK
+      - name: Build Android APK locally
         working-directory: packages/atprotobrew-app
-        env:
-          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
-        run: pnpm exec eas build --profile preview --platform android --non-interactive --wait
-
-      - name: Download APK
-        working-directory: packages/atprotobrew-app
-        env:
-          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
-        run: |
-          BUILD_URL=$(pnpm exec eas build:list --platform android --limit 1 --status finished --json --non-interactive | jq -r '.[0].artifacts.buildUrl')
-          curl -L -o app.apk "$BUILD_URL"
+        run: pnpm exec eas build --profile preview --platform android --local --non-interactive --output ./app.apk
 
       - name: Distribute to Firebase
         uses: wzieba/Firebase-Distribution-Github-Action@v1
@@ -45,7 +50,9 @@ jobs:
 
   ios:
     if: false
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
+    env:
+      EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
     steps:
       - uses: actions/checkout@v6
 
@@ -55,22 +62,23 @@ jobs:
           install: true
           cache: true
 
+      - name: Cache CocoaPods
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/Library/Caches/CocoaPods
+            ~/.cocoapods
+            packages/atprotobrew-app/ios/Pods
+          key: pods-${{ runner.os }}-${{ hashFiles('**/Podfile.lock') }}
+          restore-keys: |
+            pods-${{ runner.os }}-
+
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Build iOS IPA
+      - name: Build iOS IPA locally
         working-directory: packages/atprotobrew-app
-        env:
-          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
-        run: pnpm exec eas build --profile preview --platform ios --non-interactive --wait
-
-      - name: Download IPA
-        working-directory: packages/atprotobrew-app
-        env:
-          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
-        run: |
-          BUILD_URL=$(pnpm exec eas build:list --platform ios --limit 1 --status finished --json --non-interactive | jq -r '.[0].artifacts.buildUrl')
-          curl -L -o app.ipa "$BUILD_URL"
+        run: pnpm exec eas build --profile preview --platform ios --local --non-interactive --output ./app.ipa
 
       - name: Distribute to Firebase
         uses: wzieba/Firebase-Distribution-Github-Action@v1
