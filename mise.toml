@@ -1,7 +1,6 @@
 [tools]
 cocoapods = "1.16.2"
 java = "26.0.1"
-node = "26.1.0"
 pnpm = "11.1.2"
 ruby = "4.0.4"
 
