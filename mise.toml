@@ -6,3 +6,6 @@ ruby = "4.0.4"
 
 [env]
 mise.file = ".env"
+
+[settings]
+idiomatic_version_file_enable_tools = ["node"]
