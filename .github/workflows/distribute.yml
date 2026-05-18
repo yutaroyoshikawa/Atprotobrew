@@ -43,6 +43,8 @@ jobs:
 
       - name: Build Android APK locally
         working-directory: packages/atprotobrew-app
+        env:
+          EAS_NO_VCS: "1"
         run: pnpm exec eas build --profile preview --platform android --local --non-interactive --output ./app.apk
 
       - name: Distribute to Firebase
@@ -90,6 +92,8 @@ jobs:
 
       - name: Build iOS IPA locally
         working-directory: packages/atprotobrew-app
+        env:
+          EAS_NO_VCS: "1"
         run: pnpm exec eas build --profile preview --platform ios --local --non-interactive --output ./app.ipa
 
       - name: Distribute to Firebase
