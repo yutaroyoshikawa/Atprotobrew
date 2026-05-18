@@ -1,8 +1,11 @@
 packages:
   - "packages/*"
 allowBuilds:
+  '@firebase/util': false
   core-js: true
+  dtrace-provider: true
   esbuild: true
+  protobufjs: false
   sharp: true
   workerd: true
 nodeLinker: hoisted
