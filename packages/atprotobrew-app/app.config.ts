@@ -12,7 +12,7 @@ const config: ExpoConfig = {
     googleServicesFile:
       process.env.GOOGLE_SERVICES_INFO_PLIST ?? "./GoogleService-Info.plist",
     supportsTablet: true,
-    bundleIdentifier: "org.tarororo.atprotobrew",
+    bundleIdentifier: "org.tarororo.brew",
     infoPlist: {
       ITSAppUsesNonExemptEncryption: false,
     },
@@ -27,7 +27,7 @@ const config: ExpoConfig = {
       monochromeImage: "./assets/images/android-icon-monochrome.png",
     },
     predictiveBackGestureEnabled: false,
-    package: "org.tarororo.atprotobrew",
+    package: "org.tarororo.brew",
   },
   web: {
     output: "static",
