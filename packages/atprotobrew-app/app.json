@@ -7,7 +7,6 @@
     "icon": "./assets/images/icon.png",
     "scheme": "org.tarororo.brew",
     "userInterfaceStyle": "automatic",
-    "newArchEnabled": true,
     "ios": {
       "googleServicesFile": "$GOOGLE_SERVICES_INFO_PLIST",
       "supportsTablet": true,
@@ -15,7 +14,6 @@
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false
       }
-
     },
     "android": {
       "googleServicesFile": "$GOOGLE_SERVICES_JSON",
@@ -54,8 +52,10 @@
         "expo-build-properties",
         {
           "ios": {
-            "useFrameworks": "static"
-          }
+            "useFrameworks": "static",
+            "newArchEnabled": true
+          },
+          "android": { "newArchEnabled": true }
         }
       ]
     ],
