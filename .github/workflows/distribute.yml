@@ -1,0 +1,89 @@
+name: Distribute to Firebase
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  android:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Setup mise
+        uses: jdx/mise-action@v4
+        with:
+          install: true
+          cache: true
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Restore google-services.json
+        working-directory: packages/atprotobrew-app
+        run: echo '${{ secrets.GOOGLE_SERVICES_JSON }}' > google-services.json
+
+      - name: Build Android APK
+        working-directory: packages/atprotobrew-app
+        env:
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+        run: pnpm exec eas build --profile preview --platform android --non-interactive --wait
+
+      - name: Download APK
+        working-directory: packages/atprotobrew-app
+        env:
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+        run: |
+          BUILD_URL=$(eas build:list --platform android --limit 1 --status finished --json --non-interactive | jq -r '.[0].artifacts.buildUrl')
+          curl -L -o app.apk "$BUILD_URL"
+
+      - name: Distribute to Firebase
+        uses: wzieba/Firebase-Distribution-Github-Action@v1
+        with:
+          appId: ${{ secrets.FIREBASE_ANDROID_APP_ID }}
+          serviceCredentialsFileContent: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          groups: testers
+          file: packages/atprotobrew-app/app.apk
+          releaseNotes: ${{ github.event.head_commit.message }}
+
+  ios:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Setup mise
+        uses: jdx/mise-action@v4
+        with:
+          install: true
+          cache: true
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Restore GoogleService-Info.plist
+        working-directory: packages/atprotobrew-app
+        run: echo '${{ secrets.GOOGLE_SERVICE_INFO_PLIST }}' > GoogleService-Info.plist
+
+      - name: Build iOS IPA
+        working-directory: packages/atprotobrew-app
+        env:
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+        run: pnpm exec eas build --profile preview --platform ios --non-interactive --wait
+
+      - name: Download IPA
+        working-directory: packages/atprotobrew-app
+        env:
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+        run: |
+          BUILD_URL=$(pnpm exec eas build:list --platform ios --limit 1 --status finished --json --non-interactive | jq -r '.[0].artifacts.buildUrl')
+          curl -L -o app.ipa "$BUILD_URL"
+
+      - name: Distribute to Firebase
+        uses: wzieba/Firebase-Distribution-Github-Action@v1
+        with:
+          appId: ${{ secrets.FIREBASE_IOS_APP_ID }}
+          serviceCredentialsFileContent: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          groups: testers
+          file: packages/atprotobrew-app/app.ipa
+          releaseNotes: ${{ github.event.head_commit.message }}
