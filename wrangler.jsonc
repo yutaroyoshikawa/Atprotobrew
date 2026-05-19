@@ -21,7 +21,16 @@
 			"database_id": "6ae9d7b1-d4c6-4016-b0e8-421ad4c00ce1",
 			"migrations_dir": "packages/back/drizzle"
 		}
-	]
+	],
+	"observability": {
+    "logs": {
+      "enabled": true,
+      "invocation_logs": true
+    },
+    "traces": {
+      "enabled": false
+    }
+  }
 	// "vars": {
 	//   "MY_VAR": "my-variable"
 	// },
@@ -40,8 +49,4 @@
 	// "ai": {
 	//   "binding": "AI"
 	// },
-	// "observability": {
-	//   "enabled": true,
-	//   "head_sampling_rate": 1
-	// }
 }
