@@ -69,7 +69,7 @@ xrpc.org.tarororo.brew.getLauncher({
           {
             ...storeRecord1,
             $type: "org.tarororo.brew.getLauncher#launcherViewItem",
-            uri: "https://bsky.app",
+            uri: "at://did:web:brew.tarororo.org/org.tarororo.brew.storeItem/bluesky",
             record: storeRecord1,
             thumbnail:
               "https://cdn.bsky.app/img/avatar/plain/did:plc:z72i7hdynmk6r22z27h6tvur/bafkreihwihm6kpd6zuwhhlro75p5qks5qtrcu55jp3gddbfjsieiv7wuka",
@@ -77,7 +77,7 @@ xrpc.org.tarororo.brew.getLauncher({
           {
             ...storeRecord2,
             $type: "org.tarororo.brew.getLauncher#launcherViewItem",
-            uri: "https://tokimeki.blue",
+            uri: "at://did:web:brew.tarororo.org/org.tarororo.brew.storeItem/tokimeki",
             record: storeRecord2,
             thumbnail:
               "https://cdn.bsky.app/img/avatar/plain/did:plc:4tr5dqti7nmu6g2czpthntak/bafkreibsbcc6yqqhdvmb6hzzqkwnxobog45cuelt4twmbdpctmcs7e4udy",
