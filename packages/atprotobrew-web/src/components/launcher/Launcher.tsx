@@ -15,7 +15,7 @@ interface LauncerProps {
   identifier: AtIdentifierString;
 }
 
-export function Launcher({ client, identifier, onLogout }: LauncerProps) {
+export function Launcher({ client, onLogout }: LauncerProps) {
   const { data } = useFetchLaunchers({ client });
 
   const installChannels = data.body.view;
@@ -46,7 +46,7 @@ export function Launcher({ client, identifier, onLogout }: LauncerProps) {
                   channelName={tile.title}
                   thumbnailUrl={tile.thumbnail}
                   render={(props) => (
-                    <Link {...props} to={`/channel/${tile.uri}`} />
+                    <Link {...props} to={`/channel/${tile.title}`} />
                   )}
                 />
               ))}
