@@ -1,3 +1,4 @@
+import "./polyfills";
 import { BlobRef } from "@atproto/lexicon";
 import { Hono } from "hono";
 import { checkAuthFactory } from "./auth";
