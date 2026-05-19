@@ -1,7 +1,4 @@
-import {
-  BrowserOAuthClient,
-  buildLoopbackClientId,
-} from "@atproto/oauth-client-browser";
+import { BrowserOAuthClient } from "@atproto/oauth-client-browser";
 import config from "../../public/oauth/web/client-metadata.json";
 
 export const DEFAULT_HANDLE_RESOLVER = "https://bsky.social";
@@ -31,12 +28,17 @@ function createOnDelete() {
 function getOAuthClientDev(
   handleResolver: string,
 ): Promise<BrowserOAuthClient> {
-  // In dev, BrowserOAuthClient.load generates loopback metadata without scope,
-  // causing "invalid_scope" from the PDS. Use the constructor with inline
-  // metadata so the scope is declared before the authorization request.
-  const { hostname, port } = window.location;
-  const clientId = buildLoopbackClientId({ hostname, port, pathname: "/" });
+  const { port } = window.location;
+  const hostname = "127.0.0.1";
   const redirectUri = `http://${hostname}:${port}/`;
+
+  // loopback client_id を自前で組み立てる。
+  // buildLoopbackClientId は scope を含められないので使わない。
+  const params = new URLSearchParams({
+    redirect_uri: redirectUri,
+    scope: config.scope,
+  });
+  const clientId = `http://localhost?${params.toString()}`;
 
   return Promise.resolve(
     new BrowserOAuthClient({
