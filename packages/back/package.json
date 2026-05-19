@@ -7,6 +7,7 @@
 		"lexgen": "gen-xrpc-hono --yes ./src/lexicons/ ../atproto/lexicons/**/**/**/*.json"
 	},
 	"dependencies": {
+		"@atprotobrew/atproto": "workspace:^",
 		"@atproto/crypto": "^0.4.5",
 		"@atproto/identity": "^0.4.12",
 		"@atproto/lexicon": "^0.6.2",
