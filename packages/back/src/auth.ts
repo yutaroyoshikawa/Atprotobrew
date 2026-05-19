@@ -1,15 +1,17 @@
-import crypto from "node:crypto";
 import { DID_KEY_PREFIX, parseDidKey, parseMultikey, SECP256K1_JWT_ALG, verifySignature } from "@atproto/crypto";
 import { IdResolver, MemoryCache } from "@atproto/identity";
 import { AuthRequiredError, type HonoAuthVerifier, InvalidRequestError } from "@evex-dev/xrpc-hono";
+import { secp256k1 } from "@noble/curves/secp256k1";
+import { sha256 } from "@noble/hashes/sha2";
 import type { Context } from "hono";
-import KeyEncoder from "key-encoder";
 
 const idResolver = new IdResolver({ didCache: new MemoryCache() });
 
 // biome-ignore lint/complexity/noBannedTypes: aaaaa
 type AuthParam = Parameters<HonoAuthVerifier<{}, AuthSuccess>>[0];
-type AuthSuccess = { credentials: { type: "standard"; iss: string; aud: string } };
+type AuthSuccess = {
+	credentials: { type: "standard"; iss: string; aud: string };
+};
 type VerifySignatureWithKeyFn = (
 	didKey: string,
 	msgBytes: Uint8Array,
@@ -90,14 +92,18 @@ const verifySignatureWithKey: VerifySignatureWithKeyFn = async (
 		}
 		return verifySig(parsed.keyBytes, msgBytes, sigBytes);
 	}
-	return verifySignature(didKey, msgBytes, sigBytes, { jwtAlg: alg, allowMalleableSig: true });
+	return verifySignature(didKey, msgBytes, sigBytes, {
+		jwtAlg: alg,
+		allowMalleableSig: true,
+	});
 };
 
-const verifySig = (publicKey: Uint8Array, data: Uint8Array, sig: Uint8Array) => {
-	const keyEncoder = new KeyEncoder("secp256k1");
-	const pemKey = keyEncoder.encodePublic(ui8ToString(publicKey, "hex"), "raw", "pem");
-	const key = crypto.createPublicKey({ format: "pem", key: pemKey });
-	return crypto.verify("sha256", data, { key, dsaEncoding: "ieee-p1363" }, sig);
+// Cloudflare Workers 互換: @noble/curves で secp256k1 検証
+const verifySig = (publicKey: Uint8Array, data: Uint8Array, sig: Uint8Array): boolean => {
+	// ATProto の JWT は SHA-256 ハッシュ + raw (r||s) 64バイト署名
+	// @noble/curves は IEEE P1363 形式 (raw r||s) をデフォルトで受け取る
+	const msgHash = sha256(data);
+	return secp256k1.verify(sig, msgHash, publicKey);
 };
 
 const BEARER = "Bearer ";
@@ -110,10 +116,6 @@ const bearerTokenFromReq = (c: Context) => {
 	if (!header.startsWith(BEARER)) return null;
 	return header.slice(BEARER.length).trim();
 };
-
-function ui8ToString(ui8: Uint8Array, encoding: BufferEncoding): string {
-	return Buffer.from(ui8).toString(encoding);
-}
 
 const verifyServiceJwt = async (
 	jwtStr: string,
@@ -137,8 +139,8 @@ const verifyServiceJwt = async (
 		throw new AuthRequiredError("jwt expired", "JwtExpired");
 	}
 
-	const msgBytes = Buffer.from(`${parts[0]}.${parts[1]}`, "utf8");
-	const sigBytes = Buffer.from(parts[2], "base64url");
+	const msgBytes = new TextEncoder().encode(`${parts[0]}.${parts[1]}`);
+	const sigBytes = base64UrlToBytes(parts[2]);
 
 	const signingKey = await getSigningKey(payload.iss, false);
 	let validSig = false;
@@ -198,7 +200,7 @@ const parseJwtPayload = (raw: string): JwtPayload => {
 
 const parseJwtChunk = (raw: string): Record<string, unknown> => {
 	try {
-		const decoded = Buffer.from(raw, "base64url").toString("utf8");
+		const decoded = new TextDecoder().decode(base64UrlToBytes(raw));
 		const parsed = JSON.parse(decoded);
 		if (!parsed || typeof parsed !== "object") {
 			throw new Error("invalid jwt chunk");
@@ -207,6 +209,17 @@ const parseJwtChunk = (raw: string): Record<string, unknown> => {
 	} catch {
 		throw new AuthRequiredError("poorly formatted jwt", "BadJwt");
 	}
+};
+
+const base64UrlToBytes = (b64url: string): Uint8Array => {
+	// base64url → base64 変換
+	const b64 = b64url.replace(/-/g, "+").replace(/_/g, "/");
+	// パディング補完
+	const padded = b64 + "=".repeat((4 - (b64.length % 4)) % 4);
+	const bin = atob(padded);
+	const bytes = new Uint8Array(bin.length);
+	for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+	return bytes;
 };
 
 const parseUrlNsid = (url: string): string => {
