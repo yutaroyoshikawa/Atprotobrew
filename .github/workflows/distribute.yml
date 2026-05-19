@@ -88,13 +88,11 @@ jobs:
 
       - name: Build iOS IPA locally
         working-directory: packages/atprotobrew-app
-        env:
-          EAS_NO_VCS: "1"
         run: |
           set -a
           source .env.local
           set +a
-          pnpm exec eas build --profile preview --platform android --local --non-interactive --output ./app.apk
+          pnpm exec eas build --profile preview --platform ios --local --non-interactive --output ./app.ipa
 
       - name: Distribute to Firebase
         uses: wzieba/Firebase-Distribution-Github-Action@v1

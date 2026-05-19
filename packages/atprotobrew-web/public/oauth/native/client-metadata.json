@@ -3,7 +3,7 @@
 	"client_name": "atproto brew",
 	"client_uri": "https://brew.tarororo.org",
 	"redirect_uris": ["org.tarororo.brew:/oauth/callback"],
-	"scope": "atproto transition:generic",
+	"scope": "atproto transition:generic rpc:org.tarororo.brew.getLauncher?aud=did:web:brew.tarororo.org",
 	"grant_types": ["authorization_code", "refresh_token"],
 	"response_types": ["code"],
 	"application_type": "native",
