@@ -47,7 +47,6 @@ const StyledButton = styled(Button, {
         width: "100%",
         padding: 0,
         fontWeight: 800,
-        textAlign: "center",
         color: "rgba(56, 62, 63, 1.0)",
       },
       circle: {

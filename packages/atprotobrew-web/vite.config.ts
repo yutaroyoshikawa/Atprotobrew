@@ -26,6 +26,9 @@ export default defineConfig({
       },
     }),
   ],
+  resolve: {
+    dedupe: ["react", "react-dom"],
+  },
   server: {
     // Bind to all interfaces so the OAuth redirect to http://127.0.0.1:<port>/
     // reaches the dev server even on macOS where localhost resolves to ::1 (IPv6).

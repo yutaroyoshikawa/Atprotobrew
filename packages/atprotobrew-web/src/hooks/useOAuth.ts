@@ -76,10 +76,7 @@ export function useOAuth() {
     saveHandleResolver(handleResolver);
     const client = await getOAuthClient(handleResolver);
 
-    await client.signInRedirect(handle, {
-      scope:
-        "atproto transition:generic rpc:org.tarororo.brew.getLauncher?aud=did:web:brew.tarororo.org",
-    });
+    await client.signInRedirect(handle);
   };
 
   const logout = async () => {
