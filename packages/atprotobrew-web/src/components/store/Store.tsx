@@ -1,11 +1,12 @@
 import type { AtIdentifierString, Client } from "@atproto/lex";
-import {
-  useFetchStoreItems,
-  usePutStoreItemMutation,
-} from "@atprotobrew/common/channel/modules/storeItemsHooks";
+// import {
+//   useFetchStoreItems,
+//   usePutStoreItemMutation,
+// } from "@atprotobrew/common/channel/modules/storeItemsHooks";
 import { AppButton } from "@atprotobrew/common/core/components/AppButton";
 import { Link } from "react-router-dom";
 import { BubbleBackground } from "../launcher/BubbleBackground";
+import { useFetchLaunchers } from "@atprotobrew/common/channel/modules/launchersHooks";
 
 interface StoreProps {
   client: Client;
@@ -13,8 +14,8 @@ interface StoreProps {
 }
 
 export function Store({ client, identifier }: StoreProps) {
-  const storeItemsQuery = useFetchStoreItems({ client });
-  const storeItemMutation = usePutStoreItemMutation({ client, identifier });
+  const { data } = useFetchLaunchers({ client });
+  // const storeItemMutation = usePutStoreItemMutation({ client, identifier });
 
   return (
     <div className="relative w-full min-h-screen overflow-x-hidden select-none font-sans">
@@ -104,48 +105,36 @@ export function Store({ client, identifier }: StoreProps) {
 
         <main className="flex-1 px-4 py-4 max-w-2xl w-full mx-auto">
           <div className="space-y-3">
-            {storeItemsQuery.data.records.map((channel) => {
+            {data.body.view.map((channel) => {
               console.log(channel);
 
               return (
                 <div
-                  key={channel.cid}
+                  key={channel.title}
                   className="rounded-2xl p-4 flex items-center gap-4 glass-tile aero-shadow"
                 >
-                  {/* <div className="relative shrink-0">
-                      <div
-                        className="w-16 h-16 rounded-2xl flex items-center justify-center text-2xl font-bold text-white drop-shadow"
-                        style={{ background: iconBg }}
-                      >
-                        {channel.letter}
-                      </div>
-                      <div className="absolute top-1 left-2 w-9 h-3 rounded-full bg-white/35 blur-sm pointer-events-none" />
-                      <div
-                        className="absolute bottom-0 left-0 right-0 h-1 rounded-b-2xl opacity-80"
-                        style={{ background: channel.color }}
-                      />
+                  <div className="relative shrink-0">
+                    <div className="w-16 h-16 rounded-2xl flex items-center justify-center text-2xl font-bold text-white drop-shadow">
+                      <img src={channel.thumbnail} width={60} height={60} />
                     </div>
+                    <div className="absolute top-1 left-2 w-9 h-3 rounded-full bg-white/35 blur-sm pointer-events-none" />
+                    <div className="absolute bottom-0 left-0 right-0 h-1 rounded-b-2xl opacity-80" />
+                  </div>
 
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-2 mb-0.5 flex-wrap">
-                        <span className="font-semibold text-slate-800 text-sm">
-                          {channel.name}
-                        </span>
-                        <span
-                          className="text-xs font-medium px-2 py-0.5 rounded-full text-white/90 shrink-0"
-                          style={{ background: channel.color }}
-                        >
-                          v{channel.version}
-                        </span>
-                      </div>
-                      <p className="text-xs text-slate-500 mb-0.5">
-                        {channel.developer}
-                      </p>
-                      <p className="text-xs text-slate-700/70 leading-relaxed line-clamp-2">
-                        {channel.description}
-                      </p>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2 mb-0.5 flex-wrap">
+                      <span className="font-semibold text-slate-800 text-sm">
+                        {channel.title}
+                      </span>
+                    </div>
+                    <p className="text-xs text-slate-500 mb-0.5">
+                      {channel.author}
+                    </p>
+                    <p className="text-xs text-slate-700/70 leading-relaxed line-clamp-2">
+                      {channel.description}
+                    </p>
 
-                      {isBrewing && (
+                    {/* {isBrewing && (
                         <div className="mt-2">
                           <span className="text-xs text-green-700 font-medium">
                             Brewing...
@@ -162,34 +151,21 @@ export function Store({ client, identifier }: StoreProps) {
                             />
                           </div>
                         </div>
-                      )}
-                    </div>
+                      )} */}
+                  </div>
 
-                    <div className="shrink-0">
-                      {isDone ? (
-                        <div className="flex items-center gap-1.5 text-green-700 bg-green-50/80 border border-green-200 rounded-xl px-3 py-2">
-                          <svg
-                            viewBox="0 0 16 16"
-                            fill="currentColor"
-                            className="w-4 h-4 shrink-0"
-                          >
-                            <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0z" />
-                          </svg>
-                          <span className="text-xs font-semibold">
-                            Installed
-                          </span>
-                        </div>
-                      ) : (
-                        <AppButton
-                          type="button"
-                          onClick={() => storeItemMutation.mutate([])}
-                          disabled={isBrewing}
-                          className="glass-btn text-white text-xs font-bold px-4 py-2.5 rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/80 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
-                        >
-                          Install
-                        </AppButton>
-                      )}
-                    </div> */}
+                  <div className="shrink-0">
+                    <div className="flex items-center gap-1.5 text-green-700 bg-green-50/80 border border-green-200 rounded-xl px-3 py-2">
+                      <svg
+                        viewBox="0 0 16 16"
+                        fill="currentColor"
+                        className="w-4 h-4 shrink-0"
+                      >
+                        <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0z" />
+                      </svg>
+                      <span className="text-xs font-semibold">Installed</span>
+                    </div>
+                  </div>
                 </div>
               );
             })}
