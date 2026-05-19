@@ -67,7 +67,7 @@ function Router() {
         <Route path="/" element={<LauncerRoute />} />
         <Route path="/store" element={<StoreRoute />} />
         <Route path="/store/:id" element={<StoreItemDetail />} />
-        <Route path="/channel/:id" element={<ChannelDetail />} />
+        <Route path="/channel/:id" element={<ChannelDetailRoute />} />
 
         <Route path="*" element={<Navigate to="/" replace />} />
       </Route>
@@ -121,4 +121,14 @@ function StoreRoute() {
   }
 
   return <Store client={authState.client} identifier={authState.identifier} />;
+}
+
+function ChannelDetailRoute() {
+  const { authState } = useOutletContext<AuthContext>();
+
+  if (authState.status !== "authenticated") {
+    return null;
+  }
+
+  return <ChannelDetail client={authState.client} />;
 }
