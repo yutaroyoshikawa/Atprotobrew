@@ -45,12 +45,9 @@ export function useOAuth() {
         if (result?.session) {
           sessionRef.current = result.session;
 
-          const client = new Client(result.session);
-
-          client.headers.set(
-            "atproto-proxy",
-            "did:web:brew.tarororo.org#brew_api",
-          );
+          const client = new Client(result.session, {
+            service: "did:web:brew.tarororo.org#brew_api",
+          });
 
           setAuthState({
             status: "authenticated",
