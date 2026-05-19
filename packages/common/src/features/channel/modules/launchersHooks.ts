@@ -1,19 +1,13 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { fetchLauncher, lexicon } from "./fetchLauncher";
-import type { AtIdentifierString, Client } from "@atproto/lex";
+import type { Client } from "@atproto/lex";
 
-export function useFetchLaunchers({
-  client,
-  identifier,
-}: {
-  client: Client;
-  identifier: AtIdentifierString;
-}) {
-  const queryKey = [lexicon.$nsid, identifier] as const;
+export function useFetchLaunchers({ client }: { client: Client }) {
+  const queryKey = [lexicon.$nsid] as const;
 
   const queryValues = useSuspenseQuery({
     queryKey,
-    queryFn: () => fetchLauncher({ identifier, client }),
+    queryFn: () => fetchLauncher({ client }),
   });
 
   return queryValues;

@@ -1,12 +1,32 @@
-import { ActivityIndicator } from "react-native";
+import { useEffect } from "react";
+import { ActivityIndicator, BackHandler } from "react-native";
+import { Stack } from "expo-router";
 import { AppVStack } from "@atprotobrew/common/core/components/AppVStack";
 
-function OAuthCallback() {
+function AtPassportCallback() {
+  // Block Android hardware back button while auth is in progress.
+  useEffect(() => {
+    const subscription = BackHandler.addEventListener(
+      "hardwareBackPress",
+      () => true,
+    );
+    return () => subscription.remove();
+  }, []);
+
   return (
-    <AppVStack>
-      <ActivityIndicator />
-    </AppVStack>
+    <>
+      <Stack.Screen
+        options={{
+          gestureEnabled: false,
+          headerBackVisible: false,
+          headerLeft: () => null,
+        }}
+      />
+      <AppVStack>
+        <ActivityIndicator />
+      </AppVStack>
+    </>
   );
 }
 
-export default OAuthCallback;
+export default AtPassportCallback;

@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { BubbleBackground } from "./BubbleBackground";
-import { EmptyChannelTile } from "@atprotobrew/common/channel/components/EmptyChannelTile";
 import { StoreChannelTile } from "@atprotobrew/common/channel/components/StoreChannelTile";
 import { InstalledChannelTile } from "@atprotobrew/common/channel/components/InstalledChannelTile";
 import { AppFooter } from "@atprotobrew/common/core/components/AppFooter";
@@ -17,30 +16,18 @@ interface LauncerProps {
 }
 
 export function Launcher({ client, identifier, onLogout }: LauncerProps) {
-  useFetchLaunchers({ client, identifier });
+  const { data } = useFetchLaunchers({ client });
+
+  const installChannels = data.body.view;
 
   const [page] = useState(0);
 
   const tilesPerPage = TOTAL_TILES;
 
-  // const pageChannels = installedChannels.slice(
-  //   page * (tilesPerPage - 1),
-  //   (page + 1) * (tilesPerPage - 1),
-  // );
-
-  // const tiles = Array.from({ length: tilesPerPage }, (_, i) => {
-  //   if (i === 0) {
-  //     return { kind: "store" } as const;
-  //   }
-
-  //   const ch = pageChannels[i - 1];
-
-  //   if (ch) {
-  //     return { kind: "installed", channel: ch } as const;
-  //   }
-
-  //   return { kind: "empty" } as const;
-  // });
+  const pageChannels = installChannels.slice(
+    page * (tilesPerPage - 1),
+    (page + 1) * (tilesPerPage - 1),
+  );
 
   return (
     <div className="relative w-full h-screen overflow-hidden select-none font-sans">
@@ -51,8 +38,18 @@ export function Launcher({ client, identifier, onLogout }: LauncerProps) {
           <div className="w-full max-w-2xl">
             <div className="grid grid-cols-4 gap-3">
               <StoreChannelTile
-                render={(props) => <Link {...props} key="store" to="/store" />}
+                render={(props) => <Link {...props} to="/store" />}
               />
+              {pageChannels.map((tile) => (
+                <InstalledChannelTile
+                  key={tile.uri}
+                  channelName={tile.title}
+                  thumbnailUrl={tile.thumbnail}
+                  render={(props) => (
+                    <Link {...props} to={`/channel/${tile.uri}`} />
+                  )}
+                />
+              ))}
             </div>
           </div>
         </main>
