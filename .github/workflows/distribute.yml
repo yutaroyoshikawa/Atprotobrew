@@ -6,6 +6,9 @@ on:
 jobs:
   android:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
     env:
       EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
     steps:
@@ -32,7 +35,7 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
-      
+
       - name: Pull EAS environment variables
         working-directory: packages/atprotobrew-app
         run: pnpm exec eas env:pull --environment preview
@@ -45,11 +48,18 @@ jobs:
           set +a
           pnpm exec eas build --profile preview --platform android --local --non-interactive --output ./app.apk
 
+      - name: Authenticate to Google Cloud
+        id: auth
+        uses: google-github-actions/auth@v3
+        with:
+          workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+
       - name: Distribute to Firebase
         uses: wzieba/Firebase-Distribution-Github-Action@v1
         with:
           appId: ${{ secrets.FIREBASE_ANDROID_APP_ID }}
-          serviceCredentialsFileContent: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          serviceCredentialsFile: ${{ steps.auth.outputs.credentials_file_path }}
           groups: testers
           file: packages/atprotobrew-app/app.apk
           releaseNotes: ${{ github.event.head_commit.message }}
@@ -57,6 +67,9 @@ jobs:
   ios:
     if: false
     runs-on: macos-latest
+    permissions:
+      contents: read
+      id-token: write
     env:
       EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
     steps:
@@ -94,11 +107,18 @@ jobs:
           set +a
           pnpm exec eas build --profile preview --platform ios --local --non-interactive --output ./app.ipa
 
+      - name: Authenticate to Google Cloud
+        id: auth
+        uses: google-github-actions/auth@v3
+        with:
+          workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+
       - name: Distribute to Firebase
         uses: wzieba/Firebase-Distribution-Github-Action@v1
         with:
           appId: ${{ secrets.FIREBASE_IOS_APP_ID }}
-          serviceCredentialsFileContent: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          serviceCredentialsFile: ${{ steps.auth.outputs.credentials_file_path }}
           groups: testers
           file: packages/atprotobrew-app/app.ipa
           releaseNotes: ${{ github.event.head_commit.message }}
