@@ -1,7 +1,12 @@
 import type { ReactNode } from "react";
-import { createContext, useContext } from "react";
+import { createContext, useContext, useEffect } from "react";
 import type { AuthState } from "./useAuth";
 import { useAuth } from "./useAuth";
+import { useLocale } from "@atprotobrew/common/core/modules/i18n";
+import { ActivityIndicator, StyleSheet, View } from "react-native";
+import { AuthForm } from "@atprotobrew/common/auth/components/AuthForm";
+import { loginWithAtPassport } from "./atpassport";
+import { usePathname, useRouter } from "expo-router";
 
 interface AuthContextValue {
   authState: AuthState;
@@ -12,9 +17,9 @@ interface AuthContextValue {
 const AuthContext = createContext<AuthContextValue | null>(null);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const value = useAuth();
+  const values = useAuth();
 
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+  return <AuthContext.Provider value={values}>{children}</AuthContext.Provider>;
 }
 
 export function useAuthContext(): AuthContextValue {
