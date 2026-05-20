@@ -4,8 +4,9 @@ import { AppQueryProvider } from "@atprotobrew/common/core/components/AppQueryPr
 import { UIProvider } from "@atprotobrew/common/core/components/UIProvider";
 import { getAppQueryClient } from "@atprotobrew/common/core/modules/appQuery";
 import type { CatalogLoader } from "@atprotobrew/common/core/types/i18n";
-import { Stack } from "expo-router";
-import { AuthProvider } from "../modules/auth/AuthProvider";
+import { Stack, useRouter, useSegments } from "expo-router";
+import { AuthProvider, useAuthContext } from "../modules/auth/AuthProvider";
+import { useEffect } from "react";
 
 const queryClient = getAppQueryClient();
 
@@ -24,10 +25,50 @@ export default function RootLayout() {
       <UIProvider>
         <AppQueryProvider client={queryClient}>
           <AuthProvider>
-            <Stack />
+            <RootLayoutNav />
           </AuthProvider>
         </AppQueryProvider>
       </UIProvider>
     </AppI18nProvider>
+  );
+}
+
+function RootLayoutNav() {
+  const { authState } = useAuthContext();
+  const segments = useSegments();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (authState.status === "loading") {
+      return;
+    }
+
+    const group = segments[0];
+
+    switch (group) {
+      case "(app)": {
+        if (authState.status === "unauthenticated") {
+          // 未認証で保護領域にいる → ログインへ
+          router.replace("/(auth)/login");
+        }
+
+        break;
+      }
+      case "(auth)": {
+        if (authState.status === "authenticated") {
+          // 認証済みでログイン画面にいる → ホームへ
+          router.replace("/(app)/home");
+        }
+
+        break;
+      }
+    }
+  }, [authState.status, segments[0]]);
+
+  return (
+    <Stack screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="(auth)" />
+      <Stack.Screen name="(app)" />
+    </Stack>
   );
 }

@@ -12,7 +12,7 @@ interface Props {
 export function ChannelDetail({ client }: Props) {
   const { id } = useParams<{ id: string }>();
 
-  const { data } = useFetchLaunchers({ client });
+  const { data } = useFetchLaunchers({ agent: client });
 
   const targetLauncher = data.body.view.find((item) => item.title === id);
 

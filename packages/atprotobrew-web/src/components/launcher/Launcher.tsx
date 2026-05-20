@@ -16,7 +16,7 @@ interface LauncerProps {
 }
 
 export function Launcher({ client, onLogout }: LauncerProps) {
-  const { data } = useFetchLaunchers({ client });
+  const { data } = useFetchLaunchers({ agent: client });
 
   const installChannels = data.body.view;
 

@@ -14,7 +14,7 @@ interface StoreProps {
 }
 
 export function Store({ client, identifier }: StoreProps) {
-  const { data } = useFetchLaunchers({ client });
+  const { data } = useFetchLaunchers({ agent: client });
   // const storeItemMutation = usePutStoreItemMutation({ client, identifier });
 
   return (
