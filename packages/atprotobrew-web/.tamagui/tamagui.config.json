@@ -32205,1083 +32205,448 @@
   ],
   "nameToPaths": {},
   "tamaguiConfig": {
-    "fonts": {
-      "body": {
-        "family": "-apple-system, system-ui, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif",
-        "lineHeight": {
-          "1": 18,
-          "2": 20,
-          "3": 21,
-          "4": 23,
-          "5": 24,
-          "6": 27,
-          "7": 33,
-          "8": 38,
-          "9": 44,
-          "10": 57,
-          "11": 64,
-          "12": 71,
-          "13": 80,
-          "14": 91,
-          "15": 105,
-          "16": 118,
-          "true": 23
-        },
-        "weight": {
-          "1": "400",
-          "2": "400",
-          "3": "400",
-          "4": "400",
-          "5": "400",
-          "6": "400",
-          "7": "400",
-          "8": "400",
-          "9": "400",
-          "10": "400",
-          "11": "400",
-          "12": "400",
-          "13": "400",
-          "14": "400",
-          "15": "400",
-          "16": "400",
-          "true": "400"
-        },
-        "letterSpacing": {
-          "1": 0,
-          "2": 0,
-          "3": 0,
-          "4": 0,
-          "5": 0,
-          "6": 0,
-          "7": 0,
-          "8": 0,
-          "9": 0,
-          "10": 0,
-          "11": 0,
-          "12": 0,
-          "13": 0,
-          "14": 0,
-          "15": 0,
-          "16": 0,
-          "true": 0
-        },
-        "size": {
-          "1": 12,
-          "2": 13,
-          "3": 14,
-          "4": 15,
-          "5": 16,
-          "6": 18,
-          "7": 22,
-          "8": 26,
-          "9": 30,
-          "10": 40,
-          "11": 46,
-          "12": 52,
-          "13": 60,
-          "14": 70,
-          "15": 85,
-          "16": 100,
-          "true": 15
-        }
-      },
-      "heading": {
-        "family": "-apple-system, system-ui, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif",
-        "lineHeight": {
-          "1": 18,
-          "2": 20,
-          "3": 21,
-          "4": 22,
-          "5": 23,
-          "6": 25,
-          "7": 30,
-          "8": 34,
-          "9": 39,
-          "10": 50,
-          "11": 57,
-          "12": 63,
-          "13": 72,
-          "14": 83,
-          "15": 100,
-          "16": 117,
-          "true": 22
-        },
-        "weight": {
-          "0": "600",
-          "1": "600",
-          "2": "600",
-          "3": "600",
-          "4": "600",
-          "5": "600",
-          "6": "700",
-          "7": "700",
-          "8": "700",
-          "9": "800",
-          "10": "800",
-          "11": "800",
-          "12": "800",
-          "13": "800",
-          "14": "800",
-          "15": "800",
-          "16": "800",
-          "true": "800"
-        },
-        "letterSpacing": {
-          "1": 0,
-          "2": 0,
-          "3": 0,
-          "4": 0,
-          "5": 0,
-          "6": 0,
-          "7": 0,
-          "8": 0,
-          "9": 0,
-          "10": 0,
-          "11": 0,
-          "12": 0,
-          "13": 0,
-          "14": 0,
-          "15": 0,
-          "16": 0,
-          "true": 0
-        },
-        "size": {
-          "1": 12,
-          "2": 13,
-          "3": 14,
-          "4": 15,
-          "5": 16,
-          "6": 18,
-          "7": 22,
-          "8": 26,
-          "9": 30,
-          "10": 40,
-          "11": 46,
-          "12": 52,
-          "13": 60,
-          "14": 70,
-          "15": 85,
-          "16": 100,
-          "true": 15
-        }
-      }
-    },
+    "fonts": {},
     "onlyAllowShorthands": false,
     "fontLanguages": [],
     "media": {
-      "touchable": {
-        "pointer": "coarse"
-      },
-      "hoverable": {
-        "hover": "hover"
-      },
-      "max-xxl": {
-        "maxWidth": 1535.98
-      },
-      "max-xl": {
-        "maxWidth": 1279.98
-      },
-      "max-lg": {
-        "maxWidth": 1023.98
-      },
-      "max-md": {
-        "maxWidth": 767.98
-      },
-      "max-sm": {
-        "maxWidth": 639.98
-      },
-      "max-xs": {
-        "maxWidth": 459.98
-      },
-      "max-xxs": {
-        "maxWidth": 339.98
-      },
-      "max-xxxs": {
-        "maxWidth": 259.98
-      },
-      "max-200": {
-        "maxWidth": 199.98
-      },
-      "max-100": {
-        "maxWidth": 99.98
-      },
-      "xxxs": {
-        "minWidth": 260
-      },
-      "xxs": {
-        "minWidth": 340
-      },
-      "xs": {
-        "minWidth": 460
-      },
       "sm": {
-        "minWidth": 640
+        "maxWidth": 640
       },
       "md": {
-        "minWidth": 768
+        "maxWidth": 768
       },
       "lg": {
-        "minWidth": 1024
+        "maxWidth": 1024
       },
       "xl": {
-        "minWidth": 1280
-      },
-      "xxl": {
-        "minWidth": 1536
-      },
-      "max-height-lg": {
-        "maxHeight": 1023.98
-      },
-      "max-height-md": {
-        "maxHeight": 767.98
-      },
-      "max-height-sm": {
-        "maxHeight": 639.98
-      },
-      "max-height-xs": {
-        "maxHeight": 459.98
-      },
-      "max-height-xxs": {
-        "maxHeight": 339.98
-      },
-      "max-height-xxxs": {
-        "maxHeight": 259.98
-      },
-      "max-height-200": {
-        "maxHeight": 199.98
-      },
-      "max-height-100": {
-        "maxHeight": 99.98
-      },
-      "height-sm": {
-        "minHeight": 640
-      },
-      "height-md": {
-        "minHeight": 768
-      },
-      "height-lg": {
-        "minHeight": 1024
+        "maxWidth": 1280
       }
     },
-    "themes": {
-      "dark": {
-        "bg": "#111",
-        "color": "#fff",
-        "id": "dark"
+    "animations": {
+      "animations": {
+        "fast": "ease-in-out 150ms",
+        "medium": "ease-in-out 250ms",
+        "slow": "ease-in-out 350ms",
+        "bouncy": "cubic-bezier(0.5, 1.25, 0.5, 1) 300ms"
       },
-      "dark_blue": {
-        "bg": "darkblue",
-        "color": "#fff",
-        "id": "dark_blue"
-      },
-      "light": {
-        "bg": "#f2f2f2",
-        "color": "#000",
-        "id": "light"
-      }
+      "usePresence": "Function",
+      "ResetPresence": "Function",
+      "inputStyle": "css",
+      "outputStyle": "css",
+      "useAnimatedNumber": "Function",
+      "useAnimatedNumberReaction": "Function",
+      "useAnimatedNumberStyle": "Function",
+      "useAnimatedNumbersStyle": "Function",
+      "useAnimations": "Function"
     },
     "tokens": {
-      "radius": {
-        "0": {
+      "color": {
+        "white": {
           "isVar": true,
-          "key": "$0",
-          "name": "c-radius-0",
-          "val": 0,
-          "variable": "var(--c-radius-0)"
+          "key": "$white",
+          "name": "c-white",
+          "val": "#ffffff",
+          "variable": "var(--c-white)"
         },
-        "1": {
+        "primary": {
           "isVar": true,
-          "key": "$1",
-          "name": "c-radius-1",
-          "val": 3,
-          "variable": "var(--c-radius-1)"
+          "key": "$primary",
+          "name": "c-primary",
+          "val": "#3b82f6",
+          "variable": "var(--c-primary)"
         },
-        "2": {
+        "primaryDark": {
           "isVar": true,
-          "key": "$2",
-          "name": "c-radius-2",
-          "val": 5,
-          "variable": "var(--c-radius-2)"
+          "key": "$primaryDark",
+          "name": "c-primaryDark",
+          "val": "#60a5fa",
+          "variable": "var(--c-primaryDark)"
         },
-        "3": {
+        "accent": {
           "isVar": true,
-          "key": "$3",
-          "name": "c-radius-3",
-          "val": 7,
-          "variable": "var(--c-radius-3)"
+          "key": "$accent",
+          "name": "c-accent",
+          "val": "#1c7ed6",
+          "variable": "var(--c-accent)"
         },
-        "4": {
+        "accentDark": {
           "isVar": true,
-          "key": "$4",
-          "name": "c-radius-4",
-          "val": 9,
-          "variable": "var(--c-radius-4)"
+          "key": "$accentDark",
+          "name": "c-accentDark",
+          "val": "#4dabf7",
+          "variable": "var(--c-accentDark)"
         },
-        "5": {
+        "positive": {
           "isVar": true,
-          "key": "$5",
-          "name": "c-radius-5",
-          "val": 10,
-          "variable": "var(--c-radius-5)"
+          "key": "$positive",
+          "name": "c-positive",
+          "val": "#22c55e",
+          "variable": "var(--c-positive)"
         },
-        "6": {
+        "negative": {
           "isVar": true,
-          "key": "$6",
-          "name": "c-radius-6",
-          "val": 16,
-          "variable": "var(--c-radius-6)"
+          "key": "$negative",
+          "name": "c-negative",
+          "val": "#ef4444",
+          "variable": "var(--c-negative)"
         },
-        "7": {
+        "tileLabel": {
           "isVar": true,
-          "key": "$7",
-          "name": "c-radius-7",
-          "val": 19,
-          "variable": "var(--c-radius-7)"
+          "key": "$tileLabel",
+          "name": "c-tileLabel",
+          "val": "#666666",
+          "variable": "var(--c-tileLabel)"
         },
-        "8": {
+        "inputText": {
           "isVar": true,
-          "key": "$8",
-          "name": "c-radius-8",
-          "val": 22,
-          "variable": "var(--c-radius-8)"
+          "key": "$inputText",
+          "name": "c-inputText",
+          "val": "#1e293b",
+          "variable": "var(--c-inputText)"
         },
-        "9": {
+        "inputBorder": {
           "isVar": true,
-          "key": "$9",
-          "name": "c-radius-9",
-          "val": 26,
-          "variable": "var(--c-radius-9)"
+          "key": "$inputBorder",
+          "name": "c-inputBorder",
+          "val": "#646464",
+          "variable": "var(--c-inputBorder)"
         },
-        "10": {
+        "slate50": {
           "isVar": true,
-          "key": "$10",
-          "name": "c-radius-10",
-          "val": 34,
-          "variable": "var(--c-radius-10)"
+          "key": "$slate50",
+          "name": "c-slate50",
+          "val": "#f8fafc",
+          "variable": "var(--c-slate50)"
         },
-        "11": {
+        "slate100": {
           "isVar": true,
-          "key": "$11",
-          "name": "c-radius-11",
-          "val": 42,
-          "variable": "var(--c-radius-11)"
+          "key": "$slate100",
+          "name": "c-slate100",
+          "val": "#f1f5f9",
+          "variable": "var(--c-slate100)"
         },
-        "12": {
+        "slate300": {
           "isVar": true,
-          "key": "$12",
-          "name": "c-radius-12",
-          "val": 50,
-          "variable": "var(--c-radius-12)"
+          "key": "$slate300",
+          "name": "c-slate300",
+          "val": "#cbd5e1",
+          "variable": "var(--c-slate300)"
         },
-        "true": {
+        "slate400": {
           "isVar": true,
-          "key": "$true",
-          "name": "c-radius-true",
-          "val": 9,
-          "variable": "var(--c-radius-true)"
-        }
-      },
-      "zIndex": {
-        "0": {
-          "isVar": true,
-          "key": "$0",
-          "name": "c-zIndex-0",
-          "val": 0,
-          "variable": "var(--c-zIndex-0)"
+          "key": "$slate400",
+          "name": "c-slate400",
+          "val": "#94a3b8",
+          "variable": "var(--c-slate400)"
         },
-        "1": {
+        "slate500": {
           "isVar": true,
-          "key": "$1",
-          "name": "c-zIndex-1",
-          "val": 100,
-          "variable": "var(--c-zIndex-1)"
+          "key": "$slate500",
+          "name": "c-slate500",
+          "val": "#64748b",
+          "variable": "var(--c-slate500)"
         },
-        "2": {
+        "slate700": {
           "isVar": true,
-          "key": "$2",
-          "name": "c-zIndex-2",
-          "val": 200,
-          "variable": "var(--c-zIndex-2)"
+          "key": "$slate700",
+          "name": "c-slate700",
+          "val": "#334155",
+          "variable": "var(--c-slate700)"
         },
-        "3": {
+        "slate800": {
           "isVar": true,
-          "key": "$3",
-          "name": "c-zIndex-3",
-          "val": 300,
-          "variable": "var(--c-zIndex-3)"
+          "key": "$slate800",
+          "name": "c-slate800",
+          "val": "#1e293b",
+          "variable": "var(--c-slate800)"
         },
-        "4": {
+        "slate900": {
           "isVar": true,
-          "key": "$4",
-          "name": "c-zIndex-4",
-          "val": 400,
-          "variable": "var(--c-zIndex-4)"
-        },
-        "5": {
-          "isVar": true,
-          "key": "$5",
-          "name": "c-zIndex-5",
-          "val": 500,
-          "variable": "var(--c-zIndex-5)"
+          "key": "$slate900",
+          "name": "c-slate900",
+          "val": "#0f172a",
+          "variable": "var(--c-slate900)"
         }
       },
       "space": {
         "0": {
           "isVar": true,
           "key": "$0",
-          "name": "c-space-0",
+          "name": "t-space-0",
           "val": 0,
-          "variable": "var(--c-space-0)"
+          "variable": "var(--t-space-0)"
         },
         "1": {
           "isVar": true,
           "key": "$1",
-          "name": "c-space-1",
-          "val": 2,
-          "variable": "var(--c-space-1)"
+          "name": "t-space-1",
+          "val": 4,
+          "variable": "var(--t-space-1)"
         },
         "2": {
           "isVar": true,
           "key": "$2",
-          "name": "c-space-2",
-          "val": 7,
-          "variable": "var(--c-space-2)"
+          "name": "t-space-2",
+          "val": 8,
+          "variable": "var(--t-space-2)"
         },
         "3": {
           "isVar": true,
           "key": "$3",
-          "name": "c-space-3",
-          "val": 13,
-          "variable": "var(--c-space-3)"
+          "name": "t-space-3",
+          "val": 12,
+          "variable": "var(--t-space-3)"
         },
         "4": {
           "isVar": true,
           "key": "$4",
-          "name": "c-space-4",
-          "val": 18,
-          "variable": "var(--c-space-4)"
+          "name": "t-space-4",
+          "val": 16,
+          "variable": "var(--t-space-4)"
         },
         "5": {
           "isVar": true,
           "key": "$5",
-          "name": "c-space-5",
-          "val": 24,
-          "variable": "var(--c-space-5)"
+          "name": "t-space-5",
+          "val": 20,
+          "variable": "var(--t-space-5)"
         },
         "6": {
           "isVar": true,
           "key": "$6",
-          "name": "c-space-6",
-          "val": 32,
-          "variable": "var(--c-space-6)"
-        },
-        "7": {
-          "isVar": true,
-          "key": "$7",
-          "name": "c-space-7",
-          "val": 39,
-          "variable": "var(--c-space-7)"
+          "name": "t-space-6",
+          "val": 24,
+          "variable": "var(--t-space-6)"
         },
         "8": {
           "isVar": true,
           "key": "$8",
-          "name": "c-space-8",
-          "val": 46,
-          "variable": "var(--c-space-8)"
-        },
-        "9": {
-          "isVar": true,
-          "key": "$9",
-          "name": "c-space-9",
-          "val": 53,
-          "variable": "var(--c-space-9)"
+          "name": "t-space-8",
+          "val": 32,
+          "variable": "var(--t-space-8)"
         },
         "10": {
           "isVar": true,
           "key": "$10",
-          "name": "c-space-10",
-          "val": 60,
-          "variable": "var(--c-space-10)"
-        },
-        "11": {
-          "isVar": true,
-          "key": "$11",
-          "name": "c-space-11",
-          "val": 74,
-          "variable": "var(--c-space-11)"
-        },
-        "12": {
-          "isVar": true,
-          "key": "$12",
-          "name": "c-space-12",
-          "val": 88,
-          "variable": "var(--c-space-12)"
-        },
-        "13": {
-          "isVar": true,
-          "key": "$13",
-          "name": "c-space-13",
-          "val": 102,
-          "variable": "var(--c-space-13)"
-        },
-        "14": {
-          "isVar": true,
-          "key": "$14",
-          "name": "c-space-14",
-          "val": 116,
-          "variable": "var(--c-space-14)"
-        },
-        "15": {
-          "isVar": true,
-          "key": "$15",
-          "name": "c-space-15",
-          "val": 130,
-          "variable": "var(--c-space-15)"
-        },
-        "16": {
-          "isVar": true,
-          "key": "$16",
-          "name": "c-space-16",
-          "val": 144,
-          "variable": "var(--c-space-16)"
-        },
-        "17": {
-          "isVar": true,
-          "key": "$17",
-          "name": "c-space-17",
-          "val": 144,
-          "variable": "var(--c-space-17)"
-        },
-        "18": {
-          "isVar": true,
-          "key": "$18",
-          "name": "c-space-18",
-          "val": 158,
-          "variable": "var(--c-space-18)"
-        },
-        "19": {
-          "isVar": true,
-          "key": "$19",
-          "name": "c-space-19",
-          "val": 172,
-          "variable": "var(--c-space-19)"
-        },
-        "20": {
-          "isVar": true,
-          "key": "$20",
-          "name": "c-space-20",
-          "val": 186,
-          "variable": "var(--c-space-20)"
-        },
-        "0.25": {
-          "isVar": true,
-          "key": "$0.25",
-          "name": "c-space-0--25",
-          "val": 0.5,
-          "variable": "var(--c-space-0--25)"
-        },
-        "0.5": {
-          "isVar": true,
-          "key": "$0.5",
-          "name": "c-space-0--5",
-          "val": 1,
-          "variable": "var(--c-space-0--5)"
-        },
-        "0.75": {
-          "isVar": true,
-          "key": "$0.75",
-          "name": "c-space-0--75",
-          "val": 1.5,
-          "variable": "var(--c-space-0--75)"
-        },
-        "1.5": {
-          "isVar": true,
-          "key": "$1.5",
-          "name": "c-space-1--5",
-          "val": 4,
-          "variable": "var(--c-space-1--5)"
-        },
-        "2.5": {
-          "isVar": true,
-          "key": "$2.5",
-          "name": "c-space-2--5",
-          "val": 10,
-          "variable": "var(--c-space-2--5)"
-        },
-        "3.5": {
-          "isVar": true,
-          "key": "$3.5",
-          "name": "c-space-3--5",
-          "val": 16,
-          "variable": "var(--c-space-3--5)"
+          "name": "t-space-10",
+          "val": 40,
+          "variable": "var(--t-space-10)"
         },
         "true": {
           "isVar": true,
           "key": "$true",
-          "name": "c-space-true",
-          "val": 18,
-          "variable": "var(--c-space-true)"
-        },
-        "4.5": {
-          "isVar": true,
-          "key": "$4.5",
-          "name": "c-space-4--5",
-          "val": 21,
-          "variable": "var(--c-space-4--5)"
-        },
-        "-0.25": {
-          "isVar": true,
-          "key": "$-0.25",
-          "name": "c-space--0--25",
-          "val": -0.5,
-          "variable": "var(--c-space--0--25)"
-        },
-        "-0.5": {
-          "isVar": true,
-          "key": "$-0.5",
-          "name": "c-space--0--5",
-          "val": -1,
-          "variable": "var(--c-space--0--5)"
-        },
-        "-0.75": {
-          "isVar": true,
-          "key": "$-0.75",
-          "name": "c-space--0--75",
-          "val": -1.5,
-          "variable": "var(--c-space--0--75)"
-        },
-        "-1": {
-          "isVar": true,
-          "key": "$-1",
-          "name": "c-space--1",
-          "val": -2,
-          "variable": "var(--c-space--1)"
-        },
-        "-1.5": {
-          "isVar": true,
-          "key": "$-1.5",
-          "name": "c-space--1--5",
-          "val": -4,
-          "variable": "var(--c-space--1--5)"
-        },
-        "-2": {
-          "isVar": true,
-          "key": "$-2",
-          "name": "c-space--2",
-          "val": -7,
-          "variable": "var(--c-space--2)"
-        },
-        "-2.5": {
-          "isVar": true,
-          "key": "$-2.5",
-          "name": "c-space--2--5",
-          "val": -10,
-          "variable": "var(--c-space--2--5)"
-        },
-        "-3": {
-          "isVar": true,
-          "key": "$-3",
-          "name": "c-space--3",
-          "val": -13,
-          "variable": "var(--c-space--3)"
-        },
-        "-3.5": {
-          "isVar": true,
-          "key": "$-3.5",
-          "name": "c-space--3--5",
-          "val": -16,
-          "variable": "var(--c-space--3--5)"
-        },
-        "-4": {
-          "isVar": true,
-          "key": "$-4",
-          "name": "c-space--4",
-          "val": -18,
-          "variable": "var(--c-space--4)"
-        },
-        "-true": {
-          "isVar": true,
-          "key": "$-true",
-          "name": "c-space--true",
-          "val": -18,
-          "variable": "var(--c-space--true)"
-        },
-        "-4.5": {
-          "isVar": true,
-          "key": "$-4.5",
-          "name": "c-space--4--5",
-          "val": -21,
-          "variable": "var(--c-space--4--5)"
-        },
-        "-5": {
-          "isVar": true,
-          "key": "$-5",
-          "name": "c-space--5",
-          "val": -24,
-          "variable": "var(--c-space--5)"
-        },
-        "-6": {
-          "isVar": true,
-          "key": "$-6",
-          "name": "c-space--6",
-          "val": -32,
-          "variable": "var(--c-space--6)"
-        },
-        "-7": {
-          "isVar": true,
-          "key": "$-7",
-          "name": "c-space--7",
-          "val": -39,
-          "variable": "var(--c-space--7)"
-        },
-        "-8": {
-          "isVar": true,
-          "key": "$-8",
-          "name": "c-space--8",
-          "val": -46,
-          "variable": "var(--c-space--8)"
-        },
-        "-9": {
-          "isVar": true,
-          "key": "$-9",
-          "name": "c-space--9",
-          "val": -53,
-          "variable": "var(--c-space--9)"
-        },
-        "-10": {
-          "isVar": true,
-          "key": "$-10",
-          "name": "c-space--10",
-          "val": -60,
-          "variable": "var(--c-space--10)"
-        },
-        "-11": {
-          "isVar": true,
-          "key": "$-11",
-          "name": "c-space--11",
-          "val": -74,
-          "variable": "var(--c-space--11)"
-        },
-        "-12": {
-          "isVar": true,
-          "key": "$-12",
-          "name": "c-space--12",
-          "val": -88,
-          "variable": "var(--c-space--12)"
-        },
-        "-13": {
-          "isVar": true,
-          "key": "$-13",
-          "name": "c-space--13",
-          "val": -102,
-          "variable": "var(--c-space--13)"
-        },
-        "-14": {
-          "isVar": true,
-          "key": "$-14",
-          "name": "c-space--14",
-          "val": -116,
-          "variable": "var(--c-space--14)"
-        },
-        "-15": {
-          "isVar": true,
-          "key": "$-15",
-          "name": "c-space--15",
-          "val": -130,
-          "variable": "var(--c-space--15)"
-        },
-        "-16": {
-          "isVar": true,
-          "key": "$-16",
-          "name": "c-space--16",
-          "val": -144,
-          "variable": "var(--c-space--16)"
-        },
-        "-17": {
-          "isVar": true,
-          "key": "$-17",
-          "name": "c-space--17",
-          "val": -144,
-          "variable": "var(--c-space--17)"
-        },
-        "-18": {
-          "isVar": true,
-          "key": "$-18",
-          "name": "c-space--18",
-          "val": -158,
-          "variable": "var(--c-space--18)"
-        },
-        "-19": {
-          "isVar": true,
-          "key": "$-19",
-          "name": "c-space--19",
-          "val": -172,
-          "variable": "var(--c-space--19)"
-        },
-        "-20": {
-          "isVar": true,
-          "key": "$-20",
-          "name": "c-space--20",
-          "val": -186,
-          "variable": "var(--c-space--20)"
+          "name": "t-space-true",
+          "val": 0,
+          "variable": "var(--t-space-true)"
         }
       },
       "size": {
         "0": {
           "isVar": true,
           "key": "$0",
-          "name": "c-size-0",
+          "name": "t-size-0",
           "val": 0,
-          "variable": "var(--c-size-0)"
+          "variable": "var(--t-size-0)"
         },
         "1": {
           "isVar": true,
           "key": "$1",
-          "name": "c-size-1",
-          "val": 20,
-          "variable": "var(--c-size-1)"
+          "name": "t-size-1",
+          "val": 4,
+          "variable": "var(--t-size-1)"
         },
         "2": {
           "isVar": true,
           "key": "$2",
-          "name": "c-size-2",
-          "val": 28,
-          "variable": "var(--c-size-2)"
+          "name": "t-size-2",
+          "val": 8,
+          "variable": "var(--t-size-2)"
         },
         "3": {
           "isVar": true,
           "key": "$3",
-          "name": "c-size-3",
-          "val": 36,
-          "variable": "var(--c-size-3)"
+          "name": "t-size-3",
+          "val": 12,
+          "variable": "var(--t-size-3)"
         },
         "4": {
           "isVar": true,
           "key": "$4",
-          "name": "c-size-4",
-          "val": 44,
-          "variable": "var(--c-size-4)"
+          "name": "t-size-4",
+          "val": 16,
+          "variable": "var(--t-size-4)"
         },
         "5": {
           "isVar": true,
           "key": "$5",
-          "name": "c-size-5",
-          "val": 52,
-          "variable": "var(--c-size-5)"
+          "name": "t-size-5",
+          "val": 20,
+          "variable": "var(--t-size-5)"
         },
         "6": {
           "isVar": true,
           "key": "$6",
-          "name": "c-size-6",
-          "val": 64,
-          "variable": "var(--c-size-6)"
-        },
-        "7": {
-          "isVar": true,
-          "key": "$7",
-          "name": "c-size-7",
-          "val": 74,
-          "variable": "var(--c-size-7)"
+          "name": "t-size-6",
+          "val": 24,
+          "variable": "var(--t-size-6)"
         },
         "8": {
           "isVar": true,
           "key": "$8",
-          "name": "c-size-8",
-          "val": 84,
-          "variable": "var(--c-size-8)"
-        },
-        "9": {
-          "isVar": true,
-          "key": "$9",
-          "name": "c-size-9",
-          "val": 94,
-          "variable": "var(--c-size-9)"
+          "name": "t-size-8",
+          "val": 32,
+          "variable": "var(--t-size-8)"
         },
         "10": {
           "isVar": true,
           "key": "$10",
-          "name": "c-size-10",
-          "val": 104,
-          "variable": "var(--c-size-10)"
-        },
-        "11": {
-          "isVar": true,
-          "key": "$11",
-          "name": "c-size-11",
-          "val": 124,
-          "variable": "var(--c-size-11)"
-        },
-        "12": {
-          "isVar": true,
-          "key": "$12",
-          "name": "c-size-12",
-          "val": 144,
-          "variable": "var(--c-size-12)"
-        },
-        "13": {
-          "isVar": true,
-          "key": "$13",
-          "name": "c-size-13",
-          "val": 164,
-          "variable": "var(--c-size-13)"
-        },
-        "14": {
-          "isVar": true,
-          "key": "$14",
-          "name": "c-size-14",
-          "val": 184,
-          "variable": "var(--c-size-14)"
-        },
-        "15": {
-          "isVar": true,
-          "key": "$15",
-          "name": "c-size-15",
-          "val": 204,
-          "variable": "var(--c-size-15)"
-        },
-        "16": {
-          "isVar": true,
-          "key": "$16",
-          "name": "c-size-16",
-          "val": 224,
-          "variable": "var(--c-size-16)"
-        },
-        "17": {
-          "isVar": true,
-          "key": "$17",
-          "name": "c-size-17",
-          "val": 224,
-          "variable": "var(--c-size-17)"
-        },
-        "18": {
-          "isVar": true,
-          "key": "$18",
-          "name": "c-size-18",
-          "val": 244,
-          "variable": "var(--c-size-18)"
-        },
-        "19": {
-          "isVar": true,
-          "key": "$19",
-          "name": "c-size-19",
-          "val": 264,
-          "variable": "var(--c-size-19)"
-        },
-        "20": {
-          "isVar": true,
-          "key": "$20",
-          "name": "c-size-20",
-          "val": 284,
-          "variable": "var(--c-size-20)"
-        },
-        "0.25": {
-          "isVar": true,
-          "key": "$0.25",
-          "name": "c-size-0--25",
-          "val": 2,
-          "variable": "var(--c-size-0--25)"
-        },
-        "0.5": {
-          "isVar": true,
-          "key": "$0.5",
-          "name": "c-size-0--5",
-          "val": 4,
-          "variable": "var(--c-size-0--5)"
-        },
-        "0.75": {
-          "isVar": true,
-          "key": "$0.75",
-          "name": "c-size-0--75",
-          "val": 8,
-          "variable": "var(--c-size-0--75)"
-        },
-        "1.5": {
-          "isVar": true,
-          "key": "$1.5",
-          "name": "c-size-1--5",
-          "val": 24,
-          "variable": "var(--c-size-1--5)"
-        },
-        "2.5": {
-          "isVar": true,
-          "key": "$2.5",
-          "name": "c-size-2--5",
-          "val": 32,
-          "variable": "var(--c-size-2--5)"
-        },
-        "3.5": {
-          "isVar": true,
-          "key": "$3.5",
-          "name": "c-size-3--5",
+          "name": "t-size-10",
           "val": 40,
-          "variable": "var(--c-size-3--5)"
+          "variable": "var(--t-size-10)"
         },
         "true": {
           "isVar": true,
           "key": "$true",
-          "name": "c-size-true",
-          "val": 44,
-          "variable": "var(--c-size-true)"
-        },
-        "4.5": {
+          "name": "t-size-true",
+          "val": 0,
+          "variable": "var(--t-size-true)"
+        }
+      },
+      "radius": {
+        "1": {
           "isVar": true,
-          "key": "$4.5",
-          "name": "c-size-4--5",
-          "val": 48,
-          "variable": "var(--c-size-4--5)"
+          "key": "$1",
+          "name": "t-radius-1",
+          "val": 2,
+          "variable": "var(--t-radius-1)"
+        },
+        "2": {
+          "isVar": true,
+          "key": "$2",
+          "name": "t-radius-2",
+          "val": 4,
+          "variable": "var(--t-radius-2)"
+        },
+        "3": {
+          "isVar": true,
+          "key": "$3",
+          "name": "t-radius-3",
+          "val": 6,
+          "variable": "var(--t-radius-3)"
+        },
+        "8": {
+          "isVar": true,
+          "key": "$8",
+          "name": "t-radius-8",
+          "val": 16,
+          "variable": "var(--t-radius-8)"
+        },
+        "true": {
+          "isVar": true,
+          "key": "$true",
+          "name": "t-radius-true",
+          "val": 0,
+          "variable": "var(--t-radius-true)"
+        }
+      },
+      "zIndex": {
+        "0": {
+          "isVar": true,
+          "key": "$0",
+          "name": "t-zIndex-0",
+          "val": 0,
+          "variable": "var(--t-zIndex-0)"
+        },
+        "1": {
+          "isVar": true,
+          "key": "$1",
+          "name": "t-zIndex-1",
+          "val": 1,
+          "variable": "var(--t-zIndex-1)"
+        },
+        "2": {
+          "isVar": true,
+          "key": "$2",
+          "name": "t-zIndex-2",
+          "val": 2,
+          "variable": "var(--t-zIndex-2)"
+        },
+        "true": {
+          "isVar": true,
+          "key": "$true",
+          "name": "t-zIndex-true",
+          "val": 0,
+          "variable": "var(--t-zIndex-true)"
         }
       }
     },
-    "selectionStyles": "Function",
+    "themes": {
+      "dark": {
+        "white": "#ffffff",
+        "primary": "#60a5fa",
+        "primaryDark": "#60a5fa",
+        "accent": "#4dabf7",
+        "accentDark": "#4dabf7",
+        "positive": "#22c55e",
+        "negative": "#ef4444",
+        "tileLabel": "#cbd5e1",
+        "inputText": "#1e293b",
+        "inputBorder": "#646464",
+        "slate50": "#f8fafc",
+        "slate100": "#f1f5f9",
+        "slate300": "#cbd5e1",
+        "slate400": "#94a3b8",
+        "slate500": "#64748b",
+        "slate700": "#334155",
+        "slate800": "#1e293b",
+        "slate900": "#0f172a",
+        "bg": "#0f172a",
+        "bgContrast25": "#1e293b",
+        "bgContrast50": "#334155",
+        "text": "#f8fafc",
+        "textContrastLow": "#94a3b8",
+        "textContrastMedium": "#cbd5e1",
+        "border": "#1e293b",
+        "glassFill": "rgba(255,255,255,0.10)",
+        "glassFillEmpty": "rgba(255,255,255,0.04)",
+        "glassBorder": "rgba(255,255,255,0.30)",
+        "id": "dark"
+      },
+      "light": {
+        "white": "#ffffff",
+        "primary": "#3b82f6",
+        "primaryDark": "#60a5fa",
+        "accent": "#1c7ed6",
+        "accentDark": "#4dabf7",
+        "positive": "#22c55e",
+        "negative": "#ef4444",
+        "tileLabel": "#666666",
+        "inputText": "#1e293b",
+        "inputBorder": "#646464",
+        "slate50": "#f8fafc",
+        "slate100": "#f1f5f9",
+        "slate300": "#cbd5e1",
+        "slate400": "#94a3b8",
+        "slate500": "#64748b",
+        "slate700": "#334155",
+        "slate800": "#1e293b",
+        "slate900": "#0f172a",
+        "bg": "#ffffff",
+        "bgContrast25": "#f8fafc",
+        "bgContrast50": "#f1f5f9",
+        "text": "#0f172a",
+        "textContrastLow": "#64748b",
+        "textContrastMedium": "#334155",
+        "border": "#f1f5f9",
+        "glassFill": "rgba(255,255,255,0.60)",
+        "glassFillEmpty": "rgba(255,255,255,0.15)",
+        "glassBorder": "rgba(255,255,255,1)",
+        "id": "light"
+      }
+    },
     "settings": {
       "webContainerType": "inline-size",
-      "mediaQueryDefaultActive": {
-        "touchable": false,
-        "hoverable": true,
-        "max-xxl": true,
-        "max-xl": true,
-        "max-lg": true,
-        "max-md": true,
-        "max-sm": true,
-        "max-xs": true,
-        "max-xxs": false,
-        "max-xxxs": false,
-        "xxxs": true,
-        "xxs": true,
-        "xs": true,
-        "sm": false,
-        "md": false,
-        "lg": false,
-        "xl": false,
-        "xxl": false,
-        "max-height-sm": false,
-        "max-height-md": false,
-        "max-height-lg": true,
-        "height-sm": true,
-        "height-md": true,
-        "height-lg": false
-      },
-      "defaultFont": "body",
-      "fastSchemeChange": true,
-      "shouldAddPrefersColorThemes": true,
-      "allowedStyleValues": "somewhat-strict-web",
-      "addThemeClassName": "html",
-      "onlyAllowShorthands": true,
-      "styleCompat": "react-native"
-    },
-    "animations": {
-      "isReactNative": false,
-      "inputStyle": "css",
-      "outputStyle": "css",
-      "isStub": true,
-      "animations": {},
-      "useAnimations": "Function",
-      "usePresence": "Function",
-      "ResetPresence": "Function",
-      "useAnimatedNumber": "Function",
-      "useAnimatedNumberStyle": "Function",
-      "useAnimatedNumbersStyle": "Function",
-      "useAnimatedNumberReaction": "Function"
+      "fastSchemeChange": true
     },
     "defaultProps": {},
     "inverseShorthands": {
@@ -33325,824 +32690,2334 @@
       "verticalAlign": "va",
       "wordBreak": "wb",
       "whiteSpace": "ws",
-      "wordWrap": "ww",
-      "textAlign": "text",
-      "bottom": "b",
-      "backgroundColor": "bg",
-      "alignContent": "content",
-      "flexGrow": "grow",
-      "alignItems": "items",
-      "justifyContent": "justify",
-      "left": "l",
-      "margin": "m",
-      "maxHeight": "maxH",
-      "maxWidth": "maxW",
-      "marginBottom": "mb",
-      "minHeight": "minH",
-      "minWidth": "minW",
-      "marginLeft": "ml",
-      "marginRight": "mr",
-      "marginTop": "mt",
-      "marginHorizontal": "mx",
-      "marginVertical": "my",
-      "padding": "p",
-      "paddingBottom": "pb",
-      "paddingLeft": "pl",
-      "paddingRight": "pr",
-      "paddingTop": "pt",
-      "paddingHorizontal": "px",
-      "paddingVertical": "py",
-      "right": "r",
-      "borderRadius": "rounded",
-      "userSelect": "select",
-      "alignSelf": "self",
-      "flexShrink": "shrink",
-      "top": "t",
-      "zIndex": "z"
+      "wordWrap": "ww"
     },
     "parsed": true,
     "getNewCSS": "Function",
-    "defaultFont": "body",
     "fontSizeTokens": {},
     "specificTokens": {
-      "$radius.0": {
+      "$color.accent": {
         "isVar": true,
-        "key": "$0",
-        "name": "c-radius-0",
-        "val": 0,
-        "variable": "var(--c-radius-0)"
+        "key": "$accent",
+        "name": "c-accent",
+        "val": "#1c7ed6",
+        "variable": "var(--c-accent)"
+      },
+      "$color.accentDark": {
+        "isVar": true,
+        "key": "$accentDark",
+        "name": "c-accentDark",
+        "val": "#4dabf7",
+        "variable": "var(--c-accentDark)"
+      },
+      "$color.inputBorder": {
+        "isVar": true,
+        "key": "$inputBorder",
+        "name": "c-inputBorder",
+        "val": "#646464",
+        "variable": "var(--c-inputBorder)"
+      },
+      "$color.inputText": {
+        "isVar": true,
+        "key": "$inputText",
+        "name": "c-inputText",
+        "val": "#1e293b",
+        "variable": "var(--c-inputText)"
+      },
+      "$color.negative": {
+        "isVar": true,
+        "key": "$negative",
+        "name": "c-negative",
+        "val": "#ef4444",
+        "variable": "var(--c-negative)"
+      },
+      "$color.positive": {
+        "isVar": true,
+        "key": "$positive",
+        "name": "c-positive",
+        "val": "#22c55e",
+        "variable": "var(--c-positive)"
+      },
+      "$color.primary": {
+        "isVar": true,
+        "key": "$primary",
+        "name": "c-primary",
+        "val": "#3b82f6",
+        "variable": "var(--c-primary)"
+      },
+      "$color.primaryDark": {
+        "isVar": true,
+        "key": "$primaryDark",
+        "name": "c-primaryDark",
+        "val": "#60a5fa",
+        "variable": "var(--c-primaryDark)"
+      },
+      "$color.slate100": {
+        "isVar": true,
+        "key": "$slate100",
+        "name": "c-slate100",
+        "val": "#f1f5f9",
+        "variable": "var(--c-slate100)"
+      },
+      "$color.slate300": {
+        "isVar": true,
+        "key": "$slate300",
+        "name": "c-slate300",
+        "val": "#cbd5e1",
+        "variable": "var(--c-slate300)"
+      },
+      "$color.slate400": {
+        "isVar": true,
+        "key": "$slate400",
+        "name": "c-slate400",
+        "val": "#94a3b8",
+        "variable": "var(--c-slate400)"
+      },
+      "$color.slate50": {
+        "isVar": true,
+        "key": "$slate50",
+        "name": "c-slate50",
+        "val": "#f8fafc",
+        "variable": "var(--c-slate50)"
+      },
+      "$color.slate500": {
+        "isVar": true,
+        "key": "$slate500",
+        "name": "c-slate500",
+        "val": "#64748b",
+        "variable": "var(--c-slate500)"
+      },
+      "$color.slate700": {
+        "isVar": true,
+        "key": "$slate700",
+        "name": "c-slate700",
+        "val": "#334155",
+        "variable": "var(--c-slate700)"
+      },
+      "$color.slate800": {
+        "isVar": true,
+        "key": "$slate800",
+        "name": "c-slate800",
+        "val": "#1e293b",
+        "variable": "var(--c-slate800)"
+      },
+      "$color.slate900": {
+        "isVar": true,
+        "key": "$slate900",
+        "name": "c-slate900",
+        "val": "#0f172a",
+        "variable": "var(--c-slate900)"
+      },
+      "$color.tileLabel": {
+        "isVar": true,
+        "key": "$tileLabel",
+        "name": "c-tileLabel",
+        "val": "#666666",
+        "variable": "var(--c-tileLabel)"
+      },
+      "$color.white": {
+        "isVar": true,
+        "key": "$white",
+        "name": "c-white",
+        "val": "#ffffff",
+        "variable": "var(--c-white)"
       },
       "$radius.1": {
         "isVar": true,
         "key": "$1",
-        "name": "c-radius-1",
-        "val": 3,
-        "variable": "var(--c-radius-1)"
-      },
-      "$radius.10": {
-        "isVar": true,
-        "key": "$10",
-        "name": "c-radius-10",
-        "val": 34,
-        "variable": "var(--c-radius-10)"
-      },
-      "$radius.11": {
-        "isVar": true,
-        "key": "$11",
-        "name": "c-radius-11",
-        "val": 42,
-        "variable": "var(--c-radius-11)"
-      },
-      "$radius.12": {
-        "isVar": true,
-        "key": "$12",
-        "name": "c-radius-12",
-        "val": 50,
-        "variable": "var(--c-radius-12)"
+        "name": "t-radius-1",
+        "val": 2,
+        "variable": "var(--t-radius-1)"
       },
       "$radius.2": {
         "isVar": true,
         "key": "$2",
-        "name": "c-radius-2",
-        "val": 5,
-        "variable": "var(--c-radius-2)"
+        "name": "t-radius-2",
+        "val": 4,
+        "variable": "var(--t-radius-2)"
       },
       "$radius.3": {
         "isVar": true,
         "key": "$3",
-        "name": "c-radius-3",
-        "val": 7,
-        "variable": "var(--c-radius-3)"
-      },
-      "$radius.4": {
-        "isVar": true,
-        "key": "$4",
-        "name": "c-radius-4",
-        "val": 9,
-        "variable": "var(--c-radius-4)"
-      },
-      "$radius.5": {
-        "isVar": true,
-        "key": "$5",
-        "name": "c-radius-5",
-        "val": 10,
-        "variable": "var(--c-radius-5)"
-      },
-      "$radius.6": {
-        "isVar": true,
-        "key": "$6",
-        "name": "c-radius-6",
-        "val": 16,
-        "variable": "var(--c-radius-6)"
-      },
-      "$radius.7": {
-        "isVar": true,
-        "key": "$7",
-        "name": "c-radius-7",
-        "val": 19,
-        "variable": "var(--c-radius-7)"
+        "name": "t-radius-3",
+        "val": 6,
+        "variable": "var(--t-radius-3)"
       },
       "$radius.8": {
         "isVar": true,
         "key": "$8",
-        "name": "c-radius-8",
-        "val": 22,
-        "variable": "var(--c-radius-8)"
-      },
-      "$radius.9": {
-        "isVar": true,
-        "key": "$9",
-        "name": "c-radius-9",
-        "val": 26,
-        "variable": "var(--c-radius-9)"
+        "name": "t-radius-8",
+        "val": 16,
+        "variable": "var(--t-radius-8)"
       },
       "$radius.true": {
         "isVar": true,
         "key": "$true",
-        "name": "c-radius-true",
-        "val": 9,
-        "variable": "var(--c-radius-true)"
+        "name": "t-radius-true",
+        "val": 0,
+        "variable": "var(--t-radius-true)"
       },
       "$size.0": {
         "isVar": true,
         "key": "$0",
-        "name": "c-size-0",
+        "name": "t-size-0",
         "val": 0,
-        "variable": "var(--c-size-0)"
-      },
-      "$size.0.25": {
-        "isVar": true,
-        "key": "$0.25",
-        "name": "c-size-0--25",
-        "val": 2,
-        "variable": "var(--c-size-0--25)"
-      },
-      "$size.0.5": {
-        "isVar": true,
-        "key": "$0.5",
-        "name": "c-size-0--5",
-        "val": 4,
-        "variable": "var(--c-size-0--5)"
-      },
-      "$size.0.75": {
-        "isVar": true,
-        "key": "$0.75",
-        "name": "c-size-0--75",
-        "val": 8,
-        "variable": "var(--c-size-0--75)"
+        "variable": "var(--t-size-0)"
       },
       "$size.1": {
         "isVar": true,
         "key": "$1",
-        "name": "c-size-1",
-        "val": 20,
-        "variable": "var(--c-size-1)"
-      },
-      "$size.1.5": {
-        "isVar": true,
-        "key": "$1.5",
-        "name": "c-size-1--5",
-        "val": 24,
-        "variable": "var(--c-size-1--5)"
+        "name": "t-size-1",
+        "val": 4,
+        "variable": "var(--t-size-1)"
       },
       "$size.10": {
         "isVar": true,
         "key": "$10",
-        "name": "c-size-10",
-        "val": 104,
-        "variable": "var(--c-size-10)"
-      },
-      "$size.11": {
-        "isVar": true,
-        "key": "$11",
-        "name": "c-size-11",
-        "val": 124,
-        "variable": "var(--c-size-11)"
-      },
-      "$size.12": {
-        "isVar": true,
-        "key": "$12",
-        "name": "c-size-12",
-        "val": 144,
-        "variable": "var(--c-size-12)"
-      },
-      "$size.13": {
-        "isVar": true,
-        "key": "$13",
-        "name": "c-size-13",
-        "val": 164,
-        "variable": "var(--c-size-13)"
-      },
-      "$size.14": {
-        "isVar": true,
-        "key": "$14",
-        "name": "c-size-14",
-        "val": 184,
-        "variable": "var(--c-size-14)"
-      },
-      "$size.15": {
-        "isVar": true,
-        "key": "$15",
-        "name": "c-size-15",
-        "val": 204,
-        "variable": "var(--c-size-15)"
-      },
-      "$size.16": {
-        "isVar": true,
-        "key": "$16",
-        "name": "c-size-16",
-        "val": 224,
-        "variable": "var(--c-size-16)"
-      },
-      "$size.17": {
-        "isVar": true,
-        "key": "$17",
-        "name": "c-size-17",
-        "val": 224,
-        "variable": "var(--c-size-17)"
-      },
-      "$size.18": {
-        "isVar": true,
-        "key": "$18",
-        "name": "c-size-18",
-        "val": 244,
-        "variable": "var(--c-size-18)"
-      },
-      "$size.19": {
-        "isVar": true,
-        "key": "$19",
-        "name": "c-size-19",
-        "val": 264,
-        "variable": "var(--c-size-19)"
+        "name": "t-size-10",
+        "val": 40,
+        "variable": "var(--t-size-10)"
       },
       "$size.2": {
         "isVar": true,
         "key": "$2",
-        "name": "c-size-2",
-        "val": 28,
-        "variable": "var(--c-size-2)"
-      },
-      "$size.2.5": {
-        "isVar": true,
-        "key": "$2.5",
-        "name": "c-size-2--5",
-        "val": 32,
-        "variable": "var(--c-size-2--5)"
-      },
-      "$size.20": {
-        "isVar": true,
-        "key": "$20",
-        "name": "c-size-20",
-        "val": 284,
-        "variable": "var(--c-size-20)"
+        "name": "t-size-2",
+        "val": 8,
+        "variable": "var(--t-size-2)"
       },
       "$size.3": {
         "isVar": true,
         "key": "$3",
-        "name": "c-size-3",
-        "val": 36,
-        "variable": "var(--c-size-3)"
-      },
-      "$size.3.5": {
-        "isVar": true,
-        "key": "$3.5",
-        "name": "c-size-3--5",
-        "val": 40,
-        "variable": "var(--c-size-3--5)"
+        "name": "t-size-3",
+        "val": 12,
+        "variable": "var(--t-size-3)"
       },
       "$size.4": {
         "isVar": true,
         "key": "$4",
-        "name": "c-size-4",
-        "val": 44,
-        "variable": "var(--c-size-4)"
-      },
-      "$size.4.5": {
-        "isVar": true,
-        "key": "$4.5",
-        "name": "c-size-4--5",
-        "val": 48,
-        "variable": "var(--c-size-4--5)"
+        "name": "t-size-4",
+        "val": 16,
+        "variable": "var(--t-size-4)"
       },
       "$size.5": {
         "isVar": true,
         "key": "$5",
-        "name": "c-size-5",
-        "val": 52,
-        "variable": "var(--c-size-5)"
+        "name": "t-size-5",
+        "val": 20,
+        "variable": "var(--t-size-5)"
       },
       "$size.6": {
         "isVar": true,
         "key": "$6",
-        "name": "c-size-6",
-        "val": 64,
-        "variable": "var(--c-size-6)"
-      },
-      "$size.7": {
-        "isVar": true,
-        "key": "$7",
-        "name": "c-size-7",
-        "val": 74,
-        "variable": "var(--c-size-7)"
+        "name": "t-size-6",
+        "val": 24,
+        "variable": "var(--t-size-6)"
       },
       "$size.8": {
         "isVar": true,
         "key": "$8",
-        "name": "c-size-8",
-        "val": 84,
-        "variable": "var(--c-size-8)"
-      },
-      "$size.9": {
-        "isVar": true,
-        "key": "$9",
-        "name": "c-size-9",
-        "val": 94,
-        "variable": "var(--c-size-9)"
+        "name": "t-size-8",
+        "val": 32,
+        "variable": "var(--t-size-8)"
       },
       "$size.true": {
         "isVar": true,
         "key": "$true",
-        "name": "c-size-true",
-        "val": 44,
-        "variable": "var(--c-size-true)"
-      },
-      "$space.-0.25": {
-        "isVar": true,
-        "key": "$-0.25",
-        "name": "c-space--0--25",
-        "val": -0.5,
-        "variable": "var(--c-space--0--25)"
-      },
-      "$space.-0.5": {
-        "isVar": true,
-        "key": "$-0.5",
-        "name": "c-space--0--5",
-        "val": -1,
-        "variable": "var(--c-space--0--5)"
-      },
-      "$space.-0.75": {
-        "isVar": true,
-        "key": "$-0.75",
-        "name": "c-space--0--75",
-        "val": -1.5,
-        "variable": "var(--c-space--0--75)"
-      },
-      "$space.-1": {
-        "isVar": true,
-        "key": "$-1",
-        "name": "c-space--1",
-        "val": -2,
-        "variable": "var(--c-space--1)"
-      },
-      "$space.-1.5": {
-        "isVar": true,
-        "key": "$-1.5",
-        "name": "c-space--1--5",
-        "val": -4,
-        "variable": "var(--c-space--1--5)"
-      },
-      "$space.-10": {
-        "isVar": true,
-        "key": "$-10",
-        "name": "c-space--10",
-        "val": -60,
-        "variable": "var(--c-space--10)"
-      },
-      "$space.-11": {
-        "isVar": true,
-        "key": "$-11",
-        "name": "c-space--11",
-        "val": -74,
-        "variable": "var(--c-space--11)"
-      },
-      "$space.-12": {
-        "isVar": true,
-        "key": "$-12",
-        "name": "c-space--12",
-        "val": -88,
-        "variable": "var(--c-space--12)"
-      },
-      "$space.-13": {
-        "isVar": true,
-        "key": "$-13",
-        "name": "c-space--13",
-        "val": -102,
-        "variable": "var(--c-space--13)"
-      },
-      "$space.-14": {
-        "isVar": true,
-        "key": "$-14",
-        "name": "c-space--14",
-        "val": -116,
-        "variable": "var(--c-space--14)"
-      },
-      "$space.-15": {
-        "isVar": true,
-        "key": "$-15",
-        "name": "c-space--15",
-        "val": -130,
-        "variable": "var(--c-space--15)"
-      },
-      "$space.-16": {
-        "isVar": true,
-        "key": "$-16",
-        "name": "c-space--16",
-        "val": -144,
-        "variable": "var(--c-space--16)"
-      },
-      "$space.-17": {
-        "isVar": true,
-        "key": "$-17",
-        "name": "c-space--17",
-        "val": -144,
-        "variable": "var(--c-space--17)"
-      },
-      "$space.-18": {
-        "isVar": true,
-        "key": "$-18",
-        "name": "c-space--18",
-        "val": -158,
-        "variable": "var(--c-space--18)"
-      },
-      "$space.-19": {
-        "isVar": true,
-        "key": "$-19",
-        "name": "c-space--19",
-        "val": -172,
-        "variable": "var(--c-space--19)"
-      },
-      "$space.-2": {
-        "isVar": true,
-        "key": "$-2",
-        "name": "c-space--2",
-        "val": -7,
-        "variable": "var(--c-space--2)"
-      },
-      "$space.-2.5": {
-        "isVar": true,
-        "key": "$-2.5",
-        "name": "c-space--2--5",
-        "val": -10,
-        "variable": "var(--c-space--2--5)"
-      },
-      "$space.-20": {
-        "isVar": true,
-        "key": "$-20",
-        "name": "c-space--20",
-        "val": -186,
-        "variable": "var(--c-space--20)"
-      },
-      "$space.-3": {
-        "isVar": true,
-        "key": "$-3",
-        "name": "c-space--3",
-        "val": -13,
-        "variable": "var(--c-space--3)"
-      },
-      "$space.-3.5": {
-        "isVar": true,
-        "key": "$-3.5",
-        "name": "c-space--3--5",
-        "val": -16,
-        "variable": "var(--c-space--3--5)"
-      },
-      "$space.-4": {
-        "isVar": true,
-        "key": "$-4",
-        "name": "c-space--4",
-        "val": -18,
-        "variable": "var(--c-space--4)"
-      },
-      "$space.-4.5": {
-        "isVar": true,
-        "key": "$-4.5",
-        "name": "c-space--4--5",
-        "val": -21,
-        "variable": "var(--c-space--4--5)"
-      },
-      "$space.-5": {
-        "isVar": true,
-        "key": "$-5",
-        "name": "c-space--5",
-        "val": -24,
-        "variable": "var(--c-space--5)"
-      },
-      "$space.-6": {
-        "isVar": true,
-        "key": "$-6",
-        "name": "c-space--6",
-        "val": -32,
-        "variable": "var(--c-space--6)"
-      },
-      "$space.-7": {
-        "isVar": true,
-        "key": "$-7",
-        "name": "c-space--7",
-        "val": -39,
-        "variable": "var(--c-space--7)"
-      },
-      "$space.-8": {
-        "isVar": true,
-        "key": "$-8",
-        "name": "c-space--8",
-        "val": -46,
-        "variable": "var(--c-space--8)"
-      },
-      "$space.-9": {
-        "isVar": true,
-        "key": "$-9",
-        "name": "c-space--9",
-        "val": -53,
-        "variable": "var(--c-space--9)"
-      },
-      "$space.-true": {
-        "isVar": true,
-        "key": "$-true",
-        "name": "c-space--true",
-        "val": -18,
-        "variable": "var(--c-space--true)"
+        "name": "t-size-true",
+        "val": 0,
+        "variable": "var(--t-size-true)"
       },
       "$space.0": {
         "isVar": true,
         "key": "$0",
-        "name": "c-space-0",
+        "name": "t-space-0",
         "val": 0,
-        "variable": "var(--c-space-0)"
-      },
-      "$space.0.25": {
-        "isVar": true,
-        "key": "$0.25",
-        "name": "c-space-0--25",
-        "val": 0.5,
-        "variable": "var(--c-space-0--25)"
-      },
-      "$space.0.5": {
-        "isVar": true,
-        "key": "$0.5",
-        "name": "c-space-0--5",
-        "val": 1,
-        "variable": "var(--c-space-0--5)"
-      },
-      "$space.0.75": {
-        "isVar": true,
-        "key": "$0.75",
-        "name": "c-space-0--75",
-        "val": 1.5,
-        "variable": "var(--c-space-0--75)"
+        "variable": "var(--t-space-0)"
       },
       "$space.1": {
         "isVar": true,
         "key": "$1",
-        "name": "c-space-1",
-        "val": 2,
-        "variable": "var(--c-space-1)"
-      },
-      "$space.1.5": {
-        "isVar": true,
-        "key": "$1.5",
-        "name": "c-space-1--5",
+        "name": "t-space-1",
         "val": 4,
-        "variable": "var(--c-space-1--5)"
+        "variable": "var(--t-space-1)"
       },
       "$space.10": {
         "isVar": true,
         "key": "$10",
-        "name": "c-space-10",
-        "val": 60,
-        "variable": "var(--c-space-10)"
-      },
-      "$space.11": {
-        "isVar": true,
-        "key": "$11",
-        "name": "c-space-11",
-        "val": 74,
-        "variable": "var(--c-space-11)"
-      },
-      "$space.12": {
-        "isVar": true,
-        "key": "$12",
-        "name": "c-space-12",
-        "val": 88,
-        "variable": "var(--c-space-12)"
-      },
-      "$space.13": {
-        "isVar": true,
-        "key": "$13",
-        "name": "c-space-13",
-        "val": 102,
-        "variable": "var(--c-space-13)"
-      },
-      "$space.14": {
-        "isVar": true,
-        "key": "$14",
-        "name": "c-space-14",
-        "val": 116,
-        "variable": "var(--c-space-14)"
-      },
-      "$space.15": {
-        "isVar": true,
-        "key": "$15",
-        "name": "c-space-15",
-        "val": 130,
-        "variable": "var(--c-space-15)"
-      },
-      "$space.16": {
-        "isVar": true,
-        "key": "$16",
-        "name": "c-space-16",
-        "val": 144,
-        "variable": "var(--c-space-16)"
-      },
-      "$space.17": {
-        "isVar": true,
-        "key": "$17",
-        "name": "c-space-17",
-        "val": 144,
-        "variable": "var(--c-space-17)"
-      },
-      "$space.18": {
-        "isVar": true,
-        "key": "$18",
-        "name": "c-space-18",
-        "val": 158,
-        "variable": "var(--c-space-18)"
-      },
-      "$space.19": {
-        "isVar": true,
-        "key": "$19",
-        "name": "c-space-19",
-        "val": 172,
-        "variable": "var(--c-space-19)"
+        "name": "t-space-10",
+        "val": 40,
+        "variable": "var(--t-space-10)"
       },
       "$space.2": {
         "isVar": true,
         "key": "$2",
-        "name": "c-space-2",
-        "val": 7,
-        "variable": "var(--c-space-2)"
-      },
-      "$space.2.5": {
-        "isVar": true,
-        "key": "$2.5",
-        "name": "c-space-2--5",
-        "val": 10,
-        "variable": "var(--c-space-2--5)"
-      },
-      "$space.20": {
-        "isVar": true,
-        "key": "$20",
-        "name": "c-space-20",
-        "val": 186,
-        "variable": "var(--c-space-20)"
+        "name": "t-space-2",
+        "val": 8,
+        "variable": "var(--t-space-2)"
       },
       "$space.3": {
         "isVar": true,
         "key": "$3",
-        "name": "c-space-3",
-        "val": 13,
-        "variable": "var(--c-space-3)"
-      },
-      "$space.3.5": {
-        "isVar": true,
-        "key": "$3.5",
-        "name": "c-space-3--5",
-        "val": 16,
-        "variable": "var(--c-space-3--5)"
+        "name": "t-space-3",
+        "val": 12,
+        "variable": "var(--t-space-3)"
       },
       "$space.4": {
         "isVar": true,
         "key": "$4",
-        "name": "c-space-4",
-        "val": 18,
-        "variable": "var(--c-space-4)"
-      },
-      "$space.4.5": {
-        "isVar": true,
-        "key": "$4.5",
-        "name": "c-space-4--5",
-        "val": 21,
-        "variable": "var(--c-space-4--5)"
+        "name": "t-space-4",
+        "val": 16,
+        "variable": "var(--t-space-4)"
       },
       "$space.5": {
         "isVar": true,
         "key": "$5",
-        "name": "c-space-5",
-        "val": 24,
-        "variable": "var(--c-space-5)"
+        "name": "t-space-5",
+        "val": 20,
+        "variable": "var(--t-space-5)"
       },
       "$space.6": {
         "isVar": true,
         "key": "$6",
-        "name": "c-space-6",
-        "val": 32,
-        "variable": "var(--c-space-6)"
-      },
-      "$space.7": {
-        "isVar": true,
-        "key": "$7",
-        "name": "c-space-7",
-        "val": 39,
-        "variable": "var(--c-space-7)"
+        "name": "t-space-6",
+        "val": 24,
+        "variable": "var(--t-space-6)"
       },
       "$space.8": {
         "isVar": true,
         "key": "$8",
-        "name": "c-space-8",
-        "val": 46,
-        "variable": "var(--c-space-8)"
-      },
-      "$space.9": {
-        "isVar": true,
-        "key": "$9",
-        "name": "c-space-9",
-        "val": 53,
-        "variable": "var(--c-space-9)"
+        "name": "t-space-8",
+        "val": 32,
+        "variable": "var(--t-space-8)"
       },
       "$space.true": {
         "isVar": true,
         "key": "$true",
-        "name": "c-space-true",
-        "val": 18,
-        "variable": "var(--c-space-true)"
+        "name": "t-space-true",
+        "val": 0,
+        "variable": "var(--t-space-true)"
       },
       "$zIndex.0": {
         "isVar": true,
         "key": "$0",
-        "name": "c-zIndex-0",
+        "name": "t-zIndex-0",
         "val": 0,
-        "variable": "var(--c-zIndex-0)"
+        "variable": "var(--t-zIndex-0)"
       },
       "$zIndex.1": {
         "isVar": true,
         "key": "$1",
-        "name": "c-zIndex-1",
-        "val": 100,
-        "variable": "var(--c-zIndex-1)"
+        "name": "t-zIndex-1",
+        "val": 1,
+        "variable": "var(--t-zIndex-1)"
       },
       "$zIndex.2": {
         "isVar": true,
         "key": "$2",
-        "name": "c-zIndex-2",
-        "val": 200,
-        "variable": "var(--c-zIndex-2)"
+        "name": "t-zIndex-2",
+        "val": 2,
+        "variable": "var(--t-zIndex-2)"
       },
-      "$zIndex.3": {
+      "$zIndex.true": {
         "isVar": true,
-        "key": "$3",
-        "name": "c-zIndex-3",
-        "val": 300,
-        "variable": "var(--c-zIndex-3)"
-      },
-      "$zIndex.4": {
-        "isVar": true,
-        "key": "$4",
-        "name": "c-zIndex-4",
-        "val": 400,
-        "variable": "var(--c-zIndex-4)"
-      },
-      "$zIndex.5": {
-        "isVar": true,
-        "key": "$5",
-        "name": "c-zIndex-5",
-        "val": 500,
-        "variable": "var(--c-zIndex-5)"
+        "key": "$true",
+        "name": "t-zIndex-true",
+        "val": 0,
+        "variable": "var(--t-zIndex-true)"
       }
     },
-    "defaultFontToken": "$body",
+    "defaultFontToken": "",
+    "tamaguiConfig": {
+      "fonts": {},
+      "onlyAllowShorthands": false,
+      "fontLanguages": [],
+      "media": {
+        "sm": {
+          "maxWidth": 640
+        },
+        "md": {
+          "maxWidth": 768
+        },
+        "lg": {
+          "maxWidth": 1024
+        },
+        "xl": {
+          "maxWidth": 1280
+        }
+      },
+      "animations": {
+        "animations": {
+          "fast": "ease-in-out 150ms",
+          "medium": "ease-in-out 250ms",
+          "slow": "ease-in-out 350ms",
+          "bouncy": "cubic-bezier(0.5, 1.25, 0.5, 1) 300ms"
+        },
+        "usePresence": "Function",
+        "ResetPresence": "Function",
+        "inputStyle": "css",
+        "outputStyle": "css",
+        "useAnimatedNumber": "Function",
+        "useAnimatedNumberReaction": "Function",
+        "useAnimatedNumberStyle": "Function",
+        "useAnimatedNumbersStyle": "Function",
+        "useAnimations": "Function"
+      },
+      "tokens": {
+        "color": {
+          "white": {
+            "isVar": true,
+            "key": "$white",
+            "name": "c-white",
+            "val": "#ffffff",
+            "variable": "var(--c-white)"
+          },
+          "primary": {
+            "isVar": true,
+            "key": "$primary",
+            "name": "c-primary",
+            "val": "#3b82f6",
+            "variable": "var(--c-primary)"
+          },
+          "primaryDark": {
+            "isVar": true,
+            "key": "$primaryDark",
+            "name": "c-primaryDark",
+            "val": "#60a5fa",
+            "variable": "var(--c-primaryDark)"
+          },
+          "accent": {
+            "isVar": true,
+            "key": "$accent",
+            "name": "c-accent",
+            "val": "#1c7ed6",
+            "variable": "var(--c-accent)"
+          },
+          "accentDark": {
+            "isVar": true,
+            "key": "$accentDark",
+            "name": "c-accentDark",
+            "val": "#4dabf7",
+            "variable": "var(--c-accentDark)"
+          },
+          "positive": {
+            "isVar": true,
+            "key": "$positive",
+            "name": "c-positive",
+            "val": "#22c55e",
+            "variable": "var(--c-positive)"
+          },
+          "negative": {
+            "isVar": true,
+            "key": "$negative",
+            "name": "c-negative",
+            "val": "#ef4444",
+            "variable": "var(--c-negative)"
+          },
+          "tileLabel": {
+            "isVar": true,
+            "key": "$tileLabel",
+            "name": "c-tileLabel",
+            "val": "#666666",
+            "variable": "var(--c-tileLabel)"
+          },
+          "inputText": {
+            "isVar": true,
+            "key": "$inputText",
+            "name": "c-inputText",
+            "val": "#1e293b",
+            "variable": "var(--c-inputText)"
+          },
+          "inputBorder": {
+            "isVar": true,
+            "key": "$inputBorder",
+            "name": "c-inputBorder",
+            "val": "#646464",
+            "variable": "var(--c-inputBorder)"
+          },
+          "slate50": {
+            "isVar": true,
+            "key": "$slate50",
+            "name": "c-slate50",
+            "val": "#f8fafc",
+            "variable": "var(--c-slate50)"
+          },
+          "slate100": {
+            "isVar": true,
+            "key": "$slate100",
+            "name": "c-slate100",
+            "val": "#f1f5f9",
+            "variable": "var(--c-slate100)"
+          },
+          "slate300": {
+            "isVar": true,
+            "key": "$slate300",
+            "name": "c-slate300",
+            "val": "#cbd5e1",
+            "variable": "var(--c-slate300)"
+          },
+          "slate400": {
+            "isVar": true,
+            "key": "$slate400",
+            "name": "c-slate400",
+            "val": "#94a3b8",
+            "variable": "var(--c-slate400)"
+          },
+          "slate500": {
+            "isVar": true,
+            "key": "$slate500",
+            "name": "c-slate500",
+            "val": "#64748b",
+            "variable": "var(--c-slate500)"
+          },
+          "slate700": {
+            "isVar": true,
+            "key": "$slate700",
+            "name": "c-slate700",
+            "val": "#334155",
+            "variable": "var(--c-slate700)"
+          },
+          "slate800": {
+            "isVar": true,
+            "key": "$slate800",
+            "name": "c-slate800",
+            "val": "#1e293b",
+            "variable": "var(--c-slate800)"
+          },
+          "slate900": {
+            "isVar": true,
+            "key": "$slate900",
+            "name": "c-slate900",
+            "val": "#0f172a",
+            "variable": "var(--c-slate900)"
+          }
+        },
+        "space": {
+          "0": {
+            "isVar": true,
+            "key": "$0",
+            "name": "t-space-0",
+            "val": 0,
+            "variable": "var(--t-space-0)"
+          },
+          "1": {
+            "isVar": true,
+            "key": "$1",
+            "name": "t-space-1",
+            "val": 4,
+            "variable": "var(--t-space-1)"
+          },
+          "2": {
+            "isVar": true,
+            "key": "$2",
+            "name": "t-space-2",
+            "val": 8,
+            "variable": "var(--t-space-2)"
+          },
+          "3": {
+            "isVar": true,
+            "key": "$3",
+            "name": "t-space-3",
+            "val": 12,
+            "variable": "var(--t-space-3)"
+          },
+          "4": {
+            "isVar": true,
+            "key": "$4",
+            "name": "t-space-4",
+            "val": 16,
+            "variable": "var(--t-space-4)"
+          },
+          "5": {
+            "isVar": true,
+            "key": "$5",
+            "name": "t-space-5",
+            "val": 20,
+            "variable": "var(--t-space-5)"
+          },
+          "6": {
+            "isVar": true,
+            "key": "$6",
+            "name": "t-space-6",
+            "val": 24,
+            "variable": "var(--t-space-6)"
+          },
+          "8": {
+            "isVar": true,
+            "key": "$8",
+            "name": "t-space-8",
+            "val": 32,
+            "variable": "var(--t-space-8)"
+          },
+          "10": {
+            "isVar": true,
+            "key": "$10",
+            "name": "t-space-10",
+            "val": 40,
+            "variable": "var(--t-space-10)"
+          },
+          "true": {
+            "isVar": true,
+            "key": "$true",
+            "name": "t-space-true",
+            "val": 0,
+            "variable": "var(--t-space-true)"
+          }
+        },
+        "size": {
+          "0": {
+            "isVar": true,
+            "key": "$0",
+            "name": "t-size-0",
+            "val": 0,
+            "variable": "var(--t-size-0)"
+          },
+          "1": {
+            "isVar": true,
+            "key": "$1",
+            "name": "t-size-1",
+            "val": 4,
+            "variable": "var(--t-size-1)"
+          },
+          "2": {
+            "isVar": true,
+            "key": "$2",
+            "name": "t-size-2",
+            "val": 8,
+            "variable": "var(--t-size-2)"
+          },
+          "3": {
+            "isVar": true,
+            "key": "$3",
+            "name": "t-size-3",
+            "val": 12,
+            "variable": "var(--t-size-3)"
+          },
+          "4": {
+            "isVar": true,
+            "key": "$4",
+            "name": "t-size-4",
+            "val": 16,
+            "variable": "var(--t-size-4)"
+          },
+          "5": {
+            "isVar": true,
+            "key": "$5",
+            "name": "t-size-5",
+            "val": 20,
+            "variable": "var(--t-size-5)"
+          },
+          "6": {
+            "isVar": true,
+            "key": "$6",
+            "name": "t-size-6",
+            "val": 24,
+            "variable": "var(--t-size-6)"
+          },
+          "8": {
+            "isVar": true,
+            "key": "$8",
+            "name": "t-size-8",
+            "val": 32,
+            "variable": "var(--t-size-8)"
+          },
+          "10": {
+            "isVar": true,
+            "key": "$10",
+            "name": "t-size-10",
+            "val": 40,
+            "variable": "var(--t-size-10)"
+          },
+          "true": {
+            "isVar": true,
+            "key": "$true",
+            "name": "t-size-true",
+            "val": 0,
+            "variable": "var(--t-size-true)"
+          }
+        },
+        "radius": {
+          "1": {
+            "isVar": true,
+            "key": "$1",
+            "name": "t-radius-1",
+            "val": 2,
+            "variable": "var(--t-radius-1)"
+          },
+          "2": {
+            "isVar": true,
+            "key": "$2",
+            "name": "t-radius-2",
+            "val": 4,
+            "variable": "var(--t-radius-2)"
+          },
+          "3": {
+            "isVar": true,
+            "key": "$3",
+            "name": "t-radius-3",
+            "val": 6,
+            "variable": "var(--t-radius-3)"
+          },
+          "8": {
+            "isVar": true,
+            "key": "$8",
+            "name": "t-radius-8",
+            "val": 16,
+            "variable": "var(--t-radius-8)"
+          },
+          "true": {
+            "isVar": true,
+            "key": "$true",
+            "name": "t-radius-true",
+            "val": 0,
+            "variable": "var(--t-radius-true)"
+          }
+        },
+        "zIndex": {
+          "0": {
+            "isVar": true,
+            "key": "$0",
+            "name": "t-zIndex-0",
+            "val": 0,
+            "variable": "var(--t-zIndex-0)"
+          },
+          "1": {
+            "isVar": true,
+            "key": "$1",
+            "name": "t-zIndex-1",
+            "val": 1,
+            "variable": "var(--t-zIndex-1)"
+          },
+          "2": {
+            "isVar": true,
+            "key": "$2",
+            "name": "t-zIndex-2",
+            "val": 2,
+            "variable": "var(--t-zIndex-2)"
+          },
+          "true": {
+            "isVar": true,
+            "key": "$true",
+            "name": "t-zIndex-true",
+            "val": 0,
+            "variable": "var(--t-zIndex-true)"
+          }
+        }
+      },
+      "themes": {
+        "dark": {
+          "white": {
+            "isVar": true,
+            "key": "c-white",
+            "name": "white",
+            "val": "#ffffff",
+            "variable": "var(--white)"
+          },
+          "primary": {
+            "isVar": true,
+            "key": "primary",
+            "name": "primary",
+            "val": "#60a5fa",
+            "variable": "var(--primary)"
+          },
+          "primaryDark": {
+            "isVar": true,
+            "key": "c-primaryDark",
+            "name": "primaryDark",
+            "val": "#60a5fa",
+            "variable": "var(--primaryDark)"
+          },
+          "accent": {
+            "isVar": true,
+            "key": "accent",
+            "name": "accent",
+            "val": "#4dabf7",
+            "variable": "var(--accent)"
+          },
+          "accentDark": {
+            "isVar": true,
+            "key": "c-accentDark",
+            "name": "accentDark",
+            "val": "#4dabf7",
+            "variable": "var(--accentDark)"
+          },
+          "positive": {
+            "isVar": true,
+            "key": "positive",
+            "name": "positive",
+            "val": "#22c55e",
+            "variable": "var(--positive)"
+          },
+          "negative": {
+            "isVar": true,
+            "key": "negative",
+            "name": "negative",
+            "val": "#ef4444",
+            "variable": "var(--negative)"
+          },
+          "tileLabel": {
+            "isVar": true,
+            "key": "tileLabel",
+            "name": "tileLabel",
+            "val": "#cbd5e1",
+            "variable": "var(--tileLabel)"
+          },
+          "inputText": {
+            "isVar": true,
+            "key": "c-inputText",
+            "name": "inputText",
+            "val": "#1e293b",
+            "variable": "var(--inputText)"
+          },
+          "inputBorder": {
+            "isVar": true,
+            "key": "c-inputBorder",
+            "name": "inputBorder",
+            "val": "#646464",
+            "variable": "var(--inputBorder)"
+          },
+          "slate50": {
+            "isVar": true,
+            "key": "c-slate50",
+            "name": "slate50",
+            "val": "#f8fafc",
+            "variable": "var(--slate50)"
+          },
+          "slate100": {
+            "isVar": true,
+            "key": "c-slate100",
+            "name": "slate100",
+            "val": "#f1f5f9",
+            "variable": "var(--slate100)"
+          },
+          "slate300": {
+            "isVar": true,
+            "key": "c-slate300",
+            "name": "slate300",
+            "val": "#cbd5e1",
+            "variable": "var(--slate300)"
+          },
+          "slate400": {
+            "isVar": true,
+            "key": "c-slate400",
+            "name": "slate400",
+            "val": "#94a3b8",
+            "variable": "var(--slate400)"
+          },
+          "slate500": {
+            "isVar": true,
+            "key": "c-slate500",
+            "name": "slate500",
+            "val": "#64748b",
+            "variable": "var(--slate500)"
+          },
+          "slate700": {
+            "isVar": true,
+            "key": "c-slate700",
+            "name": "slate700",
+            "val": "#334155",
+            "variable": "var(--slate700)"
+          },
+          "slate800": {
+            "isVar": true,
+            "key": "c-slate800",
+            "name": "slate800",
+            "val": "#1e293b",
+            "variable": "var(--slate800)"
+          },
+          "slate900": {
+            "isVar": true,
+            "key": "c-slate900",
+            "name": "slate900",
+            "val": "#0f172a",
+            "variable": "var(--slate900)"
+          },
+          "bg": {
+            "isVar": true,
+            "key": "bg",
+            "name": "bg",
+            "val": "#0f172a",
+            "variable": "var(--bg)"
+          },
+          "bgContrast25": {
+            "isVar": true,
+            "key": "bgContrast25",
+            "name": "bgContrast25",
+            "val": "#1e293b",
+            "variable": "var(--bgContrast25)"
+          },
+          "bgContrast50": {
+            "isVar": true,
+            "key": "bgContrast50",
+            "name": "bgContrast50",
+            "val": "#334155",
+            "variable": "var(--bgContrast50)"
+          },
+          "text": {
+            "isVar": true,
+            "key": "text",
+            "name": "text",
+            "val": "#f8fafc",
+            "variable": "var(--text)"
+          },
+          "textContrastLow": {
+            "isVar": true,
+            "key": "textContrastLow",
+            "name": "textContrastLow",
+            "val": "#94a3b8",
+            "variable": "var(--textContrastLow)"
+          },
+          "textContrastMedium": {
+            "isVar": true,
+            "key": "textContrastMedium",
+            "name": "textContrastMedium",
+            "val": "#cbd5e1",
+            "variable": "var(--textContrastMedium)"
+          },
+          "border": {
+            "isVar": true,
+            "key": "border",
+            "name": "border",
+            "val": "#1e293b",
+            "variable": "var(--border)"
+          },
+          "glassFill": {
+            "isVar": true,
+            "key": "glassFill",
+            "name": "glassFill",
+            "val": "rgba(255,255,255,0.10)",
+            "variable": "var(--glassFill)"
+          },
+          "glassFillEmpty": {
+            "isVar": true,
+            "key": "glassFillEmpty",
+            "name": "glassFillEmpty",
+            "val": "rgba(255,255,255,0.04)",
+            "variable": "var(--glassFillEmpty)"
+          },
+          "glassBorder": {
+            "isVar": true,
+            "key": "glassBorder",
+            "name": "glassBorder",
+            "val": "rgba(255,255,255,0.30)",
+            "variable": "var(--glassBorder)"
+          }
+        },
+        "light": {
+          "white": {
+            "isVar": true,
+            "key": "c-white",
+            "name": "white",
+            "val": "#ffffff",
+            "variable": "var(--white)"
+          },
+          "primary": {
+            "isVar": true,
+            "key": "primary",
+            "name": "primary",
+            "val": "#3b82f6",
+            "variable": "var(--primary)"
+          },
+          "primaryDark": {
+            "isVar": true,
+            "key": "c-primaryDark",
+            "name": "primaryDark",
+            "val": "#60a5fa",
+            "variable": "var(--primaryDark)"
+          },
+          "accent": {
+            "isVar": true,
+            "key": "accent",
+            "name": "accent",
+            "val": "#1c7ed6",
+            "variable": "var(--accent)"
+          },
+          "accentDark": {
+            "isVar": true,
+            "key": "c-accentDark",
+            "name": "accentDark",
+            "val": "#4dabf7",
+            "variable": "var(--accentDark)"
+          },
+          "positive": {
+            "isVar": true,
+            "key": "positive",
+            "name": "positive",
+            "val": "#22c55e",
+            "variable": "var(--positive)"
+          },
+          "negative": {
+            "isVar": true,
+            "key": "negative",
+            "name": "negative",
+            "val": "#ef4444",
+            "variable": "var(--negative)"
+          },
+          "tileLabel": {
+            "isVar": true,
+            "key": "tileLabel",
+            "name": "tileLabel",
+            "val": "#666666",
+            "variable": "var(--tileLabel)"
+          },
+          "inputText": {
+            "isVar": true,
+            "key": "c-inputText",
+            "name": "inputText",
+            "val": "#1e293b",
+            "variable": "var(--inputText)"
+          },
+          "inputBorder": {
+            "isVar": true,
+            "key": "c-inputBorder",
+            "name": "inputBorder",
+            "val": "#646464",
+            "variable": "var(--inputBorder)"
+          },
+          "slate50": {
+            "isVar": true,
+            "key": "c-slate50",
+            "name": "slate50",
+            "val": "#f8fafc",
+            "variable": "var(--slate50)"
+          },
+          "slate100": {
+            "isVar": true,
+            "key": "c-slate100",
+            "name": "slate100",
+            "val": "#f1f5f9",
+            "variable": "var(--slate100)"
+          },
+          "slate300": {
+            "isVar": true,
+            "key": "c-slate300",
+            "name": "slate300",
+            "val": "#cbd5e1",
+            "variable": "var(--slate300)"
+          },
+          "slate400": {
+            "isVar": true,
+            "key": "c-slate400",
+            "name": "slate400",
+            "val": "#94a3b8",
+            "variable": "var(--slate400)"
+          },
+          "slate500": {
+            "isVar": true,
+            "key": "c-slate500",
+            "name": "slate500",
+            "val": "#64748b",
+            "variable": "var(--slate500)"
+          },
+          "slate700": {
+            "isVar": true,
+            "key": "c-slate700",
+            "name": "slate700",
+            "val": "#334155",
+            "variable": "var(--slate700)"
+          },
+          "slate800": {
+            "isVar": true,
+            "key": "c-slate800",
+            "name": "slate800",
+            "val": "#1e293b",
+            "variable": "var(--slate800)"
+          },
+          "slate900": {
+            "isVar": true,
+            "key": "c-slate900",
+            "name": "slate900",
+            "val": "#0f172a",
+            "variable": "var(--slate900)"
+          },
+          "bg": {
+            "isVar": true,
+            "key": "bg",
+            "name": "bg",
+            "val": "#ffffff",
+            "variable": "var(--bg)"
+          },
+          "bgContrast25": {
+            "isVar": true,
+            "key": "bgContrast25",
+            "name": "bgContrast25",
+            "val": "#f8fafc",
+            "variable": "var(--bgContrast25)"
+          },
+          "bgContrast50": {
+            "isVar": true,
+            "key": "bgContrast50",
+            "name": "bgContrast50",
+            "val": "#f1f5f9",
+            "variable": "var(--bgContrast50)"
+          },
+          "text": {
+            "isVar": true,
+            "key": "text",
+            "name": "text",
+            "val": "#0f172a",
+            "variable": "var(--text)"
+          },
+          "textContrastLow": {
+            "isVar": true,
+            "key": "textContrastLow",
+            "name": "textContrastLow",
+            "val": "#64748b",
+            "variable": "var(--textContrastLow)"
+          },
+          "textContrastMedium": {
+            "isVar": true,
+            "key": "textContrastMedium",
+            "name": "textContrastMedium",
+            "val": "#334155",
+            "variable": "var(--textContrastMedium)"
+          },
+          "border": {
+            "isVar": true,
+            "key": "border",
+            "name": "border",
+            "val": "#f1f5f9",
+            "variable": "var(--border)"
+          },
+          "glassFill": {
+            "isVar": true,
+            "key": "glassFill",
+            "name": "glassFill",
+            "val": "rgba(255,255,255,0.60)",
+            "variable": "var(--glassFill)"
+          },
+          "glassFillEmpty": {
+            "isVar": true,
+            "key": "glassFillEmpty",
+            "name": "glassFillEmpty",
+            "val": "rgba(255,255,255,0.15)",
+            "variable": "var(--glassFillEmpty)"
+          },
+          "glassBorder": {
+            "isVar": true,
+            "key": "glassBorder",
+            "name": "glassBorder",
+            "val": "rgba(255,255,255,1)",
+            "variable": "var(--glassBorder)"
+          }
+        }
+      },
+      "shorthands": {
+        "bblr": "borderBottomLeftRadius",
+        "bbrr": "borderBottomRightRadius",
+        "bbs": "borderBottomStyle",
+        "bls": "borderLeftStyle",
+        "brc": "borderRightColor",
+        "brs": "borderRightStyle",
+        "brw": "borderRightWidth",
+        "bs": "borderStyle",
+        "btc": "borderTopColor",
+        "btlr": "borderTopLeftRadius",
+        "btrr": "borderTopRightRadius",
+        "bts": "borderTopStyle",
+        "btw": "borderTopWidth",
+        "bw": "borderWidth",
+        "bxs": "boxSizing",
+        "bxsh": "boxShadow",
+        "col": "color",
+        "cur": "cursor",
+        "dsp": "display",
+        "fb": "flexBasis",
+        "fd": "flexDirection",
+        "ff": "fontFamily",
+        "fs": "fontSize",
+        "fst": "fontStyle",
+        "fw": "fontWeight",
+        "fwr": "flexWrap",
+        "lh": "lineHeight",
+        "ls": "letterSpacing",
+        "o": "opacity",
+        "ov": "overflow",
+        "ox": "overflowX",
+        "oy": "overflowY",
+        "pe": "pointerEvents",
+        "pos": "position",
+        "td": "textDecorationLine",
+        "tr": "transform",
+        "tt": "textTransform",
+        "va": "verticalAlign",
+        "wb": "wordBreak",
+        "ws": "whiteSpace",
+        "ww": "wordWrap"
+      },
+      "settings": {
+        "webContainerType": "inline-size",
+        "fastSchemeChange": true
+      },
+      "defaultProps": {},
+      "userShorthands": {},
+      "inverseShorthands": {
+        "borderBottomLeftRadius": "bblr",
+        "borderBottomRightRadius": "bbrr",
+        "borderBottomStyle": "bbs",
+        "borderLeftStyle": "bls",
+        "borderRightColor": "brc",
+        "borderRightStyle": "brs",
+        "borderRightWidth": "brw",
+        "borderStyle": "bs",
+        "borderTopColor": "btc",
+        "borderTopLeftRadius": "btlr",
+        "borderTopRightRadius": "btrr",
+        "borderTopStyle": "bts",
+        "borderTopWidth": "btw",
+        "borderWidth": "bw",
+        "boxSizing": "bxs",
+        "boxShadow": "bxsh",
+        "color": "col",
+        "cursor": "cur",
+        "display": "dsp",
+        "flexBasis": "fb",
+        "flexDirection": "fd",
+        "fontFamily": "ff",
+        "fontSize": "fs",
+        "fontStyle": "fst",
+        "fontWeight": "fw",
+        "flexWrap": "fwr",
+        "lineHeight": "lh",
+        "letterSpacing": "ls",
+        "opacity": "o",
+        "overflow": "ov",
+        "overflowX": "ox",
+        "overflowY": "oy",
+        "pointerEvents": "pe",
+        "position": "pos",
+        "textDecorationLine": "td",
+        "transform": "tr",
+        "textTransform": "tt",
+        "verticalAlign": "va",
+        "wordBreak": "wb",
+        "whiteSpace": "ws",
+        "wordWrap": "ww"
+      },
+      "fontsParsed": {},
+      "themeConfig": {
+        "themes": {
+          "dark": {
+            "white": {
+              "isVar": true,
+              "key": "c-white",
+              "name": "white",
+              "val": "#ffffff",
+              "variable": "var(--white)"
+            },
+            "primary": {
+              "isVar": true,
+              "key": "primary",
+              "name": "primary",
+              "val": "#60a5fa",
+              "variable": "var(--primary)"
+            },
+            "primaryDark": {
+              "isVar": true,
+              "key": "c-primaryDark",
+              "name": "primaryDark",
+              "val": "#60a5fa",
+              "variable": "var(--primaryDark)"
+            },
+            "accent": {
+              "isVar": true,
+              "key": "accent",
+              "name": "accent",
+              "val": "#4dabf7",
+              "variable": "var(--accent)"
+            },
+            "accentDark": {
+              "isVar": true,
+              "key": "c-accentDark",
+              "name": "accentDark",
+              "val": "#4dabf7",
+              "variable": "var(--accentDark)"
+            },
+            "positive": {
+              "isVar": true,
+              "key": "positive",
+              "name": "positive",
+              "val": "#22c55e",
+              "variable": "var(--positive)"
+            },
+            "negative": {
+              "isVar": true,
+              "key": "negative",
+              "name": "negative",
+              "val": "#ef4444",
+              "variable": "var(--negative)"
+            },
+            "tileLabel": {
+              "isVar": true,
+              "key": "tileLabel",
+              "name": "tileLabel",
+              "val": "#cbd5e1",
+              "variable": "var(--tileLabel)"
+            },
+            "inputText": {
+              "isVar": true,
+              "key": "c-inputText",
+              "name": "inputText",
+              "val": "#1e293b",
+              "variable": "var(--inputText)"
+            },
+            "inputBorder": {
+              "isVar": true,
+              "key": "c-inputBorder",
+              "name": "inputBorder",
+              "val": "#646464",
+              "variable": "var(--inputBorder)"
+            },
+            "slate50": {
+              "isVar": true,
+              "key": "c-slate50",
+              "name": "slate50",
+              "val": "#f8fafc",
+              "variable": "var(--slate50)"
+            },
+            "slate100": {
+              "isVar": true,
+              "key": "c-slate100",
+              "name": "slate100",
+              "val": "#f1f5f9",
+              "variable": "var(--slate100)"
+            },
+            "slate300": {
+              "isVar": true,
+              "key": "c-slate300",
+              "name": "slate300",
+              "val": "#cbd5e1",
+              "variable": "var(--slate300)"
+            },
+            "slate400": {
+              "isVar": true,
+              "key": "c-slate400",
+              "name": "slate400",
+              "val": "#94a3b8",
+              "variable": "var(--slate400)"
+            },
+            "slate500": {
+              "isVar": true,
+              "key": "c-slate500",
+              "name": "slate500",
+              "val": "#64748b",
+              "variable": "var(--slate500)"
+            },
+            "slate700": {
+              "isVar": true,
+              "key": "c-slate700",
+              "name": "slate700",
+              "val": "#334155",
+              "variable": "var(--slate700)"
+            },
+            "slate800": {
+              "isVar": true,
+              "key": "c-slate800",
+              "name": "slate800",
+              "val": "#1e293b",
+              "variable": "var(--slate800)"
+            },
+            "slate900": {
+              "isVar": true,
+              "key": "c-slate900",
+              "name": "slate900",
+              "val": "#0f172a",
+              "variable": "var(--slate900)"
+            },
+            "bg": {
+              "isVar": true,
+              "key": "bg",
+              "name": "bg",
+              "val": "#0f172a",
+              "variable": "var(--bg)"
+            },
+            "bgContrast25": {
+              "isVar": true,
+              "key": "bgContrast25",
+              "name": "bgContrast25",
+              "val": "#1e293b",
+              "variable": "var(--bgContrast25)"
+            },
+            "bgContrast50": {
+              "isVar": true,
+              "key": "bgContrast50",
+              "name": "bgContrast50",
+              "val": "#334155",
+              "variable": "var(--bgContrast50)"
+            },
+            "text": {
+              "isVar": true,
+              "key": "text",
+              "name": "text",
+              "val": "#f8fafc",
+              "variable": "var(--text)"
+            },
+            "textContrastLow": {
+              "isVar": true,
+              "key": "textContrastLow",
+              "name": "textContrastLow",
+              "val": "#94a3b8",
+              "variable": "var(--textContrastLow)"
+            },
+            "textContrastMedium": {
+              "isVar": true,
+              "key": "textContrastMedium",
+              "name": "textContrastMedium",
+              "val": "#cbd5e1",
+              "variable": "var(--textContrastMedium)"
+            },
+            "border": {
+              "isVar": true,
+              "key": "border",
+              "name": "border",
+              "val": "#1e293b",
+              "variable": "var(--border)"
+            },
+            "glassFill": {
+              "isVar": true,
+              "key": "glassFill",
+              "name": "glassFill",
+              "val": "rgba(255,255,255,0.10)",
+              "variable": "var(--glassFill)"
+            },
+            "glassFillEmpty": {
+              "isVar": true,
+              "key": "glassFillEmpty",
+              "name": "glassFillEmpty",
+              "val": "rgba(255,255,255,0.04)",
+              "variable": "var(--glassFillEmpty)"
+            },
+            "glassBorder": {
+              "isVar": true,
+              "key": "glassBorder",
+              "name": "glassBorder",
+              "val": "rgba(255,255,255,0.30)",
+              "variable": "var(--glassBorder)"
+            }
+          },
+          "light": {
+            "white": {
+              "isVar": true,
+              "key": "c-white",
+              "name": "white",
+              "val": "#ffffff",
+              "variable": "var(--white)"
+            },
+            "primary": {
+              "isVar": true,
+              "key": "primary",
+              "name": "primary",
+              "val": "#3b82f6",
+              "variable": "var(--primary)"
+            },
+            "primaryDark": {
+              "isVar": true,
+              "key": "c-primaryDark",
+              "name": "primaryDark",
+              "val": "#60a5fa",
+              "variable": "var(--primaryDark)"
+            },
+            "accent": {
+              "isVar": true,
+              "key": "accent",
+              "name": "accent",
+              "val": "#1c7ed6",
+              "variable": "var(--accent)"
+            },
+            "accentDark": {
+              "isVar": true,
+              "key": "c-accentDark",
+              "name": "accentDark",
+              "val": "#4dabf7",
+              "variable": "var(--accentDark)"
+            },
+            "positive": {
+              "isVar": true,
+              "key": "positive",
+              "name": "positive",
+              "val": "#22c55e",
+              "variable": "var(--positive)"
+            },
+            "negative": {
+              "isVar": true,
+              "key": "negative",
+              "name": "negative",
+              "val": "#ef4444",
+              "variable": "var(--negative)"
+            },
+            "tileLabel": {
+              "isVar": true,
+              "key": "tileLabel",
+              "name": "tileLabel",
+              "val": "#666666",
+              "variable": "var(--tileLabel)"
+            },
+            "inputText": {
+              "isVar": true,
+              "key": "c-inputText",
+              "name": "inputText",
+              "val": "#1e293b",
+              "variable": "var(--inputText)"
+            },
+            "inputBorder": {
+              "isVar": true,
+              "key": "c-inputBorder",
+              "name": "inputBorder",
+              "val": "#646464",
+              "variable": "var(--inputBorder)"
+            },
+            "slate50": {
+              "isVar": true,
+              "key": "c-slate50",
+              "name": "slate50",
+              "val": "#f8fafc",
+              "variable": "var(--slate50)"
+            },
+            "slate100": {
+              "isVar": true,
+              "key": "c-slate100",
+              "name": "slate100",
+              "val": "#f1f5f9",
+              "variable": "var(--slate100)"
+            },
+            "slate300": {
+              "isVar": true,
+              "key": "c-slate300",
+              "name": "slate300",
+              "val": "#cbd5e1",
+              "variable": "var(--slate300)"
+            },
+            "slate400": {
+              "isVar": true,
+              "key": "c-slate400",
+              "name": "slate400",
+              "val": "#94a3b8",
+              "variable": "var(--slate400)"
+            },
+            "slate500": {
+              "isVar": true,
+              "key": "c-slate500",
+              "name": "slate500",
+              "val": "#64748b",
+              "variable": "var(--slate500)"
+            },
+            "slate700": {
+              "isVar": true,
+              "key": "c-slate700",
+              "name": "slate700",
+              "val": "#334155",
+              "variable": "var(--slate700)"
+            },
+            "slate800": {
+              "isVar": true,
+              "key": "c-slate800",
+              "name": "slate800",
+              "val": "#1e293b",
+              "variable": "var(--slate800)"
+            },
+            "slate900": {
+              "isVar": true,
+              "key": "c-slate900",
+              "name": "slate900",
+              "val": "#0f172a",
+              "variable": "var(--slate900)"
+            },
+            "bg": {
+              "isVar": true,
+              "key": "bg",
+              "name": "bg",
+              "val": "#ffffff",
+              "variable": "var(--bg)"
+            },
+            "bgContrast25": {
+              "isVar": true,
+              "key": "bgContrast25",
+              "name": "bgContrast25",
+              "val": "#f8fafc",
+              "variable": "var(--bgContrast25)"
+            },
+            "bgContrast50": {
+              "isVar": true,
+              "key": "bgContrast50",
+              "name": "bgContrast50",
+              "val": "#f1f5f9",
+              "variable": "var(--bgContrast50)"
+            },
+            "text": {
+              "isVar": true,
+              "key": "text",
+              "name": "text",
+              "val": "#0f172a",
+              "variable": "var(--text)"
+            },
+            "textContrastLow": {
+              "isVar": true,
+              "key": "textContrastLow",
+              "name": "textContrastLow",
+              "val": "#64748b",
+              "variable": "var(--textContrastLow)"
+            },
+            "textContrastMedium": {
+              "isVar": true,
+              "key": "textContrastMedium",
+              "name": "textContrastMedium",
+              "val": "#334155",
+              "variable": "var(--textContrastMedium)"
+            },
+            "border": {
+              "isVar": true,
+              "key": "border",
+              "name": "border",
+              "val": "#f1f5f9",
+              "variable": "var(--border)"
+            },
+            "glassFill": {
+              "isVar": true,
+              "key": "glassFill",
+              "name": "glassFill",
+              "val": "rgba(255,255,255,0.60)",
+              "variable": "var(--glassFill)"
+            },
+            "glassFillEmpty": {
+              "isVar": true,
+              "key": "glassFillEmpty",
+              "name": "glassFillEmpty",
+              "val": "rgba(255,255,255,0.15)",
+              "variable": "var(--glassFillEmpty)"
+            },
+            "glassBorder": {
+              "isVar": true,
+              "key": "glassBorder",
+              "name": "glassBorder",
+              "val": "rgba(255,255,255,1)",
+              "variable": "var(--glassBorder)"
+            }
+          }
+        },
+        "cssRuleSets": [
+          ":root { --c-accent:#1c7ed6; --c-accentDark:#4dabf7; --c-inputBorder:#646464; --c-inputText:#1e293b; --c-negative:#ef4444; --c-positive:#22c55e; --c-primary:#3b82f6; --c-primaryDark:#60a5fa; --c-slate100:#f1f5f9; --c-slate300:#cbd5e1; --c-slate400:#94a3b8; --c-slate50:#f8fafc; --c-slate500:#64748b; --c-slate700:#334155; --c-slate800:#1e293b; --c-slate900:#0f172a; --c-tileLabel:#666666; --c-white:#ffffff; --t-radius-1:2px; --t-radius-2:4px; --t-radius-3:6px; --t-radius-8:16px; --t-radius-true:0px; --t-size-0:0px; --t-size-1:4px; --t-size-10:40px; --t-size-2:8px; --t-size-3:12px; --t-size-4:16px; --t-size-5:20px; --t-size-6:24px; --t-size-8:32px; --t-size-true:0px; --t-space-0:0px; --t-space-1:4px; --t-space-10:40px; --t-space-2:8px; --t-space-3:12px; --t-space-4:16px; --t-space-5:20px; --t-space-6:24px; --t-space-8:32px; --t-space-true:0px; --t-zIndex-0:0; --t-zIndex-1:1; --t-zIndex-2:2; --t-zIndex-true:0\n}"
+        ],
+        "getThemeRulesSets": "Function"
+      },
+      "tokensParsed": {
+        "color": {
+          "$white": {
+            "isVar": true,
+            "key": "$white",
+            "name": "c-white",
+            "val": "#ffffff",
+            "variable": "var(--c-white)"
+          },
+          "$primary": {
+            "isVar": true,
+            "key": "$primary",
+            "name": "c-primary",
+            "val": "#3b82f6",
+            "variable": "var(--c-primary)"
+          },
+          "$primaryDark": {
+            "isVar": true,
+            "key": "$primaryDark",
+            "name": "c-primaryDark",
+            "val": "#60a5fa",
+            "variable": "var(--c-primaryDark)"
+          },
+          "$accent": {
+            "isVar": true,
+            "key": "$accent",
+            "name": "c-accent",
+            "val": "#1c7ed6",
+            "variable": "var(--c-accent)"
+          },
+          "$accentDark": {
+            "isVar": true,
+            "key": "$accentDark",
+            "name": "c-accentDark",
+            "val": "#4dabf7",
+            "variable": "var(--c-accentDark)"
+          },
+          "$positive": {
+            "isVar": true,
+            "key": "$positive",
+            "name": "c-positive",
+            "val": "#22c55e",
+            "variable": "var(--c-positive)"
+          },
+          "$negative": {
+            "isVar": true,
+            "key": "$negative",
+            "name": "c-negative",
+            "val": "#ef4444",
+            "variable": "var(--c-negative)"
+          },
+          "$tileLabel": {
+            "isVar": true,
+            "key": "$tileLabel",
+            "name": "c-tileLabel",
+            "val": "#666666",
+            "variable": "var(--c-tileLabel)"
+          },
+          "$inputText": {
+            "isVar": true,
+            "key": "$inputText",
+            "name": "c-inputText",
+            "val": "#1e293b",
+            "variable": "var(--c-inputText)"
+          },
+          "$inputBorder": {
+            "isVar": true,
+            "key": "$inputBorder",
+            "name": "c-inputBorder",
+            "val": "#646464",
+            "variable": "var(--c-inputBorder)"
+          },
+          "$slate50": {
+            "isVar": true,
+            "key": "$slate50",
+            "name": "c-slate50",
+            "val": "#f8fafc",
+            "variable": "var(--c-slate50)"
+          },
+          "$slate100": {
+            "isVar": true,
+            "key": "$slate100",
+            "name": "c-slate100",
+            "val": "#f1f5f9",
+            "variable": "var(--c-slate100)"
+          },
+          "$slate300": {
+            "isVar": true,
+            "key": "$slate300",
+            "name": "c-slate300",
+            "val": "#cbd5e1",
+            "variable": "var(--c-slate300)"
+          },
+          "$slate400": {
+            "isVar": true,
+            "key": "$slate400",
+            "name": "c-slate400",
+            "val": "#94a3b8",
+            "variable": "var(--c-slate400)"
+          },
+          "$slate500": {
+            "isVar": true,
+            "key": "$slate500",
+            "name": "c-slate500",
+            "val": "#64748b",
+            "variable": "var(--c-slate500)"
+          },
+          "$slate700": {
+            "isVar": true,
+            "key": "$slate700",
+            "name": "c-slate700",
+            "val": "#334155",
+            "variable": "var(--c-slate700)"
+          },
+          "$slate800": {
+            "isVar": true,
+            "key": "$slate800",
+            "name": "c-slate800",
+            "val": "#1e293b",
+            "variable": "var(--c-slate800)"
+          },
+          "$slate900": {
+            "isVar": true,
+            "key": "$slate900",
+            "name": "c-slate900",
+            "val": "#0f172a",
+            "variable": "var(--c-slate900)"
+          }
+        },
+        "space": {
+          "$0": {
+            "isVar": true,
+            "key": "$0",
+            "name": "t-space-0",
+            "val": 0,
+            "variable": "var(--t-space-0)"
+          },
+          "$1": {
+            "isVar": true,
+            "key": "$1",
+            "name": "t-space-1",
+            "val": 4,
+            "variable": "var(--t-space-1)"
+          },
+          "$2": {
+            "isVar": true,
+            "key": "$2",
+            "name": "t-space-2",
+            "val": 8,
+            "variable": "var(--t-space-2)"
+          },
+          "$3": {
+            "isVar": true,
+            "key": "$3",
+            "name": "t-space-3",
+            "val": 12,
+            "variable": "var(--t-space-3)"
+          },
+          "$4": {
+            "isVar": true,
+            "key": "$4",
+            "name": "t-space-4",
+            "val": 16,
+            "variable": "var(--t-space-4)"
+          },
+          "$5": {
+            "isVar": true,
+            "key": "$5",
+            "name": "t-space-5",
+            "val": 20,
+            "variable": "var(--t-space-5)"
+          },
+          "$6": {
+            "isVar": true,
+            "key": "$6",
+            "name": "t-space-6",
+            "val": 24,
+            "variable": "var(--t-space-6)"
+          },
+          "$8": {
+            "isVar": true,
+            "key": "$8",
+            "name": "t-space-8",
+            "val": 32,
+            "variable": "var(--t-space-8)"
+          },
+          "$10": {
+            "isVar": true,
+            "key": "$10",
+            "name": "t-space-10",
+            "val": 40,
+            "variable": "var(--t-space-10)"
+          },
+          "$true": {
+            "isVar": true,
+            "key": "$true",
+            "name": "t-space-true",
+            "val": 0,
+            "variable": "var(--t-space-true)"
+          }
+        },
+        "size": {
+          "$0": {
+            "isVar": true,
+            "key": "$0",
+            "name": "t-size-0",
+            "val": 0,
+            "variable": "var(--t-size-0)"
+          },
+          "$1": {
+            "isVar": true,
+            "key": "$1",
+            "name": "t-size-1",
+            "val": 4,
+            "variable": "var(--t-size-1)"
+          },
+          "$2": {
+            "isVar": true,
+            "key": "$2",
+            "name": "t-size-2",
+            "val": 8,
+            "variable": "var(--t-size-2)"
+          },
+          "$3": {
+            "isVar": true,
+            "key": "$3",
+            "name": "t-size-3",
+            "val": 12,
+            "variable": "var(--t-size-3)"
+          },
+          "$4": {
+            "isVar": true,
+            "key": "$4",
+            "name": "t-size-4",
+            "val": 16,
+            "variable": "var(--t-size-4)"
+          },
+          "$5": {
+            "isVar": true,
+            "key": "$5",
+            "name": "t-size-5",
+            "val": 20,
+            "variable": "var(--t-size-5)"
+          },
+          "$6": {
+            "isVar": true,
+            "key": "$6",
+            "name": "t-size-6",
+            "val": 24,
+            "variable": "var(--t-size-6)"
+          },
+          "$8": {
+            "isVar": true,
+            "key": "$8",
+            "name": "t-size-8",
+            "val": 32,
+            "variable": "var(--t-size-8)"
+          },
+          "$10": {
+            "isVar": true,
+            "key": "$10",
+            "name": "t-size-10",
+            "val": 40,
+            "variable": "var(--t-size-10)"
+          },
+          "$true": {
+            "isVar": true,
+            "key": "$true",
+            "name": "t-size-true",
+            "val": 0,
+            "variable": "var(--t-size-true)"
+          }
+        },
+        "radius": {
+          "$1": {
+            "isVar": true,
+            "key": "$1",
+            "name": "t-radius-1",
+            "val": 2,
+            "variable": "var(--t-radius-1)"
+          },
+          "$2": {
+            "isVar": true,
+            "key": "$2",
+            "name": "t-radius-2",
+            "val": 4,
+            "variable": "var(--t-radius-2)"
+          },
+          "$3": {
+            "isVar": true,
+            "key": "$3",
+            "name": "t-radius-3",
+            "val": 6,
+            "variable": "var(--t-radius-3)"
+          },
+          "$8": {
+            "isVar": true,
+            "key": "$8",
+            "name": "t-radius-8",
+            "val": 16,
+            "variable": "var(--t-radius-8)"
+          },
+          "$true": {
+            "isVar": true,
+            "key": "$true",
+            "name": "t-radius-true",
+            "val": 0,
+            "variable": "var(--t-radius-true)"
+          }
+        },
+        "zIndex": {
+          "$0": {
+            "isVar": true,
+            "key": "$0",
+            "name": "t-zIndex-0",
+            "val": 0,
+            "variable": "var(--t-zIndex-0)"
+          },
+          "$1": {
+            "isVar": true,
+            "key": "$1",
+            "name": "t-zIndex-1",
+            "val": 1,
+            "variable": "var(--t-zIndex-1)"
+          },
+          "$2": {
+            "isVar": true,
+            "key": "$2",
+            "name": "t-zIndex-2",
+            "val": 2,
+            "variable": "var(--t-zIndex-2)"
+          },
+          "$true": {
+            "isVar": true,
+            "key": "$true",
+            "name": "t-zIndex-true",
+            "val": 0,
+            "variable": "var(--t-zIndex-true)"
+          }
+        }
+      },
+      "parsed": true,
+      "getNewCSS": "Function",
+      "getCSS": "Function",
+      "fontSizeTokens": {},
+      "specificTokens": {
+        "$color.accent": {
+          "isVar": true,
+          "key": "$accent",
+          "name": "c-accent",
+          "val": "#1c7ed6",
+          "variable": "var(--c-accent)"
+        },
+        "$color.accentDark": {
+          "isVar": true,
+          "key": "$accentDark",
+          "name": "c-accentDark",
+          "val": "#4dabf7",
+          "variable": "var(--c-accentDark)"
+        },
+        "$color.inputBorder": {
+          "isVar": true,
+          "key": "$inputBorder",
+          "name": "c-inputBorder",
+          "val": "#646464",
+          "variable": "var(--c-inputBorder)"
+        },
+        "$color.inputText": {
+          "isVar": true,
+          "key": "$inputText",
+          "name": "c-inputText",
+          "val": "#1e293b",
+          "variable": "var(--c-inputText)"
+        },
+        "$color.negative": {
+          "isVar": true,
+          "key": "$negative",
+          "name": "c-negative",
+          "val": "#ef4444",
+          "variable": "var(--c-negative)"
+        },
+        "$color.positive": {
+          "isVar": true,
+          "key": "$positive",
+          "name": "c-positive",
+          "val": "#22c55e",
+          "variable": "var(--c-positive)"
+        },
+        "$color.primary": {
+          "isVar": true,
+          "key": "$primary",
+          "name": "c-primary",
+          "val": "#3b82f6",
+          "variable": "var(--c-primary)"
+        },
+        "$color.primaryDark": {
+          "isVar": true,
+          "key": "$primaryDark",
+          "name": "c-primaryDark",
+          "val": "#60a5fa",
+          "variable": "var(--c-primaryDark)"
+        },
+        "$color.slate100": {
+          "isVar": true,
+          "key": "$slate100",
+          "name": "c-slate100",
+          "val": "#f1f5f9",
+          "variable": "var(--c-slate100)"
+        },
+        "$color.slate300": {
+          "isVar": true,
+          "key": "$slate300",
+          "name": "c-slate300",
+          "val": "#cbd5e1",
+          "variable": "var(--c-slate300)"
+        },
+        "$color.slate400": {
+          "isVar": true,
+          "key": "$slate400",
+          "name": "c-slate400",
+          "val": "#94a3b8",
+          "variable": "var(--c-slate400)"
+        },
+        "$color.slate50": {
+          "isVar": true,
+          "key": "$slate50",
+          "name": "c-slate50",
+          "val": "#f8fafc",
+          "variable": "var(--c-slate50)"
+        },
+        "$color.slate500": {
+          "isVar": true,
+          "key": "$slate500",
+          "name": "c-slate500",
+          "val": "#64748b",
+          "variable": "var(--c-slate500)"
+        },
+        "$color.slate700": {
+          "isVar": true,
+          "key": "$slate700",
+          "name": "c-slate700",
+          "val": "#334155",
+          "variable": "var(--c-slate700)"
+        },
+        "$color.slate800": {
+          "isVar": true,
+          "key": "$slate800",
+          "name": "c-slate800",
+          "val": "#1e293b",
+          "variable": "var(--c-slate800)"
+        },
+        "$color.slate900": {
+          "isVar": true,
+          "key": "$slate900",
+          "name": "c-slate900",
+          "val": "#0f172a",
+          "variable": "var(--c-slate900)"
+        },
+        "$color.tileLabel": {
+          "isVar": true,
+          "key": "$tileLabel",
+          "name": "c-tileLabel",
+          "val": "#666666",
+          "variable": "var(--c-tileLabel)"
+        },
+        "$color.white": {
+          "isVar": true,
+          "key": "$white",
+          "name": "c-white",
+          "val": "#ffffff",
+          "variable": "var(--c-white)"
+        },
+        "$radius.1": {
+          "isVar": true,
+          "key": "$1",
+          "name": "t-radius-1",
+          "val": 2,
+          "variable": "var(--t-radius-1)"
+        },
+        "$radius.2": {
+          "isVar": true,
+          "key": "$2",
+          "name": "t-radius-2",
+          "val": 4,
+          "variable": "var(--t-radius-2)"
+        },
+        "$radius.3": {
+          "isVar": true,
+          "key": "$3",
+          "name": "t-radius-3",
+          "val": 6,
+          "variable": "var(--t-radius-3)"
+        },
+        "$radius.8": {
+          "isVar": true,
+          "key": "$8",
+          "name": "t-radius-8",
+          "val": 16,
+          "variable": "var(--t-radius-8)"
+        },
+        "$radius.true": {
+          "isVar": true,
+          "key": "$true",
+          "name": "t-radius-true",
+          "val": 0,
+          "variable": "var(--t-radius-true)"
+        },
+        "$size.0": {
+          "isVar": true,
+          "key": "$0",
+          "name": "t-size-0",
+          "val": 0,
+          "variable": "var(--t-size-0)"
+        },
+        "$size.1": {
+          "isVar": true,
+          "key": "$1",
+          "name": "t-size-1",
+          "val": 4,
+          "variable": "var(--t-size-1)"
+        },
+        "$size.10": {
+          "isVar": true,
+          "key": "$10",
+          "name": "t-size-10",
+          "val": 40,
+          "variable": "var(--t-size-10)"
+        },
+        "$size.2": {
+          "isVar": true,
+          "key": "$2",
+          "name": "t-size-2",
+          "val": 8,
+          "variable": "var(--t-size-2)"
+        },
+        "$size.3": {
+          "isVar": true,
+          "key": "$3",
+          "name": "t-size-3",
+          "val": 12,
+          "variable": "var(--t-size-3)"
+        },
+        "$size.4": {
+          "isVar": true,
+          "key": "$4",
+          "name": "t-size-4",
+          "val": 16,
+          "variable": "var(--t-size-4)"
+        },
+        "$size.5": {
+          "isVar": true,
+          "key": "$5",
+          "name": "t-size-5",
+          "val": 20,
+          "variable": "var(--t-size-5)"
+        },
+        "$size.6": {
+          "isVar": true,
+          "key": "$6",
+          "name": "t-size-6",
+          "val": 24,
+          "variable": "var(--t-size-6)"
+        },
+        "$size.8": {
+          "isVar": true,
+          "key": "$8",
+          "name": "t-size-8",
+          "val": 32,
+          "variable": "var(--t-size-8)"
+        },
+        "$size.true": {
+          "isVar": true,
+          "key": "$true",
+          "name": "t-size-true",
+          "val": 0,
+          "variable": "var(--t-size-true)"
+        },
+        "$space.0": {
+          "isVar": true,
+          "key": "$0",
+          "name": "t-space-0",
+          "val": 0,
+          "variable": "var(--t-space-0)"
+        },
+        "$space.1": {
+          "isVar": true,
+          "key": "$1",
+          "name": "t-space-1",
+          "val": 4,
+          "variable": "var(--t-space-1)"
+        },
+        "$space.10": {
+          "isVar": true,
+          "key": "$10",
+          "name": "t-space-10",
+          "val": 40,
+          "variable": "var(--t-space-10)"
+        },
+        "$space.2": {
+          "isVar": true,
+          "key": "$2",
+          "name": "t-space-2",
+          "val": 8,
+          "variable": "var(--t-space-2)"
+        },
+        "$space.3": {
+          "isVar": true,
+          "key": "$3",
+          "name": "t-space-3",
+          "val": 12,
+          "variable": "var(--t-space-3)"
+        },
+        "$space.4": {
+          "isVar": true,
+          "key": "$4",
+          "name": "t-space-4",
+          "val": 16,
+          "variable": "var(--t-space-4)"
+        },
+        "$space.5": {
+          "isVar": true,
+          "key": "$5",
+          "name": "t-space-5",
+          "val": 20,
+          "variable": "var(--t-space-5)"
+        },
+        "$space.6": {
+          "isVar": true,
+          "key": "$6",
+          "name": "t-space-6",
+          "val": 24,
+          "variable": "var(--t-space-6)"
+        },
+        "$space.8": {
+          "isVar": true,
+          "key": "$8",
+          "name": "t-space-8",
+          "val": 32,
+          "variable": "var(--t-space-8)"
+        },
+        "$space.true": {
+          "isVar": true,
+          "key": "$true",
+          "name": "t-space-true",
+          "val": 0,
+          "variable": "var(--t-space-true)"
+        },
+        "$zIndex.0": {
+          "isVar": true,
+          "key": "$0",
+          "name": "t-zIndex-0",
+          "val": 0,
+          "variable": "var(--t-zIndex-0)"
+        },
+        "$zIndex.1": {
+          "isVar": true,
+          "key": "$1",
+          "name": "t-zIndex-1",
+          "val": 1,
+          "variable": "var(--t-zIndex-1)"
+        },
+        "$zIndex.2": {
+          "isVar": true,
+          "key": "$2",
+          "name": "t-zIndex-2",
+          "val": 2,
+          "variable": "var(--t-zIndex-2)"
+        },
+        "$zIndex.true": {
+          "isVar": true,
+          "key": "$true",
+          "name": "t-zIndex-true",
+          "val": 0,
+          "variable": "var(--t-zIndex-true)"
+        }
+      },
+      "defaultFontToken": ""
+    },
     "shorthands": {
-      "text": "textAlign",
-      "b": "bottom",
-      "bg": "backgroundColor",
-      "content": "alignContent",
-      "grow": "flexGrow",
-      "items": "alignItems",
-      "justify": "justifyContent",
-      "l": "left",
-      "m": "margin",
-      "maxH": "maxHeight",
-      "maxW": "maxWidth",
-      "mb": "marginBottom",
-      "minH": "minHeight",
-      "minW": "minWidth",
-      "ml": "marginLeft",
-      "mr": "marginRight",
-      "mt": "marginTop",
-      "mx": "marginHorizontal",
-      "my": "marginVertical",
-      "p": "padding",
-      "pb": "paddingBottom",
-      "pl": "paddingLeft",
-      "pr": "paddingRight",
-      "pt": "paddingTop",
-      "px": "paddingHorizontal",
-      "py": "paddingVertical",
-      "r": "right",
-      "rounded": "borderRadius",
-      "select": "userSelect",
-      "self": "alignSelf",
-      "shrink": "flexShrink",
-      "t": "top",
-      "z": "zIndex"
+      "bblr": "borderBottomLeftRadius",
+      "bbrr": "borderBottomRightRadius",
+      "bbs": "borderBottomStyle",
+      "bls": "borderLeftStyle",
+      "brc": "borderRightColor",
+      "brs": "borderRightStyle",
+      "brw": "borderRightWidth",
+      "bs": "borderStyle",
+      "btc": "borderTopColor",
+      "btlr": "borderTopLeftRadius",
+      "btrr": "borderTopRightRadius",
+      "bts": "borderTopStyle",
+      "btw": "borderTopWidth",
+      "bw": "borderWidth",
+      "bxs": "boxSizing",
+      "bxsh": "boxShadow",
+      "col": "color",
+      "cur": "cursor",
+      "dsp": "display",
+      "fb": "flexBasis",
+      "fd": "flexDirection",
+      "ff": "fontFamily",
+      "fs": "fontSize",
+      "fst": "fontStyle",
+      "fw": "fontWeight",
+      "fwr": "flexWrap",
+      "lh": "lineHeight",
+      "ls": "letterSpacing",
+      "o": "opacity",
+      "ov": "overflow",
+      "ox": "overflowX",
+      "oy": "overflowY",
+      "pe": "pointerEvents",
+      "pos": "position",
+      "td": "textDecorationLine",
+      "tr": "transform",
+      "tt": "textTransform",
+      "va": "verticalAlign",
+      "wb": "wordBreak",
+      "ws": "whiteSpace",
+      "ww": "wordWrap"
     }
   }
 }

@@ -37,8 +37,8 @@ export function AuthForm({ onSubmit, onAtPassportLogin }: AuthFormProps) {
 
   return (
     <AppCard>
-      <AppVStack gap={30}>
-        <AppVStack gap={4}>
+      <AppVStack gap="$5">
+        <AppVStack gap="$1">
           <AppH1>Atprotobrew</AppH1>
           <AppText>
             <Trans>AT Protocol サービスランチャー</Trans>
@@ -46,8 +46,8 @@ export function AuthForm({ onSubmit, onAtPassportLogin }: AuthFormProps) {
         </AppVStack>
 
         <AppForm onSubmit={form.handleSubmit}>
-          <AppVStack gap={20}>
-            <AppVStack gap={3}>
+          <AppVStack gap="$5">
+            <AppVStack gap="$1">
               <form.Field name="handle">
                 {(field) => (
                   <>
@@ -55,18 +55,16 @@ export function AuthForm({ onSubmit, onAtPassportLogin }: AuthFormProps) {
                     <AppInput
                       id={field.name}
                       prefix="@"
-                      type="text"
                       value={field.state.value}
                       name={field.name}
                       onChangeText={field.handleChange}
                       placeholder="user.bsky.social"
                       autoComplete="username"
                       autoCapitalize="none"
-                      autoCorrect="off"
+                      autoCorrect={false}
                       spellCheck={false}
                       disabled={form.state.isSubmitting}
                     />
-
                     {!field.state.meta.isValid && (
                       <AppText kind="error" role="alert">
                         {field.state.meta.errors.join(", ")}
@@ -77,24 +75,22 @@ export function AuthForm({ onSubmit, onAtPassportLogin }: AuthFormProps) {
               </form.Field>
             </AppVStack>
 
-            <AppVStack gap={3}>
+            <AppVStack gap="$1">
               <form.Field name="handleResolver">
                 {(field) => (
                   <>
                     <AppText>PDS URL</AppText>
                     <AppInput
                       id={field.name}
-                      type="url"
                       value={field.state.value}
                       name={field.name}
                       onChangeText={field.handleChange}
                       placeholder={DEFAULT_HANDLE_RESOLVER}
                       autoCapitalize="none"
-                      autoCorrect="off"
+                      autoCorrect={false}
                       spellCheck={false}
                       disabled={form.state.isSubmitting}
                     />
-
                     {!field.state.meta.isValid && (
                       <AppText kind="error" role="alert">
                         {field.state.meta.errors.join(", ")}

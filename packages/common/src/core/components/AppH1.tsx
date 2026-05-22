@@ -1,3 +1,4 @@
+// AppH1.tsx
 import { type ComponentProps, type ReactNode } from "react";
 import { H1, styled } from "tamagui";
 
@@ -10,6 +11,6 @@ export function AppH1({ children, ...props }: AppH1Props) {
 }
 
 const StyledH1 = styled(H1, {
-  fontSize: "1.5rem",
-  fontWeight: 800,
+  fontSize: 24, // 1.5rem = 24px
+  fontWeight: "800",
 });

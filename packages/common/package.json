@@ -13,6 +13,9 @@
 		"i18n:compile": "lingui compile"
 	},
 	"exports": {
+		"./alf": {
+			"import":"./src/styles/alf/index.ts"
+		},
 		"./core/components/*": {
 			"import": "./src/core/components/*.tsx"
 		},
@@ -37,15 +40,19 @@
 		"./channel/modules/*": {
 			"import": "./src/features/channel/modules/*.ts"
 		},
+		"./store/components/*": {
+			"import": "./src/features/store/components/*.tsx"
+		},
 		"./i18n/locales/*": {
 			"import": "./locales/*/messages.ts"
 		}
 	},
 	"dependencies": {
 		"@atpassport/client": "^0.1.31",
+		"@atprotobrew/tokens": "workspace:^",
 		"@atprotobrew/atproto": "workspace:^",
 		"@react-navigation/native": "^7.0.0",
-		"@tamagui/animations-react-native": "2.0.0-rc.42",
+		"@tamagui/animations-react-native": "2.0.0-rc.41",
 		"@tamagui/config": "2.0.0-rc.41",
 		"@tamagui/core": "2.0.0-rc.41",
 		"@tanstack/react-form": "^1.29.1",
@@ -62,7 +69,6 @@
 		"jotai": "^2.20.0",
 		"lucide-react-native": "^0.545.0",
 		"react-native": "0.83.6",
-		"react-native-reanimated": "4.2.1",
 		"react-native-safe-area-context": "~5.6.2",
 		"react-native-screens": "~4.23.0",
 		"react-native-svg": "^15.15.3",

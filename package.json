@@ -9,8 +9,8 @@
 		"common": "pnpm -F 'common'",
 		"back": "pnpm -F 'back'",
 		"atproto": "pnpm -F 'atproto'",
-		"check": "biome check --write --staged",
-		"sd:build": "style-dictionary build --config sd.config.mjs"
+		"tokens": "pnpm -D 'tokens'",
+		"check": "biome check --write --staged"
 	},
 	"keywords": [],
 	"author": "",
@@ -36,7 +36,6 @@
 		}
 	},
 	"devDependencies": {
-		"@types/node": "^24.12.2",
-		"style-dictionary": "^5.4.0"
+		"@types/node": "^24.12.2"
 	}
 }

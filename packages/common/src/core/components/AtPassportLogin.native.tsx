@@ -1,47 +1,39 @@
 import { AtPassportUI } from "@atpassport/client/ui";
 import { type ComponentProps } from "react";
-import { styled, Text, View } from "tamagui";
+import { Button, styled, Text, useTheme } from "tamagui";
 import { SvgXml } from "react-native-svg";
 import { type AppLanguage } from "../types/i18n";
 
-interface AtPassportLoginProps extends ComponentProps<typeof StyledView> {
+interface AtPassportLoginProps extends ComponentProps<typeof StyledButton> {
   lang: AppLanguage;
 }
 
 export function AtPassportLogin(props: AtPassportLoginProps) {
+  const theme = useTheme();
+
   return (
-    <StyledView {...props}>
-      <StyledIcon xml={AtPassportUI.getIconSvg(20)} />
+    <StyledButton {...props}>
+      <SvgXml xml={AtPassportUI.getIconSvg(20)} color={theme.accent.get()} />
       {props.lang === "ja" && <StyledText>{AtPassportUI.ja.title}</StyledText>}
       {props.lang === "en" && <StyledText>{AtPassportUI.en.title}</StyledText>}
-    </StyledView>
+    </StyledButton>
   );
 }
 
-const StyledView = styled(View, {
+const StyledButton = styled(Button, {
   width: "100%",
-  display: "flex",
   flexDirection: "row",
-  justify: "center",
-  items: "center",
-  columnGap: "$space.2",
-  background: "white",
+  justifyContent: "center",
+  alignItems: "center",
+  columnGap: "$2",
+  backgroundColor: "$white",
   borderWidth: 1,
-  borderColor: "#1c7ed6",
-  borderEndEndRadius: "$radius.3",
-  borderEndStartRadius: "$radius.3",
-  borderStartEndRadius: "$radius.3",
-  borderStartStartRadius: "$radius.3",
-  paddingInline: "$2",
-  paddingBlock: "$2",
+  borderColor: "$accent",
+  borderRadius: "$3",
 });
 
 const StyledText = styled(Text, {
-  text: "center",
-  color: "#1c7ed6",
-  fontWeight: 800,
-});
-
-const StyledIcon = styled(SvgXml, {
-  color: "#1c7ed6",
+  textAlign: "center",
+  color: "$accent",
+  fontWeight: "800",
 });

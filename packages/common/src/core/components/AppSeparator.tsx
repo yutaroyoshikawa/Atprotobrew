@@ -8,5 +8,5 @@ export function AppSeparator(props: AppSeparatorProps) {
 }
 
 const StyledSeparator = styled(Separator, {
-  borderColor: "rgba(200, 200, 200, 1)",
+  borderColor: "$border",
 });

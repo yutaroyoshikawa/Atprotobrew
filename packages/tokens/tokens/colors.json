@@ -1,0 +1,29 @@
+{
+  "color": {
+    "base": {
+      "white":   { "value": "#ffffff", "type": "color" },
+      "primary": { "value": "#3b82f6", "type": "color" },
+      "primary-dark": { "value": "#60a5fa", "type": "color" },
+      "accent":  { "value": "#1c7ed6", "type": "color" },
+      "accent-dark": { "value": "#4dabf7", "type": "color" },
+      "positive": { "value": "#22c55e", "type": "color" },
+      "negative": { "value": "#ef4444", "type": "color" },
+      "tile-label": { "value": "#666666", "type": "color" },
+      "input-text": { "value": "#1e293b", "type": "color" },
+      "input-border": { "value": "#646464", "type": "color" },
+      "slate-50":  { "value": "#f8fafc", "type": "color" },
+      "slate-100": { "value": "#f1f5f9", "type": "color" },
+      "slate-300": { "value": "#cbd5e1", "type": "color" },
+      "slate-400": { "value": "#94a3b8", "type": "color" },
+      "slate-500": { "value": "#64748b", "type": "color" },
+      "slate-700": { "value": "#334155", "type": "color" },
+      "slate-800": { "value": "#1e293b", "type": "color" },
+      "slate-900": { "value": "#0f172a", "type": "color" },
+      "glass-border-aqua":       { "value": "#34beed", "type": "color" },
+      "glass-border-aqua-hover": { "value": "#64a0f0", "type": "color" },
+      "glass-border-focus":      { "value": "#3b82f6", "type": "color" },
+      "input-border-focus":      { "value": "#7db9ff", "type": "color" },
+      "button-tile-label":       { "value": "#383e3f", "type": "color" }
+    }
+  }
+}

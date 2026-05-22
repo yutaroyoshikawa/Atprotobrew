@@ -1,40 +1,43 @@
-import { styled, View, XStack } from "tamagui";
+import { styled, View, XStack, isWeb } from "tamagui";
 import { AppH1 } from "./AppH1";
 import { AppButton } from "./AppButton";
 import { LogOut, Settings } from "lucide-react-native";
 import Svg, { Path } from "react-native-svg";
+import { useTheme } from "tamagui";
 
 interface AppFooterProps {
   onRequestLogout: () => Promise<void> | void;
 }
 
 export function AppFooter({ onRequestLogout }: AppFooterProps) {
+  const theme = useTheme();
+  const iconColor = theme.tileLabel.get();
+
   return (
     <StyledWrapper>
       <Background>
-        <StyledSvg viewBox="0 0 800 20">
+        <Svg viewBox="0 0 800 20" width="100%">
           <Path
             fill="rgba(255,255,255,0.65)"
             d="M0,10 C100,0 200,20 300,10 C400,0 500,20 600,10 C700,0 800,20 800,10 L800,0 L0,0 Z"
           />
-        </StyledSvg>
+        </Svg>
       </Background>
 
       <StyledNavigation>
-        <AppButton type="button" shape="circle" size="large" aria-label="設定">
-          <StyledSetting />
+        <AppButton shape="circle" size="large" aria-label="設定">
+          <Settings color={iconColor} />
         </AppButton>
 
         <AppH1 style={{ color: "hsl(205,72%,68%)" }}>Atprotobrew</AppH1>
 
         <AppButton
           onPress={onRequestLogout}
-          type="button"
           shape="circle"
           size="large"
           aria-label="ログアウト"
         >
-          <StyledLogout />
+          <LogOut color={iconColor} />
         </AppButton>
       </StyledNavigation>
     </StyledWrapper>
@@ -43,34 +46,22 @@ export function AppFooter({ onRequestLogout }: AppFooterProps) {
 
 const StyledWrapper = styled(View, {
   width: "100%",
-  background: "hsl(195,50%,95%)",
+  backgroundColor: "hsl(195,50%,95%)",
   position: "relative",
 });
 
 const StyledNavigation = styled(XStack, {
   width: "100%",
-  items: "center",
-  justify: "space-between",
-  height: 100,
-  paddingInline: "$space.10",
-  paddingBlockEnd: "$space.10",
-  z: 1,
+  height: 130,
+  alignItems: "center",
+  justifyContent: "space-between",
+  paddingHorizontal: "$10",
+  paddingBottom: "$10",
+  zIndex: 1,
 });
 
 const Background = styled(View, {
-  position: "fixed",
-  z: 0,
+  position: "absolute",
+  zIndex: 0,
   width: "100%",
-});
-
-const StyledSvg = styled(Svg, {
-  width: "100%",
-});
-
-const StyledSetting = styled(Settings, {
-  color: "#666",
-});
-
-const StyledLogout = styled(LogOut, {
-  color: "#666",
 });

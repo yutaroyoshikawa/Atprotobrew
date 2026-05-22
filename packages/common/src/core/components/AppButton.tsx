@@ -1,5 +1,5 @@
-import type { ComponentProps, ReactNode } from "react";
-import { Button, styled } from "tamagui";
+import { type ComponentProps, type ReactNode } from "react";
+import { Button, styled, isWeb, Text } from "tamagui";
 
 interface AppButtonProps extends ComponentProps<typeof StyledButton> {
   onPress?: () => void;
@@ -9,7 +9,7 @@ interface AppButtonProps extends ComponentProps<typeof StyledButton> {
 export function AppButton({ onPress, children, ...props }: AppButtonProps) {
   return (
     <StyledButton onPress={onPress} {...props}>
-      {children}
+      <StyledText>{children}</StyledText>
     </StyledButton>
   );
 }
@@ -17,37 +17,26 @@ export function AppButton({ onPress, children, ...props }: AppButtonProps) {
 const StyledButton = styled(Button, {
   width: "100%",
   cursor: "pointer",
-  justify: "center",
+  height: 44,
+  justifyContent: "center",
+  alignItems: "center",
+  borderWidth: 1.5,
+  borderColor: "$glassBorderAqua",
+  borderRadius: "$3",
 
   backgroundImage:
-    "linear-gradient(180deg, rgba(255,255,255,1.0) 0%, rgba(200,220,255,1.0) 100%)",
-
-  borderWidth: 1.5,
-  borderColor: "rgba(52, 190, 237, 1.0)",
-
+    "linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(200,220,255,1) 100%)",
   boxShadow:
     "0 2px 8px rgba(100,160,240,0.25), inset 0 1px 0 rgba(255,255,255,0.7)",
 
-  hoverStyle: {
-    borderColor: "rgba(100,160,240,1.0)",
-  },
-  pressStyle: {
-    scale: 0.95,
-  },
-  focusVisibleStyle: {
-    outlineWidth: 2,
-    outlineStyle: "solid",
-    outlineColor: "rgba(59,130,246,0.7)",
-    outlineOffset: 2,
-  },
+  hoverStyle: { borderColor: "$glassBorderAquaHover" },
+  pressStyle: { scale: 0.95 },
 
   variants: {
     shape: {
       tile: {
         width: "100%",
         padding: 0,
-        fontWeight: 800,
-        color: "rgba(56, 62, 63, 1.0)",
       },
       circle: {
         padding: 0,
@@ -59,15 +48,13 @@ const StyledButton = styled(Button, {
         flexDirection: "row",
       },
     },
-    size: {
-      large: {
-        height: 60,
-        width: 60,
-      },
-    },
+    size: { large: { height: 60, width: 60 } },
   } as const,
 
-  defaultVariants: {
-    shape: "tile",
-  },
+  defaultVariants: { shape: "tile" },
+});
+
+const StyledText = styled(Text, {
+  color: "$buttonTileLabel",
+  fontWeight: "800",
 });

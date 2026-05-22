@@ -14,6 +14,7 @@
 		"@atproto/oauth-client-browser": "^0.3.41",
 		"@atprotobrew/atproto": "workspace:^",
 		"@atprotobrew/common": "workspace:^",
+		"@atprotobrew/tokens": "workspace:^",
 		"@tanstack/react-form": "^1.29.1",
 		"react-dom": "^19.2.6",
 		"react-native-web": "~0.21.2",
