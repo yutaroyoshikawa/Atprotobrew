@@ -1,3 +1,4 @@
+// AppH2.tsx — 変更不要だが fontWeight 等あれば文字列化
 import { type ComponentProps, type ReactNode } from "react";
 import { H2, styled } from "tamagui";
 

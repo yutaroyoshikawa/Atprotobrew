@@ -17,7 +17,7 @@ export default defineConfig({
         __dirname,
         "node_modules/@atprotobrew/common/tamagui.config.ts",
       ),
-      components: ["tamagui"],
+      components: ["@atprotobrew/common", "tamagui"],
     }),
     tailwindcss(),
     babel({
@@ -28,6 +28,9 @@ export default defineConfig({
   ],
   resolve: {
     dedupe: ["react", "react-dom"],
+  },
+  optimizeDeps: {
+    exclude: ["@atprotobrew/tokens", "@atprotobrew/common"],
   },
   server: {
     // Bind to all interfaces so the OAuth redirect to http://127.0.0.1:<port>/

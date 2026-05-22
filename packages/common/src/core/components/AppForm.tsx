@@ -9,9 +9,7 @@ export function AppForm({ children, ...props }: AppFormProps) {
   return <StyledForm {...props}>{children}</StyledForm>;
 }
 
-const StyledForm = styled(Form, {
-  width: "100%",
-});
+const StyledForm = styled(Form, { width: "100%" });
 
 interface AppFormTriggerProps extends ComponentProps<typeof Form.Trigger> {
   children: ReactNode;

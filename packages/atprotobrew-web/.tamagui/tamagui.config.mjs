@@ -2,6 +2,577 @@ import { createRequire as __cr } from "module"; const require = __cr(import.meta
 var __defProp = Object.defineProperty;
 var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
 
+// ../common/tamagui.config.web.ts
+import { createTamagui } from "@tamagui/core";
+
+// ../../node_modules/@tamagui/animation-helpers/dist/esm/normalizeTransition.mjs
+var SPRING_CONFIG_KEYS = /* @__PURE__ */ new Set(["stiffness", "damping", "mass", "tension", "friction", "velocity", "overshootClamping", "duration", "bounciness", "speed"]);
+function isSpringConfigKey(key) {
+  return SPRING_CONFIG_KEYS.has(key);
+}
+__name(isSpringConfigKey, "isSpringConfigKey");
+function normalizeTransition(transition) {
+  if (!transition) {
+    return {
+      default: null,
+      enter: null,
+      exit: null,
+      delay: void 0,
+      properties: {}
+    };
+  }
+  if (typeof transition === "string") {
+    return {
+      default: transition,
+      enter: null,
+      exit: null,
+      delay: void 0,
+      properties: {}
+    };
+  }
+  if (Array.isArray(transition)) {
+    const [defaultAnimation, configObj] = transition;
+    const properties = {};
+    const springConfig = {};
+    let delay;
+    let enter = null;
+    let exit = null;
+    if (configObj && typeof configObj === "object") {
+      for (const [key, value] of Object.entries(configObj)) {
+        if (key === "delay" && typeof value === "number") {
+          delay = value;
+        } else if (key === "enter" && typeof value === "string") {
+          enter = value;
+        } else if (key === "exit" && typeof value === "string") {
+          exit = value;
+        } else if (isSpringConfigKey(key) && value !== void 0) {
+          springConfig[key] = value;
+        } else if (value !== void 0) {
+          properties[key] = value;
+        }
+      }
+    }
+    return {
+      default: defaultAnimation,
+      enter,
+      exit,
+      delay,
+      properties,
+      config: Object.keys(springConfig).length > 0 ? springConfig : void 0
+    };
+  }
+  if (typeof transition === "object") {
+    const properties = {};
+    const springConfig = {};
+    let defaultAnimation = null;
+    let enter = null;
+    let exit = null;
+    let delay;
+    for (const [key, value] of Object.entries(transition)) {
+      if (key === "default" && typeof value === "string") {
+        defaultAnimation = value;
+      } else if (key === "enter" && typeof value === "string") {
+        enter = value;
+      } else if (key === "exit" && typeof value === "string") {
+        exit = value;
+      } else if (key === "delay" && typeof value === "number") {
+        delay = value;
+      } else if (isSpringConfigKey(key) && value !== void 0) {
+        springConfig[key] = value;
+      } else if (value !== void 0) {
+        properties[key] = value;
+      }
+    }
+    return {
+      default: defaultAnimation,
+      enter,
+      exit,
+      delay,
+      properties,
+      config: Object.keys(springConfig).length > 0 ? springConfig : void 0
+    };
+  }
+  return {
+    default: null,
+    enter: null,
+    exit: null,
+    delay: void 0,
+    properties: {}
+  };
+}
+__name(normalizeTransition, "normalizeTransition");
+function hasAnimation(normalized) {
+  return normalized.default !== null || normalized.enter !== null || normalized.exit !== null || Object.keys(normalized.properties).length > 0;
+}
+__name(hasAnimation, "hasAnimation");
+function getAnimatedProperties(normalized) {
+  return Object.keys(normalized.properties);
+}
+__name(getAnimatedProperties, "getAnimatedProperties");
+function getEffectiveAnimation(normalized, state) {
+  if (state === "enter" && normalized.enter) {
+    return normalized.enter;
+  }
+  if (state === "exit" && normalized.exit) {
+    return normalized.exit;
+  }
+  return normalized.default;
+}
+__name(getEffectiveAnimation, "getEffectiveAnimation");
+function getAnimationConfigsForKeys(normalized, animations2, keys, defaultAnimation) {
+  const result = /* @__PURE__ */ new Map();
+  for (const key of keys) {
+    const propAnimation = normalized.properties[key];
+    let animationValue = null;
+    if (typeof propAnimation === "string") {
+      animationValue = animations2[propAnimation] ?? null;
+    } else if (propAnimation && typeof propAnimation === "object" && propAnimation.type) {
+      animationValue = animations2[propAnimation.type] ?? null;
+    }
+    if (animationValue === null) {
+      animationValue = defaultAnimation;
+    }
+    result.set(key, animationValue);
+  }
+  return result;
+}
+__name(getAnimationConfigsForKeys, "getAnimationConfigsForKeys");
+
+// ../../node_modules/@tamagui/constants/dist/esm/constants.mjs
+import { useEffect, useLayoutEffect } from "react";
+var isBrowser = typeof document !== "undefined";
+var isServer = !isBrowser;
+var isClient = isBrowser;
+var useIsomorphicLayoutEffect = isServer ? useEffect : useLayoutEffect;
+var isChrome = typeof navigator !== "undefined" && /Chrome/.test(navigator.userAgent || "");
+var isWebTouchable = isClient && ("ontouchstart" in window || navigator.maxTouchPoints > 0);
+var isAndroid = process.env.TEST_NATIVE_PLATFORM === "android" || process.env.TEST_NATIVE_PLATFORM === "androidtv";
+var isIos = process.env.TEST_NATIVE_PLATFORM === "ios" || process.env.TEST_NATIVE_PLATFORM === "tvos";
+var isTV = process.env.TEST_NATIVE_PLATFORM === "androidtv" || process.env.TEST_NATIVE_PLATFORM === "tvos";
+
+// ../../node_modules/@tamagui/use-presence/dist/esm/PresenceContext.mjs
+import * as React from "react";
+import { jsx } from "react/jsx-runtime";
+var PresenceContext = React.createContext(null);
+var ResetPresence = /* @__PURE__ */ __name((props) => {
+  const parent = React.useContext(PresenceContext);
+  return /* @__PURE__ */ jsx(PresenceContext.Provider, {
+    value: props.disable ? parent : null,
+    children: props.children
+  });
+}, "ResetPresence");
+
+// ../../node_modules/@tamagui/use-presence/dist/esm/usePresence.mjs
+import * as React2 from "react";
+function usePresence() {
+  const context = React2.useContext(PresenceContext);
+  if (!context) {
+    return [true, null, context];
+  }
+  const {
+    id,
+    isPresent: isPresent2,
+    onExitComplete,
+    register
+  } = context;
+  React2.useEffect(() => register(id), []);
+  const safeToRemove = /* @__PURE__ */ __name(() => onExitComplete?.(id), "safeToRemove");
+  return !isPresent2 && onExitComplete ? [false, safeToRemove, context] : [true, void 0, context];
+}
+__name(usePresence, "usePresence");
+
+// ../../node_modules/@tamagui/animations-css/dist/esm/createAnimations.mjs
+import { transformsToString } from "@tamagui/web";
+import React3 from "react";
+var EXTRACT_MS_REGEX = /(\d+(?:\.\d+)?)\s*ms/;
+var EXTRACT_S_REGEX = /(\d+(?:\.\d+)?)\s*s/;
+function extractDuration(animation) {
+  const msMatch = animation.match(EXTRACT_MS_REGEX);
+  if (msMatch) {
+    return Number.parseInt(msMatch[1], 10);
+  }
+  const sMatch = animation.match(EXTRACT_S_REGEX);
+  if (sMatch) {
+    return Math.round(Number.parseFloat(sMatch[1]) * 1e3);
+  }
+  return 300;
+}
+__name(extractDuration, "extractDuration");
+var MS_DURATION_REGEX = /(\d+(?:\.\d+)?)\s*ms/;
+var S_DURATION_REGEX = /(\d+(?:\.\d+)?)\s*s(?!tiffness)/;
+function applyDurationOverride(animation, durationMs) {
+  const msReplaced = animation.replace(MS_DURATION_REGEX, `${durationMs}ms`);
+  if (msReplaced !== animation) {
+    return msReplaced;
+  }
+  const sReplaced = animation.replace(S_DURATION_REGEX, `${durationMs}ms`);
+  if (sReplaced !== animation) {
+    return sReplaced;
+  }
+  return `${durationMs}ms ${animation}`;
+}
+__name(applyDurationOverride, "applyDurationOverride");
+var TRANSFORM_KEYS = ["x", "y", "scale", "scaleX", "scaleY", "rotate", "rotateX", "rotateY", "rotateZ", "skewX", "skewY"];
+function buildTransformString(style) {
+  if (!style) return "";
+  const parts = [];
+  if (style.x !== void 0 || style.y !== void 0) {
+    const x = style.x ?? 0;
+    const y = style.y ?? 0;
+    parts.push(`translate(${x}px, ${y}px)`);
+  }
+  if (style.scale !== void 0) {
+    parts.push(`scale(${style.scale})`);
+  }
+  if (style.scaleX !== void 0) {
+    parts.push(`scaleX(${style.scaleX})`);
+  }
+  if (style.scaleY !== void 0) {
+    parts.push(`scaleY(${style.scaleY})`);
+  }
+  if (style.rotate !== void 0) {
+    const val = style.rotate;
+    const unit = typeof val === "string" && val.includes("deg") ? "" : "deg";
+    parts.push(`rotate(${val}${unit})`);
+  }
+  if (style.rotateX !== void 0) {
+    parts.push(`rotateX(${style.rotateX}deg)`);
+  }
+  if (style.rotateY !== void 0) {
+    parts.push(`rotateY(${style.rotateY}deg)`);
+  }
+  if (style.rotateZ !== void 0) {
+    parts.push(`rotateZ(${style.rotateZ}deg)`);
+  }
+  if (style.skewX !== void 0) {
+    parts.push(`skewX(${style.skewX}deg)`);
+  }
+  if (style.skewY !== void 0) {
+    parts.push(`skewY(${style.skewY}deg)`);
+  }
+  return parts.join(" ");
+}
+__name(buildTransformString, "buildTransformString");
+function applyStylesToNode(node, style) {
+  if (!style) return;
+  const transformStr = buildTransformString(style);
+  if (transformStr) {
+    node.style.transform = transformStr;
+  }
+  for (const [key, value] of Object.entries(style)) {
+    if (TRANSFORM_KEYS.includes(key)) continue;
+    if (value === void 0) continue;
+    if (key === "opacity") {
+      node.style.opacity = String(value);
+    } else if (key === "backgroundColor") {
+      node.style.backgroundColor = String(value);
+    } else if (key === "color") {
+      node.style.color = String(value);
+    } else {
+      node.style[key] = typeof value === "number" ? `${value}px` : String(value);
+    }
+  }
+}
+__name(applyStylesToNode, "applyStylesToNode");
+function createAnimations(animations2) {
+  const reactionListeners = /* @__PURE__ */ new WeakMap();
+  return {
+    animations: animations2,
+    usePresence,
+    ResetPresence,
+    inputStyle: "css",
+    outputStyle: "css",
+    useAnimatedNumber(initial) {
+      const [val, setVal] = React3.useState(initial);
+      const finishTimerRef = React3.useRef(null);
+      return {
+        getInstance() {
+          return setVal;
+        },
+        getValue() {
+          return val;
+        },
+        setValue(next, config, onFinish) {
+          setVal(next);
+          if (finishTimerRef.current) {
+            clearTimeout(finishTimerRef.current);
+            finishTimerRef.current = null;
+          }
+          if (onFinish) {
+            if (!config || config.type === "direct" || config.type === "timing" && config.duration === 0) {
+              onFinish();
+            } else {
+              const duration = config.type === "timing" ? config.duration : 300;
+              finishTimerRef.current = setTimeout(onFinish, duration);
+            }
+          }
+          const listeners = reactionListeners.get(setVal);
+          if (listeners) {
+            listeners.forEach((listener) => listener(next));
+          }
+        },
+        stop() {
+          if (finishTimerRef.current) {
+            clearTimeout(finishTimerRef.current);
+            finishTimerRef.current = null;
+          }
+        }
+      };
+    },
+    useAnimatedNumberReaction({
+      value
+    }, onValue) {
+      React3.useEffect(() => {
+        const instance = value.getInstance();
+        let queue = reactionListeners.get(instance);
+        if (!queue) {
+          const next = /* @__PURE__ */ new Set();
+          reactionListeners.set(instance, next);
+          queue = next;
+        }
+        queue.add(onValue);
+        return () => {
+          queue?.delete(onValue);
+        };
+      }, []);
+    },
+    useAnimatedNumberStyle(val, getStyle) {
+      return getStyle(val.getValue());
+    },
+    useAnimatedNumbersStyle(vals, getStyle) {
+      return getStyle(...vals.map((v) => v.getValue()));
+    },
+    // @ts-ignore - styleState is added by createComponent
+    useAnimations: /* @__PURE__ */ __name(({
+      props,
+      presence,
+      style,
+      componentState,
+      stateRef,
+      styleState
+    }) => {
+      const isHydrating = componentState.unmounted === true;
+      const isEntering = !!componentState.unmounted;
+      const isExiting = presence?.[0] === false;
+      const sendExitComplete = presence?.[1];
+      const wasEnteringRef = React3.useRef(isEntering);
+      const justFinishedEntering = wasEnteringRef.current && !isEntering;
+      React3.useEffect(() => {
+        wasEnteringRef.current = isEntering;
+      });
+      const exitCycleIdRef = React3.useRef(0);
+      const exitCompletedRef = React3.useRef(false);
+      const wasExitingRef = React3.useRef(false);
+      const exitInterruptedRef = React3.useRef(false);
+      const justStartedExiting = isExiting && !wasExitingRef.current;
+      const justStoppedExiting = !isExiting && wasExitingRef.current;
+      if (justStartedExiting) {
+        exitCycleIdRef.current++;
+        exitCompletedRef.current = false;
+      }
+      if (justStoppedExiting) {
+        exitCycleIdRef.current++;
+        exitInterruptedRef.current = true;
+      }
+      React3.useEffect(() => {
+        wasExitingRef.current = isExiting;
+      });
+      const effectiveTransition = styleState?.effectiveTransition ?? props.transition;
+      const normalized = normalizeTransition(effectiveTransition);
+      const animationState = isExiting ? "exit" : isEntering || justFinishedEntering ? "enter" : "default";
+      const effectiveAnimationKey = getEffectiveAnimation(normalized, animationState);
+      const defaultAnimation = effectiveAnimationKey ? animations2[effectiveAnimationKey] : null;
+      const animatedProperties = getAnimatedProperties(normalized);
+      const hasDefault = normalized.default !== null || normalized.enter !== null || normalized.exit !== null;
+      const hasPerPropertyConfigs = animatedProperties.length > 0;
+      let keys;
+      if (props.animateOnly) {
+        keys = props.animateOnly;
+      } else if (hasPerPropertyConfigs && !hasDefault) {
+        keys = animatedProperties;
+      } else if (hasPerPropertyConfigs && hasDefault) {
+        keys = ["all", ...animatedProperties];
+      } else {
+        keys = ["all"];
+      }
+      useIsomorphicLayoutEffect(() => {
+        const host = stateRef.current.host;
+        if (!sendExitComplete || !isExiting || !host) return;
+        const node = host;
+        const cycleId = exitCycleIdRef.current;
+        const completeExit = /* @__PURE__ */ __name(() => {
+          if (cycleId !== exitCycleIdRef.current) return;
+          if (exitCompletedRef.current) return;
+          exitCompletedRef.current = true;
+          sendExitComplete();
+        }, "completeExit");
+        if (keys.length === 0) {
+          completeExit();
+          return;
+        }
+        let rafId;
+        const wasInterrupted = exitInterruptedRef.current;
+        let ignoreCancelEvents = wasInterrupted;
+        const enterStyle = props.enterStyle;
+        const exitStyle = props.exitStyle;
+        const delayStr2 = normalized.delay ? ` ${normalized.delay}ms` : "";
+        const durationOverride2 = normalized.config?.duration;
+        const exitTransitionString = keys.map((key) => {
+          const propAnimation = normalized.properties[key];
+          let animationValue = null;
+          if (typeof propAnimation === "string") {
+            animationValue = animations2[propAnimation];
+          } else if (propAnimation && typeof propAnimation === "object" && propAnimation.type) {
+            animationValue = animations2[propAnimation.type];
+          } else if (defaultAnimation) {
+            animationValue = defaultAnimation;
+          }
+          if (animationValue && durationOverride2) {
+            animationValue = applyDurationOverride(animationValue, durationOverride2);
+          }
+          return animationValue ? `${key} ${animationValue}${delayStr2}` : null;
+        }).filter(Boolean).join(", ");
+        if (wasInterrupted) {
+          exitInterruptedRef.current = false;
+          node.style.transition = "none";
+          if (exitStyle) {
+            const resetStyle = {};
+            for (const key of Object.keys(exitStyle)) {
+              if (key === "opacity") {
+                resetStyle[key] = 1;
+              } else if (TRANSFORM_KEYS.includes(key)) {
+                resetStyle[key] = key === "scale" || key === "scaleX" || key === "scaleY" ? 1 : 0;
+              } else if (enterStyle?.[key] !== void 0) {
+                resetStyle[key] = enterStyle[key];
+              }
+            }
+            applyStylesToNode(node, resetStyle);
+          } else {
+            node.style.opacity = "1";
+            node.style.transform = "none";
+          }
+          void node.offsetHeight;
+        } else if (exitStyle) {
+          ignoreCancelEvents = true;
+          node.style.transition = "none";
+          const resetStyle = {};
+          for (const key of Object.keys(exitStyle)) {
+            if (key === "opacity") {
+              resetStyle[key] = 1;
+            } else if (TRANSFORM_KEYS.includes(key)) {
+              resetStyle[key] = key === "scale" || key === "scaleX" || key === "scaleY" ? 1 : 0;
+            } else if (enterStyle?.[key] !== void 0) {
+              resetStyle[key] = enterStyle[key];
+            }
+          }
+          applyStylesToNode(node, resetStyle);
+          void node.offsetHeight;
+          rafId = requestAnimationFrame(() => {
+            if (cycleId !== exitCycleIdRef.current) return;
+            node.style.transition = exitTransitionString;
+            void node.offsetHeight;
+            applyStylesToNode(node, exitStyle);
+            ignoreCancelEvents = false;
+          });
+        }
+        let maxDuration = defaultAnimation ? extractDuration(defaultAnimation) : 200;
+        const animationConfigs = getAnimationConfigsForKeys(normalized, animations2, keys, defaultAnimation);
+        for (const animationValue of animationConfigs.values()) {
+          if (animationValue) {
+            const duration = extractDuration(animationValue);
+            if (duration > maxDuration) {
+              maxDuration = duration;
+            }
+          }
+        }
+        const delay = normalized.delay ?? 0;
+        const fallbackTimeout = maxDuration + delay;
+        const timeoutId = setTimeout(() => {
+          completeExit();
+        }, fallbackTimeout);
+        const transitioningProps = new Set(keys);
+        let completedCount = 0;
+        const onFinishAnimation = /* @__PURE__ */ __name((event) => {
+          if (event.target !== node) return;
+          const eventProp = event.propertyName;
+          if (transitioningProps.has(eventProp) || eventProp === "all") {
+            completedCount++;
+            if (completedCount >= transitioningProps.size) {
+              clearTimeout(timeoutId);
+              completeExit();
+            }
+          }
+        }, "onFinishAnimation");
+        const onCancelAnimation = /* @__PURE__ */ __name(() => {
+          if (ignoreCancelEvents) return;
+          clearTimeout(timeoutId);
+          completeExit();
+        }, "onCancelAnimation");
+        node.addEventListener("transitionend", onFinishAnimation);
+        node.addEventListener("transitioncancel", onCancelAnimation);
+        if (wasInterrupted) {
+          rafId = requestAnimationFrame(() => {
+            if (cycleId !== exitCycleIdRef.current) return;
+            node.style.transition = exitTransitionString;
+            void node.offsetHeight;
+            applyStylesToNode(node, exitStyle);
+            ignoreCancelEvents = false;
+          });
+        }
+        return () => {
+          clearTimeout(timeoutId);
+          if (rafId !== void 0) cancelAnimationFrame(rafId);
+          node.removeEventListener("transitionend", onFinishAnimation);
+          node.removeEventListener("transitioncancel", onCancelAnimation);
+          node.style.transition = "";
+        };
+      }, [sendExitComplete, isExiting, stateRef, keys, normalized, defaultAnimation, props.enterStyle, props.exitStyle]);
+      if (isHydrating) {
+        return null;
+      }
+      if (!hasAnimation(normalized)) {
+        return null;
+      }
+      if (Array.isArray(style.transform)) {
+        style.transform = transformsToString(style.transform);
+      }
+      const delayStr = normalized.delay ? ` ${normalized.delay}ms` : "";
+      const durationOverride = normalized.config?.duration;
+      style.transition = keys.map((key) => {
+        const propAnimation = normalized.properties[key];
+        let animationValue = null;
+        if (typeof propAnimation === "string") {
+          animationValue = animations2[propAnimation];
+        } else if (propAnimation && typeof propAnimation === "object" && propAnimation.type) {
+          animationValue = animations2[propAnimation.type];
+        } else if (defaultAnimation) {
+          animationValue = defaultAnimation;
+        }
+        if (animationValue && durationOverride) {
+          animationValue = applyDurationOverride(animationValue, durationOverride);
+        }
+        return animationValue ? `${key} ${animationValue}${delayStr}` : null;
+      }).filter(Boolean).join(", ");
+      if (process.env.NODE_ENV === "development" && props["debug"] === "verbose") {
+        console.info("CSS animation", {
+          props,
+          animations: animations2,
+          normalized,
+          defaultAnimation,
+          style,
+          isEntering,
+          isExiting
+        });
+      }
+      return {
+        style,
+        className: isEntering ? "t_unmounted" : ""
+      };
+    }, "useAnimations")
+  };
+}
+__name(createAnimations, "createAnimations");
+
 // ../../node_modules/@tamagui/themes/dist/esm/generated-v5.mjs
 function t(a) {
   let res = {};
@@ -878,86 +1449,168 @@ var defaultConfig = {
   settings
 };
 
-// ../../node_modules/tamagui/dist/esm/createTamagui.mjs
-import { createTamagui as createTamaguiCore } from "@tamagui/core";
-var createTamagui = process.env.NODE_ENV !== "development" ? createTamaguiCore : (conf) => {
-  const sizeTokenKeys = ["$true"];
-  const hasKeys = /* @__PURE__ */ __name((expectedKeys, obj) => {
-    return expectedKeys.every((k) => typeof obj[k] !== "undefined");
-  }, "hasKeys");
-  const tamaguiConfig = createTamaguiCore(conf);
-  for (const name of ["size", "space"]) {
-    const tokenSet = tamaguiConfig.tokensParsed[name];
-    if (!tokenSet) {
-      throw new Error(`Expected tokens for "${name}" in ${Object.keys(tamaguiConfig.tokensParsed).join(", ")}`);
-    }
-    if (!hasKeys(sizeTokenKeys, tokenSet)) {
-      throw new Error(`
-createTamagui() missing expected tokens.${name}:
+// ../common/tamagui.config.base.ts
+import { createTokens } from "@tamagui/core";
 
-Received: ${Object.keys(tokenSet).join(", ")}
-
-Expected: ${sizeTokenKeys.join(", ")}
-
-Tamagui expects a "true" key that is the same value as your default size. This is so 
-it can size things up or down from the defaults without assuming which keys you use.
-
-Please define a "true" or "$true" key on your size and space tokens like so (example):
-
-size: {
-  sm: 2,
-  md: 10,
-  true: 10, // this means "md" is your default size
-  lg: 20,
-}
-
-`);
-    }
-  }
-  const expected = Object.keys(tamaguiConfig.tokensParsed.size);
-  for (const name of ["radius", "zIndex"]) {
-    const tokenSet = tamaguiConfig.tokensParsed[name];
-    const received = Object.keys(tokenSet);
-    const hasSomeOverlap = received.some((rk) => expected.includes(rk));
-    if (!hasSomeOverlap) {
-      throw new Error(`
-createTamagui() invalid tokens.${name}:
-
-Received: ${received.join(", ")}
-
-Expected a subset of: ${expected.join(", ")}
-
-`);
-    }
-  }
-  return tamaguiConfig;
+// ../tokens/build/tokens.ts
+var tokens2 = {
+  color: {
+    white: "#ffffff",
+    primary: "#3b82f6",
+    primaryDark: "#60a5fa",
+    accent: "#1c7ed6",
+    accentDark: "#4dabf7",
+    positive: "#22c55e",
+    negative: "#ef4444",
+    tileLabel: "#666666",
+    inputText: "#1e293b",
+    inputBorder: "#646464",
+    slate50: "#f8fafc",
+    slate100: "#f1f5f9",
+    slate300: "#cbd5e1",
+    slate400: "#94a3b8",
+    slate500: "#64748b",
+    slate700: "#334155",
+    slate800: "#1e293b",
+    slate900: "#0f172a",
+    glassBorderAqua: "#34beed",
+    glassBorderAquaHover: "#64a0f0",
+    glassBorderFocus: "#3b82f6",
+    inputBorderFocus: "#7db9ff",
+    buttonTileLabel: "#383e3f"
+  },
+  space: {
+    true: 0,
+    0: 0,
+    1: 4,
+    2: 8,
+    3: 12,
+    4: 16,
+    5: 20,
+    6: 24,
+    8: 32,
+    10: 40
+  },
+  size: {
+    true: 0,
+    0: 0,
+    1: 4,
+    2: 8,
+    3: 12,
+    4: 16,
+    5: 20,
+    6: 24,
+    8: 32,
+    10: 40
+  },
+  radius: {
+    true: 0,
+    1: 2,
+    2: 4,
+    3: 6,
+    8: 16
+  },
+  zIndex: { true: 0, 0: 0, 1: 1, 2: 2 }
 };
 
-// ../common/tamagui.config.ts
-var config = createTamagui({
-  ...defaultConfig,
-  themes: {
-    light: {
-      bg: "#f2f2f2",
-      color: "#000"
-    },
-    dark: {
-      bg: "#111",
-      color: "#fff"
-    },
-    // sub-themes are a powerful feature of tamagui, explained later in the docs
-    // user theme like <Theme name="dark"><Theme name="blue">
-    // or just <Theme name="dark_blue">
-    dark_blue: {
-      bg: "darkblue",
-      color: "#fff"
-    }
+// ../tokens/build/themes.ts
+var themes2 = {
+  light: {
+    bg: "#ffffff",
+    bgContrast25: "#f8fafc",
+    bgContrast50: "#f1f5f9",
+    text: "#0f172a",
+    textContrastLow: "#64748b",
+    textContrastMedium: "#334155",
+    border: "#f1f5f9",
+    primary: "#3b82f6",
+    accent: "#1c7ed6",
+    positive: "#22c55e",
+    negative: "#ef4444",
+    tileLabel: "#666666",
+    glassFill: "rgba(255,255,255,0.60)",
+    glassFillEmpty: "rgba(255,255,255,0.15)",
+    glassBorder: "rgba(255,255,255,1)",
+    glassBorderAqua: "#34beed",
+    glassBorderAquaHover: "#64a0f0",
+    glassBorderFocus: "#3b82f6",
+    inputBorderFocus: "#7db9ff",
+    buttonTileLabel: "#383e3f"
   },
-  media: {
-    ...defaultConfig.media
-    // add your own media queries here, if wanted
+  dark: {
+    bg: "#0f172a",
+    bgContrast25: "#1e293b",
+    bgContrast50: "#334155",
+    text: "#f8fafc",
+    textContrastLow: "#94a3b8",
+    textContrastMedium: "#cbd5e1",
+    border: "#1e293b",
+    primary: "#60a5fa",
+    accent: "#4dabf7",
+    positive: "#22c55e",
+    negative: "#ef4444",
+    tileLabel: "#cbd5e1",
+    glassFill: "rgba(255,255,255,0.10)",
+    glassFillEmpty: "rgba(255,255,255,0.04)",
+    glassBorder: "rgba(255,255,255,0.30)",
+    glassBorderAqua: "#34beed",
+    glassBorderAquaHover: "#64a0f0",
+    glassBorderFocus: "#3b82f6",
+    inputBorderFocus: "#7db9ff",
+    buttonTileLabel: "#383e3f"
   }
+};
+
+// ../common/tamagui.config.base.ts
+var media2 = {
+  sm: { maxWidth: 640 },
+  md: { maxWidth: 768 },
+  lg: { maxWidth: 1024 },
+  xl: { maxWidth: 1280 }
+};
+var shorthands2 = {
+  borderRadius: "borderRadius",
+  justifyContent: "justifyContent",
+  alignItems: "alignItems",
+  backgroundColor: "backgroundColor",
+  textAlign: "textAlign",
+  paddingHorizontal: "paddingHorizontal",
+  paddingVertical: "paddingVertical",
+  paddingBottom: "paddingBottom",
+  zIndex: "zIndex"
+};
+var { true: _st, ...customSize } = tokens2.size;
+var { true: _sp, ...customSpace } = tokens2.space;
+var { true: _zi, ...customZIndex } = tokens2.zIndex;
+var mergedTokens = createTokens({
+  ...defaultConfig.tokens,
+  color: tokens2.color,
+  space: { ...defaultConfig.tokens.space, ...customSpace },
+  size: { ...defaultConfig.tokens.size, ...customSize },
+  radius: { ...defaultConfig.tokens.radius, ...tokens2.radius },
+  zIndex: { ...defaultConfig.tokens.zIndex, ...customZIndex }
+});
+var mergedThemes = {
+  ...defaultConfig.themes,
+  light: { ...defaultConfig.themes.light, ...themes2.light },
+  dark: { ...defaultConfig.themes.dark, ...themes2.dark }
+};
+
+// ../common/tamagui.config.web.ts
+var animations = createAnimations({
+  fast: "ease-in-out 150ms",
+  medium: "ease-in-out 250ms",
+  slow: "ease-in-out 350ms",
+  bouncy: "cubic-bezier(0.5, 1.25, 0.5, 1) 300ms"
+});
+var tamaguiConfig = createTamagui({
+  ...defaultConfig,
+  animations,
+  tokens: mergedTokens,
+  themes: mergedThemes,
+  media: media2,
+  shorthands: shorthands2
 });
 export {
-  config
+  tamaguiConfig
 };

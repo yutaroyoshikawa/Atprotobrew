@@ -9,16 +9,18 @@ export function AppInput({ prefix, ...props }: AppInputProps) {
 
 const StyledInput = styled(Input, {
   width: "100%",
+  boxSizing: "border-box",
 
   borderWidth: 3,
-  borderColor: "rgba(100, 100, 100, 1)",
+  borderRadius: "$3",
+  borderColor: "$inputBorder",
 
   fontSize: 14,
-  color: "rgb(30, 41, 59)",
+  color: "$inputText",
 
-  background: "white",
+  backgroundColor: "$white",
 
-  placeholderTextColor: "gray",
+  placeholderTextColor: "$tileLabel",
 
   boxShadow: [
     "inset 0 1px 0 rgba(255,255,255,0.95)",

@@ -7,6 +7,7 @@ import { AppButton } from "@atprotobrew/common/core/components/AppButton";
 import { Link } from "react-router-dom";
 import { BubbleBackground } from "../launcher/BubbleBackground";
 import { useFetchLaunchers } from "@atprotobrew/common/channel/modules/launchersHooks";
+import { StoreItem } from "@atprotobrew/common/store/components/StoreItem";
 
 interface StoreProps {
   client: Client;
@@ -109,64 +110,13 @@ export function Store({ client, identifier }: StoreProps) {
               console.log(channel);
 
               return (
-                <div
+                <StoreItem
                   key={channel.title}
-                  className="rounded-2xl p-4 flex items-center gap-4 glass-tile aero-shadow"
-                >
-                  <div className="relative shrink-0">
-                    <div className="w-16 h-16 rounded-2xl flex items-center justify-center text-2xl font-bold text-white drop-shadow">
-                      <img src={channel.thumbnail} width={60} height={60} />
-                    </div>
-                    <div className="absolute top-1 left-2 w-9 h-3 rounded-full bg-white/35 blur-sm pointer-events-none" />
-                    <div className="absolute bottom-0 left-0 right-0 h-1 rounded-b-2xl opacity-80" />
-                  </div>
-
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2 mb-0.5 flex-wrap">
-                      <span className="font-semibold text-slate-800 text-sm">
-                        {channel.title}
-                      </span>
-                    </div>
-                    <p className="text-xs text-slate-500 mb-0.5">
-                      {channel.author}
-                    </p>
-                    <p className="text-xs text-slate-700/70 leading-relaxed line-clamp-2">
-                      {channel.description}
-                    </p>
-
-                    {/* {isBrewing && (
-                        <div className="mt-2">
-                          <span className="text-xs text-green-700 font-medium">
-                            Brewing...
-                          </span>
-                          <div className="mt-1 h-2 rounded-full bg-white/50 overflow-hidden border border-white/40">
-                            <div
-                              className="h-full rounded-full"
-                              style={{
-                                background:
-                                  "linear-gradient(90deg, #4ade80, #16a34a)",
-                                animation:
-                                  "brew-progress 2.2s ease-out forwards",
-                              }}
-                            />
-                          </div>
-                        </div>
-                      )} */}
-                  </div>
-
-                  <div className="shrink-0">
-                    <div className="flex items-center gap-1.5 text-green-700 bg-green-50/80 border border-green-200 rounded-xl px-3 py-2">
-                      <svg
-                        viewBox="0 0 16 16"
-                        fill="currentColor"
-                        className="w-4 h-4 shrink-0"
-                      >
-                        <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0z" />
-                      </svg>
-                      <span className="text-xs font-semibold">Installed</span>
-                    </div>
-                  </div>
-                </div>
+                  title={channel.title}
+                  thumbnail={channel.thumbnail}
+                  author={channel.author}
+                  description={channel.description}
+                />
               );
             })}
           </div>

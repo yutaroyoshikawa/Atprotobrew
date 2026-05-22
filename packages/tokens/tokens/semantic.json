@@ -1,0 +1,48 @@
+{
+  "theme": {
+    "light": {
+      "bg":                  { "value": "{color.base.white}", "type": "color" },
+      "bg-contrast-25":      { "value": "{color.base.slate-50}", "type": "color" },
+      "bg-contrast-50":      { "value": "{color.base.slate-100}", "type": "color" },
+      "text":                { "value": "{color.base.slate-900}", "type": "color" },
+      "text-contrast-low":   { "value": "{color.base.slate-500}", "type": "color" },
+      "text-contrast-medium":{ "value": "{color.base.slate-700}", "type": "color" },
+      "border":              { "value": "{color.base.slate-100}", "type": "color" },
+      "primary":             { "value": "{color.base.primary}", "type": "color" },
+      "accent":              { "value": "{color.base.accent}", "type": "color" },
+      "positive":            { "value": "{color.base.positive}", "type": "color" },
+      "negative":            { "value": "{color.base.negative}", "type": "color" },
+      "tile-label":          { "value": "{color.base.tile-label}", "type": "color" },
+      "glass-fill":          { "value": "rgba(255,255,255,0.60)", "type": "color" },
+      "glass-fill-empty":    { "value": "rgba(255,255,255,0.15)", "type": "color" },
+      "glass-border":        { "value": "rgba(255,255,255,1)", "type": "color" },
+      "glass-border-aqua":       { "value": "{color.base.glass-border-aqua}", "type": "color" },
+      "glass-border-aqua-hover": { "value": "{color.base.glass-border-aqua-hover}", "type": "color" },
+      "glass-border-focus":      { "value": "{color.base.glass-border-focus}", "type": "color" },
+      "input-border-focus":      { "value": "{color.base.input-border-focus}", "type": "color" },
+      "button-tile-label":       { "value": "{color.base.button-tile-label}", "type": "color" }
+    },
+    "dark": {
+      "bg":                  { "value": "{color.base.slate-900}", "type": "color" },
+      "bg-contrast-25":      { "value": "{color.base.slate-800}", "type": "color" },
+      "bg-contrast-50":      { "value": "{color.base.slate-700}", "type": "color" },
+      "text":                { "value": "{color.base.slate-50}", "type": "color" },
+      "text-contrast-low":   { "value": "{color.base.slate-400}", "type": "color" },
+      "text-contrast-medium":{ "value": "{color.base.slate-300}", "type": "color" },
+      "border":              { "value": "{color.base.slate-800}", "type": "color" },
+      "primary":             { "value": "{color.base.primary-dark}", "type": "color" },
+      "accent":              { "value": "{color.base.accent-dark}", "type": "color" },
+      "positive":            { "value": "{color.base.positive}", "type": "color" },
+      "negative":            { "value": "{color.base.negative}", "type": "color" },
+      "tile-label":          { "value": "{color.base.slate-300}", "type": "color" },
+      "glass-fill":          { "value": "rgba(255,255,255,0.10)", "type": "color" },
+      "glass-fill-empty":    { "value": "rgba(255,255,255,0.04)", "type": "color" },
+      "glass-border":        { "value": "rgba(255,255,255,0.30)", "type": "color" },
+      "glass-border-aqua":       { "value": "{color.base.glass-border-aqua}", "type": "color" },
+      "glass-border-aqua-hover": { "value": "{color.base.glass-border-aqua-hover}", "type": "color" },
+      "glass-border-focus":      { "value": "{color.base.glass-border-focus}", "type": "color" },
+      "input-border-focus":      { "value": "{color.base.input-border-focus}", "type": "color" },
+      "button-tile-label":       { "value": "{color.base.button-tile-label}", "type": "color" }
+    }
+  }
+}

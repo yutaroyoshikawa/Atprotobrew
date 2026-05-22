@@ -1,4 +1,4 @@
-import { StyleSheet, View } from "react-native";
+import { View } from "react-native";
 import { useFetchLaunchers } from "@atprotobrew/common/channel/modules/launchersHooks";
 import { OAuthSession } from "@atproto/oauth-client-expo";
 import { Suspense, useState } from "react";
@@ -6,8 +6,9 @@ import { AppVStack } from "@atprotobrew/common/core/components/AppVStack";
 import { StoreChannelTile } from "@atprotobrew/common/channel/components/StoreChannelTile";
 import { InstalledChannelTile } from "@atprotobrew/common/channel/components/InstalledChannelTile";
 import { AppFooter } from "@atprotobrew/common/core/components/AppFooter";
-import { Link } from "expo-router";
+import { Link, useRouter } from "expo-router";
 import { useAuthContext } from "../../modules/auth/AuthProvider";
+import { atoms as a } from "@atprotobrew/common/alf";
 
 export default function Index() {
   const { authState, logout } = useAuthContext();
@@ -23,19 +24,6 @@ export default function Index() {
   );
 }
 
-const styles = StyleSheet.create({
-  center: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  did: {
-    marginBottom: 16,
-    fontSize: 14,
-    color: "#555",
-  },
-});
-
 const TOTAL_TILES = 6;
 
 interface HomeScreenContentProps {
@@ -44,6 +32,7 @@ interface HomeScreenContentProps {
 }
 
 function HomeScreenContent({ session, logout }: HomeScreenContentProps) {
+  const router = useRouter();
   const { data } = useFetchLaunchers({ agent: session });
 
   const installChannels = data.body.view;
@@ -58,16 +47,22 @@ function HomeScreenContent({ session, logout }: HomeScreenContentProps) {
   );
 
   return (
-    <View style={styles.center}>
-      <AppVStack>
-        <AppVStack>
-          <StoreChannelTile render={(props) => <Link {...props} href="/" />} />
+    <View style={[a.h_full]}>
+      <AppVStack style={[a.h_full, a.flex_col, a.justify_between]}>
+        <AppVStack style={[a.p_4, a.flex_col, a.gap_3]}>
+          <StoreChannelTile onPress={() => router.push("/(app)/store")} />
+
           {pageChannels.map((tile) => (
             <InstalledChannelTile
               key={tile.uri}
               channelName={tile.title}
               thumbnailUrl={tile.thumbnail}
-              render={(props) => <Link {...props} href={`/`} />}
+              onPress={() =>
+                router.push({
+                  pathname: "/(app)/channels/[channelId]",
+                  params: { channelId: tile.title },
+                })
+              }
             />
           ))}
         </AppVStack>

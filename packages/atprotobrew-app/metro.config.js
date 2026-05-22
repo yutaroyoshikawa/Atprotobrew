@@ -26,6 +26,11 @@ config.resolver.resolveRequest = (context, moduleName, platform) => {
   return context.resolveRequest(context, moduleName, platform);
 };
 
+const projectRoot = __dirname
+const workspaceRoot = path.resolve(projectRoot, '../..')
+
+config.watchFolders = [workspaceRoot]
+
 const { transformer, resolver } = config;
 
 config.transformer = {

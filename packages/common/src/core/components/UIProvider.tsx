@@ -1,6 +1,6 @@
 import { TamaguiProvider } from "@tamagui/core";
 import { type ReactNode } from "react";
-import { config } from "../../../tamagui.config";
+import { tamaguiConfig } from "../../../tamagui.config";
 
 interface UIProviderProps {
   children: ReactNode;
@@ -8,7 +8,7 @@ interface UIProviderProps {
 
 export function UIProvider({ children }: UIProviderProps) {
   return (
-    <TamaguiProvider config={config} defaultTheme="light">
+    <TamaguiProvider config={tamaguiConfig} defaultTheme="light">
       {children}
     </TamaguiProvider>
   );
