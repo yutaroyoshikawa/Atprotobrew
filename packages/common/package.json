@@ -29,7 +29,7 @@
 			"import": "./src/core/types/*.ts"
 		},
 		"./theme": {
-			"import": "./src/theme/index.ts"
+			"import": "./src/styles/theme/index.ts"
 		},
 		"./auth/components/*": {
 			"import": "./src/features/auth/components/*.tsx"
@@ -69,6 +69,7 @@
 		"jotai": "^2.20.0",
 		"lucide-react-native": "^0.545.0",
 		"react-native": "0.83.6",
+		"react-native-mmkv": "^2.12.2",
 		"react-native-safe-area-context": "~5.6.2",
 		"react-native-screens": "~4.23.0",
 		"react-native-svg": "^15.15.3",

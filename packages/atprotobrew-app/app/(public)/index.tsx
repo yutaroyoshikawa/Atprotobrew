@@ -3,10 +3,11 @@ import { AppH1 } from "@atprotobrew/common/core/components/AppH1";
 import { AppText } from "@atprotobrew/common/core/components/AppText";
 import { AppVStack } from "@atprotobrew/common/core/components/AppVStack";
 import { useRouter } from "expo-router";
-import { View } from "react-native";
+import { ActivityIndicator, View } from "react-native";
 import { useAuthContext } from "../../modules/auth/AuthProvider";
 import { useEffect } from "react";
 import { atoms as a } from "@atprotobrew/common/alf";
+import { ThemeToggle } from "@atprotobrew/common/theme";
 
 function Home() {
   const { authState } = useAuthContext();
@@ -28,12 +29,16 @@ function Home() {
         <AppH1>Atprotobrew</AppH1>
         <AppText>ようこそ</AppText>
 
-        {authState.status !== "loading" && (
+        {authState.status === "unauthenticated" && (
           <AppButton onPress={() => router.push("/(auth)/login")}>
             Login
           </AppButton>
         )}
+
+        {authState.status === "loading" && <ActivityIndicator />}
       </AppVStack>
+
+      <ThemeToggle />
     </View>
   );
 }

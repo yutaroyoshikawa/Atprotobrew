@@ -68,7 +68,10 @@ function HomeScreenContent({ session, logout }: HomeScreenContentProps) {
         </AppVStack>
 
         <View>
-          <AppFooter onRequestLogout={logout} />
+          <AppFooter
+            onRequestOpenSettings={() => router.push("/(app)/settings")}
+            onRequestLogout={logout}
+          />
         </View>
       </AppVStack>
     </View>
