@@ -1,6 +1,8 @@
 import { TamaguiProvider } from "@tamagui/core";
 import { type ReactNode } from "react";
+import { Provider as JotaiProvider } from "jotai";
 import { tamaguiConfig } from "../../../tamagui.config";
+import { ThemeProvider } from "../../styles/theme/ThemeProvider";
 
 interface UIProviderProps {
   children: ReactNode;
@@ -8,8 +10,10 @@ interface UIProviderProps {
 
 export function UIProvider({ children }: UIProviderProps) {
   return (
-    <TamaguiProvider config={tamaguiConfig} defaultTheme="light">
-      {children}
-    </TamaguiProvider>
+    <JotaiProvider>
+      <TamaguiProvider config={tamaguiConfig} defaultTheme="light">
+        <ThemeProvider>{children}</ThemeProvider>
+      </TamaguiProvider>
+    </JotaiProvider>
   );
 }

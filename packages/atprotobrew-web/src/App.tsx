@@ -19,6 +19,7 @@ import { AppQueryProvider } from "@atprotobrew/common/core/components/AppQueryPr
 import { getAppQueryClient } from "@atprotobrew/common/core/modules/appQuery";
 import { AppI18nProvider } from "@atprotobrew/common/core/components/AppI18nProvider";
 import type { CatalogLoader } from "@atprotobrew/common/core/types/i18n";
+import { Settings } from "./components/settings/Settings";
 
 const appQueryClient = getAppQueryClient();
 
@@ -68,6 +69,7 @@ function Router() {
         <Route path="/store" element={<StoreRoute />} />
         <Route path="/store/:id" element={<StoreItemDetail />} />
         <Route path="/channel/:id" element={<ChannelDetailRoute />} />
+        <Route path="/settings" element={<SettingsRoute />} />
 
         <Route path="*" element={<Navigate to="/" replace />} />
       </Route>
@@ -131,4 +133,14 @@ function ChannelDetailRoute() {
   }
 
   return <ChannelDetail client={authState.client} />;
+}
+
+function SettingsRoute() {
+  const { authState } = useOutletContext<AuthContext>();
+
+  if (authState.status !== "authenticated") {
+    return null;
+  }
+
+  return <Settings />;
 }

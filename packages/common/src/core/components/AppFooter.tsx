@@ -7,9 +7,13 @@ import { useTheme } from "tamagui";
 
 interface AppFooterProps {
   onRequestLogout: () => Promise<void> | void;
+  onRequestOpenSettings?: () => void;
 }
 
-export function AppFooter({ onRequestLogout }: AppFooterProps) {
+export function AppFooter({
+  onRequestLogout,
+  onRequestOpenSettings,
+}: AppFooterProps) {
   const theme = useTheme();
   const iconColor = theme.tileLabel.get();
 
@@ -25,7 +29,12 @@ export function AppFooter({ onRequestLogout }: AppFooterProps) {
       </Background>
 
       <StyledNavigation>
-        <AppButton shape="circle" size="large" aria-label="設定">
+        <AppButton
+          onPress={onRequestOpenSettings}
+          shape="circle"
+          size="large"
+          aria-label="設定"
+        >
           <Settings color={iconColor} />
         </AppButton>
 

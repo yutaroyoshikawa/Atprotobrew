@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { BubbleBackground } from "./BubbleBackground";
 import { StoreChannelTile } from "@atprotobrew/common/channel/components/StoreChannelTile";
 import { InstalledChannelTile } from "@atprotobrew/common/channel/components/InstalledChannelTile";
@@ -16,6 +16,7 @@ interface LauncerProps {
 }
 
 export function Launcher({ client, onLogout }: LauncerProps) {
+  const navigate = useNavigate();
   const { data } = useFetchLaunchers({ agent: client });
 
   const installChannels = data.body.view;
@@ -55,7 +56,10 @@ export function Launcher({ client, onLogout }: LauncerProps) {
         </main>
 
         <footer className="relative w-full">
-          <AppFooter onRequestLogout={onLogout} />
+          <AppFooter
+            onRequestOpenSettings={() => navigate("/settings")}
+            onRequestLogout={onLogout}
+          />
         </footer>
       </div>
     </div>

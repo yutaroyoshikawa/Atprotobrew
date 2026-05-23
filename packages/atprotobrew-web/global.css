@@ -1,2 +1,5 @@
 @import "tailwindcss";
 @import "@atprotobrew/tokens/tailwind.css";
+
+/* dark variant: class-based dark mode for theme toggle support */
+@custom-variant dark (&:where(.dark, .dark *));
