@@ -7,6 +7,7 @@ import type { CatalogLoader } from "@atprotobrew/common/core/types/i18n";
 import { Stack, useRouter, useSegments } from "expo-router";
 import { AuthProvider, useAuthContext } from "../modules/auth/AuthProvider";
 import { useEffect } from "react";
+import { Provider as JotaiProvider } from "jotai";
 
 const queryClient = getAppQueryClient();
 
@@ -21,15 +22,17 @@ const catalogLoader: CatalogLoader = async (lang) => {
 
 export default function RootLayout() {
   return (
-    <AppI18nProvider extraLoaders={[catalogLoader]}>
-      <UIProvider>
-        <AppQueryProvider client={queryClient}>
-          <AuthProvider>
-            <RootLayoutNav />
-          </AuthProvider>
-        </AppQueryProvider>
-      </UIProvider>
-    </AppI18nProvider>
+    <JotaiProvider>
+      <AppI18nProvider extraLoaders={[catalogLoader]}>
+        <UIProvider>
+          <AppQueryProvider client={queryClient}>
+            <AuthProvider>
+              <RootLayoutNav />
+            </AuthProvider>
+          </AppQueryProvider>
+        </UIProvider>
+      </AppI18nProvider>
+    </JotaiProvider>
   );
 }
 
@@ -69,6 +72,7 @@ function RootLayoutNav() {
     <Stack screenOptions={{ headerShown: false }}>
       <Stack.Screen name="(auth)" />
       <Stack.Screen name="(app)" />
+      <Stack.Screen name="(public)" />
     </Stack>
   );
 }

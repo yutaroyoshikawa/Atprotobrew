@@ -25,9 +25,9 @@ const StyledButton = styled(Button, {
   borderRadius: "$3",
 
   backgroundImage:
-    "linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(200,220,255,1) 100%)",
+    "linear-gradient(180deg, rgba(200,220,255,1) 0%, $glassFill 100%)",
   boxShadow:
-    "0 2px 8px rgba(100,160,240,0.25), inset 0 1px 0 rgba(255,255,255,0.7)",
+    "0 2px 8px rgba(100,160,240,0.25), inset 0 1px 0 rgba($glassBorderFocus,0.7)",
 
   hoverStyle: { borderColor: "$glassBorderAquaHover" },
   pressStyle: { scale: 0.95 },
@@ -55,6 +55,6 @@ const StyledButton = styled(Button, {
 });
 
 const StyledText = styled(Text, {
-  color: "$buttonTileLabel",
+  color: "$text",
   fontWeight: "800",
 });

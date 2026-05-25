@@ -14,6 +14,7 @@ export { ThemeToggle } from "./ThemeToggle";
 export { useThemeToggle } from "./useThemeToggle";
 export { useSystemScheme } from "./useSystemScheme";
 export { useApplyPlatformTheme } from "./useApplyPlatformTheme";
+export { useThemeColors } from "./useThemeColors";
 
 export {
   themeOverrideAtom,

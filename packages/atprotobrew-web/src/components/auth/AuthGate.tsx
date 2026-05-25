@@ -2,6 +2,7 @@ import { AuthForm } from "@atprotobrew/common/auth/components/AuthForm";
 import { useLocale } from "@atprotobrew/common/core/modules/i18n";
 import { startAtPassportLogin } from "../../hooks/useAtPassport";
 import { ThemeToggle } from "@atprotobrew/common/theme";
+import { LanguageToggle } from "@atprotobrew/common/core/components/LanguageToggle";
 
 interface AuthGateProps {
   onRequestLogin: (handle: string, handleResolver: string) => Promise<void>;
@@ -11,7 +12,7 @@ export function AuthGate({ onRequestLogin }: AuthGateProps) {
   const locale = useLocale();
 
   return (
-    <div className="min-h-screen bg-sky-50 flex flex-col gap-y-8 items-center justify-center px-4">
+    <div className="min-h-screen bg-bg transition-colors flex flex-col gap-y-8 items-center justify-center px-4">
       <div className="max-w-sm w-full">
         <AuthForm
           onSubmit={async ({ handle, handleResolver }) => {
@@ -28,6 +29,7 @@ export function AuthGate({ onRequestLogin }: AuthGateProps) {
       </div>
 
       <ThemeToggle />
+      <LanguageToggle />
     </div>
   );
 }

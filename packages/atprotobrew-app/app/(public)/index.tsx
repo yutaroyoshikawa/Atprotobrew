@@ -7,24 +7,31 @@ import { ActivityIndicator, View } from "react-native";
 import { useAuthContext } from "../../modules/auth/AuthProvider";
 import { useEffect } from "react";
 import { atoms as a } from "@atprotobrew/common/alf";
-import { ThemeToggle } from "@atprotobrew/common/theme";
+import { ThemeToggle, useThemeColors } from "@atprotobrew/common/theme";
+import { LanguageToggle } from "@atprotobrew/common/core/components/LanguageToggle";
 
 function Home() {
   const { authState } = useAuthContext();
   const router = useRouter();
+  const t = useThemeColors();
 
   useEffect(() => {
-    if (authState.status === "loading") {
-      return;
-    }
-
     if (authState.status === "authenticated") {
       router.replace("/(app)/home");
     }
   }, [authState.status]);
 
   return (
-    <View style={[a.flex_1, a.justify_center, a.items_center, a.p_6, a.gap_4]}>
+    <View
+      style={[
+        a.flex_1,
+        a.justify_center,
+        a.items_center,
+        a.p_6,
+        a.gap_4,
+        { backgroundColor: t.bg },
+      ]}
+    >
       <AppVStack>
         <AppH1>Atprotobrew</AppH1>
         <AppText>ようこそ</AppText>
@@ -39,6 +46,7 @@ function Home() {
       </AppVStack>
 
       <ThemeToggle />
+      <LanguageToggle />
     </View>
   );
 }

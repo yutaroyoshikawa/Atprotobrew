@@ -3,7 +3,7 @@ import { AppH1 } from "./AppH1";
 import { AppButton } from "./AppButton";
 import { LogOut, Settings } from "lucide-react-native";
 import Svg, { Path } from "react-native-svg";
-import { useTheme } from "tamagui";
+import React from "react";
 
 interface AppFooterProps {
   onRequestLogout: () => Promise<void> | void;
@@ -14,9 +14,6 @@ export function AppFooter({
   onRequestLogout,
   onRequestOpenSettings,
 }: AppFooterProps) {
-  const theme = useTheme();
-  const iconColor = theme.tileLabel.get();
-
   return (
     <StyledWrapper>
       <Background>
@@ -35,7 +32,7 @@ export function AppFooter({
           size="large"
           aria-label="設定"
         >
-          <Settings color={iconColor} />
+          <Settings />
         </AppButton>
 
         <AppH1 style={{ color: "hsl(205,72%,68%)" }}>Atprotobrew</AppH1>
@@ -46,7 +43,7 @@ export function AppFooter({
           size="large"
           aria-label="ログアウト"
         >
-          <LogOut color={iconColor} />
+          <LogOut />
         </AppButton>
       </StyledNavigation>
     </StyledWrapper>

@@ -5,6 +5,8 @@ import { useLingui } from "@lingui/react";
 import { useMemo } from "react";
 import * as z from "zod";
 import { AppLanguageSchema } from "../shcemas/i18n";
+import { useSetAtom } from "jotai";
+import { languageAtom } from "../stores/languageStore";
 
 // I18nProvider が最初のレンダリングで null を返さないよう、モジュールロード時に同期的に有効化する
 i18n.load("ja", jaDefaultMessages);
@@ -27,9 +29,11 @@ export async function dynamicActivate(
 ): Promise<void> {
   const catalogs = await Promise.all(loaders.map((l) => l(lang)));
   const merged: Messages = {};
+
   for (const catalog of catalogs) {
     Object.assign(merged, catalog);
   }
+
   i18n.load(lang, merged);
   i18n.activate(lang);
 }
@@ -50,6 +54,13 @@ export function useLocale() {
   }, [i18n]);
 
   return locale;
+}
+
+export function useLanguage() {
+  const locale = useLocale();
+  const setLanguage = useSetAtom(languageAtom);
+
+  return [locale, setLanguage] as const;
 }
 
 export { i18n };
