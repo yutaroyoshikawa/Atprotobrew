@@ -20,6 +20,7 @@ import { getAppQueryClient } from "@atprotobrew/common/core/modules/appQuery";
 import { AppI18nProvider } from "@atprotobrew/common/core/components/AppI18nProvider";
 import type { CatalogLoader } from "@atprotobrew/common/core/types/i18n";
 import { Settings } from "./components/settings/Settings";
+import { Provider as JotaiProvider } from "jotai";
 
 const appQueryClient = getAppQueryClient();
 
@@ -34,23 +35,25 @@ const webCatalogLoader: CatalogLoader = async (lang) => {
 
 export default function App() {
   return (
-    <AppI18nProvider extraLoaders={[webCatalogLoader]}>
-      <UIProvider>
-        <AppQueryProvider client={appQueryClient}>
-          <BrowserRouter>
-            <Suspense
-              fallback={
-                <div className="min-h-screen bg-sky-50 flex items-center justify-center">
-                  <div className="w-8 h-8 border-2 border-blue-600 border-t-transparent rounded-full animate-spin" />
-                </div>
-              }
-            >
-              <Router />
-            </Suspense>
-          </BrowserRouter>
-        </AppQueryProvider>
-      </UIProvider>
-    </AppI18nProvider>
+    <JotaiProvider>
+      <AppI18nProvider extraLoaders={[webCatalogLoader]}>
+        <UIProvider>
+          <AppQueryProvider client={appQueryClient}>
+            <BrowserRouter>
+              <Suspense
+                fallback={
+                  <div className="min-h-screen bg-bg flex items-center justify-center">
+                    <div className="w-8 h-8 border-2 border-accent border-t-transparent rounded-full animate-spin" />
+                  </div>
+                }
+              >
+                <Router />
+              </Suspense>
+            </BrowserRouter>
+          </AppQueryProvider>
+        </UIProvider>
+      </AppI18nProvider>
+    </JotaiProvider>
   );
 }
 
@@ -82,8 +85,8 @@ type AuthContext = ReturnType<typeof useOAuth>;
 function ProtectedLayout({ authCtx }: { authCtx: AuthContext }) {
   if (authCtx.authState.status === "loading") {
     return (
-      <div className="min-h-screen bg-sky-50 flex items-center justify-center">
-        <div className="w-8 h-8 border-2 border-blue-600 border-t-transparent rounded-full animate-spin" />
+      <div className="min-h-screen bg-bg flex items-center justify-center">
+        <div className="w-8 h-8 border-2 border-accent border-t-transparent rounded-full animate-spin" />
       </div>
     );
   }

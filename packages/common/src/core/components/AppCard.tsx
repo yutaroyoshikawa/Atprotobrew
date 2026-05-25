@@ -1,6 +1,6 @@
 import { type ComponentProps, type ReactNode } from "react";
 import { styled, View } from "tamagui";
-import { aeroGlassShadow } from "../../styles/aero-shadow";
+import { aeroGlassShadow } from "../../styles/helper/aero-shadow";
 
 interface AppCardProps extends ComponentProps<typeof StyledView> {
   children: ReactNode;
@@ -13,7 +13,7 @@ export function AppCard({ children, ...props }: AppCardProps) {
 const StyledView = styled(View, {
   width: "100%",
   boxSizing: "border-box",
-  background: "$white",
+  background: "$bg",
   borderRadius: "$8",
   paddingHorizontal: "$8",
   paddingVertical: "$8",

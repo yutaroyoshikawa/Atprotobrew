@@ -16,11 +16,11 @@ const StyledInput = styled(Input, {
   borderColor: "$inputBorder",
 
   fontSize: 14,
-  color: "$inputText",
+  color: "$text",
 
-  backgroundColor: "$white",
+  backgroundColor: "$bgContrast50",
 
-  placeholderTextColor: "$tileLabel",
+  placeholderTextColor: "$textContrastLow",
 
   boxShadow: [
     "inset 0 1px 0 rgba(255,255,255,0.95)",
