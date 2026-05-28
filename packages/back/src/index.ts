@@ -1,3 +1,4 @@
+import "./polyfills";
 import { BlobRef } from "@atproto/lexicon";
 import { eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/d1";
