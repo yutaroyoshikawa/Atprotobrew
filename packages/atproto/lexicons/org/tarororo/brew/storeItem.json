@@ -4,45 +4,48 @@
 	"defs": {
 		"main": {
 			"type": "record",
-			"description": "",
+			"description": "Store item record.",
 			"key": "any",
 			"record": {
 				"type": "object",
-				"required": ["title", "description", "author", "launch", "thumbnail"],
+				"required": ["title", "launch", "thumbnail", "createdAt"],
 				"properties": {
 					"title": {
-						"type": "string"
+						"type": "string",
+						"description": "Display title.",
+						"maxGraphemes": 50,
+						"maxBytes": 500
 					},
 					"description": {
-						"type": "string"
+						"type": "string",
+						"description": "Short summary for display.",
+						"maxGraphemes": 1000,
+						"maxBytes": 10000
 					},
 					"author": {
-						"type": "string"
+						"type": "string",
+						"description": "Display name of the author.",
+						"maxGraphemes": 50,
+						"maxBytes": 500
 					},
 					"launch": {
 						"type": "union",
-						"refs": ["#launchWeb", "#launchStore"]
+						"description": "Launch target for this item.",
+						"refs": ["org.tarororo.brew.defs#launchWeb", "org.tarororo.brew.defs#launchStore"]
 					},
 					"thumbnail": {
-						"type": "blob"
+						"type": "blob",
+						"description": "Thumbnail image. Accepts image/* up to 2000000 bytes.",
+						"accept": ["image/*"],
+						"maxSize": 2000000
+					},
+					"createdAt": {
+						"type": "string",
+						"description": "Creation timestamp.",
+						"format": "datetime"
 					}
 				}
 			}
-		},
-		"launchWeb": {
-			"type": "object",
-			"required": ["link"],
-			"properties": {
-				"link": {
-					"type": "string",
-					"format": "uri"
-				}
-			}
-		},
-		"launchStore": {
-			"type": "object",
-			"required": [],
-			"properties": {}
 		}
 	}
 }

@@ -17,7 +17,10 @@ const id = 'org.tarororo.brew.launcher'
 
 export interface Record {
   $type: 'org.tarororo.brew.launcher'
+  /** Ordered list of store items to show. */
   items: Item[]
+  /** Creation timestamp. */
+  createdAt: string
   [k: string]: unknown
 }
 
@@ -31,6 +34,7 @@ export function validateRecord<V>(v: V) {
   return validate<Record & V>(v, id, hashRecord, true)
 }
 
+/** Entry in the launcher list. */
 export interface Item {
   $type?: 'org.tarororo.brew.launcher#item'
   storeItemRef?: ComAtprotoRepoStrongRef.Main

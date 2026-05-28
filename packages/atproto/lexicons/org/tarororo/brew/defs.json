@@ -1,0 +1,62 @@
+{
+	"lexicon": 1,
+	"id": "org.tarororo.brew.defs",
+	"defs": {
+		"launchWeb": {
+			"type": "object",
+			"description": "Launch via a web URL.",
+			"required": ["link"],
+			"properties": {
+				"link": {
+					"type": "string",
+					"description": "Web URL to open.",
+					"format": "uri"
+				}
+			}
+		},
+		"launchStore": {
+			"type": "object",
+			"description": "Launch brew store.",
+			"required": [],
+			"properties": {}
+		},
+		"storeItemView": {
+			"type": "object",
+			"description": "hydrated view for a store item.",
+			"required": ["title", "launch", "thumbnail", "uri", "record"],
+			"properties": {
+				"title": {
+					"type": "string",
+					"description": "Display title."
+				},
+				"description": {
+					"type": "string",
+					"description": "Short summary for display."
+				},
+				"author": {
+					"type": "string",
+					"description": "Display name of the author."
+				},
+				"launch": {
+					"type": "union",
+					"description": "Launch target for this item.",
+					"refs": ["org.tarororo.brew.defs#launchWeb", "org.tarororo.brew.defs#launchStore"]
+				},
+				"thumbnail": {
+					"type": "string",
+					"description": "Public URL of a thumbnail image.",
+					"format": "uri"
+				},
+				"uri": {
+					"type": "string",
+					"description": "AT URI of the storeItem record.",
+					"format": "at-uri"
+				},
+				"record": {
+					"type": "unknown",
+					"description": "Raw storeItem record value."
+				}
+			}
+		}
+	}
+}

@@ -203,13 +203,78 @@ export const schemaDict = {
     id: 'com.atproto.repo.strongRef',
     lexicon: 1,
   },
+  OrgTarororoBrewDefs: {
+    lexicon: 1,
+    id: 'org.tarororo.brew.defs',
+    defs: {
+      launchWeb: {
+        type: 'object',
+        description: 'Launch via a web URL.',
+        required: ['link'],
+        properties: {
+          link: {
+            type: 'string',
+            description: 'Web URL to open.',
+            format: 'uri',
+          },
+        },
+      },
+      launchStore: {
+        type: 'object',
+        description: 'Launch via a native app store listing.',
+        required: [],
+        properties: {},
+      },
+      storeItemView: {
+        type: 'object',
+        description: 'View model for a store item.',
+        required: ['title', 'launch', 'thumbnail', 'uri', 'record'],
+        properties: {
+          title: {
+            type: 'string',
+            description: 'Display title.',
+          },
+          description: {
+            type: 'string',
+            description: 'Short summary for display.',
+          },
+          author: {
+            type: 'string',
+            description: 'Display name of the author.',
+          },
+          launch: {
+            type: 'union',
+            description: 'Launch target for this item.',
+            refs: [
+              'lex:org.tarororo.brew.defs#launchWeb',
+              'lex:org.tarororo.brew.defs#launchStore',
+            ],
+          },
+          thumbnail: {
+            type: 'string',
+            description: 'Public URL of a thumbnail image.',
+            format: 'uri',
+          },
+          uri: {
+            type: 'string',
+            description: 'AT URI of the storeItem record.',
+            format: 'at-uri',
+          },
+          record: {
+            type: 'unknown',
+            description: 'Raw storeItem record value.',
+          },
+        },
+      },
+    },
+  },
   OrgTarororoBrewGetLauncher: {
     lexicon: 1,
     id: 'org.tarororo.brew.getLauncher',
     defs: {
       main: {
         type: 'query',
-        description: '',
+        description: 'Fetch the launcher view. Auth: required.',
         parameters: {
           type: 'params',
           properties: {},
@@ -217,67 +282,62 @@ export const schemaDict = {
         output: {
           schema: {
             type: 'object',
-            required: ['view', 'record'],
+            required: ['items', 'record'],
             properties: {
-              view: {
+              items: {
                 type: 'ref',
-                ref: 'lex:org.tarororo.brew.getLauncher#launcherView',
+                description: 'List of store item views for the launcher.',
+                ref: 'lex:org.tarororo.brew.getLauncher#launcherItems',
               },
               record: {
                 type: 'unknown',
+                description: 'Raw launcher record value.',
               },
             },
           },
           encoding: 'application/json',
         },
       },
-      launcherView: {
+      launcherItems: {
         type: 'array',
+        description: 'Array of store item views.',
         items: {
           type: 'ref',
-          ref: 'lex:org.tarororo.brew.getLauncher#launcherViewItem',
+          ref: 'lex:org.tarororo.brew.defs#storeItemView',
         },
       },
-      launcherViewItem: {
-        type: 'object',
-        required: [
-          'title',
-          'description',
-          'author',
-          'launch',
-          'thumbnail',
-          'uri',
-          'record',
-        ],
-        properties: {
-          title: {
-            type: 'string',
+    },
+  },
+  OrgTarororoBrewGetStoreItem: {
+    lexicon: 1,
+    id: 'org.tarororo.brew.getStoreItem',
+    defs: {
+      main: {
+        type: 'query',
+        description: 'Fetch a store item view by record URI. Auth: none.',
+        parameters: {
+          type: 'params',
+          properties: {
+            uri: {
+              type: 'string',
+              description: 'AT URI of the storeItem record.',
+              format: 'at-uri',
+            },
           },
-          description: {
-            type: 'string',
-          },
-          author: {
-            type: 'string',
-          },
-          launch: {
-            type: 'union',
-            refs: [
-              'lex:org.tarororo.brew.storeItem#launchWeb',
-              'lex:org.tarororo.brew.storeItem#launchStore',
-            ],
-          },
-          thumbnail: {
-            type: 'string',
-            format: 'uri',
-          },
-          uri: {
-            type: 'string',
-            format: 'at-uri',
-          },
-          record: {
-            type: 'unknown',
-          },
+          required: ['uri'],
         },
+        output: {
+          schema: {
+            type: 'ref',
+            ref: 'lex:org.tarororo.brew.defs#storeItemView',
+          },
+          encoding: 'application/json',
+        },
+        errors: [
+          {
+            name: 'NotFoundError',
+          },
+        ],
       },
     },
   },
@@ -287,27 +347,36 @@ export const schemaDict = {
     defs: {
       main: {
         type: 'record',
-        description: '',
+        description: 'Launcher record for an account.',
         key: 'literal:self',
         record: {
           type: 'object',
-          required: ['items'],
+          required: ['items', 'createdAt'],
           properties: {
             items: {
               type: 'array',
+              description: 'Ordered list of store items to show.',
+              maxLength: 100,
               items: {
                 type: 'ref',
                 ref: 'lex:org.tarororo.brew.launcher#item',
               },
+            },
+            createdAt: {
+              type: 'string',
+              description: 'Creation timestamp.',
+              format: 'datetime',
             },
           },
         },
       },
       item: {
         type: 'object',
+        description: 'Entry in the launcher list.',
         properties: {
           storeItemRef: {
             type: 'ref',
+            description: 'Reference to a storeItem record.',
             ref: 'lex:com.atproto.repo.strongRef',
           },
         },
@@ -320,48 +389,52 @@ export const schemaDict = {
     defs: {
       main: {
         type: 'record',
-        description: '',
+        description: 'Store item record.',
         key: 'any',
         record: {
           type: 'object',
-          required: ['title', 'description', 'author', 'launch', 'thumbnail'],
+          required: ['title', 'launch', 'thumbnail', 'createdAt'],
           properties: {
             title: {
               type: 'string',
+              description: 'Display title.',
+              maxGraphemes: 50,
+              maxBytes: 500,
             },
             description: {
               type: 'string',
+              description: 'Short summary for display.',
+              maxGraphemes: 1000,
+              maxBytes: 10000,
             },
             author: {
               type: 'string',
+              description: 'Display name of the author.',
+              maxGraphemes: 50,
+              maxBytes: 500,
             },
             launch: {
               type: 'union',
+              description: 'Launch target for this item.',
               refs: [
-                'lex:org.tarororo.brew.storeItem#launchWeb',
-                'lex:org.tarororo.brew.storeItem#launchStore',
+                'lex:org.tarororo.brew.defs#launchWeb',
+                'lex:org.tarororo.brew.defs#launchStore',
               ],
             },
             thumbnail: {
               type: 'blob',
+              description:
+                'Thumbnail image. Accepts image/* up to 2000000 bytes.',
+              accept: ['image/*'],
+              maxSize: 2000000,
+            },
+            createdAt: {
+              type: 'string',
+              description: 'Creation timestamp.',
+              format: 'datetime',
             },
           },
         },
-      },
-      launchWeb: {
-        type: 'object',
-        required: ['link'],
-        properties: {
-          link: {
-            type: 'string',
-            format: 'uri',
-          },
-        },
-      },
-      launchStore: {
-        type: 'object',
-        required: [],
-        properties: {},
       },
     },
   },
@@ -402,7 +475,9 @@ export const ids = {
   ComAtprotoRepoGetRecord: 'com.atproto.repo.getRecord',
   ComAtprotoRepoPutRecord: 'com.atproto.repo.putRecord',
   ComAtprotoRepoStrongRef: 'com.atproto.repo.strongRef',
+  OrgTarororoBrewDefs: 'org.tarororo.brew.defs',
   OrgTarororoBrewGetLauncher: 'org.tarororo.brew.getLauncher',
+  OrgTarororoBrewGetStoreItem: 'org.tarororo.brew.getStoreItem',
   OrgTarororoBrewLauncher: 'org.tarororo.brew.launcher',
   OrgTarororoBrewStoreItem: 'org.tarororo.brew.storeItem',
 } as const
