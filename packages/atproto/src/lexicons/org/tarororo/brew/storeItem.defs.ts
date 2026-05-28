@@ -3,37 +3,69 @@
  */
 
 import { l } from '@atproto/lex'
+import * as BrewDefs from './defs.defs.js'
 
 const $nsid = 'org.tarororo.brew.storeItem'
 
 export { $nsid }
 
+/** Store item record. */
 type Main = {
   $type: 'org.tarororo.brew.storeItem'
+
+  /**
+   * Display title.
+   */
   title: string
-  description: string
-  author: string
-  launch: l.$Typed<LaunchWeb> | l.$Typed<LaunchStore> | l.Unknown$TypedObject
+
+  /**
+   * Short summary for display.
+   */
+  description?: string
+
+  /**
+   * Display name of the author.
+   */
+  author?: string
+
+  /**
+   * Launch target for this item.
+   */
+  launch:
+    | l.$Typed<BrewDefs.LaunchWeb>
+    | l.$Typed<BrewDefs.LaunchStore>
+    | l.Unknown$TypedObject
+
+  /**
+   * Thumbnail image. Accepts image/* up to 2000000 bytes.
+   */
   thumbnail: l.BlobRef
+
+  /**
+   * Creation timestamp.
+   */
+  createdAt: l.DatetimeString
 }
 
 export type { Main }
 
+/** Store item record. */
 const main = l.record<'any', Main>(
   'any',
   $nsid,
   l.object({
-    title: l.string(),
-    description: l.string(),
-    author: l.string(),
+    title: l.string({ maxGraphemes: 50 }),
+    description: l.optional(l.string({ maxGraphemes: 1000 })),
+    author: l.optional(l.string({ maxGraphemes: 50 })),
     launch: l.typedUnion(
       [
-        l.typedRef<LaunchWeb>((() => launchWeb) as any),
-        l.typedRef<LaunchStore>((() => launchStore) as any),
+        l.typedRef<BrewDefs.LaunchWeb>((() => BrewDefs.launchWeb) as any),
+        l.typedRef<BrewDefs.LaunchStore>((() => BrewDefs.launchStore) as any),
       ],
       false,
     ),
-    thumbnail: l.blob(),
+    thumbnail: l.blob({ accept: ['image/*'], maxSize: 2000000 }),
+    createdAt: l.string({ format: 'datetime' }),
   }),
 )
 
@@ -51,30 +83,3 @@ export const $assert = /*#__PURE__*/ main.assert.bind(main),
   $safeParse = /*#__PURE__*/ main.safeParse.bind(main),
   $validate = /*#__PURE__*/ main.validate.bind(main),
   $safeValidate = /*#__PURE__*/ main.safeValidate.bind(main)
-
-type LaunchWeb = {
-  $type?: 'org.tarororo.brew.storeItem#launchWeb'
-  link: l.UriString
-}
-
-export type { LaunchWeb }
-
-const launchWeb = l.typedObject<LaunchWeb>(
-  $nsid,
-  'launchWeb',
-  l.object({ link: l.string({ format: 'uri' }) }),
-)
-
-export { launchWeb }
-
-type LaunchStore = { $type?: 'org.tarororo.brew.storeItem#launchStore' }
-
-export type { LaunchStore }
-
-const launchStore = l.typedObject<LaunchStore>(
-  $nsid,
-  'launchStore',
-  l.object({}),
-)
-
-export { launchStore }

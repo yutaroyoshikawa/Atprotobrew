@@ -31,7 +31,7 @@ export function validateLaunchWeb<V>(v: V) {
   return validate<LaunchWeb & V>(v, id, hashLaunchWeb)
 }
 
-/** Launch via a native app store listing. */
+/** Launch brew store. */
 export interface LaunchStore {
   $type?: 'org.tarororo.brew.defs#launchStore'
 }
@@ -46,7 +46,7 @@ export function validateLaunchStore<V>(v: V) {
   return validate<LaunchStore & V>(v, id, hashLaunchStore)
 }
 
-/** View model for a store item. */
+/** hydrated view for a store item. */
 export interface StoreItemView {
   $type?: 'org.tarororo.brew.defs#storeItemView'
   /** Display title. */

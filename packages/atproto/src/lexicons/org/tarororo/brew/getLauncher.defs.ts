@@ -3,17 +3,18 @@
  */
 
 import { l } from '@atproto/lex'
-import * as BrewStoreItem from './storeItem.defs.js'
+import * as BrewDefs from './defs.defs.js'
 
 const $nsid = 'org.tarororo.brew.getLauncher'
 
 export { $nsid }
 
+/** Fetch the launcher view. Auth: required. */
 const main = l.query(
   $nsid,
   l.params(),
   l.jsonPayload({
-    view: l.ref<LauncherView>((() => launcherView) as any),
+    items: l.ref<LauncherItems>((() => launcherItems) as any),
     record: l.lexMap(),
   }),
 )
@@ -30,54 +31,14 @@ export const $lxm = main.nsid,
   $params = main.parameters,
   $output = main.output
 
-type LauncherView = LauncherViewItem[]
+/** Array of store item views. */
+type LauncherItems = BrewDefs.StoreItemView[]
 
-export type { LauncherView }
+export type { LauncherItems }
 
-const launcherView = l.array<LauncherView[number]>(
-  l.ref<LauncherViewItem>((() => launcherViewItem) as any),
+/** Array of store item views. */
+const launcherItems = l.array<LauncherItems[number]>(
+  l.ref<BrewDefs.StoreItemView>((() => BrewDefs.storeItemView) as any),
 )
 
-export { launcherView }
-
-type LauncherViewItem = {
-  $type?: 'org.tarororo.brew.getLauncher#launcherViewItem'
-  title: string
-  description: string
-  author: string
-  launch:
-    | l.$Typed<BrewStoreItem.LaunchWeb>
-    | l.$Typed<BrewStoreItem.LaunchStore>
-    | l.Unknown$TypedObject
-  thumbnail: l.UriString
-  uri: l.AtUriString
-  record: l.LexMap
-}
-
-export type { LauncherViewItem }
-
-const launcherViewItem = l.typedObject<LauncherViewItem>(
-  $nsid,
-  'launcherViewItem',
-  l.object({
-    title: l.string(),
-    description: l.string(),
-    author: l.string(),
-    launch: l.typedUnion(
-      [
-        l.typedRef<BrewStoreItem.LaunchWeb>(
-          (() => BrewStoreItem.launchWeb) as any,
-        ),
-        l.typedRef<BrewStoreItem.LaunchStore>(
-          (() => BrewStoreItem.launchStore) as any,
-        ),
-      ],
-      false,
-    ),
-    thumbnail: l.string({ format: 'uri' }),
-    uri: l.string({ format: 'at-uri' }),
-    record: l.lexMap(),
-  }),
-)
-
-export { launcherViewItem }
+export { launcherItems }

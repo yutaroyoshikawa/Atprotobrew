@@ -221,13 +221,13 @@ export const schemaDict = {
       },
       launchStore: {
         type: 'object',
-        description: 'Launch via a native app store listing.',
+        description: 'Launch brew store.',
         required: [],
         properties: {},
       },
       storeItemView: {
         type: 'object',
-        description: 'View model for a store item.',
+        description: 'hydrated view for a store item.',
         required: ['title', 'launch', 'thumbnail', 'uri', 'record'],
         properties: {
           title: {
