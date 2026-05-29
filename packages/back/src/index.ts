@@ -19,7 +19,11 @@ const storeRecord0: Record = {
 	title: "Store",
 	launch: { $type: "org.tarororo.brew.defs#launchStore" } satisfies LaunchStore,
 	createdAt: "2024-01-01T00:00:00Z",
-	thumbnail: new BlobRef("bafkreihwihm6kpd6zuwhhlro75p5qks5qtrcu55jp3gddbfjsieiv7wuka", "image/jpeg", 256555),
+	thumbnail: new BlobRef(
+		{ $link: "bafkreihwihm6kpd6zuwhhlro75p5qks5qtrcu55jp3gddbfjsieiv7wuka" },
+		"image/jpeg",
+		256555,
+	),
 };
 const storeRecord1: Record = {
 	$type: "org.tarororo.brew.storeItem",
@@ -27,7 +31,11 @@ const storeRecord1: Record = {
 	title: "Bluesky",
 	launch: { $type: "org.tarororo.brew.defs#launchWeb", link: "https://bsky.app" } satisfies LaunchWeb,
 	description: "Bluesky",
-	thumbnail: new BlobRef("bafkreihwihm6kpd6zuwhhlro75p5qks5qtrcu55jp3gddbfjsieiv7wuka", "image/jpeg", 256555),
+	thumbnail: new BlobRef(
+		{ $link: "bafkreihwihm6kpd6zuwhhlro75p5qks5qtrcu55jp3gddbfjsieiv7wuka" },
+		"image/jpeg",
+		256555,
+	),
 	createdAt: "2024-01-01T00:00:00Z",
 };
 const storeRecord2: Record = {
@@ -36,7 +44,11 @@ const storeRecord2: Record = {
 	description: "",
 	title: "TOKIMEKI",
 	launch: { $type: "org.tarororo.brew.defs#launchWeb", link: "https://tokimeki.blue" } satisfies LaunchWeb,
-	thumbnail: new BlobRef("bafkreibsbcc6yqqhdvmb6hzzqkwnxobog45cuelt4twmbdpctmcs7e4udy", "image/png", 42840),
+	thumbnail: new BlobRef(
+		{ $link: "bafkreibsbcc6yqqhdvmb6hzzqkwnxobog45cuelt4twmbdpctmcs7e4udy" },
+		"image/png",
+		42840,
+	),
 	createdAt: "2024-01-01T00:00:00Z",
 };
 
