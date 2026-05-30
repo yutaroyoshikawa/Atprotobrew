@@ -37,7 +37,7 @@ function StoreScreenContent({ session }: StoreScreenContentProps) {
 
         <View style={[a.flex_1, a.w_full, a.px_4, a.py_4]}>
           <View style={[a.flex_col, a.gap_6]}>
-            {data.body.view.map((channel) => {
+            {data.body.items.map((channel) => {
               return (
                 <StoreItem
                   key={channel.title}

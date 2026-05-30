@@ -11,7 +11,6 @@ import { useForm } from "@tanstack/react-form";
 import { AtPassportLogin } from "../../../core/components/AtPassportLogin";
 import { AppSeparator } from "../../../core/components/AppSeparator";
 import { Trans } from "@lingui/react/macro";
-import { useLingui } from "@lingui/react/macro";
 import { useLocale } from "../../../core/modules/i18n";
 import { View } from "tamagui";
 
