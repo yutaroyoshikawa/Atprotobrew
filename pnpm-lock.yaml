@@ -29,10 +29,10 @@ importers:
         specifier: 2.2.3
         version: 2.2.3
       '@lingui/core':
-        specifier: ^6.0.1
-        version: 6.0.1(babel-plugin-macros@3.1.0)
+        specifier: ^6.1.0
+        version: 6.1.0(babel-plugin-macros@3.1.0)
       '@lingui/react':
-        specifier: ^6.0.1
+        specifier: ^6.1.0
         version: 6.1.0(babel-plugin-macros@3.1.0)(react@19.2.3)
       react:
         specifier: 19.2.3
@@ -12165,9 +12165,7 @@ snapshots:
       metro-runtime: 0.84.4
     transitivePeerDependencies:
       - '@babel/core'
-      - bufferutil
       - supports-color
-      - utf-8-validate
 
   '@react-native/normalize-color@2.1.0': {}
 

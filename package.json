@@ -20,8 +20,8 @@
 	"dependencies": {
 		"@atproto/lex": "^0.0.25",
 		"@biomejs/biome": "2.2.3",
-		"@lingui/core": "^6.0.1",
-		"@lingui/react": "^6.0.1",
+		"@lingui/core": "^6.1.0",
+		"@lingui/react": "^6.1.0",
 		"react": "19.2.3",
 		"react-native": "0.85.3",
 		"react-native-svg": "15.15.5",
@@ -38,7 +38,7 @@
 			"@expo/metro-runtime": "56.0.13",
 			"@expo/log-box": "56.0.12",
 			"expo-web-browser": "56.0.5",
-      "expo": "56.0.6",
+			"expo": "56.0.6",
 			"react-native-mmkv": "3.3.3",
 			"@babel/helper-compilation-targets>lru-cache": "5"
 		},

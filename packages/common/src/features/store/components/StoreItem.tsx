@@ -7,8 +7,8 @@ import { Trans, useLingui } from "@lingui/react/macro";
 interface StoreItemProps {
   title: string;
   thumbnail: string;
-  author: string;
-  description: string;
+  author?: string;
+  description?: string;
 }
 
 export function StoreItem({
@@ -54,21 +54,27 @@ export function StoreItem({
       {/* Body */}
       <YStack style={[a.flex_1, a.gap_1]}>
         <XStack style={[a.items_center, a.gap_2, a.flex_wrap]}>
-          <AppH1 style={[a.text_sm, a.font_semibold, { color: theme.text.get() }]}>
+          <AppH1
+            style={[a.text_sm, a.font_semibold, { color: theme.text.get() }]}
+          >
             {title}
           </AppH1>
         </XStack>
 
-        <Text style={[a.text_xs, { color: theme.textContrastLow.get() }]}>
-          {author}
-        </Text>
+        {author && (
+          <Text style={[a.text_xs, { color: theme.textContrastLow.get() }]}>
+            {author}
+          </Text>
+        )}
 
-        <Text
-          style={[a.text_xs, { color: theme.textContrastMedium.get() }]}
-          numberOfLines={2}
-        >
-          {description}
-        </Text>
+        {description && (
+          <Text
+            style={[a.text_xs, { color: theme.textContrastMedium.get() }]}
+            numberOfLines={2}
+          >
+            {description}
+          </Text>
+        )}
       </YStack>
 
       {/* Installed status */}

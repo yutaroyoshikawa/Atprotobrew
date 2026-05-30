@@ -15,7 +15,7 @@ interface StoreProps {
   identifier: AtIdentifierString;
 }
 
-export function Store({ client, identifier }: StoreProps) {
+export function Store({ client }: StoreProps) {
   const { t } = useLingui();
   const { data } = useFetchLaunchers({ agent: client });
   // const storeItemMutation = usePutStoreItemMutation({ client, identifier });
@@ -108,7 +108,7 @@ export function Store({ client, identifier }: StoreProps) {
 
         <main className="flex-1 px-4 py-4 max-w-2xl w-full mx-auto">
           <div className="space-y-3">
-            {data.body.view.map((channel) => {
+            {data.body.items.map((channel) => {
               console.log(channel);
 
               return (

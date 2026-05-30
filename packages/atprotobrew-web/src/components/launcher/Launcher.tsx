@@ -19,7 +19,7 @@ export function Launcher({ client, onLogout }: LauncerProps) {
   const navigate = useNavigate();
   const { data } = useFetchLaunchers({ agent: client });
 
-  const installChannels = data.body.view;
+  const installChannels = data.body.items;
 
   const [page] = useState(0);
 
