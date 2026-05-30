@@ -1,0 +1,9 @@
+{
+	"servers": {
+		"atproto-docs": {
+			"type": "http",
+			"url": "https://atproto.mcp.kapa.ai"
+		}
+	},
+	"inputs": []
+}
