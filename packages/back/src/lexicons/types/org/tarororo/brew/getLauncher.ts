@@ -9,7 +9,7 @@ import {
   is$typed as _is$typed,
   type OmitKey,
 } from '../../../../util'
-import type * as OrgTarororoBrewStoreItem from './storeItem.js'
+import type * as OrgTarororoBrewDefs from './defs.js'
 
 const is$typed = _is$typed,
   validate = _validate
@@ -19,7 +19,8 @@ export type QueryParams = {}
 export type InputSchema = undefined
 
 export interface OutputSchema {
-  view: LauncherView
+  items: LauncherItems
+  /** Raw launcher record value. */
   record: { [_ in string]: unknown }
 }
 
@@ -37,28 +38,4 @@ export interface HandlerError {
 }
 
 export type HandlerOutput = HandlerError | HandlerSuccess
-export type LauncherView = LauncherViewItem[]
-
-export interface LauncherViewItem {
-  $type?: 'org.tarororo.brew.getLauncher#launcherViewItem'
-  title: string
-  description: string
-  author: string
-  launch:
-    | $Typed<OrgTarororoBrewStoreItem.LaunchWeb>
-    | $Typed<OrgTarororoBrewStoreItem.LaunchStore>
-    | { $type: string }
-  thumbnail: string
-  uri: string
-  record: { [_ in string]: unknown }
-}
-
-const hashLauncherViewItem = 'launcherViewItem'
-
-export function isLauncherViewItem<V>(v: V) {
-  return is$typed(v, id, hashLauncherViewItem)
-}
-
-export function validateLauncherViewItem<V>(v: V) {
-  return validate<LauncherViewItem & V>(v, id, hashLauncherViewItem)
-}
+export type LauncherItems = OrgTarororoBrewDefs.StoreItemView[]

@@ -1,6 +1,5 @@
 {
 	"name": "@atprotobrew/common",
-	"main": "expo-router/entry",
 	"version": "1.0.0",
 	"type": "module",
 	"scripts": {
@@ -14,7 +13,7 @@
 	},
 	"exports": {
 		"./alf": {
-			"import":"./src/styles/alf/index.ts"
+			"import": "./src/styles/alf/index.ts"
 		},
 		"./core/components/*": {
 			"import": "./src/core/components/*.tsx"
@@ -43,41 +42,48 @@
 		"./store/components/*": {
 			"import": "./src/features/store/components/*.tsx"
 		},
+		"./settings/components/*": {
+			"import": "./src/features/settings/components/*.tsx"
+		},
 		"./i18n/locales/*": {
 			"import": "./locales/*/messages.ts"
 		}
 	},
 	"dependencies": {
 		"@atpassport/client": "^0.1.31",
-		"@atprotobrew/tokens": "workspace:^",
 		"@atprotobrew/atproto": "workspace:^",
-		"@react-navigation/native": "^7.0.0",
-		"@tamagui/animations-react-native": "2.0.0-rc.41",
-		"@tamagui/config": "2.0.0-rc.41",
-		"@tamagui/core": "2.0.0-rc.41",
+		"@atprotobrew/tokens": "workspace:^",
+		"@expo/ui": "~56.0.14",
+		"@tamagui/animations-react-native": "2.0.0",
+		"@tamagui/config": "2.0.0",
+		"@tamagui/core": "2.0.0",
 		"@tanstack/react-form": "^1.29.1",
 		"@tanstack/react-query": "^5.100.9",
+		"chroma-js": "^3.2.0",
 		"class-variance-authority": "^0.7.1",
 		"date-fns": "^4.1.0",
-		"expo": "~55.0.9",
-		"expo-constants": "~55.0.9",
-		"expo-linking": "~55.0.9",
-		"expo-router": "~55.0.8",
-		"expo-splash-screen": "~55.0.13",
-		"expo-status-bar": "~55.0.4",
-		"expo-system-ui": "~55.0.11",
+		"expo": "~56.0.5",
+		"expo-blur": "~56.0.3",
+		"expo-constants": "~56.0.16",
+		"expo-linking": "~56.0.12",
+		"expo-router": "~56.2.7",
+		"expo-splash-screen": "~56.0.10",
+		"expo-status-bar": "~56.0.4",
+		"expo-system-ui": "~56.0.5",
 		"jotai": "^2.20.0",
-		"lucide-react-native": "^0.545.0",
-		"react-native": "0.83.6",
-		"react-native-mmkv": "^2.12.2",
-		"react-native-safe-area-context": "~5.6.2",
-		"react-native-screens": "~4.23.0",
-		"react-native-svg": "^15.15.3",
-		"tamagui": "2.0.0-rc.41",
+		"lucide-react-native": "^1.16.0",
+		"react-native": "0.85.3",
+		"react-native-mmkv": "^3.3.3",
+		"react-native-safe-area-context": "~5.7.0",
+		"react-native-screens": "4.25.2",
+		"react-native-svg": "15.15.5",
+		"react-native-teleport": "^1.1.7",
+		"tamagui": "2.0.0",
 		"zod": "^4.4.3"
 	},
 	"devDependencies": {
 		"@babel/core": "^7.26.0",
+		"@types/chroma-js": "^3.1.2",
 		"@types/react": "~19.2.10",
 		"typescript": "^6.0.3"
 	},

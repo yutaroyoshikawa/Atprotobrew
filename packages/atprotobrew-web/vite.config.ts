@@ -10,6 +10,11 @@ import macros from "vite-plugin-babel-macros";
 export default defineConfig({
   plugins: [
     react(),
+    babel({
+      babelConfig: {
+        plugins: ["babel-plugin-react-compiler"],
+      },
+    }),
     lingui(),
     macros(),
     tamaguiPlugin({
@@ -17,17 +22,18 @@ export default defineConfig({
         __dirname,
         "node_modules/@atprotobrew/common/tamagui.config.ts",
       ),
-      components: ["@atprotobrew/common", "tamagui"],
+      components: ["tamagui"],
     }),
     tailwindcss(),
-    babel({
-      babelConfig: {
-        plugins: ["babel-plugin-react-compiler"],
-      },
-    }),
   ],
   resolve: {
     dedupe: ["react", "react-dom"],
+    alias: {
+      "lucide-react-native": path.resolve(
+        __dirname,
+        "../../node_modules/lucide-react",
+      ),
+    },
   },
   optimizeDeps: {
     exclude: ["@atprotobrew/tokens", "@atprotobrew/common"],

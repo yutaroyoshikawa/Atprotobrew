@@ -1,8 +1,8 @@
 import { useAtomValue } from "jotai";
 import { Theme } from "tamagui";
-import { resolvedThemeAtom } from "./atoms";
-import { useSystemScheme } from "./useSystemScheme";
-import { useApplyPlatformTheme } from "./useApplyPlatformTheme";
+import { resolvedThemeAtom } from "../../styles/theme/atoms";
+import { useSystemScheme } from "../../styles/theme/useSystemScheme";
+import { useApplyPlatformTheme } from "../../styles/theme/useApplyPlatformTheme";
 
 /**
  * クロスプラットフォーム Theme プロバイダ。

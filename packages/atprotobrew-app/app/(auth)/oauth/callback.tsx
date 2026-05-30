@@ -1,32 +1,23 @@
-import { ActivityIndicator, BackHandler } from "react-native";
-import { Stack } from "expo-router";
-import { AppVStack } from "@atprotobrew/common/core/components/AppVStack";
-import { useEffect } from "react";
+import { ActivityIndicator, View } from "react-native";
+import { useThemeColors } from "@atprotobrew/common/theme";
+import { atoms as a } from "@atprotobrew/common/alf";
 
 function OAuthCallback() {
-  // Block Android hardware back button while auth is in progress.
-  useEffect(() => {
-    const subscription = BackHandler.addEventListener(
-      "hardwareBackPress",
-      () => true,
-    );
-
-    return () => subscription.remove();
-  }, []);
+  const t = useThemeColors();
 
   return (
-    <>
-      <Stack.Screen
-        options={{
-          gestureEnabled: false,
-          headerBackVisible: false,
-          headerLeft: () => null,
-        }}
-      />
-      <AppVStack>
-        <ActivityIndicator />
-      </AppVStack>
-    </>
+    <View
+      style={[
+        a.h_full,
+        a.w_full,
+        a.flex_col,
+        a.justify_center,
+        a.items_center,
+        { backgroundColor: t.bg },
+      ]}
+    >
+      <ActivityIndicator />
+    </View>
   );
 }
 

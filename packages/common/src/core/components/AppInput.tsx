@@ -10,44 +10,35 @@ export function AppInput({ prefix, ...props }: AppInputProps) {
 const StyledInput = styled(Input, {
   width: "100%",
   boxSizing: "border-box",
+  alignItems: "center",
+  paddingHorizontal: "$4",
 
   borderWidth: 3,
-  borderRadius: "$3",
+  borderRadius: "$10",
   borderColor: "$inputBorder",
 
   fontSize: 14,
-  color: "$text",
+  fontWeight: 800,
+  color: "$inputText",
 
-  backgroundColor: "$bgContrast50",
+  backgroundImage: "linear-gradient(176deg, $bgContrast25 0%, $bg 100%)",
 
   placeholderTextColor: "$textContrastLow",
-
-  boxShadow: [
-    "inset 0 1px 0 rgba(255,255,255,0.95)",
-    "inset 0 -1px 2px rgba(120,160,210,0.15)",
-    "0 1px 2px rgba(80,130,200,0.12)",
-    "0 4px 12px rgba(120,170,230,0.18)",
-  ].join(", "),
 
   outlineWidth: 0,
   outlineStyle: "none",
 
+  transition: {
+    borderColor: "slow",
+    backgroundColor: "slow",
+  },
+
   hoverStyle: {
-    transition: {
-      duration: 200,
-    },
-    backgroundImage:
-      "linear-gradient(180deg, rgba(255,255,255,0.95) 0%, rgba(240,248,255,0.65) 45%, rgba(215,233,253,0.55) 100%)",
-    boxShadow: [
-      "inset 0 1px 0 rgba(255,255,255,1)",
-      "inset 0 -1px 2px rgba(120,160,210,0.18)",
-      "0 1px 2px rgba(80,130,200,0.14)",
-      "0 6px 16px rgba(120,170,230,0.22)",
-    ].join(", "),
+    backgroundColor: "$bgContrast25",
   },
 
   focusStyle: {
-    borderColor: "rgba(125, 185, 255, 0.95)",
+    borderColor: "$inputBorderFocus",
     outlineWidth: 0,
     outlineStyle: "none",
   },

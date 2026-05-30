@@ -1,5 +1,5 @@
 import { type ComponentProps, type ReactNode } from "react";
-import { Button, styled, isWeb, Text } from "tamagui";
+import { Button, styled, Text, useTheme } from "tamagui";
 
 interface AppButtonProps extends ComponentProps<typeof StyledButton> {
   onPress?: () => void;
@@ -7,9 +7,11 @@ interface AppButtonProps extends ComponentProps<typeof StyledButton> {
 }
 
 export function AppButton({ onPress, children, ...props }: AppButtonProps) {
+  const t = useTheme();
+
   return (
     <StyledButton onPress={onPress} {...props}>
-      <StyledText>{children}</StyledText>
+      <StyledText color={t.text.val}>{children}</StyledText>
     </StyledButton>
   );
 }
@@ -20,16 +22,18 @@ const StyledButton = styled(Button, {
   height: 44,
   justifyContent: "center",
   alignItems: "center",
-  borderWidth: 1.5,
-  borderColor: "$glassBorderAqua",
-  borderRadius: "$3",
+  borderWidth: 2,
+  borderRadius: "$4",
+  color: "$textContrastMedium",
+
+  transition: {
+    scale: "bouncy",
+    backgroundImage: "bouncy",
+  },
 
   backgroundImage:
-    "linear-gradient(180deg, rgba(200,220,255,1) 0%, $glassFill 100%)",
-  boxShadow:
-    "0 2px 8px rgba(100,160,240,0.25), inset 0 1px 0 rgba($glassBorderFocus,0.7)",
+    "linear-gradient(177deg, $primaryGradientStart 20%, $primaryGradientEnd 100%)",
 
-  hoverStyle: { borderColor: "$glassBorderAquaHover" },
   pressStyle: { scale: 0.95 },
 
   variants: {
@@ -46,6 +50,7 @@ const StyledButton = styled(Button, {
         alignItems: "center",
         justifyContent: "center",
         flexDirection: "row",
+        borderColor: "$buttonBorder",
       },
     },
     size: { large: { height: 60, width: 60 } },
@@ -55,6 +60,6 @@ const StyledButton = styled(Button, {
 });
 
 const StyledText = styled(Text, {
-  color: "$text",
-  fontWeight: "800",
+  fontWeight: "bold",
+  color: "$textContrastMedium",
 });

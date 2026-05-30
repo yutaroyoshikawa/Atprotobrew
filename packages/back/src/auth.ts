@@ -1,17 +1,15 @@
 import { DID_KEY_PREFIX, parseDidKey, parseMultikey, SECP256K1_JWT_ALG, verifySignature } from "@atproto/crypto";
-import { IdResolver, MemoryCache } from "@atproto/identity";
+import { getKey } from "@atproto/identity";
 import { AuthRequiredError, type HonoAuthVerifier, InvalidRequestError } from "@evex-dev/xrpc-hono";
 import { secp256k1 } from "@noble/curves/secp256k1";
 import { sha256 } from "@noble/hashes/sha2";
 import type { Context } from "hono";
+import KeyEncoder from "key-encoder";
+import { resolveDiddoc } from "./resolver";
+import type { Env } from "./types";
 
-const idResolver = new IdResolver({ didCache: new MemoryCache() });
-
-// biome-ignore lint/complexity/noBannedTypes: aaaaa
-type AuthParam = Parameters<HonoAuthVerifier<{}, AuthSuccess>>[0];
-type AuthSuccess = {
-	credentials: { type: "standard"; iss: string; aud: string };
-};
+type AuthParam = Parameters<HonoAuthVerifier<Env, AuthSuccess>>[0];
+type AuthSuccess = { credentials: { type: "standard"; iss: string; aud: string } };
 type VerifySignatureWithKeyFn = (
 	didKey: string,
 	msgBytes: Uint8Array,
@@ -66,16 +64,11 @@ export function checkAuthFactory({ ownDid }: { ownDid: string }) {
 
 const getSigningKey = async (iss: string, forceRefresh: boolean): Promise<string> => {
 	const [did, serviceId] = iss.split("#");
-	const keyId = serviceId === "atproto_labeler" ? "atproto_label" : "atproto";
-	const identity = await idResolver.did.resolve(did, forceRefresh);
-	if (!identity || !identity.verificationMethod) throw new AuthRequiredError("identity unknown");
-	for (const method of identity.verificationMethod) {
-		if (method.id === [did, keyId].join("#")) {
-			if (!method.publicKeyMultibase) throw new AuthRequiredError("missing or bad key");
-			return method.publicKeyMultibase;
-		}
-	}
-	throw new AuthRequiredError("missing or bad key");
+	const identity = await resolveDiddoc(did, forceRefresh);
+	if (identity == null) throw new AuthRequiredError("failed to resolve did");
+	const key = getKey(identity);
+	if (key == null) throw new AuthRequiredError("missing or bad key");
+	return key;
 };
 
 //ES256Kむけの実装を分岐している。それ以外の方式はこの関数いらなそう

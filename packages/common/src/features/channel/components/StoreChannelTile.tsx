@@ -3,6 +3,7 @@ import { Svg, Rect, Path } from "react-native-svg";
 import { useTheme } from "tamagui";
 import { AppVStack } from "../../../core/components/AppVStack";
 import { AppText } from "../../../core/components/AppText";
+import { Trans } from "@lingui/react/macro";
 import { atoms as a } from "../../../styles/alf";
 import { ChannelTile } from "./ChannelTile";
 
@@ -38,7 +39,7 @@ export function StoreChannelTile({ render, onPress }: StoreChannelTileProps) {
           <Rect x="9" y="29" width="16" height="2" rx="1" fillOpacity="0.5" />
         </Svg>
         <AppText style={[a.text_center, a.font_bold, { color: "$tileLabel" }]}>
-          Store
+          <Trans>ストア</Trans>
         </AppText>
       </AppVStack>
     </ChannelTile>

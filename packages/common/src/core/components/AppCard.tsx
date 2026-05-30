@@ -13,9 +13,8 @@ export function AppCard({ children, ...props }: AppCardProps) {
 const StyledView = styled(View, {
   width: "100%",
   boxSizing: "border-box",
-  background: "$bg",
   borderRadius: "$8",
-  paddingHorizontal: "$8",
+  paddingHorizontal: "$3",
   paddingVertical: "$8",
   boxShadow: aeroGlassShadow(),
 });

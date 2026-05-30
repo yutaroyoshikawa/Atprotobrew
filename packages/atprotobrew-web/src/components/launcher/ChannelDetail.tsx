@@ -14,7 +14,7 @@ export function ChannelDetail({ client }: Props) {
 
   const { data } = useFetchLaunchers({ agent: client });
 
-  const targetLauncher = data.body.view.find((item) => item.title === id);
+  const targetLauncher = data.body.items.find((item) => item.title === id);
 
   if (!targetLauncher) {
     return null;

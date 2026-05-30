@@ -2682,7 +2682,7 @@ var StyleObjectRules = 4;
 // ../../node_modules/@tamagui/constants/dist/esm/constants.mjs
 import { useEffect as useEffect3, useLayoutEffect } from "react";
 var isWeb = true;
-var isBrowser = typeof document !== "undefined";
+var isBrowser = typeof navigator !== "undefined" && typeof location !== "undefined";
 var isServer = !isBrowser;
 var isClient = isBrowser;
 var useIsomorphicLayoutEffect = isServer ? useEffect3 : useLayoutEffect;
@@ -3777,6 +3777,7 @@ var SizableText2 = styled8(Text3, {
     unstyled: process.env.TAMAGUI_HEADLESS === "1"
   }
 });
+SizableText2.staticConfig.inlineProps = /* @__PURE__ */ new Set([...SizableText2.staticConfig.inlineProps || [], "maxFontSizeMultiplier"]);
 SizableText2.staticConfig.variants.fontFamily = {
   "...": /* @__PURE__ */ __name((val, extras) => {
     if (val === "inherit") {
@@ -3913,6 +3914,7 @@ function wrapChildrenInText(TextComponent, propsIn, extraProps) {
     letterSpacing,
     textAlign,
     fontStyle,
+    ellipsis,
     maxFontSizeMultiplier
   } = propsIn;
   if (noTextWrap || !children) {
@@ -3929,7 +3931,8 @@ function wrapChildrenInText(TextComponent, propsIn, extraProps) {
   if (textAlign) props.textAlign = textAlign;
   if (size4) props.size = size4;
   if (fontStyle) props.fontStyle = fontStyle;
-  if (maxFontSizeMultiplier) props.maxFontSizeMultiplier = maxFontSizeMultiplier;
+  if (ellipsis !== void 0) props.ellipsis = ellipsis;
+  if (maxFontSizeMultiplier != null) props.maxFontSizeMultiplier = maxFontSizeMultiplier;
   return React14.Children.toArray(children).map((child, index2) => {
     return typeof child === "string" ? (
       // so "data-disable-theme" is a hack to fix themeInverse, don't ask me why
@@ -4385,10 +4388,44 @@ var state2 = createGlobalState(`gesture`, {
   enabled: false,
   Gesture: null,
   GestureDetector: null,
-  ScrollView: null
+  ScrollView: null,
+  RootView: null
 });
+var GESTURE_ENABLED_FREEZE_KEY = "__tamagui_gesture_enabled_freeze__";
+function getGestureEnabledFreezeState() {
+  const g = globalThis;
+  if (!g[GESTURE_ENABLED_FREEZE_KEY]) {
+    g[GESTURE_ENABLED_FREEZE_KEY] = {
+      frozen: false,
+      enabled: false,
+      warned: false
+    };
+  }
+  return g[GESTURE_ENABLED_FREEZE_KEY];
+}
+__name(getGestureEnabledFreezeState, "getGestureEnabledFreezeState");
+function warnGestureEnabledMutationIgnored(source) {
+  const freezeState = getGestureEnabledFreezeState();
+  if (freezeState.warned || process.env.NODE_ENV === "production") {
+    return;
+  }
+  freezeState.warned = true;
+  console.warn(`[Tamagui] Ignored ${source} because gesture handler press events were already ${freezeState.enabled ? "enabled" : "disabled"} when TamaguiProvider mounted. Configure gesture handler mode before the first render.`);
+}
+__name(warnGestureEnabledMutationIgnored, "warnGestureEnabledMutationIgnored");
+function canChangeGestureHandlerEnabled(nextEnabled, source) {
+  const freezeState = getGestureEnabledFreezeState();
+  if (!freezeState.frozen || freezeState.enabled === nextEnabled) {
+    return true;
+  }
+  warnGestureEnabledMutationIgnored(source);
+  return false;
+}
+__name(canChangeGestureHandlerEnabled, "canChangeGestureHandlerEnabled");
 var pressGestureDebugId = 0;
 var externalPressDebugId = 0;
+var PRESS_MOVE_CANCEL_DISTANCE = 12;
+var PRESS_MOVE_CANCEL_DISTANCE_SQ = PRESS_MOVE_CANCEL_DISTANCE * PRESS_MOVE_CANCEL_DISTANCE;
 function getEventPointerId(e) {
   const pointerId = e?.pointerId ?? e?.pointer?.id ?? e?.event?.pointerId ?? e?.event?.pointer?.id ?? e?.nativeEvent?.pointerId ?? e?.nativeEvent?.id ?? e?.event?.nativeEvent?.pointerId ?? e?.event?.nativeEvent?.id ?? null;
   return pointerId == null || Number.isNaN(pointerId) ? null : Number(pointerId);
@@ -4443,9 +4480,15 @@ function getGestureHandler() {
       return state2.get();
     },
     set(updates) {
+      if (updates.enabled !== void 0 && !canChangeGestureHandlerEnabled(updates.enabled, "getGestureHandler().set()")) {
+        return;
+      }
       Object.assign(state2.get(), updates);
     },
     disable() {
+      if (!canChangeGestureHandlerEnabled(false, "getGestureHandler().disable()")) {
+        return;
+      }
       state2.get().enabled = false;
     },
     createPressGesture(config) {
@@ -4456,9 +4499,16 @@ function getGestureHandler() {
       const longPressDuration = config.delayLongPress ?? 500;
       const myToken = {};
       const myDebugId = ++pressGestureDebugId;
-      let didLongPress = false;
-      let didPressIn = false;
-      let pressInTimer = null;
+      const flags = {
+        didLongPress: false,
+        didPressIn: false,
+        pressInTimer: null,
+        // absolute (screen) coords of the press start, and whether the finger
+        // has since travelled far enough to be treated as a scroll/drag.
+        moveStartX: null,
+        moveStartY: 0,
+        cancelledByMove: false
+      };
       const GRACE_PERIOD_MS = process.env.TAMAGUI_RNGH_PRESS_DELAY ? +process.env.TAMAGUI_RNGH_PRESS_DELAY : 24;
       const tryClaimOwnership = /* @__PURE__ */ __name((e) => {
         const now = Date.now();
@@ -4476,38 +4526,58 @@ function getGestureHandler() {
       }, "tryClaimOwnership");
       const isOwner = /* @__PURE__ */ __name(() => pressState.owner === myToken, "isOwner");
       const releaseOwnership = /* @__PURE__ */ __name(() => {
-        if (pressInTimer) {
-          clearTimeout(pressInTimer);
-          pressInTimer = null;
+        if (flags.pressInTimer) {
+          clearTimeout(flags.pressInTimer);
+          flags.pressInTimer = null;
         }
         if (pressState.owner === myToken) {
           resetPressOwner();
         }
       }, "releaseOwnership");
       const firePressIn = /* @__PURE__ */ __name((e) => {
-        if (!didPressIn && isOwner()) {
-          didPressIn = true;
+        if (!flags.didPressIn && isOwner()) {
+          flags.didPressIn = true;
           config.onPressIn?.(e);
         }
       }, "firePressIn");
       const schedulePressIn = /* @__PURE__ */ __name((e) => {
-        if (pressInTimer) {
-          clearTimeout(pressInTimer);
+        if (flags.pressInTimer) {
+          clearTimeout(flags.pressInTimer);
         }
-        pressInTimer = setTimeout(() => {
-          pressInTimer = null;
+        flags.pressInTimer = setTimeout(() => {
+          flags.pressInTimer = null;
           if (isOwner()) {
             firePressIn(e);
           }
         }, GRACE_PERIOD_MS + 1);
       }, "schedulePressIn");
       const tap = Gesture.Tap().runOnJS(true).maxDuration(1e4).onBegin((e) => {
-        didLongPress = false;
-        didPressIn = false;
+        flags.didLongPress = false;
+        flags.didPressIn = false;
+        flags.cancelledByMove = false;
+        flags.moveStartX = typeof e.absoluteX === "number" ? e.absoluteX : null;
+        flags.moveStartY = typeof e.absoluteY === "number" ? e.absoluteY : 0;
         tryClaimOwnership(e);
         schedulePressIn(e);
+      }).onTouchesMove((e) => {
+        if (flags.cancelledByMove || flags.moveStartX === null) return;
+        const touch = e.changedTouches?.[0] ?? e.allTouches?.[0];
+        if (!touch) return;
+        const dx = touch.absoluteX - flags.moveStartX;
+        const dy = touch.absoluteY - flags.moveStartY;
+        if (dx * dx + dy * dy <= PRESS_MOVE_CANCEL_DISTANCE_SQ) return;
+        flags.cancelledByMove = true;
+        if (flags.pressInTimer) {
+          clearTimeout(flags.pressInTimer);
+          flags.pressInTimer = null;
+        }
+        if (flags.didPressIn) {
+          flags.didPressIn = false;
+          config.onPressOut?.(e);
+        }
+        releaseOwnership();
       }).onEnd((e) => {
-        if (isOwner() && !didLongPress) {
+        if (isOwner() && !flags.didLongPress && !flags.cancelledByMove) {
           firePressIn(e);
           config.onPress?.(e);
         }
@@ -4515,12 +4585,15 @@ function getGestureHandler() {
         if (isOwner()) {
           config.onPressOut?.(e);
           releaseOwnership();
+        } else if (flags.didPressIn) {
+          flags.didPressIn = false;
+          config.onPressOut?.(e);
         }
       });
       if (config.hitSlop) tap.hitSlop(config.hitSlop);
       if (!config.onLongPress) return tap;
       const longPress = Gesture.LongPress().runOnJS(true).minDuration(longPressDuration).onStart((e) => {
-        didLongPress = true;
+        flags.didLongPress = true;
         if (isOwner()) {
           firePressIn(e);
           config.onLongPress?.(e);
@@ -5172,10 +5245,12 @@ function AdaptPortalTeleport({
   children
 }) {
   useIsomorphicLayoutEffect(() => {
-    if (!isActive) return;
-    store.set(children);
-    return () => store.set(null);
+    if (isActive) store.set(children);
+    else store.set(null);
   });
+  useIsomorphicLayoutEffect(() => {
+    return () => store.set(null);
+  }, [store]);
   return isActive ? null : /* @__PURE__ */ jsx15(Fragment4, {
     children
   });
@@ -12781,7 +12856,15 @@ var context = createStyledContext7({
   size: void 0,
   variant: void 0,
   color: void 0,
-  elevation: void 0
+  elevation: void 0,
+  ellipsis: void 0,
+  fontFamily: void 0,
+  fontSize: void 0,
+  fontStyle: void 0,
+  fontWeight: void 0,
+  letterSpacing: void 0,
+  maxFontSizeMultiplier: void 0,
+  textAlign: void 0
 });
 var Frame = styled19(View10, {
   context,
@@ -12793,16 +12876,24 @@ var Frame = styled19(View10, {
   tabIndex: 0,
   variants: {
     unstyled: {
+      true: {
+        // reset browser <button> defaults
+        outlineWidth: 0,
+        borderWidth: 0,
+        backgroundColor: "transparent"
+      },
       false: {
         size: "$true",
         justifyContent: "center",
         alignItems: "center",
         flexWrap: "nowrap",
         flexDirection: "row",
-        cursor: "pointer",
         backgroundColor: "$background",
         borderWidth: 1,
         borderColor: "transparent",
+        "$platform-web": {
+          cursor: "pointer"
+        },
         hoverStyle: {
           backgroundColor: "$backgroundHover",
           borderColor: "$borderColorHover"
@@ -12875,12 +12966,14 @@ var Text4 = styled19(SizableText2, {
     unstyled: {
       false: {
         userSelect: "none",
-        cursor: "pointer",
         // flexGrow 1 leads to inconsistent native style where text pushes to start of view
         flexGrow: 0,
         flexShrink: 1,
         ellipsis: true,
-        color: "$color"
+        color: "$color",
+        "$platform-web": {
+          cursor: "pointer"
+        }
       }
     }
   },
@@ -12899,7 +12992,8 @@ var Icon = /* @__PURE__ */ __name((props) => {
     throw new Error("Button.Icon must be used within a Button");
   }
   const sizeToken = size4 ?? styledContext.size;
-  const iconColor = useCurrentColor(styledContext.color);
+  const iconColorProp = styledContext.color === "unset" || typeof styledContext.color === "number" ? void 0 : styledContext.color;
+  const iconColor = useCurrentColor(iconColorProp);
   const iconSize = (typeof sizeToken === "number" ? sizeToken * 0.5 : getFontSize(sizeToken)) * scaleIcon;
   return getIcon(children, {
     size: iconSize,
@@ -12923,11 +13017,24 @@ var ButtonComponent = Frame.styleable((propsIn, ref) => {
     icon,
     iconAfter,
     scaleIcon = 1,
+    noTextWrap,
+    textProps,
+    color,
+    ellipsis,
+    fontFamily,
+    fontSize,
+    fontStyle,
+    fontWeight,
+    letterSpacing,
+    maxFontSizeMultiplier,
+    textAlign,
     ...props
   } = processedProps;
   const size4 = propsIn.size || (propsIn.unstyled ? void 0 : "$true");
   const styledContext = context.useStyledContext();
-  const iconColor = useCurrentColor(styledContext?.color);
+  const contextColor = color ?? propsIn.color ?? styledContext?.color;
+  const iconColorProp = contextColor === "unset" || typeof contextColor === "number" ? void 0 : contextColor;
+  const iconColor = useCurrentColor(iconColorProp);
   const finalSize = iconSize ?? size4 ?? styledContext?.size;
   const iconSizeNumber = (typeof finalSize === "number" ? finalSize * 0.5 : getFontSize(finalSize)) * scaleIcon;
   const [themedIcon, themedIconAfter] = [icon, iconAfter].map((icon2) => {
@@ -12939,24 +13046,56 @@ var ButtonComponent = Frame.styleable((propsIn, ref) => {
     });
   });
   const wrappedChildren = wrapChildrenInText(Text4, {
-    children
+    children,
+    color: contextColor,
+    ellipsis: ellipsis ?? propsIn.ellipsis ?? styledContext?.ellipsis,
+    fontFamily: fontFamily ?? propsIn.fontFamily ?? styledContext?.fontFamily,
+    fontSize: fontSize ?? propsIn.fontSize ?? styledContext?.fontSize,
+    fontStyle: fontStyle ?? propsIn.fontStyle ?? styledContext?.fontStyle,
+    fontWeight: fontWeight ?? propsIn.fontWeight ?? styledContext?.fontWeight,
+    letterSpacing: letterSpacing ?? propsIn.letterSpacing ?? styledContext?.letterSpacing,
+    maxFontSizeMultiplier: maxFontSizeMultiplier ?? propsIn.maxFontSizeMultiplier ?? styledContext?.maxFontSizeMultiplier,
+    noTextWrap: noTextWrap ?? propsIn.noTextWrap,
+    textAlign: textAlign ?? propsIn.textAlign ?? styledContext?.textAlign,
+    textProps: textProps ?? propsIn.textProps
   }, {
     unstyled: process.env.TAMAGUI_HEADLESS === "1",
     size: finalSize ?? styledContext?.size
   });
+  const textContext = {
+    color: contextColor,
+    ellipsis: ellipsis ?? propsIn.ellipsis ?? styledContext?.ellipsis,
+    fontFamily: fontFamily ?? propsIn.fontFamily ?? styledContext?.fontFamily,
+    fontSize: fontSize ?? propsIn.fontSize ?? styledContext?.fontSize,
+    fontStyle: fontStyle ?? propsIn.fontStyle ?? styledContext?.fontStyle,
+    fontWeight: fontWeight ?? propsIn.fontWeight ?? styledContext?.fontWeight,
+    letterSpacing: letterSpacing ?? propsIn.letterSpacing ?? styledContext?.letterSpacing,
+    maxFontSizeMultiplier: maxFontSizeMultiplier ?? propsIn.maxFontSizeMultiplier ?? styledContext?.maxFontSizeMultiplier,
+    textAlign: textAlign ?? propsIn.textAlign ?? styledContext?.textAlign
+  };
+  const buttonContext = {
+    ...styledContext,
+    ...textContext,
+    size: props.size ?? propsIn.size ?? styledContext?.size,
+    variant: props.variant ?? propsIn.variant ?? styledContext?.variant,
+    elevation: props.elevation ?? propsIn.elevation ?? styledContext?.elevation
+  };
   return /* @__PURE__ */ jsx27(ButtonNestingContext.Provider, {
     value: true,
-    children: /* @__PURE__ */ jsxs4(Frame, {
-      ref,
-      ...props,
-      ...isNested && {
-        render: "span"
-      },
-      ...props.circular && !propsIn.size && {
-        size: size4
-      },
-      tabIndex: 0,
-      children: [themedIcon, wrappedChildren, themedIconAfter]
+    children: /* @__PURE__ */ jsx27(context.Provider, {
+      ...buttonContext,
+      children: /* @__PURE__ */ jsxs4(Frame, {
+        ref,
+        ...props,
+        ...isNested && {
+          render: "span"
+        },
+        ...props.circular && !propsIn.size && {
+          size: size4
+        },
+        tabIndex: 0,
+        children: [themedIcon, wrappedChildren, themedIconAfter]
+      })
     })
   });
 });
@@ -14050,17 +14189,21 @@ var ListItemComponent = ListItemFrame.styleable(/* @__PURE__ */ __name(function 
   const styledContext = context2.useStyledContext();
   const iconColor = useCurrentColor(styledContext?.color);
   const iconSizeNumber = getFontSize(iconSize || size4) * scaleIcon;
-  const [themedIcon, themedIconAfter] = [icon, iconAfter].map((icon2, i) => {
-    if (!icon2) return null;
-    const isBefore = i === 0;
-    return getIcon(icon2, {
+  const iconSpacing = iconSizeNumber * 0.4;
+  const themedIcon = icon ? /* @__PURE__ */ jsx35(View13, {
+    marginRight: iconSpacing,
+    children: getIcon(icon, {
       size: iconSizeNumber,
-      color: iconColor,
-      style: {
-        [isBefore ? "marginRight" : "marginLeft"]: `${iconSizeNumber * 0.4}%`
-      }
-    });
-  });
+      color: iconColor
+    })
+  }) : null;
+  const themedIconAfter = iconAfter ? /* @__PURE__ */ jsx35(View13, {
+    marginLeft: iconSpacing,
+    children: getIcon(iconAfter, {
+      size: iconSizeNumber,
+      color: iconColor
+    })
+  }) : null;
   const wrappedChildren = wrapChildrenInText(ListItemText, {
     children
   }, propsIn.unstyled !== true ? {
@@ -18336,6 +18479,7 @@ var PopperContentFrame = styled27(YStack, {
   }
 });
 var PopperContent = React57.forwardRef(/* @__PURE__ */ __name(function PopperContent2(props, forwardedRef) {
+  const isAnimatePosControlled = "animatePosition" in props || "enableAnimationForPositionChange" in props;
   const {
     scope,
     animatePosition,
@@ -18413,9 +18557,9 @@ var PopperContent = React57.forwardRef(/* @__PURE__ */ __name(function PopperCon
     left: 0,
     position: strategy,
     opacity: hide4 ? 0 : 1,
-    ...animatePos && {
-      transition: rest.transition,
-      animateOnly: disableAnimation ? [] : rest.animateOnly,
+    ...isAnimatePosControlled && {
+      transition: animatePos ? rest.transition : void 0,
+      animateOnly: animatePos && !disableAnimation ? rest.animateOnly : [],
       animatePresence: false
     }
   };
@@ -18492,6 +18636,7 @@ var opposites = {
   left: "right"
 };
 var PopperArrow = React57.forwardRef(/* @__PURE__ */ __name(function PopperArrow2(propsIn, forwardedRef) {
+  const isAnimatePosControlled = "animatePosition" in propsIn;
   const {
     scope,
     animatePosition,
@@ -18545,9 +18690,9 @@ var PopperArrow = React57.forwardRef(/* @__PURE__ */ __name(function PopperArrow
     ...!arrowPositioned && {
       opacity: 0
     },
-    ...animatePosition && {
-      transition: transition2,
-      animateOnly: ["transform"],
+    ...isAnimatePosControlled && {
+      transition: animatePosition ? transition2 : void 0,
+      animateOnly: animatePosition ? ["transform"] : [],
       animatePresence: false
     },
     children: /* @__PURE__ */ jsx36(PopperArrowFrame, {
@@ -19247,6 +19392,7 @@ function createBaseMenu({
     } = props;
     const context4 = useMenuContext(scope);
     const rootContext = useMenuRootContext(scope);
+    const popperContext = usePopperContext(scope);
     const getItems = useCollection3(scope);
     const [currentItemId, setCurrentItemId] = React59.useState(null);
     const contentRef = React59.useRef(null);
@@ -19290,8 +19436,13 @@ function createBaseMenu({
     React59.useEffect(() => {
       if (!isWeb3 || disableDismissOnScroll || !context4.open) return;
       const handleScroll = /* @__PURE__ */ __name((event) => {
-        const target = event.target;
-        if (contentRef.current?.contains(target)) return;
+        const scrolled = event.target;
+        if (!scrolled) return;
+        const content2 = contentRef.current;
+        if (content2?.contains(scrolled)) return;
+        const reference = popperContext.refs?.reference?.current;
+        const anchor = reference instanceof Element ? reference : reference?.contextElement ?? null;
+        if (anchor && !scrolled.contains(anchor)) return;
         onDismiss?.();
       }, "handleScroll");
       window.addEventListener("scroll", handleScroll, {
@@ -19303,7 +19454,7 @@ function createBaseMenu({
           capture: true
         });
       };
-    }, [disableDismissOnScroll, context4.open, onDismiss]);
+    }, [disableDismissOnScroll, context4.open, onDismiss, popperContext.refs]);
     if (isWeb3) {
       useFocusGuards();
     }
@@ -24929,6 +25080,7 @@ function setupNativeSheet(platform2, RNIOSModal) {
       return /* @__PURE__ */ jsx59(Fragment19, {
         children: /* @__PURE__ */ jsxs12(SheetProvider, {
           setHasScrollView: emptyFn,
+          keyboardOccludedHeight: 0,
           ...providerProps,
           onlyShowFrame: true,
           children: [/* @__PURE__ */ jsx59(ModalSheetView, {
@@ -25048,6 +25200,24 @@ function resisted(y, minY, maxOverflow = 25) {
   return minY - resistedDistance;
 }
 __name(resisted, "resisted");
+
+// ../../node_modules/@tamagui/sheet/dist/esm/keyboardAvoidance.mjs
+function getKeyboardOccludedHeight({
+  frameSize,
+  isKeyboardVisible,
+  keyboardHeight,
+  screenSize,
+  sheetY
+}) {
+  if (!isKeyboardVisible || keyboardHeight <= 0 || screenSize <= 0 || frameSize <= 0 || sheetY === void 0 || sheetY >= screenSize) {
+    return 0;
+  }
+  const keyboardTop = screenSize - keyboardHeight;
+  const sheetBottom = sheetY + frameSize;
+  const occludedHeight = Math.ceil(sheetBottom - keyboardTop);
+  return Math.min(frameSize, Math.max(0, occludedHeight));
+}
+__name(getKeyboardOccludedHeight, "getKeyboardOccludedHeight");
 
 // ../../node_modules/@tamagui/sheet/dist/esm/useGestureHandlerPan.mjs
 import { useCallback as useCallback18, useMemo as useMemo30, useRef as useRef39 } from "react";
@@ -25250,6 +25420,14 @@ __name(useKeyboardControllerSheet, "useKeyboardControllerSheet");
 // ../../node_modules/@tamagui/sheet/dist/esm/SheetImplementationCustom.mjs
 import { jsx as jsx62, jsxs as jsxs13 } from "react/jsx-runtime";
 var hiddenSize = 10000.1;
+var rnghRootStyleOpen = {
+  width: "100%",
+  height: "100%"
+};
+var rnghRootStyleClosed = {
+  width: "100%",
+  height: 0
+};
 var _cachedSafeAreaTop;
 function getSafeAreaTopInset() {
   if (_cachedSafeAreaTop !== void 0) return _cachedSafeAreaTop;
@@ -25356,6 +25534,13 @@ var SheetImplementationCustom = React79.forwardRef(/* @__PURE__ */ __name(functi
     activePositionsRef.current = result;
     return result;
   }, [positions, isKeyboardVisible, keyboardHeight, screenSize, isDragging]);
+  const keyboardOccludedHeight = getKeyboardOccludedHeight({
+    frameSize,
+    isKeyboardVisible: !isWeb && isKeyboardVisible,
+    keyboardHeight,
+    screenSize,
+    sheetY: position2 >= 0 ? activePositions[position2] : void 0
+  });
   const {
     useAnimatedNumber,
     useAnimatedNumberStyle,
@@ -25682,6 +25867,7 @@ var SheetImplementationCustom = React79.forwardRef(/* @__PURE__ */ __name(functi
       value: nextParentContext,
       children: /* @__PURE__ */ jsx62(SheetProvider, {
         ...providerProps,
+        keyboardOccludedHeight,
         setHasScrollView,
         children: /* @__PURE__ */ jsxs13(GestureSheetProvider, {
           isDragging,
@@ -25743,12 +25929,17 @@ var SheetImplementationCustom = React79.forwardRef(/* @__PURE__ */ __name(functi
   });
   const shouldMountChildren = unmountChildrenWhenHidden ? !!opacity : true;
   if (modal) {
+    const RNGHRoot = getGestureHandlerState().RootView;
+    const mountedContents = shouldMountChildren ? /* @__PURE__ */ jsx62(ContainerComponent, {
+      children: contents
+    }) : null;
     const modalContents = /* @__PURE__ */ jsx62(Portal, {
       stackZIndex: zIndex,
       ...portalProps,
-      children: shouldMountChildren && /* @__PURE__ */ jsx62(ContainerComponent, {
-        children: contents
-      })
+      children: mountedContents && RNGHRoot ? /* @__PURE__ */ jsx62(RNGHRoot, {
+        style: open2 ? rnghRootStyleOpen : rnghRootStyleClosed,
+        children: mountedContents
+      }) : mountedContents
     });
     if (isWeb) return modalContents;
     return /* @__PURE__ */ jsx62(SheetInsideSheetContext.Provider, {
@@ -25935,7 +26126,7 @@ function useSheetScrollViewGestures({
 __name(useSheetScrollViewGestures, "useSheetScrollViewGestures");
 
 // ../../node_modules/@tamagui/sheet/dist/esm/SheetScrollView.mjs
-import { jsx as jsx63 } from "react/jsx-runtime";
+import { jsx as jsx63, jsxs as jsxs14 } from "react/jsx-runtime";
 var SHEET_SCROLL_VIEW_NAME = "SheetScrollView";
 var SheetScrollView = React80.forwardRef(({
   __scopeSheet,
@@ -25948,13 +26139,27 @@ var SheetScrollView = React80.forwardRef(({
   const gestureContext = useGestureSheetContext();
   const {
     scrollBridge,
-    setHasScrollView
+    setHasScrollView,
+    hasFit,
+    screenSize
   } = context4;
+  const keyboardOccludedHeight = Math.max(0, context4.keyboardOccludedHeight || 0);
   const [scrollEnabled] = useControllableState({
     prop: scrollEnabledProp,
     defaultProp: true
   });
   const scrollRef = React80.useRef(null);
+  const [hasScrollableContent, setHasScrollableContent] = useState25(true);
+  const parentHeight = useRef42(0);
+  const contentHeight = useRef42(0);
+  const keyboardFrozenHeight = hasFit && keyboardOccludedHeight > 0 && parentHeight.current ? parentHeight.current : void 0;
+  const fitSizingStyle = hasFit ? {
+    flex: void 0,
+    height: keyboardFrozenHeight,
+    maxHeight: screenSize || void 0
+  } : {
+    flex: 1
+  };
   const panGestureRef = gestureContext?.panGestureRef;
   const {
     ScrollView: RNGHScrollView
@@ -25996,9 +26201,6 @@ var SheetScrollView = React80.forwardRef(({
       scrollBridge.forceScrollTo = void 0;
     };
   }, []);
-  const [hasScrollableContent, setHasScrollableContent] = useState25(true);
-  const parentHeight = useRef42(0);
-  const contentHeight = useRef42(0);
   const updateScrollable = /* @__PURE__ */ __name(() => {
     if (parentHeight.current && contentHeight.current) {
       setHasScrollableContent(contentHeight.current > parentHeight.current);
@@ -26014,7 +26216,7 @@ var SheetScrollView = React80.forwardRef(({
     scrollEnabled,
     setScrollEnabled
   });
-  const contentWrapper = /* @__PURE__ */ jsx63(View21, {
+  const contentWrapper = /* @__PURE__ */ jsxs14(View21, {
     onLayout: /* @__PURE__ */ __name((e) => {
       const height = Math.floor(e.nativeEvent.layout.height);
       if (height !== contentHeight.current) {
@@ -26022,15 +26224,17 @@ var SheetScrollView = React80.forwardRef(({
         updateScrollable();
       }
     }, "onLayout"),
-    children
+    children: [children, keyboardOccludedHeight > 0 && /* @__PURE__ */ jsx63(View21, {
+      "data-sheet-keyboard-scroll-pad": true,
+      height: keyboardOccludedHeight,
+      width: "100%"
+    })]
   });
   if (useRNGHScrollView && RNGHScrollView && panGestureRef) {
     const RNGHComponent = RNGHScrollView;
     return /* @__PURE__ */ jsx63(RNGHComponent, {
       ref: composeRefs(scrollRef, ref),
-      style: {
-        flex: 1
-      },
+      style: fitSizingStyle,
       scrollEventThrottle: 1,
       scrollEnabled,
       simultaneousHandlers: [panGestureRef],
@@ -26084,7 +26288,7 @@ var SheetScrollView = React80.forwardRef(({
       updateScrollable();
     }, "onLayout"),
     ref: composeRefs(scrollRef, ref),
-    flex: 1,
+    ...fitSizingStyle,
     scrollEventThrottle: 1,
     className: "_ovs-contain",
     scrollEnabled,
@@ -26144,7 +26348,7 @@ var useSheetOffscreenSize = /* @__PURE__ */ __name(({
 }, "useSheetOffscreenSize");
 
 // ../../node_modules/@tamagui/sheet/dist/esm/createSheet.mjs
-import { Fragment as Fragment20, jsx as jsx64, jsxs as jsxs14 } from "react/jsx-runtime";
+import { Fragment as Fragment20, jsx as jsx64, jsxs as jsxs15 } from "react/jsx-runtime";
 function createSheet2({
   Handle: Handle2,
   Frame: Frame3,
@@ -26225,7 +26429,7 @@ function createSheet2({
     }, [open2, frameSize]);
     const sheetContents = useMemo31(() => {
       const shouldUseFixedHeight = hasFit && !open2 && stableFrameSize.current;
-      return /* @__PURE__ */ jsxs14(Frame3, {
+      return /* @__PURE__ */ jsxs15(Frame3, {
         ref: composedContentRef,
         flex: hasFit && open2 ? 0 : 1,
         flexBasis: hasFit ? "auto" : void 0,
@@ -26243,7 +26447,7 @@ function createSheet2({
         })]
       });
     }, [open2, props, frameSize, offscreenSize, adjustPaddingForOffscreenContent, hasFit]);
-    return /* @__PURE__ */ jsxs14(Fragment20, {
+    return /* @__PURE__ */ jsxs15(Fragment20, {
       children: [/* @__PURE__ */ jsx64(RemoveScroll, {
         enabled: !disableRemoveScroll && context4.open,
         children: sheetContents
@@ -27285,7 +27489,7 @@ function useSwitchNative(_props) {
 __name(useSwitchNative, "useSwitchNative");
 
 // ../../node_modules/@tamagui/switch/dist/esm/createSwitch.mjs
-import { Fragment as Fragment21, jsx as jsx68, jsxs as jsxs15 } from "react/jsx-runtime";
+import { Fragment as Fragment21, jsx as jsx68, jsxs as jsxs16 } from "react/jsx-runtime";
 function createSwitch(createProps) {
   const {
     Frame: Frame3 = SwitchFrame,
@@ -27386,7 +27590,7 @@ function createSwitch(createProps) {
       }
     }, "handleLayout");
     const unstyled = styledContext.unstyled ?? unstyledProp ?? false;
-    return /* @__PURE__ */ jsxs15(Fragment21, {
+    return /* @__PURE__ */ jsxs16(Fragment21, {
       children: [/* @__PURE__ */ jsx68(SwitchStyledContext.Provider, {
         size: styledContext.size ?? props.size ?? "$true",
         unstyled,
@@ -28182,7 +28386,7 @@ ToastProvider.propTypes = {
 ToastProvider.displayName = PROVIDER_NAME;
 
 // ../../node_modules/@tamagui/toast/dist/esm/ToastAnnounce.mjs
-import { jsx as jsx72, jsxs as jsxs16 } from "react/jsx-runtime";
+import { jsx as jsx72, jsxs as jsxs17 } from "react/jsx-runtime";
 var ToastAnnounceExcludeFrame = styled44(View25, {
   name: "ToastAnnounceExclude"
 });
@@ -28219,7 +28423,7 @@ var ToastAnnounce = /* @__PURE__ */ __name((props) => {
   return isAnnounced ? null : /* @__PURE__ */ jsx72(Portal, {
     children: /* @__PURE__ */ jsx72(VisuallyHidden, {
       ...announceProps,
-      children: renderAnnounceText && /* @__PURE__ */ jsxs16(Text7, {
+      children: renderAnnounceText && /* @__PURE__ */ jsxs17(Text7, {
         children: [context4.label, " ", children]
       })
     })
@@ -28273,7 +28477,7 @@ function ToastPortal(props) {
 __name(ToastPortal, "ToastPortal");
 
 // ../../node_modules/@tamagui/toast/dist/esm/ToastViewport.mjs
-import { jsx as jsx74, jsxs as jsxs17 } from "react/jsx-runtime";
+import { jsx as jsx74, jsxs as jsxs18 } from "react/jsx-runtime";
 var VIEWPORT_NAME2 = "ToastViewport";
 var VIEWPORT_DEFAULT_HOTKEY = ["F8"];
 var VIEWPORT_PAUSE = "toast.viewportPause";
@@ -28442,7 +28646,7 @@ var ToastViewport = React89.memo(React89.forwardRef((props, forwardedRef) => {
       return () => viewport.removeEventListener("keydown", handleKeyDown);
     }
   }, [getItems, getSortedTabbableCandidates, context4.toastCount]);
-  const contents = /* @__PURE__ */ jsxs17(ToastViewportWrapperFrame, {
+  const contents = /* @__PURE__ */ jsxs18(ToastViewportWrapperFrame, {
     ref: wrapperRef,
     role: "region",
     "aria-label": label.replace("{hotkey}", hotkeyLabel),
@@ -28546,7 +28750,7 @@ function getTabbableCandidates2(container) {
 __name(getTabbableCandidates2, "getTabbableCandidates");
 
 // ../../node_modules/@tamagui/toast/dist/esm/ToastImpl.mjs
-import { Fragment as Fragment22, jsx as jsx75, jsxs as jsxs18 } from "react/jsx-runtime";
+import { Fragment as Fragment22, jsx as jsx75, jsxs as jsxs19 } from "react/jsx-runtime";
 var getPanResponder = /* @__PURE__ */ __name(() => {
   return null;
 }, "getPanResponder");
@@ -28727,7 +28931,7 @@ var ToastImpl = React90.forwardRef((props, forwardedRef) => {
     });
   }, [handlePause, handleResume]);
   const themeName = useThemeName6();
-  return /* @__PURE__ */ jsxs18(Fragment22, {
+  return /* @__PURE__ */ jsxs19(Fragment22, {
     children: [announceTextContent && /* @__PURE__ */ jsx75(ToastAnnounce, {
       scope,
       role: "status",
@@ -29505,7 +29709,7 @@ var voidFn2 = /* @__PURE__ */ __name(() => {
 
 // ../../node_modules/@tamagui/tooltip/dist/esm/TooltipSimple.mjs
 import * as React95 from "react";
-import { jsx as jsx80, jsxs as jsxs19 } from "react/jsx-runtime";
+import { jsx as jsx80, jsxs as jsxs20 } from "react/jsx-runtime";
 var TooltipSimple = React95.forwardRef(({
   label,
   children,
@@ -29518,7 +29722,7 @@ var TooltipSimple = React95.forwardRef(({
   if (!label) {
     return children;
   }
-  return /* @__PURE__ */ jsxs19(Tooltip2, {
+  return /* @__PURE__ */ jsxs20(Tooltip2, {
     disableRTL: true,
     offset: 15,
     restMs: 40,
@@ -29536,7 +29740,7 @@ var TooltipSimple = React95.forwardRef(({
       children: ref && React95.isValidElement(child) ? React95.cloneElement(child, {
         ref
       }) : child
-    }), /* @__PURE__ */ jsxs19(Tooltip2.Content, {
+    }), /* @__PURE__ */ jsxs20(Tooltip2.Content, {
       enterStyle: {
         y: -4,
         opacity: 0,
@@ -29969,6 +30173,12 @@ var styledBody = [{
   render: "input",
   variants: {
     unstyled: {
+      true: {
+        // reset browser <input>/<textarea> defaults
+        outlineWidth: 0,
+        borderWidth: 0,
+        backgroundColor: "transparent"
+      },
       false: defaultStyles
     },
     size: {
@@ -30121,10 +30331,10 @@ var Input = StyledInput.styleable((props, _forwardedRef) => {
     style: {
       ...rest.style,
       ...placeholderTextColor && {
-        "--placeholderColor": theme[placeholderTextColor]?.variable || placeholderTextColor
+        "--t_placeholderColor": theme[placeholderTextColor]?.variable || placeholderTextColor
       },
       ...selectionColor && {
-        "--selectionColor": theme[selectionColor]?.variable || selectionColor
+        "--t_selectionColor": theme[selectionColor]?.variable || selectionColor
       }
     }
   };

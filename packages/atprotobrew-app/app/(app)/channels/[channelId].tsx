@@ -42,7 +42,7 @@ function ChannelScreenContent({ session }: StoreScreenContentProps) {
 
   const { data } = useFetchLaunchers({ agent: session });
 
-  const targetLauncher = data.body.view.find(
+  const targetLauncher = data.body.items.find(
     (item) => item.title === channelId,
   );
 

@@ -4,7 +4,7 @@
 	"defs": {
 		"main": {
 			"type": "query",
-			"description": "",
+			"description": "Fetch the launcher view. Auth: required.",
 			"parameters": {
 				"type": "params",
 				"properties": {}
@@ -12,55 +12,28 @@
 			"output": {
 				"schema": {
 					"type": "object",
-					"required": ["view", "record"],
+					"required": ["items", "record"],
 					"properties": {
-						"view": {
+						"items": {
 							"type": "ref",
-							"ref": "#launcherView"
+							"description": "List of store item views for the launcher.",
+							"ref": "#launcherItems"
 						},
 						"record": {
-							"type": "unknown"
+							"type": "unknown",
+							"description": "Raw launcher record value."
 						}
 					}
 				},
 				"encoding": "application/json"
 			}
 		},
-		"launcherView": {
+		"launcherItems": {
 			"type": "array",
+			"description": "Array of store item views.",
 			"items": {
 				"type": "ref",
-				"ref": "#launcherViewItem"
-			}
-		},
-		"launcherViewItem": {
-			"type": "object",
-			"required": ["title", "description", "author", "launch", "thumbnail", "uri", "record"],
-			"properties": {
-				"title": {
-					"type": "string"
-				},
-				"description": {
-					"type": "string"
-				},
-				"author": {
-					"type": "string"
-				},
-				"launch": {
-					"type": "union",
-					"refs": ["org.tarororo.brew.storeItem#launchWeb", "org.tarororo.brew.storeItem#launchStore"]
-				},
-				"thumbnail": {
-					"type": "string",
-					"format": "uri"
-				},
-				"uri": {
-					"type": "string",
-					"format": "at-uri"
-				},
-				"record": {
-					"type": "unknown"
-				}
+				"ref": "org.tarororo.brew.defs#storeItemView"
 			}
 		}
 	}

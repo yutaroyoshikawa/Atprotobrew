@@ -1,7 +1,7 @@
-import { TamaguiProvider } from "@tamagui/core";
+import { TamaguiProvider } from "tamagui";
 import { type ReactNode } from "react";
 import { tamaguiConfig } from "../../../tamagui.config";
-import { ThemeProvider } from "../../styles/theme/ThemeProvider";
+import { ThemeProvider } from "./ThemeProvider";
 
 interface UIProviderProps {
   children: ReactNode;
