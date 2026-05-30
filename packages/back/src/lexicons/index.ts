@@ -13,6 +13,7 @@ import { schemas } from './lexicons.js'
 import * as ComAtprotoRepoGetRecord from './types/com/atproto/repo/getRecord.js'
 import * as ComAtprotoRepoPutRecord from './types/com/atproto/repo/putRecord.js'
 import * as OrgTarororoBrewGetLauncher from './types/org/tarororo/brew/getLauncher.js'
+import * as OrgTarororoBrewGetStoreItem from './types/org/tarororo/brew/getStoreItem.js'
 
 export function createServer<E extends Env = Env>(
   options?: XrpcOptions<E>,
@@ -123,6 +124,19 @@ export class OrgTarororoBrewNS<E extends Env> {
     >,
   ) {
     const nsid = 'org.tarororo.brew.getLauncher'
+    return this._server.xrpc.addMethod(nsid, cfg)
+  }
+
+  getStoreItem<A extends Auth = undefined>(
+    cfg: HonoConfigOrHandler<
+      E,
+      A,
+      OrgTarororoBrewGetStoreItem.QueryParams,
+      OrgTarororoBrewGetStoreItem.HandlerInput,
+      OrgTarororoBrewGetStoreItem.HandlerOutput
+    >,
+  ) {
+    const nsid = 'org.tarororo.brew.getStoreItem'
     return this._server.xrpc.addMethod(nsid, cfg)
   }
 }

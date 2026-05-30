@@ -9,14 +9,31 @@ const $nsid = 'org.tarororo.brew.launcher'
 
 export { $nsid }
 
-type Main = { $type: 'org.tarororo.brew.launcher'; items: Item[] }
+/** Launcher record for an account. */
+type Main = {
+  $type: 'org.tarororo.brew.launcher'
+
+  /**
+   * Ordered list of store items to show.
+   */
+  items: Item[]
+
+  /**
+   * Creation timestamp.
+   */
+  createdAt: l.DatetimeString
+}
 
 export type { Main }
 
+/** Launcher record for an account. */
 const main = l.record<'literal:self', Main>(
   'literal:self',
   $nsid,
-  l.object({ items: l.array(l.ref<Item>((() => item) as any)) }),
+  l.object({
+    items: l.array(l.ref<Item>((() => item) as any), { maxLength: 100 }),
+    createdAt: l.string({ format: 'datetime' }),
+  }),
 )
 
 export { main }
@@ -34,13 +51,19 @@ export const $assert = /*#__PURE__*/ main.assert.bind(main),
   $validate = /*#__PURE__*/ main.validate.bind(main),
   $safeValidate = /*#__PURE__*/ main.safeValidate.bind(main)
 
+/** Entry in the launcher list. */
 type Item = {
   $type?: 'org.tarororo.brew.launcher#item'
+
+  /**
+   * Reference to a storeItem record.
+   */
   storeItemRef?: RepoStrongRef.Main
 }
 
 export type { Item }
 
+/** Entry in the launcher list. */
 const item = l.typedObject<Item>(
   $nsid,
   'item',

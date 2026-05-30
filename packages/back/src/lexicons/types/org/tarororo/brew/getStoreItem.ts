@@ -13,17 +13,14 @@ import type * as OrgTarororoBrewDefs from './defs.js'
 
 const is$typed = _is$typed,
   validate = _validate
-const id = 'org.tarororo.brew.getLauncher'
+const id = 'org.tarororo.brew.getStoreItem'
 
-export type QueryParams = {}
-export type InputSchema = undefined
-
-export interface OutputSchema {
-  items: LauncherItems
-  /** Raw launcher record value. */
-  record: { [_ in string]: unknown }
+export type QueryParams = {
+  /** AT URI of the storeItem record. */
+  uri: string
 }
-
+export type InputSchema = undefined
+export type OutputSchema = OrgTarororoBrewDefs.StoreItemView
 export type HandlerInput = undefined
 
 export interface HandlerSuccess {
@@ -35,7 +32,7 @@ export interface HandlerSuccess {
 export interface HandlerError {
   status: number
   message?: string
+  error?: 'NotFoundError'
 }
 
 export type HandlerOutput = HandlerError | HandlerSuccess
-export type LauncherItems = OrgTarororoBrewDefs.StoreItemView[]

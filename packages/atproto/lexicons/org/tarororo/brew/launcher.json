@@ -4,27 +4,36 @@
 	"defs": {
 		"main": {
 			"type": "record",
-			"description": "",
+			"description": "Launcher record for an account.",
 			"key": "literal:self",
 			"record": {
 				"type": "object",
-				"required": ["items"],
+				"required": ["items", "createdAt"],
 				"properties": {
 					"items": {
 						"type": "array",
+						"description": "Ordered list of store items to show.",
+						"maxLength": 100,
 						"items": {
 							"type": "ref",
 							"ref": "#item"
 						}
+					},
+					"createdAt": {
+						"type": "string",
+						"description": "Creation timestamp.",
+						"format": "datetime"
 					}
 				}
 			}
 		},
 		"item": {
 			"type": "object",
+			"description": "Entry in the launcher list.",
 			"properties": {
 				"storeItemRef": {
 					"type": "ref",
+					"description": "Reference to a storeItem record.",
 					"ref": "com.atproto.repo.strongRef"
 				}
 			}

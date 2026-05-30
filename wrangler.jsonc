@@ -30,7 +30,9 @@
     "traces": {
       "enabled": false
     }
-  }
+  },
+
+	"secrets": { "required": ["AIRGLOW_STOREITEM_SECRET"] }
 	// "vars": {
 	//   "MY_VAR": "my-variable"
 	// },
