@@ -13,18 +13,48 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: src/features/auth/components/AuthForm.tsx:38
-msgid "AT Protocol サービスランチャー"
-msgstr "A launcher application for AT Protocol services."
+#: src/features/store/components/StoreItem.tsx:50
+msgid "{title} のアイコン"
+msgstr "{title} icon"
 
-#: src/features/auth/components/AuthForm.tsx:49
+#: src/features/auth/components/AuthForm.tsx:38
+#~ msgid "AT Protocol サービスランチャー"
+#~ msgstr "A launcher application for AT Protocol services."
+
+#: src/features/store/components/StoreItem.tsx:84
+#: src/features/store/components/StoreItem.tsx:90
+msgid "インストール済み"
+msgstr "Installed"
+
+#: src/core/components/ThemeToggle.tsx:15
+msgid "システム"
+msgstr "System"
+
+#: src/features/channel/components/StoreChannelTile.tsx:42
+msgid "ストア"
+msgstr "Store"
+
+#: src/core/components/ThemeToggle.tsx:14
+msgid "ダーク"
+msgstr "Dark"
+
+#: src/features/auth/components/AuthForm.tsx:54
 msgid "ハンドル"
 msgstr "Handle"
 
-#: src/features/auth/components/AuthForm.tsx:86
+#: src/core/components/ThemeToggle.tsx:13
+msgid "ライト"
+msgstr "Light"
+
+#: src/features/auth/components/AuthForm.tsx:109
 msgid "リダイレクト中…"
 msgstr "Redirecting..."
 
-#: src/features/auth/components/AuthForm.tsx:88
+#: src/features/auth/components/AuthForm.tsx:45
+#: src/features/auth/components/AuthForm.tsx:111
 msgid "ログイン"
 msgstr "Login"
+
+#: src/core/components/LanguageToggle.tsx:22
+msgid "言語"
+msgstr "Language"

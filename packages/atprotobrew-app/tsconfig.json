@@ -11,5 +11,5 @@
     ".expo/types/**/*.ts",
     "expo-env.d.ts",
     "@types/po-types.d.ts"
-  ]
+, "app.config.js"  ]
 }

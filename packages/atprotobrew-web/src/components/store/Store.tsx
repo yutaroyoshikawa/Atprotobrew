@@ -1,4 +1,5 @@
 import type { AtIdentifierString, Client } from "@atproto/lex";
+import { Trans, useLingui } from "@lingui/react/macro";
 // import {
 //   useFetchStoreItems,
 //   usePutStoreItemMutation,
@@ -14,7 +15,8 @@ interface StoreProps {
   identifier: AtIdentifierString;
 }
 
-export function Store({ client, identifier }: StoreProps) {
+export function Store({ client }: StoreProps) {
+  const { t } = useLingui();
   const { data } = useFetchLaunchers({ agent: client });
   // const storeItemMutation = usePutStoreItemMutation({ client, identifier });
 
@@ -35,7 +37,7 @@ export function Store({ client, identifier }: StoreProps) {
             type="button"
             shape="circle"
             render={(props) => <Link {...props} to="/" />}
-            aria-label="ランチャーに戻る"
+            aria-label={t`ランチャーに戻る`}
           >
             <svg
               viewBox="0 0 16 16"
@@ -98,7 +100,7 @@ export function Store({ client, identifier }: StoreProps) {
                 className="font-bold text-lg text-slate-800 leading-tight"
                 style={{ textShadow: "0 1px 3px rgba(255,255,255,0.8)" }}
               >
-                Atprotobrew store
+                <Trans>Atprotobrew ストア</Trans>
               </h1>
             </div>
           </div>
@@ -106,7 +108,7 @@ export function Store({ client, identifier }: StoreProps) {
 
         <main className="flex-1 px-4 py-4 max-w-2xl w-full mx-auto">
           <div className="space-y-3">
-            {data.body.view.map((channel) => {
+            {data.body.items.map((channel) => {
               console.log(channel);
 
               return (

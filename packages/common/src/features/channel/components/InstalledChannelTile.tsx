@@ -1,5 +1,5 @@
 import { type ComponentProps } from "react";
-import { Image } from "tamagui";
+import { Image, View } from "tamagui";
 import { AppVStack } from "../../../core/components/AppVStack";
 import { AppText } from "../../../core/components/AppText";
 import { atoms as a } from "../../../styles/alf";
@@ -20,18 +20,22 @@ export function InstalledChannelTile({
   thumbnailUrl,
 }: InstalledChannelTileProps) {
   return (
-    <ChannelTile render={render} onPress={onPress}>
-      <AppVStack style={[a.items_center, a.gap_2]}>
-        <Image
-          src={thumbnailUrl}
-          width={80}
-          height={80}
-          accessibilityLabel={`${channelName} のサムネイル`}
-        />
-        <AppText style={[a.text_center, a.font_bold, { color: "$tileLabel" }]}>
-          {channelName}
-        </AppText>
-      </AppVStack>
-    </ChannelTile>
+    <View style={{ backdropFilter: "blur(10px)" }}>
+      <ChannelTile render={render} onPress={onPress}>
+        <AppVStack style={[a.items_center, a.gap_2]}>
+          <Image
+            src={thumbnailUrl}
+            width={80}
+            height={80}
+            accessibilityLabel={`${channelName} のサムネイル`}
+          />
+          <AppText
+            style={[a.text_center, a.font_bold, { color: "$tileLabel" }]}
+          >
+            {channelName}
+          </AppText>
+        </AppVStack>
+      </ChannelTile>
+    </View>
   );
 }

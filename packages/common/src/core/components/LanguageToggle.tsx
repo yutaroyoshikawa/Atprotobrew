@@ -1,32 +1,63 @@
-import { XStack, Button } from "tamagui";
+import { XStack, Select, Text, Adapt, Sheet } from "tamagui";
+import { Check, ChevronDown } from "lucide-react-native";
+import { Trans } from "@lingui/react/macro";
 import { useLanguage } from "../modules/i18n";
 import type { AppLanguage } from "../types/i18n";
+import { AppLanguageSchema } from "../shcemas/i18n";
 
-const options = [
+const options: Array<{ value: AppLanguage; label: string }> = [
   { value: "ja", label: "日本語" },
   { value: "en", label: "English" },
-] as const satisfies Array<{
-  value: AppLanguage;
-  label: string;
-}>;
+];
+
+const isAppLanguage = (v: unknown): v is AppLanguage =>
+  AppLanguageSchema.safeParse(v).success;
 
 export function LanguageToggle() {
   const [language, setLanguage] = useLanguage();
 
   return (
-    <XStack width="100%" gap="$2" backgroundColor="$color4" borderRadius="$3">
-      {options.map(({ value, label }) => (
-        <Button
-          key={value}
-          flex={1}
-          size="$3"
-          onPress={() => setLanguage(value)}
-          disabled={value === language}
-          aria-label={label}
-        >
-          {label}
-        </Button>
-      ))}
+    <XStack alignItems="center" gap="$4">
+      <Text fontWeight="700" color="$text">
+        <Trans>言語</Trans>
+      </Text>
+      <Select
+        native
+        value={language}
+        onValueChange={(v) => isAppLanguage(v) && setLanguage(v)}
+      >
+        <Select.Trigger flex={1} iconAfter={ChevronDown}>
+          <Select.Value />
+        </Select.Trigger>
+
+        <Adapt when="sm" platform="touch">
+          <Sheet modal dismissOnSnapToBottom>
+            <Sheet.Frame>
+              <Sheet.ScrollView>
+                <Adapt.Contents />
+              </Sheet.ScrollView>
+            </Sheet.Frame>
+            <Sheet.Overlay />
+          </Sheet>
+        </Adapt>
+
+        <Select.Content>
+          <Select.ScrollUpButton />
+          <Select.Viewport>
+            <Select.Group>
+              {options.map((item, i) => (
+                <Select.Item key={item.value} index={i} value={item.value}>
+                  <Select.ItemText>{item.label}</Select.ItemText>
+                  <Select.ItemIndicator>
+                    <Check size={16} />
+                  </Select.ItemIndicator>
+                </Select.Item>
+              ))}
+            </Select.Group>
+          </Select.Viewport>
+          <Select.ScrollDownButton />
+        </Select.Content>
+      </Select>
     </XStack>
   );
 }

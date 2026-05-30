@@ -17,9 +17,11 @@ export const shorthands = {
   backgroundColor: "backgroundColor",
   textAlign: "textAlign",
   paddingHorizontal: "paddingHorizontal",
+  paddingTop: "paddingTop",
   paddingVertical: "paddingVertical",
   paddingBottom: "paddingBottom",
   zIndex: "zIndex",
+  bottom: "bottom",
 } as const;
 
 export const settings = {

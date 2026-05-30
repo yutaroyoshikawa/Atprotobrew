@@ -12,3 +12,19 @@ msgstr ""
 "Last-Translator: \n"
 "Language-Team: \n"
 "Plural-Forms: \n"
+
+#: src/components/store/Store.tsx:103
+msgid "Atprotobrew ストア"
+msgstr "Atprotobrew ストア"
+
+#: src/components/store/StoreItemCard.tsx:33
+msgid "インストール済"
+msgstr "インストール済"
+
+#: src/components/store/Store.tsx:40
+msgid "ランチャーに戻る"
+msgstr "ランチャーに戻る"
+
+#: src/components/store/StoreItemCard.tsx:33
+msgid "取得"
+msgstr "取得"

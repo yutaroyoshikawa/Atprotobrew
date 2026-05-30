@@ -1,7 +1,9 @@
+import { useLingui } from "@lingui/react/macro";
 import { Stack } from "expo-router";
 
 function Layout() {
-  return <Stack screenOptions={{ title: "Store" }} />;
+  const { t } = useLingui();
+  return <Stack screenOptions={{ title: t`ストア` }} />;
 }
 
 export default Layout;

@@ -1,1 +1,1 @@
-/*eslint-disable*/import type{Messages}from"@lingui/core";export const messages=JSON.parse("{\"H5yoYW\":[\"リダイレクト中…\"],\"i_H4mI\":[\"ログイン\"],\"oPNSBX\":[\"AT Protocol サービスランチャー\"]}")as Messages;
+/*eslint-disable*/import type{Messages}from"@lingui/core";export const messages=JSON.parse("{\"0VdcHu\":[\"ストア\"],\"H5yoYW\":[\"リダイレクト中…\"],\"_l7ZiB\":[\"チャンネル\"],\"i_H4mI\":[\"ログイン\"],\"oPNSBX\":[\"AT Protocol サービスランチャー\"],\"wKj0zc\":[\"設定\"]}")as Messages;

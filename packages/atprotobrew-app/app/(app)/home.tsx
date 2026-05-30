@@ -6,9 +6,10 @@ import { AppVStack } from "@atprotobrew/common/core/components/AppVStack";
 import { StoreChannelTile } from "@atprotobrew/common/channel/components/StoreChannelTile";
 import { InstalledChannelTile } from "@atprotobrew/common/channel/components/InstalledChannelTile";
 import { AppFooter } from "@atprotobrew/common/core/components/AppFooter";
-import { Link, useRouter } from "expo-router";
+import { useRouter } from "expo-router";
 import { useAuthContext } from "../../modules/auth/AuthProvider";
 import { atoms as a } from "@atprotobrew/common/alf";
+import { BubbleBackground } from "@atprotobrew/common/core/components/Background";
 
 export default function Index() {
   const { authState, logout } = useAuthContext();
@@ -48,6 +49,7 @@ function HomeScreenContent({ session, logout }: HomeScreenContentProps) {
 
   return (
     <View style={[a.h_full]}>
+      <BubbleBackground />
       <AppVStack style={[a.h_full, a.flex_col, a.justify_between]}>
         <AppVStack style={[a.p_4, a.flex_col, a.gap_3]}>
           <StoreChannelTile onPress={() => router.push("/(app)/store")} />

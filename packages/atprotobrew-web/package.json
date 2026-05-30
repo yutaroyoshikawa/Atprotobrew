@@ -16,6 +16,7 @@
 		"@atprotobrew/common": "workspace:^",
 		"@atprotobrew/tokens": "workspace:^",
 		"@tanstack/react-form": "^1.29.1",
+		"lucide-react": "^1.17.0",
 		"react-dom": "^19.2.6",
 		"react-native-web": "~0.21.2",
 		"react-router-dom": "^7.14.1"
@@ -24,7 +25,7 @@
 		"@lingui/vite-plugin": "^6.0.1",
 		"@tailwindcss/postcss": "^4.2.4",
 		"@tailwindcss/vite": "^4.2.2",
-		"@tamagui/vite-plugin": "2.0.0-rc.41",
+		"@tamagui/vite-plugin": "2.0.0",
 		"@types/node": "^24.12.2",
 		"@types/react": "^19.2.14",
 		"@types/react-dom": "^19.2.3",

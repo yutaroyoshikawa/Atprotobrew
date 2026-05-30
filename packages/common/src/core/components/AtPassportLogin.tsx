@@ -11,8 +11,10 @@ export function AtPassportLogin(props: AtPassportLoginProps) {
   const theme = useTheme();
 
   return (
-    <StyledButton {...props}>
-      <AtPassportIcon color={theme.accent.get()} />
+    <StyledButton
+      {...props}
+      icon={<AtPassportIcon color={theme.primary.get()} />}
+    >
       {props.lang === "ja" && <StyledText>{AtPassportUI.ja.title}</StyledText>}
       {props.lang === "en" && <StyledText>{AtPassportUI.en.title}</StyledText>}
     </StyledButton>
@@ -25,9 +27,9 @@ const StyledButton = styled(Button, {
   justifyContent: "center",
   alignItems: "center",
   columnGap: "$2",
-  backgroundColor: "$white",
+  backgroundColor: "$bg",
   borderWidth: 1,
-  borderColor: "$accent",
+  borderColor: "$primary",
   borderRadius: "$3",
   paddingHorizontal: "$2",
   paddingVertical: "$5",
@@ -35,6 +37,6 @@ const StyledButton = styled(Button, {
 
 const StyledText = styled(Text, {
   textAlign: "center",
-  color: "$accent",
+  color: "$primary",
   fontWeight: "800",
 });

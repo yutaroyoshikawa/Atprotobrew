@@ -11,7 +11,9 @@ import { useForm } from "@tanstack/react-form";
 import { AtPassportLogin } from "../../../core/components/AtPassportLogin";
 import { AppSeparator } from "../../../core/components/AppSeparator";
 import { Trans } from "@lingui/react/macro";
+import { useLingui } from "@lingui/react/macro";
 import { useLocale } from "../../../core/modules/i18n";
+import { View } from "tamagui";
 
 const DEFAULT_HANDLE_RESOLVER = "https://bsky.social";
 
@@ -38,14 +40,11 @@ export function AuthForm({ onSubmit, onAtPassportLogin }: AuthFormProps) {
   return (
     <AppCard>
       <AppVStack gap="$5">
-        <AppVStack gap="$1">
-          <AppH1>Atprotobrew</AppH1>
-          <AppText>
-            <Trans>AT Protocol サービスランチャー</Trans>
-          </AppText>
+        <AppVStack gap="$1" paddingHorizontal="$6">
+          <Trans render={AppH1}>ログイン</Trans>
         </AppVStack>
 
-        <AppForm onSubmit={form.handleSubmit}>
+        <AppForm onSubmit={form.handleSubmit} paddingHorizontal="$6">
           <AppVStack gap="$5">
             <AppVStack gap="$1">
               <form.Field name="handle">
@@ -124,7 +123,9 @@ export function AuthForm({ onSubmit, onAtPassportLogin }: AuthFormProps) {
 
         <AppSeparator />
 
-        <AtPassportLogin lang={locale} onPress={onAtPassportLogin} />
+        <View paddingHorizontal="$6">
+          <AtPassportLogin lang={locale} onPress={onAtPassportLogin} />
+        </View>
       </AppVStack>
     </AppCard>
   );
