@@ -36,7 +36,7 @@ function HomeScreenContent({ session, logout }: HomeScreenContentProps) {
   const router = useRouter();
   const { data } = useFetchLaunchers({ agent: session });
 
-  const installChannels = data.body.view;
+  const installChannels = data.body.items;
 
   const [page] = useState(0);
 

@@ -1,5 +1,5 @@
 import { AuthForm } from "@atprotobrew/common/auth/components/AuthForm";
-import { StyleSheet, View } from "react-native";
+import { View } from "react-native";
 import { loginWithAtPassport } from "../../modules/auth/atpassport";
 import { useAuthContext } from "../../modules/auth/AuthProvider";
 import { useLocale } from "@atprotobrew/common/core/modules/i18n";
@@ -27,18 +27,5 @@ function Login() {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  center: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  did: {
-    marginBottom: 16,
-    fontSize: 14,
-    color: "#555",
-  },
-});
 
 export default Login;

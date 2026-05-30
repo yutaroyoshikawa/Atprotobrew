@@ -9,7 +9,6 @@ export function AppInput({ prefix, ...props }: AppInputProps) {
 
 const StyledInput = styled(Input, {
   width: "100%",
-  boxSizing: "border-box",
   alignItems: "center",
   paddingHorizontal: "$4",
 
@@ -27,11 +26,6 @@ const StyledInput = styled(Input, {
 
   outlineWidth: 0,
   outlineStyle: "none",
-
-  transition: {
-    borderColor: "slow",
-    backgroundColor: "slow",
-  },
 
   hoverStyle: {
     backgroundColor: "$bgContrast25",
