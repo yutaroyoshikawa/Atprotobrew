@@ -1,3 +1,4 @@
+import { useThemeColors, useThemeToggle } from "@atprotobrew/common/theme";
 import { useEffect, useRef } from "react";
 
 interface Bubble {
@@ -12,6 +13,8 @@ interface Bubble {
 
 export function BubbleBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const theme = useThemeColors();
+  const { resolved } = useThemeToggle();
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -45,9 +48,8 @@ export function BubbleBackground() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       const grad = ctx.createLinearGradient(0, 0, 0, canvas.height);
-      grad.addColorStop(0, "hsl(205,72%,82%)");
-      grad.addColorStop(0.5, "hsl(200,60%,91%)");
-      grad.addColorStop(1, "hsl(195,50%,95%)");
+      grad.addColorStop(0, theme.bgBubbleGradientStart);
+      grad.addColorStop(1, theme.bgBubbleGradientEnd);
       ctx.fillStyle = grad;
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
@@ -71,9 +73,16 @@ export function BubbleBackground() {
           b.y,
           b.r,
         );
-        bGrad.addColorStop(0, "rgba(255,255,255,0.9)");
-        bGrad.addColorStop(0.4, "rgba(180,220,255,0.4)");
-        bGrad.addColorStop(1, "rgba(100,170,240,0.15)");
+
+        if (resolved === "light") {
+          bGrad.addColorStop(0, "#dff3ff");
+          bGrad.addColorStop(0.4, "#7cc4f0");
+          bGrad.addColorStop(1, "#2f86d6");
+        } else {
+          bGrad.addColorStop(0, "rgba(255,255,255,0.9)");
+          bGrad.addColorStop(0.4, "rgba(180,220,255,0.4)");
+          bGrad.addColorStop(1, "rgba(100,170,240,0.15)");
+        }
 
         ctx.beginPath();
         ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
@@ -96,11 +105,12 @@ export function BubbleBackground() {
     };
 
     animId = requestAnimationFrame(draw);
+
     return () => {
       cancelAnimationFrame(animId);
       window.removeEventListener("resize", resize);
     };
-  }, []);
+  }, [theme.bgBubbleGradientStart, theme.bgBubbleGradientEnd, resolved]);
 
   // biome-ignore lint/a11y/noAriaHiddenOnFocusable: aaaaa
   return (

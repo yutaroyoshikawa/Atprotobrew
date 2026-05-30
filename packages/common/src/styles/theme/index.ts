@@ -9,8 +9,8 @@
  * atoms 等の直接 export は高度な用途向け。
  */
 
-export { ThemeProvider } from "./ThemeProvider";
-export { ThemeToggle } from "./ThemeToggle";
+export { ThemeProvider } from "../../core/components/ThemeProvider";
+export { ThemeToggle } from "../../core/components/ThemeToggle";
 export { useThemeToggle } from "./useThemeToggle";
 export { useSystemScheme } from "./useSystemScheme";
 export { useApplyPlatformTheme } from "./useApplyPlatformTheme";

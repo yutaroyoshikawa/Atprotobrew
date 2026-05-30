@@ -1,1 +1,1 @@
-/*eslint-disable*/import type{Messages}from"@lingui/core";export const messages=JSON.parse("{\"H5yoYW\":[\"Redirecting...\"],\"i_H4mI\":[\"Login\"],\"oPNSBX\":[\"A launcher application for AT Protocol services.\"]}")as Messages;
+/*eslint-disable*/import type{Messages}from"@lingui/core";export const messages=JSON.parse("{\"0VdcHu\":[\"Store\"],\"H5yoYW\":[\"Redirecting...\"],\"_l7ZiB\":[\"Channel\"],\"i_H4mI\":[\"Login\"],\"oPNSBX\":[\"A launcher application for AT Protocol services.\"],\"wKj0zc\":[\"Settings\"]}")as Messages;

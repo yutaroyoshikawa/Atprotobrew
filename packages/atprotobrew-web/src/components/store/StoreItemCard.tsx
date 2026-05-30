@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import type { StoreChannel } from "../../types/channel";
+import { Trans } from "@lingui/react/macro";
 
 interface StoreItemCardProps {
 	channel: StoreChannel;
@@ -29,7 +30,7 @@ export function StoreItemCard({ channel, isInstalled }: StoreItemCardProps) {
 					isInstalled ? "bg-green-50 text-green-600" : "bg-blue-50 text-blue-600"
 				}`}
 			>
-				{isInstalled ? "インストール済" : "取得"}
+				{isInstalled ? <Trans>インストール済</Trans> : <Trans>取得</Trans>}
 			</span>
 		</Link>
 	);

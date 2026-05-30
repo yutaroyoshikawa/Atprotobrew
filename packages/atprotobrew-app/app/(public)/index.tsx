@@ -1,19 +1,25 @@
 import { AppButton } from "@atprotobrew/common/core/components/AppButton";
-import { AppH1 } from "@atprotobrew/common/core/components/AppH1";
-import { AppText } from "@atprotobrew/common/core/components/AppText";
-import { AppVStack } from "@atprotobrew/common/core/components/AppVStack";
 import { useRouter } from "expo-router";
 import { ActivityIndicator, View } from "react-native";
 import { useAuthContext } from "../../modules/auth/AuthProvider";
 import { useEffect } from "react";
 import { atoms as a } from "@atprotobrew/common/alf";
-import { ThemeToggle, useThemeColors } from "@atprotobrew/common/theme";
+import {
+  ThemeToggle,
+  useThemeColors,
+  useThemeToggle,
+} from "@atprotobrew/common/theme";
 import { LanguageToggle } from "@atprotobrew/common/core/components/LanguageToggle";
+import { BubbleBackground } from "@atprotobrew/common/core/components/Background";
+import { AtprotobrewMascot } from "@atprotobrew/common/core/components/AtprotobrewMascot";
+import { AtprotobrewLogoType } from "@atprotobrew/common/core/components/AtprotobrewLogoType";
+import { Host } from "@expo/ui";
 
 function Home() {
+  const { resolved } = useThemeToggle();
+  const t = useThemeColors();
   const { authState } = useAuthContext();
   const router = useRouter();
-  const t = useThemeColors();
 
   useEffect(() => {
     if (authState.status === "authenticated") {
@@ -22,31 +28,70 @@ function Home() {
   }, [authState.status]);
 
   return (
-    <View
-      style={[
-        a.flex_1,
-        a.justify_center,
-        a.items_center,
-        a.p_6,
-        a.gap_4,
-        { backgroundColor: t.bg },
-      ]}
-    >
-      <AppVStack>
-        <AppH1>Atprotobrew</AppH1>
-        <AppText>ようこそ</AppText>
+    <View>
+      <BubbleBackground />
 
-        {authState.status === "unauthenticated" && (
-          <AppButton onPress={() => router.push("/(auth)/login")}>
-            Login
-          </AppButton>
-        )}
+      <View style={[a.h_full, a.w_full, a.justify_center, a.px_4]}>
+        <View
+          style={[
+            a.h_full,
+            a.w_full,
+            a.flex_col,
+            a.justify_between,
+            a.px_4,
+            a.py_4,
+            { maxHeight: 700, maxWidth: 400 },
+          ]}
+        >
+          <View style={[a.flex_1, a.flex_col, a.justify_center]}>
+            <View style={[a.flex_col, a.gap_4, { height: 200 }]}>
+              <View style={[a.flex_1]}>
+                <AtprotobrewMascot />
+              </View>
+              <View style={[a.flex_1]}>
+                <AtprotobrewLogoType />
+              </View>
+            </View>
+          </View>
 
-        {authState.status === "loading" && <ActivityIndicator />}
-      </AppVStack>
+          <View
+            style={[
+              { maxHeight: 270 },
+              a.flex_1,
+              a.flex_col,
+              a.justify_between,
+              a.gap_4,
+            ]}
+          >
+            {authState.status === "unauthenticated" && (
+              <AppButton onPress={() => router.push("/(auth)/login")}>
+                Login
+              </AppButton>
+            )}
 
-      <ThemeToggle />
-      <LanguageToggle />
+            {authState.status === "loading" && <ActivityIndicator />}
+
+            <View style={[a.flex_col, a.justify_between, a.gap_4]}>
+              <ThemeToggle />
+              <View
+                style={{
+                  height: 80,
+                  backgroundColor: t.bg,
+                  borderRadius: 12,
+                  paddingInline: 8,
+                }}
+              >
+                <Host
+                  colorScheme={resolved}
+                  style={{ flex: 1, justifyContent: "center" }}
+                >
+                  <LanguageToggle />
+                </Host>
+              </View>
+            </View>
+          </View>
+        </View>
+      </View>
     </View>
   );
 }

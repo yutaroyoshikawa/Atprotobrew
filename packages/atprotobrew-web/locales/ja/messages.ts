@@ -1,1 +1,1 @@
-/*eslint-disable*/import type{Messages}from"@lingui/core";export const messages=JSON.parse("{}")as Messages;
+/*eslint-disable*/import type{Messages}from"@lingui/core";export const messages=JSON.parse("{\"Hfy5sO\":[\"ランチャーに戻る\"],\"M2GtLz\":[\"インストール済\"],\"hRdXT2\":[\"Atprotobrew ストア\"],\"kjttr8\":[\"取得\"]}")as Messages;

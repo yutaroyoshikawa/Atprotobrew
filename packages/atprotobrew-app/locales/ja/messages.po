@@ -14,13 +14,25 @@ msgstr ""
 "Plural-Forms: \n"
 
 #: components/AuthForm.tsx:42
-msgid "AT Protocol サービスランチャー"
-msgstr "AT Protocol サービスランチャー"
+#~ msgid "AT Protocol サービスランチャー"
+#~ msgstr "AT Protocol サービスランチャー"
+
+#: app/(app)/store/_layout.tsx:6
+msgid "ストア"
+msgstr "ストア"
+
+#: app/(app)/channels/_layout.tsx:12
+msgid "チャンネル"
+msgstr "チャンネル"
 
 #: components/AuthForm.tsx:88
-msgid "リダイレクト中…"
-msgstr "リダイレクト中…"
+#~ msgid "リダイレクト中…"
+#~ msgstr "リダイレクト中…"
 
 #: components/AuthForm.tsx:90
-msgid "ログイン"
-msgstr "ログイン"
+#~ msgid "ログイン"
+#~ msgstr "ログイン"
+
+#: app/(app)/settings/_layout.tsx:12
+msgid "設定"
+msgstr "設定"

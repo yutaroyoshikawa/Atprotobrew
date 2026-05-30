@@ -13,18 +13,48 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: src/features/auth/components/AuthForm.tsx:38
-msgid "AT Protocol サービスランチャー"
-msgstr "AT Protocol サービスランチャー"
+#: src/features/store/components/StoreItem.tsx:50
+msgid "{title} のアイコン"
+msgstr "{title} のアイコン"
 
-#: src/features/auth/components/AuthForm.tsx:49
+#: src/features/auth/components/AuthForm.tsx:38
+#~ msgid "AT Protocol サービスランチャー"
+#~ msgstr "AT Protocol サービスランチャー"
+
+#: src/features/store/components/StoreItem.tsx:84
+#: src/features/store/components/StoreItem.tsx:90
+msgid "インストール済み"
+msgstr "インストール済み"
+
+#: src/core/components/ThemeToggle.tsx:15
+msgid "システム"
+msgstr "システム"
+
+#: src/features/channel/components/StoreChannelTile.tsx:42
+msgid "ストア"
+msgstr "ストア"
+
+#: src/core/components/ThemeToggle.tsx:14
+msgid "ダーク"
+msgstr "ダーク"
+
+#: src/features/auth/components/AuthForm.tsx:54
 msgid "ハンドル"
 msgstr "ハンドル"
 
-#: src/features/auth/components/AuthForm.tsx:86
+#: src/core/components/ThemeToggle.tsx:13
+msgid "ライト"
+msgstr "ライト"
+
+#: src/features/auth/components/AuthForm.tsx:109
 msgid "リダイレクト中…"
 msgstr "リダイレクト中…"
 
-#: src/features/auth/components/AuthForm.tsx:88
+#: src/features/auth/components/AuthForm.tsx:45
+#: src/features/auth/components/AuthForm.tsx:111
 msgid "ログイン"
 msgstr "ログイン"
+
+#: src/core/components/LanguageToggle.tsx:22
+msgid "言語"
+msgstr "言語"
