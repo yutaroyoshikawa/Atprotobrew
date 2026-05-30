@@ -7,12 +7,11 @@
 		"lexgen": "gen-xrpc-hono --yes ./src/lexicons/ ../atproto/lexicons/**/**/**/*.json"
 	},
 	"dependencies": {
-		"@atprotobrew/atproto": "workspace:^",
 		"@atproto/crypto": "^0.4.5",
-		"@atproto/did-resolver": "^0.1.0",
 		"@atproto/identity": "^0.4.12",
 		"@atproto/lexicon": "^0.6.2",
 		"@atproto/xrpc-server": "^0.10.20",
+		"@atprotobrew/atproto": "workspace:^",
 		"@evex-dev/xrpc-hono": "^1.0.4",
 		"drizzle-orm": "^0.45.2",
 		"hono": "^4.12.14",
@@ -20,7 +19,6 @@
 		"multiformats": "^14.0.0"
 	},
 	"devDependencies": {
-		"@hono/node-server": "^2.0.2",
 		"@types/node": "^24.12.2",
 		"dotenv": "^17.4.2",
 		"drizzle-kit": "^0.31.10",
