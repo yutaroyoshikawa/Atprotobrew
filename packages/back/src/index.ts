@@ -29,7 +29,10 @@ const storeRecord1: Record = {
 	$type: "org.tarororo.brew.storeItem",
 	author: "Bluesky Social PBC",
 	title: "Bluesky",
-	launch: { $type: "org.tarororo.brew.defs#launchWeb", link: "https://bsky.app" } satisfies LaunchWeb,
+	launch: {
+		$type: "org.tarororo.brew.defs#launchWeb",
+		link: "https://bsky.app",
+	} satisfies LaunchWeb,
 	description: "Bluesky",
 	thumbnail: new BlobRef(
 		{ $link: "bafkreihwihm6kpd6zuwhhlro75p5qks5qtrcu55jp3gddbfjsieiv7wuka" },
@@ -43,7 +46,10 @@ const storeRecord2: Record = {
 	author: "ほりべあ",
 	description: "",
 	title: "TOKIMEKI",
-	launch: { $type: "org.tarororo.brew.defs#launchWeb", link: "https://tokimeki.blue" } satisfies LaunchWeb,
+	launch: {
+		$type: "org.tarororo.brew.defs#launchWeb",
+		link: "https://tokimeki.blue",
+	} satisfies LaunchWeb,
 	thumbnail: new BlobRef(
 		{ $link: "bafkreibsbcc6yqqhdvmb6hzzqkwnxobog45cuelt4twmbdpctmcs7e4udy" },
 		"image/png",
@@ -64,8 +70,14 @@ xrpc.org.tarororo.brew.getLauncher({
 				record: {
 					$type: "org.tarororo.brew.launcher",
 					items: [
-						{ $type: "org.tarororo.brew.launcher#item", storeItemRef: { uri: "", cid: "" } },
-						{ $type: "org.tarororo.brew.launcher#item", storeItemRef: { uri: "", cid: "" } },
+						{
+							$type: "org.tarororo.brew.launcher#item",
+							storeItemRef: { uri: "", cid: "" },
+						},
+						{
+							$type: "org.tarororo.brew.launcher#item",
+							storeItemRef: { uri: "", cid: "" },
+						},
 					],
 				},
 				items: [
@@ -77,7 +89,7 @@ xrpc.org.tarororo.brew.getLauncher({
 						description: storeRecord0.description,
 						author: storeRecord0.author,
 						launch: storeRecord0.launch,
-						uri: "at://example.com/app.bsky/test/0",
+						uri: "at://did:web:brew.tarororo.org/org.tarororo.brew.storeItem/0",
 					},
 					{
 						record: storeRecord1,
@@ -87,7 +99,7 @@ xrpc.org.tarororo.brew.getLauncher({
 						description: storeRecord1.description,
 						title: storeRecord1.title,
 						launch: storeRecord1.launch,
-						uri: "at://example.com/app.bsky/test/1",
+						uri: "at://did:web:brew.tarororo.org/org.tarororo.brew.storeItem/1",
 					},
 					{
 						record: storeRecord2,
@@ -97,7 +109,7 @@ xrpc.org.tarororo.brew.getLauncher({
 						description: storeRecord2.description,
 						title: storeRecord2.title,
 						launch: storeRecord2.launch,
-						uri: "at://example.com/app.bsky/test/2",
+						uri: "at://did:web:brew.tarororo.org/org.tarororo.brew.storeItem/2",
 					},
 				],
 			},
