@@ -2,7 +2,7 @@ import { AppButton } from "@atprotobrew/common/core/components/AppButton";
 import { useRouter } from "expo-router";
 import { ActivityIndicator, View } from "react-native";
 import { useAuthContext } from "../../modules/auth/AuthProvider";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { atoms as a } from "@atprotobrew/common/alf";
 import {
   ThemeToggle,
@@ -82,8 +82,13 @@ function Home() {
                 }}
               >
                 <Host
+                  useViewportSizeMeasurement
                   colorScheme={resolved}
-                  style={{ flex: 1, justifyContent: "center" }}
+                  style={{
+                    flex: 1,
+                    flexWrap: "wrap",
+                    justifyContent: "center",
+                  }}
                 >
                   <LanguageToggle />
                 </Host>
