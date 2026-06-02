@@ -1,17 +1,15 @@
-import { View } from "react-native";
-import { useFetchLaunchers } from "@atprotobrew/common/channel/modules/launchersHooks";
-import { OAuthSession } from "@atproto/oauth-client-expo";
-import { Suspense, useState } from "react";
-import { AppVStack } from "@atprotobrew/common/core/components/AppVStack";
-import { StoreChannelTile } from "@atprotobrew/common/channel/components/StoreChannelTile";
-import { InstalledChannelTile } from "@atprotobrew/common/channel/components/InstalledChannelTile";
-import { AppFooter } from "@atprotobrew/common/core/components/AppFooter";
-import { useRouter } from "expo-router";
+import { Suspense } from "react";
+import { View, ActivityIndicator } from "react-native";
+import type { OAuthSession } from "@atproto/oauth-client-expo";
 import { useAuthContext } from "../../modules/auth/AuthProvider";
+import { useFetchLaunchers } from "@atprotobrew/common/channel/modules/launchersHooks";
+import { LauncherScreen } from "../../modules/launcher/LauncherScreen";
 import { atoms as a } from "@atprotobrew/common/alf";
 import { BubbleBackground } from "@atprotobrew/common/core/components/Background";
+import { router } from "expo-router";
+import { AppFooter } from "@atprotobrew/common/core/components/AppFooter";
 
-export default function Index() {
+export default function Home() {
   const { authState, logout } = useAuthContext();
 
   if (authState.status !== "authenticated") {
@@ -19,13 +17,11 @@ export default function Index() {
   }
 
   return (
-    <Suspense>
+    <Suspense fallback={<LoadingView />}>
       <HomeScreenContent session={authState.session} logout={logout} />
     </Suspense>
   );
 }
-
-const TOTAL_TILES = 6;
 
 interface HomeScreenContentProps {
   session: OAuthSession;
@@ -33,49 +29,26 @@ interface HomeScreenContentProps {
 }
 
 function HomeScreenContent({ session, logout }: HomeScreenContentProps) {
-  const router = useRouter();
   const { data } = useFetchLaunchers({ agent: session });
-
-  const installChannels = data.body.items;
-
-  const [page] = useState(0);
-
-  const tilesPerPage = TOTAL_TILES;
-
-  const pageChannels = installChannels.slice(
-    page * (tilesPerPage - 1),
-    (page + 1) * (tilesPerPage - 1),
-  );
 
   return (
     <View style={[a.h_full]}>
       <BubbleBackground />
-      <AppVStack style={[a.h_full, a.flex_col, a.justify_between]}>
-        <AppVStack style={[a.p_4, a.flex_col, a.gap_3]}>
-          <StoreChannelTile onPress={() => router.push("/(app)/store")} />
+      <View style={[a.h_full, a.flex_col]}>
+        <LauncherScreen storeViews={data.body.items} />
+        <AppFooter
+          onRequestOpenSettings={() => router.push("/(app)/settings")}
+          onRequestLogout={logout}
+        />
+      </View>
+    </View>
+  );
+}
 
-          {pageChannels.map((tile) => (
-            <InstalledChannelTile
-              key={tile.uri}
-              channelName={tile.title}
-              thumbnailUrl={tile.thumbnail}
-              onPress={() =>
-                router.push({
-                  pathname: "/(app)/channels/[channelId]",
-                  params: { channelId: tile.title },
-                })
-              }
-            />
-          ))}
-        </AppVStack>
-
-        <View>
-          <AppFooter
-            onRequestOpenSettings={() => router.push("/(app)/settings")}
-            onRequestLogout={logout}
-          />
-        </View>
-      </AppVStack>
+function LoadingView() {
+  return (
+    <View style={[a.h_full, a.justify_center]}>
+      <ActivityIndicator />
     </View>
   );
 }

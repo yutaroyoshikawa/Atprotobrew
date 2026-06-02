@@ -69,12 +69,17 @@ export const atoms = StyleSheet.create({
   rounded_md: { borderRadius: 6 },
   rounded_lg: { borderRadius: 8 },
   rounded_xl: { borderRadius: 12 },
+  rounded_2xl: { borderRadius: 16 },
   rounded_full: { borderRadius: 9999 },
 
   // --- Border width ---
   border: { borderWidth: 1 },
   border_t: { borderTopWidth: 1 },
   border_b: { borderBottomWidth: 1 },
+
+  // --- Z-index ---
+  z_10: { zIndex: 10 },
+  z_999: { zIndex: 999 },
 
   // --- Typography (size + lineHeight をペアで) ---
   text_xs: { fontSize: 12, lineHeight: 16 },

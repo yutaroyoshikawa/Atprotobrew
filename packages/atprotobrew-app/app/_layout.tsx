@@ -8,6 +8,7 @@ import { Stack, useRouter, useSegments } from "expo-router";
 import { AuthProvider, useAuthContext } from "../modules/auth/AuthProvider";
 import { useEffect } from "react";
 import { Provider as JotaiProvider } from "jotai";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 const queryClient = getAppQueryClient();
 
@@ -22,17 +23,19 @@ const catalogLoader: CatalogLoader = async (lang) => {
 
 export default function RootLayout() {
   return (
-    <JotaiProvider>
-      <AppI18nProvider extraLoaders={[catalogLoader]}>
-        <UIProvider>
-          <AppQueryProvider client={queryClient}>
-            <AuthProvider>
-              <RootLayoutNav />
-            </AuthProvider>
-          </AppQueryProvider>
-        </UIProvider>
-      </AppI18nProvider>
-    </JotaiProvider>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <JotaiProvider>
+        <AppI18nProvider extraLoaders={[catalogLoader]}>
+          <UIProvider>
+            <AppQueryProvider client={queryClient}>
+              <AuthProvider>
+                <RootLayoutNav />
+              </AuthProvider>
+            </AppQueryProvider>
+          </UIProvider>
+        </AppI18nProvider>
+      </JotaiProvider>
+    </GestureHandlerRootView>
   );
 }
 

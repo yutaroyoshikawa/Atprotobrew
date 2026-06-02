@@ -2,7 +2,7 @@ import { i18n, type Messages } from "@lingui/core";
 import { messages as jaDefaultMessages } from "../../../locales/ja/messages";
 import type { AppLanguage, CatalogLoader } from "../types/i18n";
 import { useLingui } from "@lingui/react";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import * as z from "zod";
 import { AppLanguageSchema } from "../shcemas/i18n";
 import { useSetAtom } from "jotai";
@@ -44,6 +44,7 @@ function isAppLanguage(locale: string): locale is AppLanguage {
 
 export function useLocale() {
   const { i18n } = useLingui();
+  const setLanguage = useSetAtom(languageAtom);
 
   const locale = useMemo(() => {
     if (isAppLanguage(i18n.locale)) {
@@ -52,6 +53,10 @@ export function useLocale() {
 
     return "ja";
   }, [i18n]);
+
+  useEffect(() => {
+    setLanguage(locale);
+  }, [locale]);
 
   return locale;
 }
