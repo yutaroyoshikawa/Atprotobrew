@@ -29,26 +29,19 @@ export function useAuth() {
     const unsubscribe = onSessionDeleted((sub: AtprotoDid) => {
       if (sessionRef.current?.sub !== sub) return;
       sessionRef.current = null;
-      AsyncStorage.removeMany([AUTH_DID_KEY, AUTH_HANDLE_RESOLVER_KEY]).catch(
+      AsyncStorage.multiRemove([AUTH_DID_KEY, AUTH_HANDLE_RESOLVER_KEY]).catch(
         () => {},
       );
       setAuthState({ status: "unauthenticated" });
     });
 
-    AsyncStorage.getMany([AUTH_DID_KEY, AUTH_HANDLE_RESOLVER_KEY])
-      .then(async (values) => {
+    AsyncStorage.multiGet([AUTH_DID_KEY, AUTH_HANDLE_RESOLVER_KEY])
+      .then(async ([[, storedDid], [, storedResolver]]) => {
         if (cancelled) return;
-
-        const storedDid = Object.hasOwn(values, AUTH_DID_KEY)
-          ? values[AUTH_DID_KEY]
-          : null;
-        const storedResolver = Object.hasOwn(values, AUTH_HANDLE_RESOLVER_KEY)
-          ? values[AUTH_HANDLE_RESOLVER_KEY]
-          : null;
 
         if (!storedDid || !isAtprotoDid(storedDid)) {
           if (storedDid) {
-            await AsyncStorage.removeMany([
+            await AsyncStorage.multiRemove([
               AUTH_DID_KEY,
               AUTH_HANDLE_RESOLVER_KEY,
             ]);
@@ -67,7 +60,7 @@ export function useAuth() {
         setAuthState({ status: "authenticated", session, sub: session.sub });
       })
       .catch(async () => {
-        await AsyncStorage.removeMany([
+        await AsyncStorage.multiRemove([
           AUTH_DID_KEY,
           AUTH_HANDLE_RESOLVER_KEY,
         ]).catch(() => {});
@@ -90,10 +83,10 @@ export function useAuth() {
     const oauthClient = getExpoOAuthClient(handleResolver);
     const session = await oauthClient.signIn(handle);
 
-    await AsyncStorage.setMany({
-      AUTH_DID_KEY: session.sub,
-      AUTH_HANDLE_RESOLVER_KEY: handleResolver,
-    });
+    await AsyncStorage.multiSet([
+      [AUTH_DID_KEY, session.sub],
+      [AUTH_HANDLE_RESOLVER_KEY, handleResolver],
+    ]);
 
     sessionRef.current = session;
     setAuthState({ status: "authenticated", session, sub: session.sub });
@@ -110,7 +103,7 @@ export function useAuth() {
 
     sessionRef.current = null;
 
-    await AsyncStorage.removeMany([
+    await AsyncStorage.multiRemove([
       AUTH_DID_KEY,
       AUTH_HANDLE_RESOLVER_KEY,
     ]).catch(() => {});
