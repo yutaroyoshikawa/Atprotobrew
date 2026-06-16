@@ -1,8 +1,8 @@
-import { View } from "react-native";
-import Animated, { useAnimatedStyle } from "react-native-reanimated";
-import type { SharedValue } from "react-native-reanimated";
 import { atoms as a } from "@atprotobrew/common/alf";
 import { useThemeColors } from "@atprotobrew/common/theme";
+import { View } from "react-native";
+import type { SharedValue } from "react-native-reanimated";
+import Animated, { useAnimatedStyle } from "react-native-reanimated";
 
 const DOT_SIZE = 6;
 

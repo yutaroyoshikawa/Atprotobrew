@@ -2,15 +2,13 @@ import "react-native-url-polyfill/auto";
 import { randomUUID } from "expo-crypto";
 
 // crypto.randomUUID — not available in older Hermes
-if (!Object.prototype.hasOwnProperty.call(global, "crypto")) {
+if (!Object.hasOwn(global, "crypto")) {
   Object.defineProperty(global, "crypto", {
     configurable: true,
     writable: true,
     value: { randomUUID },
   });
-} else if (
-  !Object.prototype.hasOwnProperty.call(global.crypto, "randomUUID")
-) {
+} else if (!Object.hasOwn(global.crypto, "randomUUID")) {
   Object.defineProperty(global.crypto, "randomUUID", {
     configurable: true,
     writable: true,
@@ -20,7 +18,7 @@ if (!Object.prototype.hasOwnProperty.call(global, "crypto")) {
 
 // AbortSignal.timeout
 if (typeof AbortSignal !== "undefined" && !AbortSignal.timeout) {
-  AbortSignal.timeout = function (ms: number) {
+  AbortSignal.timeout = (ms: number) => {
     const controller = new AbortController();
     setTimeout(() => controller.abort(new Error("TimeoutError")), ms);
     return controller.signal;
@@ -30,7 +28,7 @@ if (typeof AbortSignal !== "undefined" && !AbortSignal.timeout) {
 // AbortSignal.prototype.throwIfAborted — not available in Hermes
 if (
   typeof AbortSignal !== "undefined" &&
-  !Object.prototype.hasOwnProperty.call(AbortSignal.prototype, "throwIfAborted")
+  !Object.hasOwn(AbortSignal.prototype, "throwIfAborted")
 ) {
   Object.defineProperty(AbortSignal.prototype, "throwIfAborted", {
     configurable: true,

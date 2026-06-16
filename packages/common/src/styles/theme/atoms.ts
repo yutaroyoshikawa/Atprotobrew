@@ -2,10 +2,10 @@ import { atom } from "jotai";
 import { atomWithStorage } from "jotai/utils";
 import { storage } from "./storage";
 import {
+  type ResolvedTheme,
+  type SystemScheme,
   THEME_STORAGE_KEY,
   type ThemeOverride,
-  type SystemScheme,
-  type ResolvedTheme,
 } from "./types";
 
 /**
@@ -16,7 +16,9 @@ export const themeOverrideAtom = atomWithStorage<ThemeOverride>(
   THEME_STORAGE_KEY,
   "system",
   storage,
-  { getOnInit: true },
+  {
+    getOnInit: true,
+  },
 );
 
 /**

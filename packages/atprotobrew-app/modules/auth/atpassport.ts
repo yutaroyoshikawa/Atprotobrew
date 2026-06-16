@@ -1,6 +1,6 @@
 import { AtPassport } from "@atpassport/client/core";
-import * as WebBrowser from "expo-web-browser";
 import type { AppLanguage } from "@atprotobrew/common/core/types/i18n";
+import * as WebBrowser from "expo-web-browser";
 import { DEFAULT_HANDLE_RESOLVER } from "./client";
 
 // AtPassport requires HTTPS; the web app relays back via the custom scheme.

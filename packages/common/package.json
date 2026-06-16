@@ -48,20 +48,8 @@
 		"./i18n/locales/*": {
 			"import": "./locales/*/messages.ts"
 		},
-		"./launcher/types": {
-			"import": "./src/features/launcher/types.ts"
-		},
-		"./launcher/address": {
-			"import": "./src/features/launcher/launcherAddress.ts"
-		},
-		"./launcher/grid": {
-			"import": "./src/features/launcher/launcherGrid.ts"
-		},
-		"./launcher/layout": {
-			"import": "./src/features/launcher/launcherLayout.ts"
-		},
-		"./launcher/store": {
-			"import": "./src/core/stores/launcherStore.ts"
+		"./launcher/*": {
+			"import": "./src/features/launcher/*.ts"
 		}
 	},
 	"dependencies": {

@@ -1,13 +1,14 @@
-import { Suspense } from "react";
-import { View, ActivityIndicator } from "react-native";
 import type { OAuthSession } from "@atproto/oauth-client-expo";
-import { useAuthContext } from "../../modules/auth/AuthProvider";
-import { useFetchLaunchers } from "@atprotobrew/common/channel/modules/launchersHooks";
-import { LauncherScreen } from "../../modules/launcher/LauncherScreen";
 import { atoms as a } from "@atprotobrew/common/alf";
-import { BubbleBackground } from "@atprotobrew/common/core/components/Background";
-import { router } from "expo-router";
+import { useFetchLaunchers } from "@atprotobrew/common/channel/modules/launchersHooks";
 import { AppFooter } from "@atprotobrew/common/core/components/AppFooter";
+import { router } from "expo-router";
+import { Suspense } from "react";
+import { ActivityIndicator, View } from "react-native";
+import { useAuthContext } from "../../modules/auth/AuthProvider";
+import { LauncherScreen } from "../../modules/launcher/LauncherScreen";
+import { useWidgetSync } from "../../modules/launcher/useWidgetSync";
+import { BubbleBackground } from "@atprotobrew/common/core/components/Background";
 
 export default function Home() {
   const { authState, logout } = useAuthContext();
@@ -30,6 +31,7 @@ interface HomeScreenContentProps {
 
 function HomeScreenContent({ session, logout }: HomeScreenContentProps) {
   const { data } = useFetchLaunchers({ agent: session });
+  useWidgetSync();
 
   return (
     <View style={[a.h_full]}>

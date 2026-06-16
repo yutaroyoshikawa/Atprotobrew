@@ -112,13 +112,11 @@ export function BubbleBackground() {
     };
   }, [theme.bgBubbleGradientStart, theme.bgBubbleGradientEnd, resolved]);
 
-  // biome-ignore lint/a11y/noAriaHiddenOnFocusable: aaaaa
   return (
     <canvas
       ref={canvasRef}
       className="fixed inset-0 w-full h-full"
       style={{ zIndex: 0 }}
-      aria-hidden="true"
     />
   );
 }

@@ -1,16 +1,17 @@
-import { atom } from 'jotai';
-import { atomWithStorage } from 'jotai/utils';
-import { MMKV } from 'react-native-mmkv';
-import type { SyncStorage } from 'jotai/vanilla/utils/atomWithStorage';
+import type { StoreItemView } from "@atprotobrew/atproto/lexicons/org/tarororo/brew/defs.defs";
+import { atom } from "jotai";
+import { atomWithStorage } from "jotai/utils";
+import type { SyncStorage } from "jotai/vanilla/utils/atomWithStorage";
+import { MMKV } from "react-native-mmkv";
 import {
   buildCommitted,
   moveItem,
-  toPersisted,
   reflowIfNeeded,
-} from '../../features/launcher/launcherLayout';
-import type { LauncherItem, PersistedLayoutV1, StoreItemView } from '../../features/launcher/types';
+  toPersisted,
+} from "./launcherLayout";
+import type { LauncherItem, PersistedLayoutV1 } from "./types";
 
-const mmkv = new MMKV({ id: 'launcher' });
+const mmkv = new MMKV({ id: "launcher" });
 
 const persistedStorage: SyncStorage<PersistedLayoutV1 | null> = {
   getItem: (key, initialValue) => {
@@ -27,7 +28,7 @@ const persistedStorage: SyncStorage<PersistedLayoutV1 | null> = {
 
 /** 保存される唯一の出力。番地マップのみ。 */
 export const persistedLayoutAtom = atomWithStorage<PersistedLayoutV1 | null>(
-  'launcher.layout',
+  "launcher.layout",
   null,
   persistedStorage,
   { getOnInit: true },
@@ -43,6 +44,7 @@ export const perPageAtom = atom<number>(0);
 export const committedAtom = atom<LauncherItem[]>((get) => {
   const views = get(storeViewsAtom);
   const persisted = reflowIfNeeded(get(persistedLayoutAtom), get(perPageAtom));
+
   return buildCommitted(views, persisted);
 });
 
@@ -50,8 +52,8 @@ export const committedAtom = atom<LauncherItem[]>((get) => {
 export const draftAtom = atom<LauncherItem[] | null>(null);
 
 /** モードは draft の null 判定から派生。 */
-export const modeAtom = atom<'VIEW' | 'EDIT'>((get) =>
-  get(draftAtom) === null ? 'VIEW' : 'EDIT',
+export const modeAtom = atom<"VIEW" | "EDIT">((get) =>
+  get(draftAtom) === null ? "VIEW" : "EDIT",
 );
 
 // ---- actions ----

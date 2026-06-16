@@ -1,11 +1,15 @@
+import { atoms as a } from "@atprotobrew/common/alf";
+import {
+  addressOf,
+  slotOf,
+} from "@atprotobrew/common/launcher/launcherAddress";
+import type { GridConfig } from "@atprotobrew/common/launcher/launcherGrid";
+import type { LauncherItem } from "@atprotobrew/common/launcher/types";
 import React, { useCallback, useMemo } from "react";
 import { View } from "react-native";
-import { measure, runOnUI, useAnimatedRef } from "react-native-reanimated";
 import type { SharedValue } from "react-native-reanimated";
-import { atoms as a } from "@atprotobrew/common/alf";
-import { slotOf, addressOf } from "@atprotobrew/common/launcher/address";
-import type { LauncherItem } from "@atprotobrew/common/launcher/types";
-import type { GridConfig } from "@atprotobrew/common/launcher/grid";
+import { measure, useAnimatedRef } from "react-native-reanimated";
+import { scheduleOnUI } from "react-native-worklets";
 import { Slot } from "./Slot";
 
 interface LauncherPageProps {
@@ -58,14 +62,14 @@ export const LauncherPage = React.memo(function LauncherPage({
 
   const doMeasure = useCallback(() => {
     if (page !== 0) return;
-    runOnUI(() => {
+    scheduleOnUI(() => {
       "worklet";
       const measured = measure(gridRef);
       if (measured) {
         gridOriginX.value = measured.pageX;
         gridOriginY.value = measured.pageY;
       }
-    })();
+    });
   }, [page, gridRef, gridOriginX, gridOriginY]);
 
   const slotMap = useMemo(() => {

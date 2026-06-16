@@ -1,6 +1,6 @@
+import { useSetAtom } from "jotai";
 import { useEffect } from "react";
 import { Appearance } from "react-native";
-import { useSetAtom } from "jotai";
 import { systemSchemeAtom } from "./atoms";
 
 /**

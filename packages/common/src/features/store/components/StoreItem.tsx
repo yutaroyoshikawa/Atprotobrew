@@ -1,8 +1,8 @@
-import { CheckIcon } from "lucide-react-native";
-import { H3, Image, Text, View, XStack, YStack, useTheme } from "tamagui";
-import { atoms as a } from "../../../styles/alf";
-import { AppH1 } from "../../../core/components/AppH1";
 import { Trans, useLingui } from "@lingui/react/macro";
+import { CheckIcon } from "lucide-react-native";
+import { Image, Text, useTheme, View, XStack, YStack } from "tamagui";
+import { AppH1 } from "../../../core/components/AppH1";
+import { atoms as a } from "../../../styles/alf";
 
 interface StoreItemProps {
   title: string;

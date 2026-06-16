@@ -1,38 +1,32 @@
-import React, {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
-import { View, ScrollView, useWindowDimensions } from "react-native";
-import type { NativeSyntheticEvent, NativeScrollEvent } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { useRouter } from "expo-router";
-import { useAtomValue, useSetAtom } from "jotai";
 import { atoms as a } from "@atprotobrew/common/alf";
+import { deriveGridConfig } from "@atprotobrew/common/launcher/launcherGrid";
+import { derivePageCount } from "@atprotobrew/common/launcher/launcherLayout";
 import {
-  storeViewsAtom,
-  perPageAtom,
-  modeAtom,
-  enterEditAtom,
   cancelEditAtom,
-  saveEditAtom,
-  moveItemAtom,
   committedAtom,
   draftAtom,
-} from "@atprotobrew/common/launcher/store";
-import { deriveGridConfig } from "@atprotobrew/common/launcher/grid";
-import { derivePageCount } from "@atprotobrew/common/launcher/layout";
+  enterEditAtom,
+  modeAtom,
+  moveItemAtom,
+  perPageAtom,
+  saveEditAtom,
+  storeViewsAtom,
+} from "@atprotobrew/common/launcher/launcherStore";
 import type {
   LauncherItem,
   StoreItem,
 } from "@atprotobrew/common/launcher/types";
-import { useLauncherDrag } from "./useLauncherDrag";
-import { LauncherPage } from "./LauncherPage";
+import { useRouter } from "expo-router";
+import { useAtomValue, useSetAtom } from "jotai";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import type { NativeScrollEvent, NativeSyntheticEvent } from "react-native";
+import { ScrollView, useWindowDimensions, View } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { DragOverlay } from "./DragOverlay";
 import { EditTopBar } from "./EditTopBar";
+import { LauncherPage } from "./LauncherPage";
 import { PageIndicator } from "./PageIndicator";
+import { useLauncherDrag } from "./useLauncherDrag";
 
 interface LauncherScreenProps {
   storeViews: StoreItem[];
@@ -45,7 +39,7 @@ export function LauncherScreen({ storeViews }: LauncherScreenProps) {
 
   const gridConfig = useMemo(
     () => deriveGridConfig(width, height, insets),
-    [width, height, insets.top, insets.bottom],
+    [width, height, insets],
   );
 
   const setStoreViews = useSetAtom(storeViewsAtom);
@@ -84,6 +78,7 @@ export function LauncherScreen({ storeViews }: LauncherScreenProps) {
   const handleScroll = useCallback(
     (e: NativeSyntheticEvent<NativeScrollEvent>) => {
       const p = Math.round(e.nativeEvent.contentOffset.x / width);
+      
       if (p !== currentPageRef.current) {
         drag.currentPage.value = p;
         currentPageRef.current = p;
@@ -95,7 +90,11 @@ export function LauncherScreen({ storeViews }: LauncherScreenProps) {
   const flipPage = useCallback(
     (delta: number) => {
       const next = currentPageRef.current + delta;
-      if (next < 0 || next >= pageCount) return;
+
+      if (next < 0 || next >= pageCount) {
+        return;
+      } 
+
       scrollRef.current?.scrollTo({ x: next * width, animated: true });
     },
     [pageCount, width],
