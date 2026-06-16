@@ -1,3 +1,4 @@
+import { type AtIdentifierString, Client } from "@atproto/lex";
 import type { OAuthSession } from "@atproto/oauth-client-browser";
 import { useEffect, useRef, useState } from "react";
 import {
@@ -5,7 +6,6 @@ import {
   onSessionDeleted,
   saveHandleResolver,
 } from "./useOAuthClient";
-import { Client, type AtIdentifierString } from "@atproto/lex";
 
 export type AuthState =
   | { status: "loading" }

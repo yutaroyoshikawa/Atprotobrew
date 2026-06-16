@@ -1,19 +1,19 @@
-import { AppButton } from "@atprotobrew/common/core/components/AppButton";
-import { useRouter } from "expo-router";
-import { ActivityIndicator, View } from "react-native";
-import { useAuthContext } from "../../modules/auth/AuthProvider";
-import { useEffect, useState } from "react";
 import { atoms as a } from "@atprotobrew/common/alf";
+import { AppButton } from "@atprotobrew/common/core/components/AppButton";
+import { AtprotobrewLogoType } from "@atprotobrew/common/core/components/AtprotobrewLogoType";
+import { AtprotobrewMascot } from "@atprotobrew/common/core/components/AtprotobrewMascot";
+import { BubbleBackground } from "@atprotobrew/common/core/components/Background";
+import { LanguageToggle } from "@atprotobrew/common/core/components/LanguageToggle";
 import {
   ThemeToggle,
   useThemeColors,
   useThemeToggle,
 } from "@atprotobrew/common/theme";
-import { LanguageToggle } from "@atprotobrew/common/core/components/LanguageToggle";
-import { BubbleBackground } from "@atprotobrew/common/core/components/Background";
-import { AtprotobrewMascot } from "@atprotobrew/common/core/components/AtprotobrewMascot";
-import { AtprotobrewLogoType } from "@atprotobrew/common/core/components/AtprotobrewLogoType";
 import { Host } from "@expo/ui";
+import { useRouter } from "expo-router";
+import { useEffect } from "react";
+import { ActivityIndicator, View } from "react-native";
+import { useAuthContext } from "../../modules/auth/AuthProvider";
 
 function Home() {
   const { resolved } = useThemeToggle();
@@ -25,7 +25,7 @@ function Home() {
     if (authState.status === "authenticated") {
       router.replace("/(app)/home");
     }
-  }, [authState.status]);
+  }, [authState.status, router.replace]);
 
   return (
     <View>

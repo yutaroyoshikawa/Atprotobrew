@@ -1,9 +1,11 @@
-import { type ComponentProps } from "react";
+import type { ComponentProps } from "react";
 import { Image } from "tamagui";
 import { ChannelTile } from "./ChannelTile";
 
-interface LauncherInstalledTileProps
-  extends Pick<ComponentProps<typeof ChannelTile>, "render" | "onPress"> {
+interface LauncherInstalledTileProps extends Pick<
+  ComponentProps<typeof ChannelTile>,
+  "render" | "onPress"
+> {
   channelName: string;
   thumbnailUrl: string;
 }

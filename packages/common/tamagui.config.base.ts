@@ -1,7 +1,7 @@
-import { createTokens } from "@tamagui/core";
-import { defaultConfig } from "@tamagui/config/v5";
-import { tokens } from "@atprotobrew/tokens/tokens";
 import { themes } from "@atprotobrew/tokens/themes";
+import { tokens } from "@atprotobrew/tokens/tokens";
+import { defaultConfig } from "@tamagui/config/v5";
+import { createTokens } from "@tamagui/core";
 
 export const media = {
   sm: { maxWidth: 640 },

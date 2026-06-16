@@ -1,13 +1,13 @@
-import React from "react";
-import { Gesture, GestureDetector } from "react-native-gesture-handler";
-import Animated, { useAnimatedStyle } from "react-native-reanimated";
-import type { SharedValue } from "react-native-reanimated";
-import { scheduleOnRN } from "react-native-worklets";
-import * as Haptics from "expo-haptics";
 import { atoms as a } from "@atprotobrew/common/alf";
 import { LauncherInstalledTile } from "@atprotobrew/common/channel/components/LauncherInstalledTile";
+import type { GridConfig } from "@atprotobrew/common/launcher/launcherGrid";
 import type { LauncherItem } from "@atprotobrew/common/launcher/types";
-import type { GridConfig } from "@atprotobrew/common/launcher/grid";
+import * as Haptics from "expo-haptics";
+import { memo } from "react";
+import { Gesture, GestureDetector } from "react-native-gesture-handler";
+import type { SharedValue } from "react-native-reanimated";
+import Animated, { useAnimatedStyle } from "react-native-reanimated";
+import { scheduleOnRN } from "react-native-worklets";
 
 const EDGE_ZONE = 48;
 const EDGE_HOLD_MS = 500;
@@ -42,7 +42,7 @@ function clamp(v: number, lo: number, hi: number): number {
   return Math.max(lo, Math.min(hi, v));
 }
 
-export const LauncherIcon = React.memo(function LauncherIcon({
+export const LauncherIcon = memo(function LauncherIcon({
   item,
   isEdit,
   gridConfig,
@@ -76,6 +76,7 @@ export const LauncherIcon = React.memo(function LauncherIcon({
 
   const handleDragUpdate = (absX: number, absY: number) => {
     "worklet";
+
     dragX.value = absX;
     dragY.value = absY;
 

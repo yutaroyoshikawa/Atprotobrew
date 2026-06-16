@@ -1,7 +1,12 @@
-import { createTamagui } from "@tamagui/core";
 import { createAnimations } from "@tamagui/animations-react-native";
 import { defaultConfig } from "@tamagui/config/v5";
-import { media, shorthands, mergedTokens, mergedThemes } from "./tamagui.config.base";
+import { createTamagui } from "@tamagui/core";
+import {
+  media,
+  mergedThemes,
+  mergedTokens,
+  shorthands,
+} from "./tamagui.config.base";
 
 const animations = createAnimations({
   fast: { type: "timing", duration: 150 },

@@ -1,11 +1,11 @@
-import { View } from 'react-native';
-import Animated, { useAnimatedStyle } from 'react-native-reanimated';
-import type { SharedValue } from 'react-native-reanimated';
 import { atoms as a } from "@atprotobrew/common/alf";
-import { useThemeColors } from "@atprotobrew/common/theme";
 import { LauncherEmptyTile } from "@atprotobrew/common/channel/components/LauncherEmptyTile";
+import type { GridConfig } from "@atprotobrew/common/launcher/launcherGrid";
 import type { LauncherItem } from "@atprotobrew/common/launcher/types";
-import type { GridConfig } from "@atprotobrew/common/launcher/grid";
+import { useThemeColors } from "@atprotobrew/common/theme";
+import { View } from "react-native";
+import type { SharedValue } from "react-native-reanimated";
+import Animated, { useAnimatedStyle } from "react-native-reanimated";
 import { LauncherIcon } from "./LauncherIcon";
 
 interface SlotProps {

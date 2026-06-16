@@ -1,6 +1,6 @@
+import type { SyncStorage } from "jotai/vanilla/utils/atomWithStorage";
 import { MMKV } from "react-native-mmkv";
 import type { ThemeOverride } from "./types";
-import type { SyncStorage } from "jotai/vanilla/utils/atomWithStorage";
 
 const mmkv = new MMKV();
 

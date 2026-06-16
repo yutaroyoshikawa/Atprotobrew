@@ -1,5 +1,5 @@
-import { useEffect } from "react";
 import { useSetAtom } from "jotai";
+import { useEffect } from "react";
 import { systemSchemeAtom } from "./atoms";
 
 /**

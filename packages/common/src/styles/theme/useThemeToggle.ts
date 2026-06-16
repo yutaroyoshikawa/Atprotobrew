@@ -1,6 +1,6 @@
 import { useAtom, useAtomValue } from "jotai";
-import { themeOverrideAtom, resolvedThemeAtom } from "./atoms";
-import type { ThemeOverride, ResolvedTheme } from "./types";
+import { resolvedThemeAtom, themeOverrideAtom } from "./atoms";
+import type { ResolvedTheme, ThemeOverride } from "./types";
 
 export interface UseThemeToggleReturn {
   /** ユーザーが選択した override 値 ('light'|'dark'|'system') */

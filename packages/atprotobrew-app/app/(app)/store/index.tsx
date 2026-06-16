@@ -1,11 +1,11 @@
-import { View } from "react-native";
-import { useFetchLaunchers } from "@atprotobrew/common/channel/modules/launchersHooks";
-import { OAuthSession } from "@atproto/oauth-client-expo";
-import { Suspense } from "react";
-import { AppH1 } from "@atprotobrew/common/core/components/AppH1";
-import { useAuthContext } from "../../../modules/auth/AuthProvider";
-import { StoreItem } from "@atprotobrew/common/store/components/StoreItem";
+import type { OAuthSession } from "@atproto/oauth-client-expo";
 import { atoms as a } from "@atprotobrew/common/alf";
+import { useFetchLaunchers } from "@atprotobrew/common/channel/modules/launchersHooks";
+import { AppH1 } from "@atprotobrew/common/core/components/AppH1";
+import { StoreItem } from "@atprotobrew/common/store/components/StoreItem";
+import { Suspense } from "react";
+import { View } from "react-native";
+import { useAuthContext } from "../../../modules/auth/AuthProvider";
 
 export default function Screen() {
   const { authState } = useAuthContext();
