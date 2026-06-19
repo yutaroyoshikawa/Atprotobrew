@@ -25,7 +25,7 @@
       "border": { "value": "{color.base.slate-200}", "type": "color" },
       "primary": { "value": "{color.base.cyan-600}", "type": "color" },
       "accent": { "value": "{color.base.fuchsia-500}", "type": "color" },
-      "positive": { "value": "{color.base.fuchsia-500}", "type": "color" },
+      "positive": { "value": "{color.base.green-500}", "type": "color" },
       "negative": { "value": "{color.base.fuchsia-500}", "type": "color" },
       "primary-gradient-start": {
         "value": "{color.base.gray-50}",

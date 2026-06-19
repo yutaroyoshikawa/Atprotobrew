@@ -1,17 +1,17 @@
-import { View } from "react-native";
-import { useFetchLaunchers } from "@atprotobrew/common/channel/modules/launchersHooks";
-import { OAuthSession } from "@atproto/oauth-client-expo";
-import { Suspense } from "react";
-import { AppH1 } from "@atprotobrew/common/core/components/AppH1";
-import { useAuthContext } from "../../../modules/auth/AuthProvider";
+import type { OAuthSession } from "@atproto/oauth-client-expo";
 import { atoms as a } from "@atprotobrew/common/alf";
-import { useLocalSearchParams, useRouter } from "expo-router";
+import { useFetchLaunchers } from "@atprotobrew/common/channel/modules/launchersHooks";
 import { AppButton } from "@atprotobrew/common/core/components/AppButton";
+import { AppCard } from "@atprotobrew/common/core/components/AppCard";
+import { AppH1 } from "@atprotobrew/common/core/components/AppH1";
 import { AppText } from "@atprotobrew/common/core/components/AppText";
 import { AppVStack } from "@atprotobrew/common/core/components/AppVStack";
 import { Image } from "expo-image";
-import { AppCard } from "@atprotobrew/common/core/components/AppCard";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import * as WebBrowser from "expo-web-browser";
+import { Suspense } from "react";
+import { View } from "react-native";
+import { useAuthContext } from "../../../modules/auth/AuthProvider";
 
 export default function Screen() {
   const { authState } = useAuthContext();
@@ -32,8 +32,7 @@ interface StoreScreenContentProps {
 }
 
 const openBrowser = async (link: string) => {
-  let result = await WebBrowser.openAuthSessionAsync(link);
-  console.log(result);
+  await WebBrowser.openAuthSessionAsync(link);
 };
 
 function ChannelScreenContent({ session }: StoreScreenContentProps) {
@@ -52,6 +51,9 @@ function ChannelScreenContent({ session }: StoreScreenContentProps) {
 
   const link =
     "link" in targetLauncher.launch ? targetLauncher.launch.link : null;
+
+  const isStore =
+    targetLauncher.launch.$type === "org.tarororo.brew.defs#launchStore";
 
   return (
     <View
@@ -83,6 +85,15 @@ function ChannelScreenContent({ session }: StoreScreenContentProps) {
           {link && (
             <AppButton
               onPress={() => openBrowser(link)}
+              style={[a.w_full, a.font_medium]}
+            >
+              起動する
+            </AppButton>
+          )}
+
+          {isStore && (
+            <AppButton
+              onPress={() => router.push("/(app)/store")}
               style={[a.w_full, a.font_medium]}
             >
               起動する

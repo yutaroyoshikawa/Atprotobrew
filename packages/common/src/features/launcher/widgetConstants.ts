@@ -1,5 +1,6 @@
 // launchUrl が null のアイテム・iOS small の全体タップのフォールバック先
-export const LAUNCHER_DEEP_LINK = 'atprotobrew://launcher';
+export const LAUNCHER_DEEP_LINK = "atprotobrew://home";
+export const INTERNAL_STORE_DEEP_LINK = "atprotobrew://store";
 
 // アイコンの表示寸法（論理 pt）。widgetIconCache でのリサイズ目標はここを参照する
 export const WIDGET_ICON_SIZE = 22;
