@@ -1,8 +1,9 @@
 import { Trans, useLingui } from "@lingui/react/macro";
-import { CheckIcon } from "lucide-react-native";
-import { Image, Text, useTheme, View, XStack, YStack } from "tamagui";
+import { CheckIcon, CircleCheckIcon } from "lucide-react-native";
+import { Text, useTheme, View, XStack, YStack } from "tamagui";
 import { AppH1 } from "../../../core/components/AppH1";
 import { atoms as a } from "../../../styles/alf";
+import { LauncherInstalledTile } from "../../channel/components/LauncherInstalledTile";
 
 interface StoreItemProps {
   title: string;
@@ -23,43 +24,24 @@ export function StoreItem({
   return (
     <View
       role="listitem"
-      height={80}
+      height={120}
       style={[
         a.flex_row,
         a.gap_3,
         a.items_center,
         a.p_4,
-        a.rounded_md,
-        { backgroundColor: theme.white.get() },
+        a.rounded_2xl,
+        { backgroundColor: theme.bgContrast50.get() },
       ]}
     >
       {/* Thumbnail */}
-      <View
-        style={[
-          a.rounded_xl,
-          a.items_center,
-          a.justify_center,
-          a.overflow_hidden,
-          { width: 64, height: 64 },
-        ]}
-      >
-        <Image
-          src={thumbnail}
-          width={60}
-          height={60}
-          accessibilityLabel={t`${title} のアイコン`}
-        />
-      </View>
+      <LauncherInstalledTile channelName={title} thumbnailUrl={thumbnail} />
 
       {/* Body */}
       <YStack style={[a.flex_1, a.gap_1]}>
-        <XStack style={[a.items_center, a.gap_2, a.flex_wrap]}>
-          <AppH1
-            style={[a.text_sm, a.font_semibold, { color: theme.text.get() }]}
-          >
-            {title}
-          </AppH1>
-        </XStack>
+        <AppH1 style={[a.text_sm, a.font_bold, { color: theme.text.get() }]}>
+          {title}
+        </AppH1>
 
         {author && (
           <Text style={[a.text_xs, { color: theme.textContrastLow.get() }]}>
@@ -83,19 +65,20 @@ export function StoreItem({
           a.items_center,
           a.gap_1,
           a.rounded_md,
+          a.border,
           a.p_2,
-          { backgroundColor: theme.white.get() },
+          { backgroundColor: theme.bg.get() },
+          { borderColor: theme.positive.get() },
         ]}
         accessibilityRole="text"
         accessibilityLabel={t`インストール済み`}
       >
         <Text
-          aria-hidden
           style={[a.text_xs, a.font_semibold, { color: theme.positive.get() }]}
         >
-          <Trans>インストール済み</Trans>
+          {t`インストール済み`}
         </Text>
-        <CheckIcon color={theme.positive.get()} aria-hidden />
+        <CircleCheckIcon size={18} color={theme.positive.get()} aria-hidden />
       </XStack>
     </View>
   );

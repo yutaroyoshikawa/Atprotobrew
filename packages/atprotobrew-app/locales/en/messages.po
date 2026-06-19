@@ -17,9 +17,17 @@ msgstr ""
 #~ msgid "AT Protocol サービスランチャー"
 #~ msgstr "A launcher application for AT Protocol services."
 
+#: modules/launcher/EditTopBar.tsx:31
+msgid "キャンセル"
+msgstr "Cansel"
+
+#: app/(app)/store/[channelId]/index.tsx:101
+msgid "このチャンネルについて"
+msgstr "About this Channel"
+
 #: app/(app)/store/_layout.tsx:6
-msgid "ストア"
-msgstr "Store"
+#~ msgid "ストア"
+#~ msgstr "Store"
 
 #: app/(app)/channels/_layout.tsx:12
 msgid "チャンネル"
@@ -32,6 +40,10 @@ msgstr "Channel"
 #: components/AuthForm.tsx:90
 #~ msgid "ログイン"
 #~ msgstr "Login"
+
+#: modules/launcher/EditTopBar.tsx:34
+msgid "保存"
+msgstr "Save"
 
 #: app/(app)/settings/_layout.tsx:12
 msgid "設定"

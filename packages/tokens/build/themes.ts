@@ -13,7 +13,7 @@ export const themes = {
     border: 'rgba(226, 232, 240, 1)',
     primary: 'rgba(8, 145, 178, 1)',
     accent: 'rgba(217, 70, 239, 1)',
-    positive: 'rgba(217, 70, 239, 1)',
+    positive: 'rgba(34, 197, 94, 1)',
     negative: 'rgba(217, 70, 239, 1)',
     primaryGradientStart: 'rgba(249, 250, 251, 1)',
     primaryGradientEnd: 'rgba(156, 163, 175, 1)',

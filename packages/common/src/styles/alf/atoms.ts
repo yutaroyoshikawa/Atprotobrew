@@ -39,12 +39,20 @@ export const atoms = StyleSheet.create({
   px_4: { paddingHorizontal: 16 },
   px_5: { paddingHorizontal: 20 },
   px_6: { paddingHorizontal: 24 },
+  px_7: { paddingHorizontal: 28 },
+  px_8: { paddingHorizontal: 32 },
+  px_9: { paddingHorizontal: 36 },
+  px_10: { paddingHorizontal: 40 },
   py_1: { paddingVertical: 4 },
   py_2: { paddingVertical: 8 },
   py_3: { paddingVertical: 12 },
   py_4: { paddingVertical: 16 },
   pt_2: { paddingTop: 8 },
   pt_4: { paddingTop: 16 },
+  pt_5: { paddingTop: 20 },
+  pt_6: { paddingTop: 24 },
+  pt_7: { paddingTop: 28 },
+  pt_8: { paddingTop: 32 },
   pb_2: { paddingBottom: 8 },
   pb_4: { paddingBottom: 16 },
 
@@ -70,6 +78,14 @@ export const atoms = StyleSheet.create({
   rounded_lg: { borderRadius: 8 },
   rounded_xl: { borderRadius: 12 },
   rounded_2xl: { borderRadius: 16 },
+  rounded_3xl: { borderRadius: 20 },
+  rounded_4xl: { borderRadius: 24 },
+  rounded_5xl: { borderRadius: 28 },
+  rounded_6xl: { borderRadius: 32 },
+  rounded_7xl: { borderRadius: 36 },
+  rounded_8xl: { borderRadius: 40 },
+  rounded_9xl: { borderRadius: 44 },
+  rounded_10xl: { borderRadius: 48 },
   rounded_full: { borderRadius: 9999 },
 
   // --- Border width ---
@@ -95,4 +111,4 @@ export const atoms = StyleSheet.create({
   font_medium: { fontWeight: "500" },
   font_semibold: { fontWeight: "600" },
   font_bold: { fontWeight: "700" },
-});
+} as const);
