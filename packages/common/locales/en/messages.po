@@ -14,15 +14,15 @@ msgstr ""
 "Plural-Forms: \n"
 
 #: src/features/store/components/StoreItem.tsx:50
-msgid "{title} のアイコン"
-msgstr "{title} icon"
+#~ msgid "{title} のアイコン"
+#~ msgstr "{title} icon"
 
 #: src/features/auth/components/AuthForm.tsx:38
 #~ msgid "AT Protocol サービスランチャー"
 #~ msgstr "A launcher application for AT Protocol services."
 
-#: src/features/store/components/StoreItem.tsx:84
-#: src/features/store/components/StoreItem.tsx:90
+#: src/features/store/components/StoreItem.tsx:74
+#: src/features/store/components/StoreItem.tsx:79
 msgid "インストール済み"
 msgstr "Installed"
 
@@ -30,7 +30,7 @@ msgstr "Installed"
 msgid "システム"
 msgstr "System"
 
-#: src/features/channel/components/StoreChannelTile.tsx:42
+#: src/features/channel/components/StoreChannelTile.tsx:39
 msgid "ストア"
 msgstr "Store"
 
@@ -38,23 +38,53 @@ msgstr "Store"
 msgid "ダーク"
 msgstr "Dark"
 
-#: src/features/auth/components/AuthForm.tsx:54
+#: src/features/auth/components/AuthForm.tsx:52
 msgid "ハンドル"
 msgstr "Handle"
+
+#: src/features/user/components/SocialGraphUserRow.tsx:40
+msgid "フォロー"
+msgstr "Follows"
+
+#: src/features/user/components/SocialGraphList.tsx:132
+#: src/features/user/components/SocialGraphUserRow.tsx:40
+msgid "フォロー中"
+msgstr "Following"
+
+#: src/features/user/components/SocialGraphList.tsx:179
+msgid "フォロー中のユーザーがいません"
+msgstr "No users followed"
+
+#: src/features/user/components/SocialGraphList.tsx:132
+msgid "フォロワー"
+msgstr "Followers"
+
+#: src/features/user/components/SocialGraphList.tsx:179
+msgid "フォロワーがいません"
+msgstr "No followers"
 
 #: src/core/components/ThemeToggle.tsx:13
 msgid "ライト"
 msgstr "Light"
 
-#: src/features/auth/components/AuthForm.tsx:109
+#: src/features/auth/components/AuthForm.tsx:107
 msgid "リダイレクト中…"
 msgstr "Redirecting..."
 
-#: src/features/auth/components/AuthForm.tsx:45
-#: src/features/auth/components/AuthForm.tsx:111
+#: src/features/user/components/UserMenuItems.tsx:26
+#: src/features/user/components/UserMenuItems.tsx:38
+msgid "ログアウト"
+msgstr "Logout"
+
+#: src/features/auth/components/AuthForm.tsx:43
+#: src/features/auth/components/AuthForm.tsx:109
 msgid "ログイン"
 msgstr "Login"
 
-#: src/core/components/LanguageToggle.tsx:22
+#: src/core/components/LanguageToggle.web.tsx:22
 msgid "言語"
 msgstr "Language"
+
+#: src/features/user/components/SocialGraphList.tsx:144
+msgid "読み込みエラー"
+msgstr "Error loading"

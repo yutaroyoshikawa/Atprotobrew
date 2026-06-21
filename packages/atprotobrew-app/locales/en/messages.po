@@ -29,6 +29,10 @@ msgstr "About this Channel"
 #~ msgid "ストア"
 #~ msgstr "Store"
 
+#: app/(app)/social-graph/_layout.tsx:12
+msgid "ソーシャルグラフ"
+msgstr "Social graph"
+
 #: app/(app)/channels/_layout.tsx:12
 msgid "チャンネル"
 msgstr "Channel"

@@ -5,6 +5,7 @@ import { useFetchLaunchers } from "@atprotobrew/common/channel/modules/launchers
 import { AppFooter } from "@atprotobrew/common/core/components/AppFooter";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { UserMenuButton } from "../user/UserMenuButton";
 
 import { BubbleBackground } from "./BubbleBackground";
 
@@ -16,7 +17,7 @@ interface LauncerProps {
   identifier: AtIdentifierString;
 }
 
-export function Launcher({ client, onLogout }: LauncerProps) {
+export function Launcher({ client, onLogout, identifier }: LauncerProps) {
   const navigate = useNavigate();
   const { data } = useFetchLaunchers({ agent: client });
 
@@ -36,6 +37,10 @@ export function Launcher({ client, onLogout }: LauncerProps) {
       <BubbleBackground />
 
       <div className="relative z-10 flex flex-col h-full">
+        <div className="absolute top-4 right-4 z-20">
+          <UserMenuButton actor={identifier} onLogout={onLogout} />
+        </div>
+
         <main className="flex-1 flex items-center justify-center px-6 py-2">
           <div className="w-full max-w-2xl">
             <div className="grid grid-cols-4 gap-3">
@@ -59,7 +64,7 @@ export function Launcher({ client, onLogout }: LauncerProps) {
         <footer className="relative w-full">
           <AppFooter
             onRequestOpenSettings={() => navigate("/settings")}
-            onRequestLogout={onLogout}
+            onRequestOpenSocialGraph={() => navigate("/social-graph")}
           />
         </footer>
       </div>

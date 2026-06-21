@@ -2,13 +2,14 @@ import type { OAuthSession } from "@atproto/oauth-client-expo";
 import { atoms as a } from "@atprotobrew/common/alf";
 import { useFetchLaunchers } from "@atprotobrew/common/channel/modules/launchersHooks";
 import { AppFooter } from "@atprotobrew/common/core/components/AppFooter";
+// import { BubbleBackground } from "@atprotobrew/common/core/components/Background";
 import { router } from "expo-router";
 import { Suspense } from "react";
 import { ActivityIndicator, View } from "react-native";
 import { useAuthContext } from "../../modules/auth/AuthProvider";
 import { LauncherScreen } from "../../modules/launcher/LauncherScreen";
 import { useWidgetSync } from "../../modules/launcher/useWidgetSync";
-import { BubbleBackground } from "@atprotobrew/common/core/components/Background";
+import { UserMenuButton } from "../../modules/user/UserMenuButton";
 
 export default function Home() {
   const { authState, logout } = useAuthContext();
@@ -35,14 +36,15 @@ function HomeScreenContent({ session, logout }: HomeScreenContentProps) {
 
   return (
     <View style={[a.h_full]}>
-      <BubbleBackground />
+      {/* <BubbleBackground /> */}
       <View style={[a.h_full, a.flex_col]}>
         <LauncherScreen storeViews={data.body.items} />
         <AppFooter
           onRequestOpenSettings={() => router.push("/(app)/settings")}
-          onRequestLogout={logout}
+          onRequestOpenSocialGraph={() => router.push("/(app)/social-graph")}
         />
       </View>
+      <UserMenuButton did={session.sub} onLogout={logout} />
     </View>
   );
 }

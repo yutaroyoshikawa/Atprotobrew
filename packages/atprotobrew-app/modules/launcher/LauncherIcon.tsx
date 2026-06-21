@@ -29,7 +29,9 @@ interface LauncherIconProps {
   onDragEnd: (id: string, targetAddress: number) => void;
   onEnterEdit: () => void;
   onFlipPage: (delta: number) => void;
-  onSetOverlayIcon: (uri: string) => void;
+  onSetOverlayChannel: (
+    channel: { channelName: string; thumbnail: string } | null,
+  ) => void;
   onOpenApp: (item: LauncherItem) => void;
 }
 
@@ -39,6 +41,7 @@ function hapticMedium() {
 
 function clamp(v: number, lo: number, hi: number): number {
   "worklet";
+
   return Math.max(lo, Math.min(hi, v));
 }
 
@@ -59,18 +62,27 @@ export const LauncherIcon = memo(function LauncherIcon({
   onDragEnd,
   onEnterEdit,
   onFlipPage,
-  onSetOverlayIcon,
+  onSetOverlayChannel,
   onOpenApp,
 }: LauncherIconProps) {
   const { cols, rows, perPage, cellSize } = gridConfig;
 
-  const handleDragStart = (iconUri: string, enterEdit: boolean) => {
+  const handleDragStart = (
+    channel: { channelName: string; thumbnail: string },
+    enterEdit: boolean,
+  ) => {
     "worklet";
+
     isDragging.value = true;
     draggingId.value = item.id;
     edgeEnterAt.value = -1;
-    scheduleOnRN(onSetOverlayIcon, iconUri);
-    if (enterEdit) scheduleOnRN(onEnterEdit);
+
+    scheduleOnRN(onSetOverlayChannel, channel);
+
+    if (enterEdit) {
+      scheduleOnRN(onEnterEdit);
+    }
+
     scheduleOnRN(hapticMedium);
   };
 
@@ -104,15 +116,20 @@ export const LauncherIcon = memo(function LauncherIcon({
 
   const handleDragEnd = () => {
     "worklet";
+
     const targetAddress = hoverAddress.value;
+
     isDragging.value = false;
     draggingId.value = "";
     hoverAddress.value = -1;
+
+    scheduleOnRN(onSetOverlayChannel, null);
     scheduleOnRN(onDragEnd, item.id, targetAddress);
   };
 
   const handleDragFinalize = () => {
     "worklet";
+
     isDragging.value = false;
     draggingId.value = "";
     hoverAddress.value = -1;
@@ -126,43 +143,61 @@ export const LauncherIcon = memo(function LauncherIcon({
     .enabled(isEdit)
     .onStart(() => {
       "worklet";
-      handleDragStart(item.iconUri, false);
+
+      handleDragStart(
+        { channelName: item.label, thumbnail: item.iconUri },
+        false,
+      );
     })
     .onUpdate((e) => {
       "worklet";
+
       handleDragUpdate(e.absoluteX, e.absoluteY);
     })
     .onEnd(() => {
       "worklet";
+
       handleDragEnd();
     })
     .onFinalize(() => {
       "worklet";
+
       handleDragFinalize();
     });
 
   const enterDrag = Gesture.Pan()
-    .activateAfterLongPress(2000)
-    .onStart(() => {
+    .activateAfterLongPress(700)
+    .onStart((e) => {
       "worklet";
-      handleDragStart(item.iconUri, !isEdit);
+
+      handleDragStart(
+        { channelName: item.label, thumbnail: item.iconUri },
+        !isEdit,
+      );
+      handleDragUpdate(e.absoluteX, e.absoluteY);
     })
     .onUpdate((e) => {
       "worklet";
+
       handleDragUpdate(e.absoluteX, e.absoluteY);
     })
     .onEnd(() => {
       "worklet";
+
       handleDragEnd();
     })
     .onFinalize(() => {
       "worklet";
+
       handleDragFinalize();
     });
 
   const tap = Gesture.Tap().onEnd(() => {
     "worklet";
-    if (!isEdit) scheduleOnRN(onOpenApp, item);
+
+    if (!isEdit) {
+      scheduleOnRN(onOpenApp, item);
+    }
   });
 
   const gesture = Gesture.Race(quickDrag, enterDrag, tap);

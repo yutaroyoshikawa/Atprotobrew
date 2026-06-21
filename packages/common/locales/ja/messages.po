@@ -14,15 +14,15 @@ msgstr ""
 "Plural-Forms: \n"
 
 #: src/features/store/components/StoreItem.tsx:50
-msgid "{title} のアイコン"
-msgstr "{title} のアイコン"
+#~ msgid "{title} のアイコン"
+#~ msgstr "{title} のアイコン"
 
 #: src/features/auth/components/AuthForm.tsx:38
 #~ msgid "AT Protocol サービスランチャー"
 #~ msgstr "AT Protocol サービスランチャー"
 
-#: src/features/store/components/StoreItem.tsx:84
-#: src/features/store/components/StoreItem.tsx:90
+#: src/features/store/components/StoreItem.tsx:74
+#: src/features/store/components/StoreItem.tsx:79
 msgid "インストール済み"
 msgstr "インストール済み"
 
@@ -30,7 +30,7 @@ msgstr "インストール済み"
 msgid "システム"
 msgstr "システム"
 
-#: src/features/channel/components/StoreChannelTile.tsx:42
+#: src/features/channel/components/StoreChannelTile.tsx:39
 msgid "ストア"
 msgstr "ストア"
 
@@ -38,23 +38,53 @@ msgstr "ストア"
 msgid "ダーク"
 msgstr "ダーク"
 
-#: src/features/auth/components/AuthForm.tsx:54
+#: src/features/auth/components/AuthForm.tsx:52
 msgid "ハンドル"
 msgstr "ハンドル"
+
+#: src/features/user/components/SocialGraphUserRow.tsx:40
+msgid "フォロー"
+msgstr "フォロー"
+
+#: src/features/user/components/SocialGraphList.tsx:132
+#: src/features/user/components/SocialGraphUserRow.tsx:40
+msgid "フォロー中"
+msgstr "フォロー中"
+
+#: src/features/user/components/SocialGraphList.tsx:179
+msgid "フォロー中のユーザーがいません"
+msgstr "フォロー中のユーザーがいません"
+
+#: src/features/user/components/SocialGraphList.tsx:132
+msgid "フォロワー"
+msgstr "フォロワー"
+
+#: src/features/user/components/SocialGraphList.tsx:179
+msgid "フォロワーがいません"
+msgstr "フォロワーがいません"
 
 #: src/core/components/ThemeToggle.tsx:13
 msgid "ライト"
 msgstr "ライト"
 
-#: src/features/auth/components/AuthForm.tsx:109
+#: src/features/auth/components/AuthForm.tsx:107
 msgid "リダイレクト中…"
 msgstr "リダイレクト中…"
 
-#: src/features/auth/components/AuthForm.tsx:45
-#: src/features/auth/components/AuthForm.tsx:111
+#: src/features/user/components/UserMenuItems.tsx:26
+#: src/features/user/components/UserMenuItems.tsx:38
+msgid "ログアウト"
+msgstr "ログアウト"
+
+#: src/features/auth/components/AuthForm.tsx:43
+#: src/features/auth/components/AuthForm.tsx:109
 msgid "ログイン"
 msgstr "ログイン"
 
-#: src/core/components/LanguageToggle.tsx:22
+#: src/core/components/LanguageToggle.web.tsx:22
 msgid "言語"
 msgstr "言語"
+
+#: src/features/user/components/SocialGraphList.tsx:144
+msgid "読み込みエラー"
+msgstr "読み込みエラー"
