@@ -1,6 +1,6 @@
 import { atoms as a } from "@atprotobrew/common/alf";
 import { AuthForm } from "@atprotobrew/common/auth/components/AuthForm";
-import { BubbleBackground } from "@atprotobrew/common/core/components/Background";
+// import { BubbleBackground } from "@atprotobrew/common/core/components/Background";
 import { useLocale } from "@atprotobrew/common/core/modules/i18n";
 import { View } from "react-native";
 import { useAuthContext } from "../../modules/auth/AuthProvider";
@@ -12,7 +12,7 @@ function Login() {
 
   return (
     <View style={[a.flex_1]}>
-      <BubbleBackground />
+      {/* <BubbleBackground /> */}
 
       <View
         style={[a.flex_1, a.flex_col, a.justify_center, a.items_center, a.p_6]}

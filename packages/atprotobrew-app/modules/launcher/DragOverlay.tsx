@@ -1,14 +1,19 @@
-import { Image } from 'expo-image';
-import Animated, { useAnimatedStyle, withSpring } from 'react-native-reanimated';
-import type { SharedValue } from 'react-native-reanimated';
-import { atoms as a } from '@atprotobrew/common/alf';
-import { useThemeColors } from '@atprotobrew/common/theme';
+import { atoms as a } from "@atprotobrew/common/alf";
+import { LauncherInstalledTile } from "@atprotobrew/common/channel/components/LauncherInstalledTile";
+import { useThemeColors } from "@atprotobrew/common/theme";
+import type { SharedValue } from "react-native-reanimated";
+import Animated, {
+  useAnimatedStyle,
+  withSpring,
+  withTiming,
+} from "react-native-reanimated";
 
 interface DragOverlayProps {
   dragX: SharedValue<number>;
   dragY: SharedValue<number>;
   isDragging: SharedValue<boolean>;
   iconUri: string | null;
+  channelName: string | null;
   cellSize: number;
 }
 
@@ -17,6 +22,7 @@ export function DragOverlay({
   dragY,
   isDragging,
   iconUri,
+  channelName,
   cellSize,
 }: DragOverlayProps) {
   const tc = useThemeColors();
@@ -27,9 +33,9 @@ export function DragOverlay({
       transform: [
         { translateX: dragX.value - half },
         { translateY: dragY.value - half },
-        { scale: withSpring(isDragging.value ? 1.1 : 1) },
+        { scale: withSpring(isDragging.value ? 1.1 : 1, { damping: 15 }) },
       ],
-      opacity: isDragging.value ? 1 : 0,
+      opacity: withTiming(isDragging.value ? 1 : 0, { duration: 300 }),
       shadowColor: tc.text,
     };
   });
@@ -39,16 +45,22 @@ export function DragOverlay({
       style={[
         a.absolute,
         a.z_999,
-        { width: cellSize, height: cellSize, shadowOpacity: 0.3, shadowRadius: 8, shadowOffset: { width: 0, height: 4 }, elevation: 8 },
+        {
+          width: cellSize,
+          height: cellSize,
+          shadowOpacity: 0.3,
+          shadowRadius: 8,
+          shadowOffset: { width: 0, height: 4 },
+          elevation: 8,
+        },
         overlayStyle,
       ]}
       pointerEvents="none"
     >
-      {iconUri && (
-        <Image
-          source={{ uri: iconUri }}
-          style={[a.flex_1, a.rounded_2xl]}
-          contentFit="cover"
+      {iconUri && channelName && (
+        <LauncherInstalledTile
+          channelName={channelName}
+          thumbnailUrl={iconUri}
         />
       )}
     </Animated.View>

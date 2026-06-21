@@ -50,6 +50,12 @@
 		},
 		"./launcher/*": {
 			"import": "./src/features/launcher/*.ts"
+		},
+		"./user/modules/*": {
+			"import": "./src/features/user/modules/*.ts"
+		},
+		"./user/components/*": {
+			"import": "./src/features/user/components/*.tsx"
 		}
 	},
 	"dependencies": {

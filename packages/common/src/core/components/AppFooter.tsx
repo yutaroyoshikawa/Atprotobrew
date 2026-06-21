@@ -1,14 +1,14 @@
-import { LogOut, Settings } from "lucide-react-native";
+import { Settings, Users } from "lucide-react-native";
 import { styled, useTheme, View, XStack } from "tamagui";
 import { AppButton } from "./AppButton";
 import { AtprotobrewLogoType } from "./AtprotobrewLogoType";
 
 interface AppFooterProps {
-	onRequestLogout: () => Promise<void> | void;
 	onRequestOpenSettings?: () => void;
+	onRequestOpenSocialGraph?: () => void;
 }
 
-export function AppFooter({ onRequestLogout, onRequestOpenSettings }: AppFooterProps) {
+export function AppFooter({ onRequestOpenSettings, onRequestOpenSocialGraph }: AppFooterProps) {
 	const t = useTheme();
 
 	return (
@@ -24,8 +24,8 @@ export function AppFooter({ onRequestLogout, onRequestOpenSettings }: AppFooterP
 					<AtprotobrewLogoType />
 				</View>
 
-				<AppButton onPress={onRequestLogout} shape="circle" size="large" aria-label="ログアウト">
-					<LogOut color={t.textContrastMedium.val} />
+				<AppButton onPress={onRequestOpenSocialGraph} shape="circle" size="large" aria-label="ソーシャルグラフ">
+					<Users color={t.textContrastMedium.val} />
 				</AppButton>
 			</StyledNavigation>
 		</StyledWrapper>

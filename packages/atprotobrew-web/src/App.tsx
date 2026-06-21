@@ -13,6 +13,7 @@ import { Launcher } from "./components/launcher/Launcher";
 import { Settings } from "./components/settings/Settings";
 import { Store } from "./components/store/Store";
 import { StoreItemDetail } from "./components/store/StoreItemDetail";
+import { SocialGraph } from "./components/user/SocialGraph";
 import { useOAuth } from "./hooks/useOAuth";
 
 const appQueryClient = getAppQueryClient();
@@ -63,6 +64,7 @@ function Router() {
 				<Route path="/store/:id" element={<StoreItemDetail />} />
 				<Route path="/channel/:id" element={<ChannelDetailRoute />} />
 				<Route path="/settings" element={<SettingsRoute />} />
+				<Route path="/social-graph" element={<SocialGraphRoute />} />
 
 				<Route path="*" element={<Navigate to="/" replace />} />
 			</Route>
@@ -130,4 +132,14 @@ function SettingsRoute() {
 	}
 
 	return <Settings />;
+}
+
+function SocialGraphRoute() {
+	const { authState } = useOutletContext<AuthContext>();
+
+	if (authState.status !== "authenticated") {
+		return null;
+	}
+
+	return <SocialGraph client={authState.client} currentUserDid={authState.session.sub} />;
 }

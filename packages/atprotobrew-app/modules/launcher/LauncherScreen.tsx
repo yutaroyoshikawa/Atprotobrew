@@ -70,7 +70,11 @@ export function LauncherScreen({ storeViews }: LauncherScreenProps) {
   );
 
   const drag = useLauncherDrag();
-  const [overlayIcon, setOverlayIcon] = useState<string | null>(null);
+
+  const [overlayChannel, setOverlayChannel] = useState<{
+    channelName: string;
+    thumbnail: string;
+  } | null>(null);
 
   const scrollRef = useRef<ScrollView>(null);
   const currentPageRef = useRef(0);
@@ -78,7 +82,7 @@ export function LauncherScreen({ storeViews }: LauncherScreenProps) {
   const handleScroll = useCallback(
     (e: NativeSyntheticEvent<NativeScrollEvent>) => {
       const p = Math.round(e.nativeEvent.contentOffset.x / width);
-      
+
       if (p !== currentPageRef.current) {
         drag.currentPage.value = p;
         currentPageRef.current = p;
@@ -93,7 +97,7 @@ export function LauncherScreen({ storeViews }: LauncherScreenProps) {
 
       if (next < 0 || next >= pageCount) {
         return;
-      } 
+      }
 
       scrollRef.current?.scrollTo({ x: next * width, animated: true });
     },
@@ -153,7 +157,7 @@ export function LauncherScreen({ storeViews }: LauncherScreenProps) {
               onDragEnd={handleDragEnd}
               onEnterEdit={enterEdit}
               onFlipPage={flipPage}
-              onSetOverlayIcon={setOverlayIcon}
+              onSetOverlayChannel={setOverlayChannel}
               onOpenApp={handleOpenApp}
             />
           </View>
@@ -166,7 +170,8 @@ export function LauncherScreen({ storeViews }: LauncherScreenProps) {
         dragX={drag.dragX}
         dragY={drag.dragY}
         isDragging={drag.isDragging}
-        iconUri={overlayIcon}
+        iconUri={overlayChannel?.thumbnail ?? null}
+        channelName={overlayChannel?.channelName ?? null}
         cellSize={gridConfig.cellSize}
       />
     </View>

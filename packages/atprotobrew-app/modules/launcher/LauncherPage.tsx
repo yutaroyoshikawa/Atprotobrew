@@ -30,7 +30,9 @@ interface LauncherPageProps {
   onDragEnd: (id: string, targetAddress: number) => void;
   onEnterEdit: () => void;
   onFlipPage: (delta: number) => void;
-  onSetOverlayIcon: (uri: string) => void;
+  onSetOverlayChannel: (
+    channel: { channelName: string; thumbnail: string } | null,
+  ) => void;
   onOpenApp: (item: LauncherItem) => void;
 }
 
@@ -52,7 +54,7 @@ export const LauncherPage = React.memo(function LauncherPage({
   onDragEnd,
   onEnterEdit,
   onFlipPage,
-  onSetOverlayIcon,
+  onSetOverlayChannel,
   onOpenApp,
 }: LauncherPageProps) {
   const { cols, rows, perPage } = gridConfig;
@@ -61,10 +63,15 @@ export const LauncherPage = React.memo(function LauncherPage({
   const gridRef = useAnimatedRef<View>();
 
   const doMeasure = useCallback(() => {
-    if (page !== 0) return;
+    if (page !== 0) {
+      return;
+    }
+
     scheduleOnUI(() => {
       "worklet";
+
       const measured = measure(gridRef);
+
       if (measured) {
         gridOriginX.value = measured.pageX;
         gridOriginY.value = measured.pageY;
@@ -74,6 +81,7 @@ export const LauncherPage = React.memo(function LauncherPage({
 
   const slotMap = useMemo(() => {
     const map = new Map<number, LauncherItem>();
+
     for (const item of items) {
       if (Math.floor(item.address / perPage) === page) {
         map.set(slotOf(item.address, perPage), item);
@@ -108,7 +116,7 @@ export const LauncherPage = React.memo(function LauncherPage({
     onDragEnd,
     onEnterEdit,
     onFlipPage,
-    onSetOverlayIcon,
+    onSetOverlayChannel,
     onOpenApp,
   };
 

@@ -26,7 +26,9 @@ interface SlotProps {
   onDragEnd: (id: string, targetAddress: number) => void;
   onEnterEdit: () => void;
   onFlipPage: (delta: number) => void;
-  onSetOverlayIcon: (uri: string) => void;
+  onSetOverlayChannel: (
+    channel: { channelName: string; thumbnail: string } | null,
+  ) => void;
   onOpenApp: (item: LauncherItem) => void;
 }
 
@@ -48,7 +50,7 @@ export function Slot({
   onDragEnd,
   onEnterEdit,
   onFlipPage,
-  onSetOverlayIcon,
+  onSetOverlayChannel,
   onOpenApp,
 }: SlotProps) {
   const tc = useThemeColors();
@@ -85,7 +87,7 @@ export function Slot({
           onDragEnd={onDragEnd}
           onEnterEdit={onEnterEdit}
           onFlipPage={onFlipPage}
-          onSetOverlayIcon={onSetOverlayIcon}
+          onSetOverlayChannel={onSetOverlayChannel}
           onOpenApp={onOpenApp}
         />
       ) : (
