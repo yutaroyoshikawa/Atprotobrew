@@ -2,6 +2,9 @@
 export const LAUNCHER_DEEP_LINK = "atprotobrew://home";
 export const INTERNAL_STORE_DEEP_LINK = "atprotobrew://store";
 
+// 未ログイン状態ウィジェットのタップ先
+export const WIDGET_SIGNIN_DEEP_LINK = "atprotobrew://login";
+
 // アイコンの表示寸法（論理 pt）。widgetIconCache でのリサイズ目標はここを参照する
 export const WIDGET_ICON_SIZE = 22;
 

@@ -12,9 +12,15 @@
 	},
 	"linter": {
 		"rules": {
-			"suspicious": { "noUnknownAtRules": "off", "noExplicitAny": "error", "noImplicitAnyLet": "error", "noEvolvingTypes": "error" },
+			"suspicious": {
+				"noUnknownAtRules": "off",
+				"noExplicitAny": "error",
+				"noImplicitAnyLet": "error",
+				"noEvolvingTypes": "error"
+			},
 			"correctness": { "noUnknownTypeSelector": "off", "useExhaustiveDependencies": "info" },
-			"complexity": { "noBannedTypes": "off", "noStaticOnlyClass": "off" }
+			"complexity": { "noBannedTypes": "off", "noStaticOnlyClass": "off" },
+			"style": { "useBlockStatements": "error" }
 		}
 	}
 }
