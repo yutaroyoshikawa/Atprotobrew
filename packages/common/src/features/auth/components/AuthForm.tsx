@@ -99,9 +99,8 @@ export function AuthForm({ onSubmit, onAtPassportLogin }: AuthFormProps) {
 							</form.Field>
 						</AppVStack>
 
-						<form.Subscribe
-							selector={(state) => [state.canSubmit, state.isSubmitting]}
-							children={([canSubmit, isSubmitting]) => (
+						<form.Subscribe selector={(state) => [state.canSubmit, state.isSubmitting]}>
+							{([canSubmit, isSubmitting]) => (
 								<AppFormTrigger asChild disabled={!canSubmit}>
 									{isSubmitting ? (
 										<Trans render={AppButton}>リダイレクト中…</Trans>
@@ -112,7 +111,7 @@ export function AuthForm({ onSubmit, onAtPassportLogin }: AuthFormProps) {
 									)}
 								</AppFormTrigger>
 							)}
-						/>
+						</form.Subscribe>
 					</AppVStack>
 				</AppForm>
 

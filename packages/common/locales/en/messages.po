@@ -13,6 +13,19 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
+#: src/features/user/components/UserProfileHeader.tsx:188
+msgid "{names}がフォロー中"
+msgstr "{names} follows you"
+
+#. placeholder {0}: knownFollowers.count
+#: src/features/user/components/UserProfileHeader.tsx:187
+msgid "{names}など {0} 人がフォロー中"
+msgstr "{names} and {0} people follow"
+
+#: src/features/user/components/UserProfileHeader.tsx:149
+msgid "{sinceDate}から利用中"
+msgstr "Active since {sinceDate}"
+
 #: src/features/store/components/StoreItem.tsx:50
 #~ msgid "{title} のアイコン"
 #~ msgstr "{title} icon"
@@ -21,14 +34,18 @@ msgstr ""
 #~ msgid "AT Protocol サービスランチャー"
 #~ msgstr "A launcher application for AT Protocol services."
 
-#: src/features/store/components/StoreItem.tsx:74
-#: src/features/store/components/StoreItem.tsx:79
+#: src/features/store/components/StoreItem.tsx:60
+#: src/features/store/components/StoreItem.tsx:62
 msgid "インストール済み"
 msgstr "Installed"
 
 #: src/core/components/ThemeToggle.tsx:15
 msgid "システム"
 msgstr "System"
+
+#: src/features/user/components/UserProfileHeader.tsx:130
+msgid "スターターパックで参加"
+msgstr "Joined via starter pack"
 
 #: src/features/channel/components/StoreChannelTile.tsx:39
 msgid "ストア"
@@ -43,48 +60,79 @@ msgid "ハンドル"
 msgstr "Handle"
 
 #: src/features/user/components/SocialGraphUserRow.tsx:40
+#: src/features/user/components/UserProfileHeader.tsx:155
+#: src/features/user/components/UserProfileHeader.tsx:251
+#: src/features/user/components/UserProfileHeader.tsx:263
 msgid "フォロー"
-msgstr "Follows"
+msgstr "Follow"
 
-#: src/features/user/components/SocialGraphList.tsx:132
+#: src/features/user/components/UserProfileHeader.tsx:105
+msgid "フォローされています"
+msgstr "Follows you"
+
+#: src/features/user/components/SocialGraphList.tsx:68
 #: src/features/user/components/SocialGraphUserRow.tsx:40
+#: src/features/user/components/UserProfileHeader.tsx:251
+#: src/features/user/components/UserProfileHeader.tsx:263
 msgid "フォロー中"
 msgstr "Following"
 
-#: src/features/user/components/SocialGraphList.tsx:179
+#: src/features/user/components/SocialGraphList.tsx:112
 msgid "フォロー中のユーザーがいません"
 msgstr "No users followed"
 
-#: src/features/user/components/SocialGraphList.tsx:132
+#: src/features/user/components/SocialGraphList.tsx:68
+#: src/features/user/components/UserProfileHeader.tsx:160
 msgid "フォロワー"
 msgstr "Followers"
 
-#: src/features/user/components/SocialGraphList.tsx:179
+#: src/features/user/components/SocialGraphList.tsx:112
 msgid "フォロワーがいません"
 msgstr "No followers"
+
+#: src/features/user/components/UserProfileHeader.tsx:123
+msgid "ブロックされています"
+msgstr "Blocked by user"
+
+#: src/features/user/components/UserProfileHeader.tsx:117
+msgid "ブロック中"
+msgstr "Blocking"
+
+#: src/features/user/components/UserMenuItems.tsx:33
+#: src/features/user/components/UserMenuItems.tsx:47
+msgid "プロフィール"
+msgstr "Profile"
+
+#: src/features/user/components/UserProfileView.tsx:38
+msgid "プロフィールの読み込みに失敗しました"
+msgstr "Failed to load profile"
+
+#: src/features/user/components/UserProfileHeader.tsx:111
+msgid "ミュート中"
+msgstr "Muted"
 
 #: src/core/components/ThemeToggle.tsx:13
 msgid "ライト"
 msgstr "Light"
 
-#: src/features/auth/components/AuthForm.tsx:107
+#: src/features/auth/components/AuthForm.tsx:106
 msgid "リダイレクト中…"
 msgstr "Redirecting..."
 
-#: src/features/user/components/UserMenuItems.tsx:26
-#: src/features/user/components/UserMenuItems.tsx:38
+#: src/features/user/components/UserMenuItems.tsx:54
+#: src/features/user/components/UserMenuItems.tsx:62
 msgid "ログアウト"
 msgstr "Logout"
 
 #: src/features/auth/components/AuthForm.tsx:43
-#: src/features/auth/components/AuthForm.tsx:109
+#: src/features/auth/components/AuthForm.tsx:108
 msgid "ログイン"
 msgstr "Login"
 
-#: src/core/components/LanguageToggle.web.tsx:22
+#: src/core/components/LanguageToggle.web.tsx:21
 msgid "言語"
 msgstr "Language"
 
-#: src/features/user/components/SocialGraphList.tsx:144
+#: src/features/user/components/SocialGraphList.tsx:80
 msgid "読み込みエラー"
 msgstr "Error loading"

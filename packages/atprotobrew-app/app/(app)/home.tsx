@@ -5,6 +5,7 @@ import { AppFooter } from "@atprotobrew/common/core/components/AppFooter";
 // import { BubbleBackground } from "@atprotobrew/common/core/components/Background";
 import { router } from "expo-router";
 import { Suspense } from "react";
+// useWindowDimensions をインポート
 import { ActivityIndicator, View } from "react-native";
 import { useAuthContext } from "../../modules/auth/AuthProvider";
 import { LauncherScreen } from "../../modules/launcher/LauncherScreen";

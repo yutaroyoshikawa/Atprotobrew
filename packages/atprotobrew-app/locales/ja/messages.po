@@ -21,7 +21,7 @@ msgstr ""
 msgid "キャンセル"
 msgstr "キャンセル"
 
-#: app/(app)/store/[channelId]/index.tsx:101
+#: app/(app)/store/[channelId]/index.tsx:97
 msgid "このチャンネルについて"
 msgstr "このチャンネルについて"
 
@@ -36,6 +36,18 @@ msgstr "ソーシャルグラフ"
 #: app/(app)/channels/_layout.tsx:12
 msgid "チャンネル"
 msgstr "チャンネル"
+
+#: app/(app)/profile/_layout.tsx:18
+msgid "フォロー中"
+msgstr "フォロー中"
+
+#: app/(app)/profile/_layout.tsx:19
+msgid "フォロワー"
+msgstr "フォロワー"
+
+#: app/(app)/profile/_layout.tsx:17
+msgid "プロフィール"
+msgstr "プロフィール"
 
 #: components/AuthForm.tsx:88
 #~ msgid "リダイレクト中…"

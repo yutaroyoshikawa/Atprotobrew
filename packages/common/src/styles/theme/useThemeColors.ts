@@ -14,9 +14,9 @@ import { resolvedThemeAtom } from "../theme/atoms"; // 既存の jotai atom
  *   </View>
  */
 export function useThemeColors(): ThemeColors {
-  const resolved = useAtomValue(resolvedThemeAtom); // 'light' | 'dark'
+	const resolved = useAtomValue(resolvedThemeAtom); // 'light' | 'dark'
 
-  return themes[resolved];
+	return themes[resolved];
 }
 
 // 色オブジェクトの型。light/dark はキー集合が同一なので light から導出する。

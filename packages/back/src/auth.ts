@@ -4,7 +4,6 @@ import { AuthRequiredError, type HonoAuthVerifier, InvalidRequestError } from "@
 import { secp256k1 } from "@noble/curves/secp256k1";
 import { sha256 } from "@noble/hashes/sha2";
 import type { Context } from "hono";
-import KeyEncoder from "key-encoder";
 import { resolveDiddoc } from "./resolver";
 import type { Env } from "./types";
 
@@ -36,12 +35,15 @@ export function checkAuthFactory({ ownDid }: { ownDid: string }) {
 			throw new AuthRequiredError(undefined, "AuthMissing");
 		}
 		const jwtStr = bearerTokenFromReq(ctx);
-		if (!jwtStr) throw new AuthRequiredError("missing jwt", "MissingJwt");
+		if (!jwtStr) {
+			throw new AuthRequiredError("missing jwt", "MissingJwt");
+		}
 		//DID Docから公開鍵を取得してjwtの署名検証
 		const payload = await verifyServiceJwt(jwtStr, getSigningKey, verifySignatureWithKey);
 		//jwtのaudが自分のdidと一致しているか確認
-		if (payload.aud !== ownDid)
+		if (payload.aud !== ownDid) {
 			throw new AuthRequiredError("jwt audience does not match service did", "BadJwtAudience");
+		}
 		//jwtのlxmを検証
 		const nsid = parseUrlNsid(ctx.req.path);
 		if (payload.lxm !== nsid) {
@@ -65,9 +67,13 @@ export function checkAuthFactory({ ownDid }: { ownDid: string }) {
 const getSigningKey = async (iss: string, forceRefresh: boolean): Promise<string> => {
 	const [did, serviceId] = iss.split("#");
 	const identity = await resolveDiddoc(did, forceRefresh);
-	if (identity == null) throw new AuthRequiredError("failed to resolve did");
+	if (identity == null) {
+		throw new AuthRequiredError("failed to resolve did");
+	}
 	const key = getKey(identity);
-	if (key == null) throw new AuthRequiredError("missing or bad key");
+	if (key == null) {
+		throw new AuthRequiredError("missing or bad key");
+	}
 	return key;
 };
 
@@ -106,7 +112,9 @@ const isBearerToken = (c: Context): boolean => {
 
 const bearerTokenFromReq = (c: Context) => {
 	const header = c.req.header().authorization || "";
-	if (!header.startsWith(BEARER)) return null;
+	if (!header.startsWith(BEARER)) {
+		return null;
+	}
 	return header.slice(BEARER.length).trim();
 };
 
@@ -211,7 +219,9 @@ const base64UrlToBytes = (b64url: string): Uint8Array => {
 	const padded = b64 + "=".repeat((4 - (b64.length % 4)) % 4);
 	const bin = atob(padded);
 	const bytes = new Uint8Array(bin.length);
-	for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+	for (let i = 0; i < bin.length; i++) {
+		bytes[i] = bin.charCodeAt(i);
+	}
 	return bytes;
 };
 
