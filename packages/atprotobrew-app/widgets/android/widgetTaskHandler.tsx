@@ -5,8 +5,8 @@ import {
 import type { WidgetTaskHandlerProps } from "react-native-android-widget";
 import { AndroidWidgetStore } from "../../modules/launcher/androidWidgetStore";
 import { LauncherWidgetView } from "./LauncherWidgetView";
+import { WidgetStateView } from "./WidgetStateView";
 
-// widgetInfo(dp) → SizeBucket（Android 固有のサイズ表現を正規化）
 function resolveBucket(info: WidgetTaskHandlerProps["widgetInfo"]): SizeBucket {
   if (info.width >= 250 && info.height >= 250) {
     return "large";
@@ -29,17 +29,63 @@ export async function widgetTaskHandler(
       const snapshot = await AndroidWidgetStore.loadSnapshot();
       const bucket = resolveBucket(props.widgetInfo);
 
+      // null（初回インストール・ファイル破損）→ loading 表示
+      if (!snapshot) {
+        props.renderWidget({
+          light: (
+            <WidgetStateView
+              state="loading"
+              bucket={bucket}
+              locale="ja"
+              theme="light"
+            />
+          ),
+          dark: (
+            <WidgetStateView
+              state="loading"
+              bucket={bucket}
+              locale="ja"
+              theme="dark"
+            />
+          ),
+        });
+
+        break;
+      }
+
+      if (snapshot.state !== "ready") {
+        props.renderWidget({
+          light: (
+            <WidgetStateView
+              state={snapshot.state}
+              bucket={bucket}
+              locale={snapshot.locale}
+              theme="light"
+            />
+          ),
+          dark: (
+            <WidgetStateView
+              state={snapshot.state}
+              bucket={bucket}
+              locale={snapshot.locale}
+              theme="dark"
+            />
+          ),
+        });
+        break;
+      }
+
       props.renderWidget({
         light: (
           <LauncherWidgetView
-            rows={snapshot?.rowsBySize?.[bucket] ?? []}
+            rows={snapshot.rowsBySize[bucket]}
             columns={WIDGET_GRID[bucket].columns}
             theme="light"
           />
         ),
         dark: (
           <LauncherWidgetView
-            rows={snapshot?.rowsBySize?.[bucket] ?? []}
+            rows={snapshot.rowsBySize[bucket]}
             columns={WIDGET_GRID[bucket].columns}
             theme="dark"
           />
