@@ -10,7 +10,8 @@
 		"back": "pnpm -F 'back'",
 		"atproto": "pnpm -F 'atproto'",
 		"tokens": "pnpm -D 'tokens'",
-		"check": "biome check --write --staged",
+		"check": "biome check",
+		"check:fix": "biome check --write --unsafe",
 		"postinstall": "node -e \"const fs=require('fs'),path=require('path');const src=path.resolve('node_modules/@expo/expo-modules-macros-plugin');const dest=path.resolve('node_modules/expo-modules-core/node_modules/@expo/expo-modules-macros-plugin');fs.mkdirSync(path.dirname(dest),{recursive:true});if(!fs.existsSync(dest)){fs.symlinkSync(src,dest,'dir');console.log('[postinstall] Created symlink: expo-modules-core/node_modules/@expo/expo-modules-macros-plugin');}else{console.log('[postinstall] Symlink already exists');}\" 2>/dev/null || true"
 	},
 	"keywords": [],

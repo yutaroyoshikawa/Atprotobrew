@@ -13,69 +13,73 @@ import { AuthProvider, useAuthContext } from "../modules/auth/AuthProvider";
 const queryClient = getAppQueryClient();
 
 const catalogLoader: CatalogLoader = async (lang) => {
-	switch (lang) {
-		case "ja":
-			return (await import("../locales/ja/messages")).messages;
-		case "en":
-			return (await import("../locales/en/messages")).messages;
-	}
+  switch (lang) {
+    case "ja":
+      return (await import("../locales/ja/messages")).messages;
+    case "en":
+      return (await import("../locales/en/messages")).messages;
+  }
 };
 
 export default function RootLayout() {
-	return (
-		<GestureHandlerRootView style={{ flex: 1 }}>
-			<JotaiProvider>
-				<AppI18nProvider extraLoaders={[catalogLoader]}>
-					<UIProvider>
-						<AppQueryProvider client={queryClient}>
-							<AuthProvider>
-								<RootLayoutNav />
-							</AuthProvider>
-						</AppQueryProvider>
-					</UIProvider>
-				</AppI18nProvider>
-			</JotaiProvider>
-		</GestureHandlerRootView>
-	);
+  return (
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <JotaiProvider>
+        <AppI18nProvider extraLoaders={[catalogLoader]}>
+          <UIProvider>
+            <AppQueryProvider client={queryClient}>
+              <AuthProvider>
+                <RootLayoutNav />
+              </AuthProvider>
+            </AppQueryProvider>
+          </UIProvider>
+        </AppI18nProvider>
+      </JotaiProvider>
+    </GestureHandlerRootView>
+  );
 }
 
 function RootLayoutNav() {
-	const { authState } = useAuthContext();
-	const segments = useSegments();
-	const router = useRouter();
+  const { authState } = useAuthContext();
+  const segments = useSegments();
+  const router = useRouter();
 
-	useEffect(() => {
-		if (authState.status === "loading") {
-			return;
-		}
+  useEffect(() => {
+    if (authState.status === "loading") {
+      return;
+    }
 
-		const group = segments[0];
+    const group = segments[0];
 
-		switch (group) {
-			case "(app)": {
-				if (authState.status === "unauthenticated") {
-					// 未認証で保護領域にいる → ログインへ
-					router.replace("/(auth)/login");
-				}
+    switch (group) {
+      case "(app)": {
+        if (authState.status === "unauthenticated") {
+          // 未認証で保護領域にいる → ログインへ
+          router.replace("/(auth)/login");
+        }
 
-				break;
-			}
-			case "(auth)": {
-				if (authState.status === "authenticated") {
-					// 認証済みでログイン画面にいる → ホームへ
-					router.replace("/(app)/home");
-				}
+        break;
+      }
+      case "(auth)": {
+        if (authState.status === "authenticated") {
+          // 認証済みでログイン画面にいる → ホームへ
+          router.replace("/(app)/home");
+        }
 
-				break;
-			}
-		}
-	}, [authState.status, segments[0]]);
+        break;
+      }
+    }
+  }, [
+    authState.status,
+    segments[0], // 認証済みでログイン画面にいる → ホームへ
+    router.replace,
+  ]);
 
-	return (
-		<Stack screenOptions={{ headerShown: false }}>
-			<Stack.Screen name="(auth)" />
-			<Stack.Screen name="(app)" />
-			<Stack.Screen name="(public)" />
-		</Stack>
-	);
+  return (
+    <Stack screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="(auth)" />
+      <Stack.Screen name="(app)" />
+      <Stack.Screen name="(public)" />
+    </Stack>
+  );
 }

@@ -13,13 +13,48 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: src/components/store/Store.tsx:103
+#: src/components/store/Store.tsx:85
 msgid "Atprotobrew ストア"
 msgstr "Atprotobrew Store"
 
 #: src/components/store/StoreItemCard.tsx:33
 msgid "インストール済"
 msgstr "Installed"
+
+#: src/App.tsx:154
+msgid "ソーシャルグラフ"
+msgstr "Social Graph"
+
+#: src/components/user/SocialGraph.tsx:128
+msgid "フォロー"
+msgstr "Follow"
+
+#: src/components/user/SocialGraph.tsx:47
+#: src/components/user/SocialGraph.tsx:126
+#: src/components/user/UserProfileFollows.tsx:20
+msgid "フォロー中"
+msgstr "Following"
+
+#: src/components/user/SocialGraph.tsx:67
+msgid "フォロー中のユーザーがいません"
+msgstr "No users followed"
+
+#: src/components/user/SocialGraph.tsx:47
+#: src/components/user/UserProfileFollowers.tsx:20
+msgid "フォロワー"
+msgstr "Followers"
+
+#: src/components/user/SocialGraph.tsx:69
+msgid "フォロワーがいません"
+msgstr "No followers"
+
+#: src/components/user/UserProfile.tsx:23
+msgid "プロフィール"
+msgstr "Profile"
+
+#: src/components/user/SocialGraph.tsx:147
+msgid "もっと見る"
+msgstr "Load more"
 
 #: src/components/store/Store.tsx:40
 msgid "ランチャーに戻る"
@@ -28,3 +63,11 @@ msgstr "Back to launcher"
 #: src/components/store/StoreItemCard.tsx:33
 msgid "取得"
 msgstr "Get"
+
+#: src/components/user/ProfilePageLayout.tsx:21
+msgid "戻る"
+msgstr "Back"
+
+#: src/components/user/SocialGraph.tsx:60
+msgid "読み込みエラー"
+msgstr "Error loading"

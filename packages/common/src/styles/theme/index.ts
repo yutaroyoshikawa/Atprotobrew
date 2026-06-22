@@ -12,9 +12,9 @@
 export { ThemeProvider } from "../../core/components/ThemeProvider";
 export { ThemeToggle } from "../../core/components/ThemeToggle";
 export {
-  resolvedThemeAtom,
-  systemSchemeAtom,
-  themeOverrideAtom,
+	resolvedThemeAtom,
+	systemSchemeAtom,
+	themeOverrideAtom,
 } from "./atoms";
 export type { ResolvedTheme, SystemScheme, ThemeOverride } from "./types";
 export { THEME_STORAGE_KEY } from "./types";

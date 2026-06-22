@@ -4,9 +4,4 @@ import type { AppLanguage } from "../types/i18n";
 
 const storage = createJSONStorage<AppLanguage>(() => AsyncStorage);
 
-export const languageAtom = atomWithStorage<AppLanguage>(
-  "app-language",
-  "ja",
-  storage,
-  { getOnInit: false },
-);
+export const languageAtom = atomWithStorage<AppLanguage>("app-language", "ja", storage, { getOnInit: false });

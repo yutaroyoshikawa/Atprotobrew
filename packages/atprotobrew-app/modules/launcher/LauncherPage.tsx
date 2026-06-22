@@ -87,6 +87,7 @@ export const LauncherPage = React.memo(function LauncherPage({
         map.set(slotOf(item.address, perPage), item);
       }
     }
+
     return map;
   }, [items, page, perPage]);
 

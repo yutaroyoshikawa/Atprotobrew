@@ -4,6 +4,7 @@ import { useThemeColors } from "@atprotobrew/common/theme";
 import { UserMenuItems } from "@atprotobrew/common/user/components/UserMenuItems";
 import { UserMenuTrigger } from "@atprotobrew/common/user/components/UserMenuTrigger";
 import { type BottomSheetMethods, BottomSheetModal, BottomSheetView } from "@expo/ui/community/bottom-sheet";
+import { router } from "expo-router";
 import { useAtomValue } from "jotai";
 import { useRef } from "react";
 import { StyleSheet, View } from "react-native";
@@ -20,7 +21,13 @@ export function UserMenuButton({ did, onLogout }: UserMenuButtonProps) {
 	const insets = useSafeAreaInsets();
 	const sheetRef = useRef<BottomSheetMethods>(null);
 
-	if (mode === "EDIT") return null;
+	if (mode === "EDIT") {
+		return null;
+	}
+
+	const handleNavigateToProfile = () => {
+		router.push({ pathname: "/(app)/profile/[did]", params: { did } });
+	};
 
 	return (
 		<>
@@ -36,7 +43,11 @@ export function UserMenuButton({ did, onLogout }: UserMenuButtonProps) {
 				handleIndicatorStyle={{ backgroundColor: tc.textContrastLow }}
 			>
 				<BottomSheetView style={[styles.sheetContent, { paddingBottom: insets.bottom + 16 }]}>
-					<UserMenuItems onLogout={onLogout} onDismiss={() => sheetRef.current?.dismiss()} />
+					<UserMenuItems
+						onLogout={onLogout}
+						onDismiss={() => sheetRef.current?.dismiss()}
+						onNavigateToProfile={handleNavigateToProfile}
+					/>
 				</BottomSheetView>
 			</BottomSheetModal>
 		</>

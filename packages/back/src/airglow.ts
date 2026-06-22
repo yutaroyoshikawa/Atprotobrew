@@ -114,19 +114,34 @@ function validatePayload(payload: Partial<WebhookPayload>, lexicon?: string): pa
 		payload.lexicon == null ||
 		!isTargetLexicon(payload.lexicon) ||
 		(lexicon != null && payload.lexicon !== lexicon)
-	)
+	) {
 		return false;
-	if (payload.automation !== automations[payload.lexicon]?.uri) return false;
-	if (!isObject(payload.event)) return false;
-	if (payload.event.kind !== "commit") return false;
-	if (!isObject(payload.event.commit)) return false;
-	if (!isString(payload.event.commit.collection) || !isString(payload.event.commit.rkey)) return false;
+	}
+	if (payload.automation !== automations[payload.lexicon]?.uri) {
+		return false;
+	}
+	if (!isObject(payload.event)) {
+		return false;
+	}
+	if (payload.event.kind !== "commit") {
+		return false;
+	}
+	if (!isObject(payload.event.commit)) {
+		return false;
+	}
+	if (!isString(payload.event.commit.collection) || !isString(payload.event.commit.rkey)) {
+		return false;
+	}
 
 	switch (payload.event.commit.operation) {
 		case "create":
 		case "update":
-			if (payload.event.commit.record == null) return false;
-			if (!automations[payload.lexicon].validator(payload.event.commit.record).success) return false;
+			if (payload.event.commit.record == null) {
+				return false;
+			}
+			if (!automations[payload.lexicon].validator(payload.event.commit.record).success) {
+				return false;
+			}
 			break;
 		case "delete":
 			break;
@@ -136,11 +151,15 @@ function validatePayload(payload: Partial<WebhookPayload>, lexicon?: string): pa
 	return true;
 }
 function isObject(v: unknown): v is object {
-	if (v == null) return false;
+	if (v == null) {
+		return false;
+	}
 	return typeof v === "object";
 }
 function isString(v: unknown): v is string {
-	if (v == null) return false;
+	if (v == null) {
+		return false;
+	}
 	return typeof v === "string";
 }
 function verifySign(body: Buffer, signature: string, secret: string) {

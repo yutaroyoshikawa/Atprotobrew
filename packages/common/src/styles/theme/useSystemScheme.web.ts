@@ -7,19 +7,19 @@ import { systemSchemeAtom } from "./atoms";
  * マウント時に現在値をセット、リアルタイムで追従。
  */
 export function useSystemScheme() {
-  const set = useSetAtom(systemSchemeAtom);
+	const set = useSetAtom(systemSchemeAtom);
 
-  useEffect(() => {
-    const mq = window.matchMedia("(prefers-color-scheme: dark)");
+	useEffect(() => {
+		const mq = window.matchMedia("(prefers-color-scheme: dark)");
 
-    const apply = () => set(mq.matches ? "dark" : "light");
+		const apply = () => set(mq.matches ? "dark" : "light");
 
-    apply();
+		apply();
 
-    mq.addEventListener("change", apply);
+		mq.addEventListener("change", apply);
 
-    return () => {
-      mq.removeEventListener("change", apply);
-    };
-  }, [set]);
+		return () => {
+			mq.removeEventListener("change", apply);
+		};
+	}, [set]);
 }

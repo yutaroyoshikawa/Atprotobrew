@@ -3,6 +3,7 @@ import { AppQueryProvider } from "@atprotobrew/common/core/components/AppQueryPr
 import { UIProvider } from "@atprotobrew/common/core/components/UIProvider";
 import { getAppQueryClient } from "@atprotobrew/common/core/modules/appQuery";
 import type { CatalogLoader } from "@atprotobrew/common/core/types/i18n";
+import { Trans } from "@lingui/react/macro";
 import { Provider as JotaiProvider } from "jotai";
 import { Suspense } from "react";
 import { BrowserRouter, Navigate, Outlet, Route, Routes, useOutletContext } from "react-router-dom";
@@ -13,7 +14,11 @@ import { Launcher } from "./components/launcher/Launcher";
 import { Settings } from "./components/settings/Settings";
 import { Store } from "./components/store/Store";
 import { StoreItemDetail } from "./components/store/StoreItemDetail";
+import { ProfilePageLayout } from "./components/user/ProfilePageLayout";
 import { SocialGraph } from "./components/user/SocialGraph";
+import { UserProfile } from "./components/user/UserProfile";
+import { UserProfileFollowers } from "./components/user/UserProfileFollowers";
+import { UserProfileFollows } from "./components/user/UserProfileFollows";
 import { useOAuth } from "./hooks/useOAuth";
 
 const appQueryClient = getAppQueryClient();
@@ -58,6 +63,8 @@ function Router() {
 		<Routes>
 			<Route path="/atpassport/callback" element={<AtPassportCallbackRoute authCtx={oauthValues} />} />
 
+			<Route path="/profile/:did" element={<UserProfileRoute authCtx={oauthValues} />} />
+
 			<Route element={<ProtectedLayout authCtx={oauthValues} />}>
 				<Route path="/" element={<LauncerRoute />} />
 				<Route path="/store" element={<StoreRoute />} />
@@ -65,6 +72,8 @@ function Router() {
 				<Route path="/channel/:id" element={<ChannelDetailRoute />} />
 				<Route path="/settings" element={<SettingsRoute />} />
 				<Route path="/social-graph" element={<SocialGraphRoute />} />
+				<Route path="/profile/:did/follows" element={<UserProfileFollowsRoute />} />
+				<Route path="/profile/:did/followers" element={<UserProfileFollowersRoute />} />
 
 				<Route path="*" element={<Navigate to="/" replace />} />
 			</Route>
@@ -141,5 +150,36 @@ function SocialGraphRoute() {
 		return null;
 	}
 
-	return <SocialGraph client={authState.client} currentUserDid={authState.session.sub} />;
+	return (
+		<ProfilePageLayout backTo="/" title={<Trans>ソーシャルグラフ</Trans>}>
+			<SocialGraph client={authState.client} currentUserDid={authState.session.sub} />
+		</ProfilePageLayout>
+	);
+}
+
+function UserProfileRoute({ authCtx }: { authCtx: AuthContext }) {
+	const client = authCtx.authState.status === "authenticated" ? authCtx.authState.client : undefined;
+	const currentUserDid = authCtx.authState.status === "authenticated" ? authCtx.authState.session.sub : undefined;
+
+	return <UserProfile client={client} currentUserDid={currentUserDid} />;
+}
+
+function UserProfileFollowsRoute() {
+	const { authState } = useOutletContext<AuthContext>();
+
+	if (authState.status !== "authenticated") {
+		return null;
+	}
+
+	return <UserProfileFollows client={authState.client} currentUserDid={authState.session.sub} />;
+}
+
+function UserProfileFollowersRoute() {
+	const { authState } = useOutletContext<AuthContext>();
+
+	if (authState.status !== "authenticated") {
+		return null;
+	}
+
+	return <UserProfileFollowers client={authState.client} currentUserDid={authState.session.sub} />;
 }

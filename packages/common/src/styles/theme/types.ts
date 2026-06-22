@@ -3,13 +3,9 @@ export type SystemScheme = "light" | "dark";
 export type ResolvedTheme = "light" | "dark";
 
 export function isTheme(value: string): value is ThemeOverride {
-  const themes: string[] = [
-    "light",
-    "dark",
-    "system",
-  ] as const satisfies ThemeOverride[];
+	const themes: string[] = ["light", "dark", "system"] as const satisfies ThemeOverride[];
 
-  return themes.includes(value);
+	return themes.includes(value);
 }
 
 /**
