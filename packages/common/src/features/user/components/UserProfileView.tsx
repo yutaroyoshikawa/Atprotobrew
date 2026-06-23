@@ -12,6 +12,7 @@ interface UserProfileViewProps {
 	currentUserDid: string | undefined;
 	onNavigateToFollows: () => void;
 	onNavigateToFollowers: () => void;
+	onEditProfile?: () => void;
 }
 
 export function UserProfileView({
@@ -20,6 +21,7 @@ export function UserProfileView({
 	currentUserDid,
 	onNavigateToFollows,
 	onNavigateToFollowers,
+	onEditProfile,
 }: UserProfileViewProps) {
 	const { t } = useLingui();
 	const { data: profile, isPending, isError } = useUserProfile(actor, agent);
@@ -48,6 +50,7 @@ export function UserProfileView({
 				agent={agent}
 				onNavigateToFollows={onNavigateToFollows}
 				onNavigateToFollowers={onNavigateToFollowers}
+				onEditProfile={onEditProfile}
 			/>
 		</ScrollView>
 	);

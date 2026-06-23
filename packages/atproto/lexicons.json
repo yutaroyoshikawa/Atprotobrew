@@ -15,7 +15,8 @@
     "com.atproto.repo.deleteRecord",
     "com.atproto.repo.getRecord",
     "com.atproto.repo.putRecord",
-    "com.atproto.repo.strongRef"
+    "com.atproto.repo.strongRef",
+    "com.atproto.repo.uploadBlob"
   ],
   "resolutions": {
     "app.bsky.actor.defs": {
@@ -125,6 +126,10 @@
     "com.atproto.repo.strongRef": {
       "uri": "at://did:plc:6msi3pj7krzih5qxqtryxlzw/com.atproto.lexicon.schema/com.atproto.repo.strongRef",
       "cid": "bafyreifbx7dk2lqddlzbar7n5sihedkz5b5ganyrbpcme7yyah65iv62ce"
+    },
+    "com.atproto.repo.uploadBlob": {
+      "uri": "at://did:plc:6msi3pj7krzih5qxqtryxlzw/com.atproto.lexicon.schema/com.atproto.repo.uploadBlob",
+      "cid": "bafyreiewhhnp2wiprruttkzd7fu52c5wxzkjislb3trn7whhn33aplxdoi"
     },
     "tools.ozone.report.defs": {
       "uri": "at://did:plc:33dt5kftu3jq2h5h4jjlqezt/com.atproto.lexicon.schema/tools.ozone.report.defs",

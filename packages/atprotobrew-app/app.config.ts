@@ -86,6 +86,13 @@ const baseConfig: ExpoConfig = {
 			},
 		],
 		"expo-image",
+		[
+			"expo-image-picker",
+			{
+				photosPermission: "プロフィール写真を選択するために写真へのアクセスが必要です。",
+				cameraPermission: "プロフィール写真を撮影するためにカメラへのアクセスが必要です。",
+			},
+		],
 		"expo-web-browser",
 		"@react-native-firebase/app",
 		[

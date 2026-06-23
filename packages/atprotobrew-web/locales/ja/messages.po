@@ -17,6 +17,10 @@ msgstr ""
 msgid "Atprotobrew ストア"
 msgstr "Atprotobrew ストア"
 
+#: src/components/user/ProfileEditModal.tsx:70
+msgid "JPEG、PNG、WebP のみ選択できます。"
+msgstr "JPEG、PNG、WebP のみ選択できます。"
+
 #: src/components/store/StoreItemCard.tsx:33
 msgid "インストール済"
 msgstr "インストール済"
@@ -26,39 +30,51 @@ msgid "ソーシャルグラフ"
 msgstr "ソーシャルグラフ"
 
 #: src/components/user/SocialGraph.tsx:128
-msgid "フォロー"
-msgstr "フォロー"
+#~ msgid "フォロー"
+#~ msgstr "フォロー"
 
-#: src/components/user/SocialGraph.tsx:47
-#: src/components/user/SocialGraph.tsx:126
+#: src/components/user/SocialGraph.tsx:49
 #: src/components/user/UserProfileFollows.tsx:20
 msgid "フォロー中"
 msgstr "フォロー中"
 
-#: src/components/user/SocialGraph.tsx:67
+#: src/components/user/SocialGraph.tsx:69
 msgid "フォロー中のユーザーがいません"
 msgstr "フォロー中のユーザーがいません"
 
-#: src/components/user/SocialGraph.tsx:47
+#: src/components/user/SocialGraph.tsx:49
 #: src/components/user/UserProfileFollowers.tsx:20
 msgid "フォロワー"
 msgstr "フォロワー"
 
-#: src/components/user/SocialGraph.tsx:69
+#: src/components/user/SocialGraph.tsx:71
 msgid "フォロワーがいません"
 msgstr "フォロワーがいません"
 
-#: src/components/user/UserProfile.tsx:23
+#: src/components/user/UserProfile.tsx:27
 msgid "プロフィール"
 msgstr "プロフィール"
 
-#: src/components/user/SocialGraph.tsx:147
+#: src/components/user/ProfileEditModal.tsx:104
+#: src/components/user/ProfileEditModal.tsx:113
+msgid "プロフィールを編集"
+msgstr "プロフィールを編集"
+
+#: src/components/user/SocialGraph.tsx:140
 msgid "もっと見る"
 msgstr "もっと見る"
 
 #: src/components/store/Store.tsx:40
 msgid "ランチャーに戻る"
 msgstr "ランチャーに戻る"
+
+#: src/components/user/ProfileEditModal.tsx:90
+msgid "他のデバイスで更新されました。一度閉じて再度開いてください。"
+msgstr "他のデバイスで更新されました。一度閉じて再度開いてください。"
+
+#: src/components/user/ProfileEditModal.tsx:92
+msgid "保存に失敗しました。もう一度お試しください。"
+msgstr "保存に失敗しました。もう一度お試しください。"
 
 #: src/components/store/StoreItemCard.tsx:33
 msgid "取得"
@@ -68,6 +84,14 @@ msgstr "取得"
 msgid "戻る"
 msgstr "戻る"
 
-#: src/components/user/SocialGraph.tsx:60
+#: src/components/user/ProfileEditModal.tsx:72
+msgid "画像が大きすぎます。別の画像を選んでください。"
+msgstr "画像が大きすぎます。別の画像を選んでください。"
+
+#: src/components/user/SocialGraph.tsx:62
 msgid "読み込みエラー"
 msgstr "読み込みエラー"
+
+#: src/components/user/ProfileEditModal.tsx:118
+msgid "閉じる"
+msgstr "閉じる"

@@ -13,16 +13,16 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: src/features/user/components/UserProfileHeader.tsx:188
+#: src/features/user/components/UserProfileHeader.tsx:185
 msgid "{names}がフォロー中"
 msgstr "{names} follows you"
 
 #. placeholder {0}: knownFollowers.count
-#: src/features/user/components/UserProfileHeader.tsx:187
+#: src/features/user/components/UserProfileHeader.tsx:184
 msgid "{names}など {0} 人がフォロー中"
 msgstr "{names} and {0} people follow"
 
-#: src/features/user/components/UserProfileHeader.tsx:149
+#: src/features/user/components/UserProfileHeader.tsx:147
 msgid "{sinceDate}から利用中"
 msgstr "Active since {sinceDate}"
 
@@ -34,16 +34,48 @@ msgstr "Active since {sinceDate}"
 #~ msgid "AT Protocol サービスランチャー"
 #~ msgstr "A launcher application for AT Protocol services."
 
+#: src/features/user/components/ProfileEditFormContent.tsx:207
+#: src/features/user/components/ProfileEditFormContent.tsx:214
+msgid "URLはhttps://またはhttp://から始めてください"
+msgstr ""
+
+#: src/features/user/components/UserMenuItems.tsx:174
+#: src/features/user/components/UserMenuItems.tsx:189
+msgid "アカウントを追加"
+msgstr ""
+
+#: src/features/user/components/ProfileEditFormContent.tsx:130
+msgid "アバター画像を変更"
+msgstr ""
+
 #: src/features/store/components/StoreItem.tsx:60
 #: src/features/store/components/StoreItem.tsx:62
 msgid "インストール済み"
 msgstr "Installed"
 
+#: src/features/user/components/ProfileEditFormContent.tsx:223
+msgid "ウェブサイト"
+msgstr ""
+
+#: src/features/user/components/ProfileEditFormContent.tsx:272
+msgid "キャンセル"
+msgstr ""
+
+#: src/features/user/components/UserMenuItems.tsx:220
+#: src/features/user/components/UserMenuItems.tsx:234
+msgid "このアカウントからログアウト"
+msgstr ""
+
+#: src/features/user/components/UserMenuItems.tsx:201
+#: src/features/user/components/UserMenuItems.tsx:211
+#~ msgid "このアカウントを削除"
+#~ msgstr ""
+
 #: src/core/components/ThemeToggle.tsx:15
 msgid "システム"
 msgstr "System"
 
-#: src/features/user/components/UserProfileHeader.tsx:130
+#: src/features/user/components/UserProfileHeader.tsx:131
 msgid "スターターパックで参加"
 msgstr "Joined via starter pack"
 
@@ -55,59 +87,69 @@ msgstr "Store"
 msgid "ダーク"
 msgstr "Dark"
 
+#: src/features/user/components/ProfileEditFormContent.tsx:121
+msgid "バナーを変更"
+msgstr ""
+
+#: src/features/user/components/ProfileEditFormContent.tsx:108
+msgid "バナー画像を変更"
+msgstr ""
+
 #: src/features/auth/components/AuthForm.tsx:52
 msgid "ハンドル"
 msgstr "Handle"
 
-#: src/features/user/components/SocialGraphUserRow.tsx:40
-#: src/features/user/components/UserProfileHeader.tsx:155
-#: src/features/user/components/UserProfileHeader.tsx:251
-#: src/features/user/components/UserProfileHeader.tsx:263
+#: src/features/user/components/FollowButton.tsx:25
+#: src/features/user/components/FollowButton.tsx:41
+#: src/features/user/components/UserProfileHeader.tsx:152
 msgid "フォロー"
 msgstr "Follow"
 
-#: src/features/user/components/UserProfileHeader.tsx:105
+#: src/features/user/components/UserProfileHeader.tsx:106
 msgid "フォローされています"
 msgstr "Follows you"
 
-#: src/features/user/components/SocialGraphList.tsx:68
-#: src/features/user/components/SocialGraphUserRow.tsx:40
-#: src/features/user/components/UserProfileHeader.tsx:251
-#: src/features/user/components/UserProfileHeader.tsx:263
+#: src/features/user/components/FollowButton.tsx:25
+#: src/features/user/components/FollowButton.tsx:41
+#: src/features/user/components/SocialGraphList.tsx:75
 msgid "フォロー中"
 msgstr "Following"
 
-#: src/features/user/components/SocialGraphList.tsx:112
+#: src/features/user/components/SocialGraphList.tsx:120
 msgid "フォロー中のユーザーがいません"
 msgstr "No users followed"
 
-#: src/features/user/components/SocialGraphList.tsx:68
-#: src/features/user/components/UserProfileHeader.tsx:160
+#: src/features/user/components/SocialGraphList.tsx:75
+#: src/features/user/components/UserProfileHeader.tsx:157
 msgid "フォロワー"
 msgstr "Followers"
 
-#: src/features/user/components/SocialGraphList.tsx:112
+#: src/features/user/components/SocialGraphList.tsx:120
 msgid "フォロワーがいません"
 msgstr "No followers"
 
-#: src/features/user/components/UserProfileHeader.tsx:123
+#: src/features/user/components/UserProfileHeader.tsx:124
 msgid "ブロックされています"
 msgstr "Blocked by user"
 
-#: src/features/user/components/UserProfileHeader.tsx:117
+#: src/features/user/components/UserProfileHeader.tsx:118
 msgid "ブロック中"
 msgstr "Blocking"
 
-#: src/features/user/components/UserMenuItems.tsx:33
-#: src/features/user/components/UserMenuItems.tsx:47
+#: src/features/user/components/UserMenuItems.tsx:197
+#: src/features/user/components/UserMenuItems.tsx:212
 msgid "プロフィール"
 msgstr "Profile"
 
-#: src/features/user/components/UserProfileView.tsx:38
+#: src/features/user/components/UserProfileView.tsx:40
 msgid "プロフィールの読み込みに失敗しました"
 msgstr "Failed to load profile"
 
-#: src/features/user/components/UserProfileHeader.tsx:111
+#: src/features/user/components/UserProfileHeader.tsx:233
+msgid "プロフィールを編集"
+msgstr ""
+
+#: src/features/user/components/UserProfileHeader.tsx:112
 msgid "ミュート中"
 msgstr "Muted"
 
@@ -115,24 +157,67 @@ msgstr "Muted"
 msgid "ライト"
 msgstr "Light"
 
+#: src/features/user/components/UserMenuItems.tsx:38
+#: src/features/user/components/UserMenuItems.tsx:50
+msgid "リストから削除"
+msgstr ""
+
 #: src/features/auth/components/AuthForm.tsx:106
 msgid "リダイレクト中…"
 msgstr "Redirecting..."
 
 #: src/features/user/components/UserMenuItems.tsx:54
 #: src/features/user/components/UserMenuItems.tsx:62
-msgid "ログアウト"
-msgstr "Logout"
+#~ msgid "ログアウト"
+#~ msgstr "Logout"
 
 #: src/features/auth/components/AuthForm.tsx:43
 #: src/features/auth/components/AuthForm.tsx:108
 msgid "ログイン"
 msgstr "Login"
 
+#: src/features/user/components/ProfileEditFormContent.tsx:248
+msgid "代名詞"
+msgstr ""
+
+#: src/features/user/components/ProfileEditFormContent.tsx:267
+msgid "保存"
+msgstr ""
+
+#: src/features/user/components/ProfileEditFormContent.tsx:267
+msgid "保存中…"
+msgstr ""
+
+#: src/features/user/components/ProfileEditFormContent.tsx:138
+msgid "変更"
+msgstr ""
+
+#: src/features/user/components/UserProfileHeader.tsx:245
+msgid "編集"
+msgstr ""
+
+#: src/features/user/components/ProfileEditFormContent.tsx:181
+#: src/features/user/components/ProfileEditFormContent.tsx:187
+msgid "自己紹介"
+msgstr ""
+
+#: src/features/user/components/ProfileEditFormContent.tsx:68
+msgid "自己紹介は256文字以内で入力してください"
+msgstr ""
+
+#: src/features/user/components/ProfileEditFormContent.tsx:156
+#: src/features/user/components/ProfileEditFormContent.tsx:162
+msgid "表示名"
+msgstr ""
+
+#: src/features/user/components/ProfileEditFormContent.tsx:67
+msgid "表示名は64文字以内で入力してください"
+msgstr ""
+
 #: src/core/components/LanguageToggle.web.tsx:21
 msgid "言語"
 msgstr "Language"
 
-#: src/features/user/components/SocialGraphList.tsx:80
+#: src/features/user/components/SocialGraphList.tsx:87
 msgid "読み込みエラー"
 msgstr "Error loading"
