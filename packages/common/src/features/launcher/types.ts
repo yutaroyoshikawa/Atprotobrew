@@ -1,4 +1,5 @@
 import type { StoreItemView } from "@atprotobrew/atproto/lexicons/org/tarororo/brew/defs.defs";
+import { z } from "zod";
 
 export type LaunchTarget =
 	| { $type: "org.tarororo.brew.defs#launchWeb"; link: string }
@@ -14,8 +15,10 @@ export interface LauncherItem {
 
 export type StoreItem = StoreItemView;
 
-export interface PersistedLayoutV1 {
-	version: 1;
-	perPage: number;
-	items: { id: string; address: number }[];
-}
+export const persistedLayoutV1Schema = z.object({
+	version: z.literal(1),
+	perPage: z.number(),
+	items: z.array(z.object({ id: z.string(), address: z.number() })),
+});
+
+export type PersistedLayoutV1 = z.infer<typeof persistedLayoutV1Schema>;

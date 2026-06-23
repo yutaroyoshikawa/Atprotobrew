@@ -57,9 +57,22 @@ msgstr "Profile"
 #~ msgid "ログイン"
 #~ msgstr "Login"
 
+#: modules/user/ProfileEditBottomSheet.tsx:48
+msgid "他のデバイスで更新されました。一度閉じて再度開いてください。"
+msgstr ""
+
 #: modules/launcher/EditTopBar.tsx:34
 msgid "保存"
 msgstr "Save"
+
+#: modules/user/ProfileEditBottomSheet.tsx:50
+msgid "保存に失敗しました。もう一度お試しください。"
+msgstr ""
+
+#: modules/user/ProfileEditBottomSheet.tsx:60
+#: modules/user/ProfileEditBottomSheet.tsx:73
+msgid "画像が大きすぎます。別の画像を選んでください。"
+msgstr ""
 
 #: app/(app)/settings/_layout.tsx:12
 msgid "設定"

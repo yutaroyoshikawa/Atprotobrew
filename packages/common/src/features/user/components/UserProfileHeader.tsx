@@ -1,7 +1,7 @@
 import type { Agent } from "@atproto/lex";
 import { useLingui } from "@lingui/react/macro";
 import { ExternalLink, Package } from "lucide-react-native";
-import { Image, Linking, View } from "react-native";
+import { Image, Linking, Pressable, View } from "react-native";
 import { styled, Text, XStack, YStack } from "tamagui";
 import { useThemeColors } from "../../../styles/theme";
 import { useFollowActions } from "../modules/useFollowActions";
@@ -14,6 +14,7 @@ interface UserProfileHeaderProps {
 	agent: Agent | undefined;
 	onNavigateToFollows: () => void;
 	onNavigateToFollowers: () => void;
+	onEditProfile?: () => void;
 }
 
 export function UserProfileHeader({
@@ -22,6 +23,7 @@ export function UserProfileHeader({
 	agent,
 	onNavigateToFollows,
 	onNavigateToFollowers,
+	onEditProfile,
 }: UserProfileHeaderProps) {
 	const tc = useThemeColors();
 	const { t, i18n } = useLingui();
@@ -84,7 +86,9 @@ export function UserProfileHeader({
 					)}
 				</View>
 
-				{agent && !isSelf && !isBlockedBy && !isBlocking && <FollowSection profile={profile} agent={agent} />}
+				{isSelf
+					? onEditProfile && <EditButton onPress={onEditProfile} tc={tc} />
+					: agent && !isBlockedBy && !isBlocking && <FollowSection profile={profile} agent={agent} />}
 			</XStack>
 
 			<YStack paddingHorizontal="$4" paddingTop="$3" gap="$1">
@@ -211,6 +215,35 @@ function KnownFollowersRow({ knownFollowers, tc }: KnownFollowersRowProps) {
 
 			<KnownFollowersText style={{ flexShrink: 1 }}>{label}</KnownFollowersText>
 		</XStack>
+	);
+}
+
+interface EditButtonProps {
+	onPress: () => void;
+	tc: ReturnType<typeof useThemeColors>;
+}
+
+function EditButton({ onPress, tc }: EditButtonProps) {
+	const { t } = useLingui();
+
+	return (
+		<Pressable
+			onPress={onPress}
+			accessibilityRole="button"
+			accessibilityLabel={t`プロフィールを編集`}
+			style={({ pressed }) => ({
+				paddingHorizontal: 16,
+				paddingVertical: 8,
+				borderRadius: 999,
+				borderWidth: 1.5,
+				borderColor: tc.bgContrast50,
+				opacity: pressed ? 0.6 : 1,
+				minWidth: 80,
+				alignItems: "center" as const,
+			})}
+		>
+			<Text style={{ color: tc.text, fontSize: 14, fontWeight: "600" }}>{t`編集`}</Text>
+		</Pressable>
 	);
 }
 

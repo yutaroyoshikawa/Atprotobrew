@@ -56,6 +56,9 @@
 		},
 		"./user/components/*": {
 			"import": "./src/features/user/components/*.tsx"
+		},
+		"./account/*": {
+			"import": "./src/features/account/*.ts"
 		}
 	},
 	"dependencies": {
@@ -87,6 +90,7 @@
 		"react-native-safe-area-context": "~5.7.0",
 		"react-native-screens": "4.25.2",
 		"react-native-svg": "15.15.5",
+		"react-native-tab-view": "^4.3.1",
 		"react-native-teleport": "^1.1.7",
 		"tamagui": "2.0.0",
 		"zod": "^4.4.3"

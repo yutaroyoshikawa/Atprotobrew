@@ -9,6 +9,7 @@ import { Provider as JotaiProvider } from "jotai";
 import { useEffect } from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { AuthProvider, useAuthContext } from "../modules/auth/AuthProvider";
+import { useWidgetSync } from "../modules/launcher/useWidgetSync";
 
 const queryClient = getAppQueryClient();
 
@@ -43,6 +44,8 @@ function RootLayoutNav() {
   const { authState } = useAuthContext();
   const segments = useSegments();
   const router = useRouter();
+
+  useWidgetSync();
 
   useEffect(() => {
     if (authState.status === "loading") {

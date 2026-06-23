@@ -1,4 +1,5 @@
 import type { AtIdentifierString, Client } from "@atproto/lex";
+import type { StoredAccount } from "@atprotobrew/common/account/types";
 import { InstalledChannelTile } from "@atprotobrew/common/channel/components/InstalledChannelTile";
 import { StoreChannelTile } from "@atprotobrew/common/channel/components/StoreChannelTile";
 import { useFetchLaunchers } from "@atprotobrew/common/channel/modules/launchersHooks";
@@ -15,9 +16,13 @@ interface LauncerProps {
 	onLogout: () => void;
 	client: Client;
 	identifier: AtIdentifierString;
+	accounts: StoredAccount[];
+	onSwitchAccount: (did: string) => Promise<void>;
+	onDeleteAccount: (did: string) => Promise<void>;
+	onAddAccount: () => void;
 }
 
-export function Launcher({ client, onLogout, identifier }: LauncerProps) {
+export function Launcher({ client, onLogout, identifier, accounts, onSwitchAccount, onDeleteAccount, onAddAccount }: LauncerProps) {
 	const navigate = useNavigate();
 	const { data } = useFetchLaunchers({ agent: client });
 
@@ -35,7 +40,14 @@ export function Launcher({ client, onLogout, identifier }: LauncerProps) {
 
 			<div className="relative z-10 flex flex-col h-full">
 				<div className="absolute top-4 right-4 z-20">
-					<UserMenuButton actor={identifier} onLogout={onLogout} />
+					<UserMenuButton
+						actor={identifier}
+						accounts={accounts}
+						onLogout={onLogout}
+						onSwitchAccount={onSwitchAccount}
+						onDeleteAccount={onDeleteAccount}
+						onAddAccount={onAddAccount}
+					/>
 				</div>
 
 				<main className="flex-1 flex items-center justify-center px-6 py-2">
