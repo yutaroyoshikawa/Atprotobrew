@@ -1,24 +1,25 @@
+import type { AtprotoDid } from "@atproto/did";
 import { useLingui } from "@lingui/react/macro";
+import { Image } from "expo-image";
 import { LogOut, PlusCircle, Trash2, User } from "lucide-react-native";
 import { useRef } from "react";
 import { Pressable, Text, View } from "react-native";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 import ReanimatedSwipeable, {
   type SwipeableMethods,
 } from "react-native-gesture-handler/ReanimatedSwipeable";
 import { atoms as a } from "../../../styles/alf";
 import { useThemeColors } from "../../../styles/theme";
 import type { StoredAccount } from "../../account/types";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { useUserProfile } from "../modules/useUserProfile";
-import { Image } from "expo-image";
 
 interface UserMenuItemsProps {
   accounts: StoredAccount[];
-  activeDid: string;
-  onSwitchAccount: (did: string) => void | Promise<void>;
+  activeDid: AtprotoDid;
+  onSwitchAccount: (did: AtprotoDid) => void | Promise<void>;
   onAddAccount: () => void;
   onLogout: () => void | Promise<void>;
-  onDeleteAccount: (did: string) => void | Promise<void>;
+  onDeleteAccount: (did: AtprotoDid) => void | Promise<void>;
   onDismiss: () => void;
   onNavigateToProfile?: () => void;
 }
@@ -137,7 +138,7 @@ export function UserMenuItems({
   );
   const divider = { borderBottomWidth: 1, borderBottomColor: tc.bgContrast25 };
 
-  const handleSwitch = async (did: string) => {
+  const handleSwitch = async (did: AtprotoDid) => {
     onDismiss();
     await onSwitchAccount(did);
   };

@@ -2,7 +2,6 @@ import { atoms as a } from "@atprotobrew/common/alf";
 import { AppButton } from "@atprotobrew/common/core/components/AppButton";
 import { AtprotobrewLogoType } from "@atprotobrew/common/core/components/AtprotobrewLogoType";
 import { AtprotobrewMascot } from "@atprotobrew/common/core/components/AtprotobrewMascot";
-import { BubbleBackground } from "@atprotobrew/common/core/components/Background";
 import { LanguageToggle } from "@atprotobrew/common/core/components/LanguageToggle";
 import {
   ThemeToggle,
@@ -29,7 +28,7 @@ function Home() {
 
   return (
     <View>
-      <BubbleBackground />
+      {/* <BubbleBackground /> */}
 
       <View style={[a.h_full, a.w_full, a.justify_center, a.px_4]}>
         <View

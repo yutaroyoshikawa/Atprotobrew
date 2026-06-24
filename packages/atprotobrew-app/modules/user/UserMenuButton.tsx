@@ -19,8 +19,8 @@ interface UserMenuButtonProps {
   did: AtprotoDid;
   accounts: StoredAccount[];
   onLogout: () => void | Promise<void>;
-  onSwitchAccount: (did: string) => void | Promise<void>;
-  onDeleteAccount: (did: string) => void | Promise<void>;
+  onSwitchAccount: (did: AtprotoDid) => void | Promise<void>;
+  onDeleteAccount: (did: AtprotoDid) => void | Promise<void>;
 }
 
 export function UserMenuButton({

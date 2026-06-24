@@ -1,8 +1,11 @@
+import type { AtprotoDid } from "@atproto/did";
 import type { StoreItemView } from "@atprotobrew/atproto/lexicons/org/tarororo/brew/defs.defs";
 import { atom } from "jotai";
-import { atomFamily, atomWithStorage } from "jotai/utils";
+import { atomWithStorage } from "jotai/utils";
+import { atomFamily } from "jotai-family";
 import type { SyncStorage } from "jotai/vanilla/utils/atomWithStorage";
 import { MMKV } from "react-native-mmkv";
+import { activeDidAtom } from "../account/accountStoreAtoms";
 import {
   buildCommitted,
   moveItem,
@@ -36,9 +39,6 @@ const persistedStorage: SyncStorage<PersistedLayoutV1 | null> = {
     launcherMmkv.delete(key);
   },
 };
-
-/** アクティブな DID。AuthProvider が切り替え時に set する。 */
-export const activeDidAtom = atom<string | null>(null);
 
 /** DID ごとのレイアウト永続 atom。 */
 export const persistedLayoutAtomFamily = atomFamily((did: string) =>
@@ -138,19 +138,7 @@ export const moveItemAtom = atom(
 // ---- account lifecycle utilities ----
 
 /** アカウント削除時に MMKV キーと atomFamily キャッシュを消去する。 */
-export function removeLauncherLayout(did: string): void {
+export function removeLauncherLayout(did: AtprotoDid): void {
   persistedLayoutAtomFamily.remove(did);
   launcherMmkv.delete(`launcher.layout.${did}`);
-}
-
-/** 旧フォーマット（`launcher.layout`）から DID スコープキーへのワンタイム移行。 */
-export function migrateLauncherLayout(did: string): void {
-  const existingLayout = launcherMmkv.getString("launcher.layout");
-
-  if (!existingLayout) {
-    return;
-  }
-
-  launcherMmkv.set(`launcher.layout.${did}`, existingLayout);
-  launcherMmkv.delete("launcher.layout");
 }

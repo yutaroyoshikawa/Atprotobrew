@@ -1,167 +1,105 @@
 import type { AtprotoDid, OAuthSession } from "@atproto/oauth-client-expo";
 import type { StoredAccount } from "@atprotobrew/common/account/types";
 import {
-  ACCOUNT_STORE_KEY_MOBILE,
-  useAccountStore,
-} from "@atprotobrew/common/account/useAccountStore";
-import {
+  accountsAtom,
   activeDidAtom,
+  addAccountAtom,
+  isAccountStoreHydratedAtom,
+  removeAccountAtom,
+  setActiveDidAtom,
+} from "@atprotobrew/common/account/accountStoreAtoms";
+import {
   draftAtom,
-  migrateLauncherLayout,
   perPageAtom,
   removeLauncherLayout,
   storeViewsAtom,
 } from "@atprotobrew/common/launcher/launcherStore";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useQueryClient } from "@tanstack/react-query";
-import { useStore } from "jotai";
-import { useEffect, useRef, useState } from "react";
+import { useAtomValue, useStore } from "jotai";
+import { useEffect, useEffectEvent, useRef, useState } from "react";
 import {
   DEFAULT_HANDLE_RESOLVER,
   getExpoOAuthClient,
   onSessionDeleted,
 } from "./client";
 
-const OLD_AUTH_DID_KEY = "@atprotobrew/auth_did";
-const OLD_AUTH_RESOLVER_KEY = "@atprotobrew/auth_handle_resolver";
-
 export type AuthState =
   | { status: "loading" }
   | { status: "unauthenticated" }
   | { status: "switching" }
-  | { status: "authenticated"; session: OAuthSession; sub: AtprotoDid };
-
-function isAtprotoDid(value: string): value is AtprotoDid {
-  return value.startsWith("did:");
-}
-
-const asyncStorageAdapter = {
-  get: (key: string) => AsyncStorage.getItem(key),
-  set: (key: string, value: string) => AsyncStorage.setItem(key, value),
-  remove: (key: string) => AsyncStorage.removeItem(key),
-};
-
-async function runMigration(
-  existingRaw: string | null,
-): Promise<string | null> {
-  if (existingRaw !== null) {
-    return existingRaw;
-  }
-
-  const [[, oldDid], [, oldResolver]] = await AsyncStorage.multiGet([
-    OLD_AUTH_DID_KEY,
-    OLD_AUTH_RESOLVER_KEY,
-  ]);
-
-  if (!oldDid || !isAtprotoDid(oldDid)) {
-    return null;
-  }
-
-  migrateLauncherLayout(oldDid);
-
-  const now = Date.now();
-  const initialState = {
-    accounts: [
-      {
-        did: oldDid,
-        handle: oldDid,
-        handleResolver: oldResolver ?? DEFAULT_HANDLE_RESOLVER,
-        addedAt: now,
-        lastUsedAt: now,
-      },
-    ],
-    activeDid: oldDid,
-  };
-
-  await AsyncStorage.multiRemove([OLD_AUTH_DID_KEY, OLD_AUTH_RESOLVER_KEY]);
-
-  return JSON.stringify(initialState);
-}
+  | { status: "authenticated"; session: OAuthSession; did: AtprotoDid };
 
 export function useAuth() {
   const [authState, setAuthState] = useState<AuthState>({ status: "loading" });
   const sessionRef = useRef<OAuthSession | null>(null);
 
   const queryClient = useQueryClient();
-  const jotaiStore = useStore();
+  const store = useStore();
 
-  const accountStore = useAccountStore(
-    asyncStorageAdapter,
-    ACCOUNT_STORE_KEY_MOBILE,
-    runMigration,
+  const isHydrated = useAtomValue(isAccountStoreHydratedAtom);
+  const accounts = useAtomValue(accountsAtom);
+  const activeDid = useAtomValue(activeDidAtom);
+
+  const handleSessionDeleted = useEffectEvent((sub: AtprotoDid) => {
+    if (sessionRef.current?.sub !== sub) {
+      return;
+    }
+
+    sessionRef.current = null;
+    store.set(setActiveDidAtom, null);
+    setAuthState({ status: "unauthenticated" });
+  });
+
+  useEffect(() => onSessionDeleted(handleSessionDeleted), []);
+
+  const resolveHandleResolver = useEffectEvent(
+    (did: AtprotoDid) =>
+      store.get(accountsAtom).find((a) => a.did === did)?.handleResolver ??
+      DEFAULT_HANDLE_RESOLVER,
   );
 
+  const onRestoreSuccess = useEffectEvent(
+    (did: AtprotoDid, session: OAuthSession) => {
+      sessionRef.current = session;
+      setAuthState({ status: "authenticated", session, did: session.did });
+    },
+  );
+
+  const onRestoreError = useEffectEvent((did: AtprotoDid) => {
+    store.set(removeAccountAtom, did);
+    setAuthState({ status: "unauthenticated" });
+  });
+
   useEffect(() => {
-    if (accountStore.isLoading) {
+    if (!isHydrated) {
+      return;
+    }
+
+    if (!activeDid) {
+      setAuthState({ status: "unauthenticated" });
       return;
     }
 
     let cancelled = false;
-
-    const unsubscribe = onSessionDeleted((sub: AtprotoDid) => {
-      if (sessionRef.current?.sub !== sub) {
-        return;
-      }
-
-      sessionRef.current = null;
-      accountStore.setActiveDid(null).catch(() => {});
-      setAuthState({ status: "unauthenticated" });
-    });
-
-    const { activeDid } = accountStore;
-
-    if (!activeDid) {
-      setAuthState({ status: "unauthenticated" });
-
-      return () => {
-        cancelled = true;
-        unsubscribe();
-      };
-    }
-
-    const activeAccount = accountStore.accounts.find(
-      (a) => a.did === activeDid,
-    );
-    const handleResolver =
-      activeAccount?.handleResolver ?? DEFAULT_HANDLE_RESOLVER;
-    const oauthClient = getExpoOAuthClient(handleResolver);
-
-    jotaiStore.set(activeDidAtom, activeDid);
+    const oauthClient = getExpoOAuthClient(resolveHandleResolver(activeDid));
 
     oauthClient
       .restore(activeDid)
       .then((session: OAuthSession) => {
-        if (cancelled) {
-          return;
+        if (!cancelled) {
+          onRestoreSuccess(activeDid, session);
         }
-
-        sessionRef.current = session;
-        accountStore.updateHandle(activeDid, session.sub).catch(() => {});
-        setAuthState({ status: "authenticated", session, sub: session.sub });
       })
-      .catch(async () => {
-        if (cancelled) {
-          return;
+      .catch(() => {
+        if (!cancelled) {
+          onRestoreError(activeDid);
         }
-
-        await accountStore.removeAccount(activeDid).catch(() => {});
-        jotaiStore.set(activeDidAtom, null);
-        setAuthState({ status: "unauthenticated" });
       });
 
     return () => {
       cancelled = true;
-      unsubscribe();
     };
-  }, [
-    accountStore.isLoading,
-    accountStore.removeAccount,
-    accountStore.setActiveDid,
-    accountStore.updateHandle,
-    accountStore.accounts.find,
-    jotaiStore.set,
-    accountStore,
-  ]);
+  }, [isHydrated, activeDid]);
 
   const login = async (
     handle: string,
@@ -179,12 +117,11 @@ export function useAuth() {
       lastUsedAt: now,
     };
 
-    await accountStore.addAccount(account);
-    await accountStore.setActiveDid(session.sub);
+    store.set(addAccountAtom, account);
+    store.set(setActiveDidAtom, session.did);
 
-    jotaiStore.set(activeDidAtom, session.sub);
     sessionRef.current = session;
-    setAuthState({ status: "authenticated", session, sub: session.sub });
+    setAuthState({ status: "authenticated", session, did: session.did });
   };
 
   const logout = async (): Promise<void> => {
@@ -197,19 +134,17 @@ export function useAuth() {
     }
 
     sessionRef.current = null;
-
-    await accountStore.setActiveDid(null).catch(() => {});
-    jotaiStore.set(activeDidAtom, null);
+    store.set(setActiveDidAtom, null);
     setAuthState({ status: "unauthenticated" });
   };
 
-  const switchAccount = async (targetDid: string): Promise<void> => {
+  const switchAccount = async (targetDid: AtprotoDid): Promise<void> => {
     if (authState.status === "switching") {
       return;
     }
 
     const currentDid =
-      authState.status === "authenticated" ? authState.sub : null;
+      authState.status === "authenticated" ? authState.did : null;
 
     if (targetDid === currentDid) {
       return;
@@ -220,38 +155,36 @@ export function useAuth() {
     await queryClient.cancelQueries();
     queryClient.clear();
 
-    jotaiStore.set(draftAtom, null);
-    jotaiStore.set(storeViewsAtom, []);
-    jotaiStore.set(perPageAtom, 0);
-    jotaiStore.set(activeDidAtom, targetDid);
+    store.set(draftAtom, null);
+    store.set(storeViewsAtom, []);
+    store.set(perPageAtom, 0);
 
-    const targetAccount = accountStore.accounts.find(
-      (a) => a.did === targetDid,
-    );
+    const targetAccount = store
+      .get(accountsAtom)
+      .find((a) => a.did === targetDid);
     const handleResolver =
       targetAccount?.handleResolver ?? DEFAULT_HANDLE_RESOLVER;
     const oauthClient = getExpoOAuthClient(handleResolver);
 
     try {
-      const session = await oauthClient.restore(targetDid);
+      const session: OAuthSession = await oauthClient.restore(targetDid);
 
-      await accountStore.setActiveDid(targetDid);
+      store.set(setActiveDidAtom, targetDid);
 
       sessionRef.current = session;
-      setAuthState({ status: "authenticated", session, sub: session.sub });
+      setAuthState({ status: "authenticated", session, did: session.did });
     } catch {
-      await accountStore.removeAccount(targetDid).catch(() => {});
-      jotaiStore.set(activeDidAtom, currentDid);
+      store.set(removeAccountAtom, targetDid);
       setAuthState({ status: "unauthenticated" });
     }
   };
 
-  const deleteAccount = async (targetDid: string): Promise<void> => {
+  const deleteAccount = async (targetDid: AtprotoDid): Promise<void> => {
     setAuthState({ status: "switching" });
 
-    const targetAccount = accountStore.accounts.find(
-      (a) => a.did === targetDid,
-    );
+    const targetAccount = store
+      .get(accountsAtom)
+      .find((a) => a.did === targetDid);
     const handleResolver =
       targetAccount?.handleResolver ?? DEFAULT_HANDLE_RESOLVER;
 
@@ -265,23 +198,22 @@ export function useAuth() {
     }
 
     removeLauncherLayout(targetDid);
-    await accountStore.removeAccount(targetDid);
+    store.set(removeAccountAtom, targetDid);
 
-    const remaining = accountStore.accounts.filter((a) => a.did !== targetDid);
+    const remaining = store.get(accountsAtom);
     const next = [...remaining].sort((a, b) => b.lastUsedAt - a.lastUsedAt)[0];
 
-    if (next) {
+    if (next && next.did) {
       await switchAccount(next.did);
     } else {
       sessionRef.current = null;
-      jotaiStore.set(activeDidAtom, null);
       setAuthState({ status: "unauthenticated" });
     }
   };
 
   return {
     authState,
-    accounts: accountStore.accounts,
+    accounts,
     login,
     logout,
     switchAccount,

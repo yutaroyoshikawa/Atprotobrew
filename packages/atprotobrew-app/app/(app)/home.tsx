@@ -1,3 +1,4 @@
+import type { AtprotoDid } from "@atproto/did";
 import type { OAuthSession } from "@atproto/oauth-client-expo";
 import type { StoredAccount } from "@atprotobrew/common/account/types";
 import { atoms as a } from "@atprotobrew/common/alf";
@@ -35,8 +36,8 @@ interface HomeScreenContentProps {
   session: OAuthSession;
   accounts: StoredAccount[];
   logout: () => Promise<void>;
-  switchAccount: (did: string) => Promise<void>;
-  deleteAccount: (did: string) => Promise<void>;
+  switchAccount: (did: AtprotoDid) => Promise<void>;
+  deleteAccount: (did: AtprotoDid) => Promise<void>;
 }
 
 function HomeScreenContent({
@@ -59,7 +60,7 @@ function HomeScreenContent({
       </View>
 
       <UserMenuButton
-        did={session.sub}
+        did={session.did}
         accounts={accounts}
         onLogout={logout}
         onSwitchAccount={switchAccount}
