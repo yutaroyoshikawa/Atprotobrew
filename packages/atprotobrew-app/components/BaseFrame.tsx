@@ -2,57 +2,45 @@
 import type React from "react";
 import { useEffect } from "react";
 import { StyleSheet, View } from "react-native";
-import Animated, {
-  Easing,
-  useAnimatedStyle,
-  useSharedValue,
-  withSpring,
-  withTiming,
-} from "react-native-reanimated";
+import Animated, { Easing, useAnimatedStyle, useSharedValue, withSpring, withTiming } from "react-native-reanimated";
 import Svg, { Path } from "react-native-svg";
 
 const AnimatedSvg = Animated.createAnimatedComponent(Svg);
 
 interface BaseFrameProps {
-  children?: React.ReactNode;
-  width: number; // 必須 props に変更
-  height: number; // 必須 props に変更
-  baseWidth?: number;
-  baseHeight?: number;
+	children?: React.ReactNode;
+	width: number; // 必須 props に変更
+	height: number; // 必須 props に変更
+	baseWidth?: number;
+	baseHeight?: number;
 }
 
-export const BaseFrame: React.FC<BaseFrameProps> = ({
-  children,
-  width,
-  height,
-  baseWidth = 393,
-  baseHeight = 852,
-}) => {
-  const scale = useSharedValue(1.15);
-  const opacity = useSharedValue(0);
+export const BaseFrame: React.FC<BaseFrameProps> = ({ children, width, height, baseWidth = 393, baseHeight = 852 }) => {
+	const scale = useSharedValue(1.15);
+	const opacity = useSharedValue(0);
 
-  useEffect(() => {
-    scale.value = withSpring(1, {
-      damping: 14,
-      stiffness: 90,
-      mass: 0.8,
-    });
+	useEffect(() => {
+		scale.value = withSpring(1, {
+			damping: 14,
+			stiffness: 90,
+			mass: 0.8,
+		});
 
-    opacity.value = withTiming(1, {
-      duration: 600,
-      easing: Easing.out(Easing.quad),
-    });
-  }, [width, height]); // サイズ変更時にも追従
+		opacity.value = withTiming(1, {
+			duration: 600,
+			easing: Easing.out(Easing.quad),
+		});
+	}, [opacity, scale]); // サイズ変更時にも追従
 
-  const animatedStyle = useAnimatedStyle(() => {
-    return {
-      transform: [{ scale: scale.value }],
-      opacity: opacity.value,
-    };
-  });
+	const animatedStyle = useAnimatedStyle(() => {
+		return {
+			transform: [{ scale: scale.value }],
+			opacity: opacity.value,
+		};
+	});
 
-  // 渡された width と height を使って動的にパスを生成
-  const framePath = `
+	// 渡された width と height を使って動的にパスを生成
+	const framePath = `
     M 0 0 
     H ${width} 
     V ${height} 
@@ -66,34 +54,34 @@ export const BaseFrame: React.FC<BaseFrameProps> = ({
     Z
   `;
 
-  return (
-    <View style={[styles.container, { width, height }]}>
-      {/* 1. 内側のメインコンテンツエリア */}
-      <View style={styles.contentContainer}>{children}</View>
+	return (
+		<View style={[styles.container, { width, height }]}>
+			{/* 1. 内側のメインコンテンツエリア */}
+			<View style={styles.contentContainer}>{children}</View>
 
-      {/* 2. アニメーションフレーム */}
-      <AnimatedSvg
-        width={width}
-        height={height}
-        viewBox={`0 0 ${baseWidth} ${baseHeight}`}
-        style={[StyleSheet.absoluteFill, animatedStyle]}
-        pointerEvents="box-none"
-      >
-        <Path d={framePath} fill="#FFF" />
-      </AnimatedSvg>
-    </View>
-  );
+			{/* 2. アニメーションフレーム */}
+			<AnimatedSvg
+				width={width}
+				height={height}
+				viewBox={`0 0 ${baseWidth} ${baseHeight}`}
+				style={[StyleSheet.absoluteFill, animatedStyle]}
+				pointerEvents="box-none"
+			>
+				<Path d={framePath} fill="#FFF" />
+			</AnimatedSvg>
+		</View>
+	);
 };
 
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: "#0A192F", // アルファ（alf）の背景色があればそちらに差し替えてもOKです
-  },
-  contentContainer: {
-    flex: 1,
-    paddingTop: 30,
-    paddingHorizontal: 30,
-    paddingBottom: 130, // 下部の凹みとボタンを避けるスペース
-    overflow: "hidden",
-  },
+	container: {
+		backgroundColor: "#0A192F", // アルファ（alf）の背景色があればそちらに差し替えてもOKです
+	},
+	contentContainer: {
+		flex: 1,
+		paddingTop: 30,
+		paddingHorizontal: 30,
+		paddingBottom: 130, // 下部の凹みとボタンを避けるスペース
+		overflow: "hidden",
+	},
 });
