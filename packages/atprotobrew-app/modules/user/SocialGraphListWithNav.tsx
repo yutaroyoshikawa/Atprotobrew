@@ -1,3 +1,4 @@
+import type { AtprotoDid } from "@atproto/did";
 import type { Agent } from "@atproto/lex";
 import { atoms as a } from "@atprotobrew/common/alf";
 import { SocialGraphList } from "@atprotobrew/common/user/components/SocialGraphList";
@@ -7,7 +8,7 @@ import { View } from "react-native";
 interface SocialGraphListWithNavProps {
 	actor: string;
 	agent: Agent;
-	currentUserDid: string;
+	currentUserDid: AtprotoDid;
 	initialTab?: "follows" | "followers";
 }
 

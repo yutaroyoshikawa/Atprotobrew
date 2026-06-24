@@ -1,3 +1,4 @@
+import type { AtprotoDid } from "@atproto/did";
 import type { AtIdentifierString, Client } from "@atproto/lex";
 import type { StoredAccount } from "@atprotobrew/common/account/types";
 import { InstalledChannelTile } from "@atprotobrew/common/channel/components/InstalledChannelTile";
@@ -17,12 +18,20 @@ interface LauncerProps {
 	client: Client;
 	identifier: AtIdentifierString;
 	accounts: StoredAccount[];
-	onSwitchAccount: (did: string) => Promise<void>;
-	onDeleteAccount: (did: string) => Promise<void>;
+	onSwitchAccount: (did: AtprotoDid) => Promise<void>;
+	onDeleteAccount: (did: AtprotoDid) => Promise<void>;
 	onAddAccount: () => void;
 }
 
-export function Launcher({ client, onLogout, identifier, accounts, onSwitchAccount, onDeleteAccount, onAddAccount }: LauncerProps) {
+export function Launcher({
+	client,
+	onLogout,
+	identifier,
+	accounts,
+	onSwitchAccount,
+	onDeleteAccount,
+	onAddAccount,
+}: LauncerProps) {
 	const navigate = useNavigate();
 	const { data } = useFetchLaunchers({ agent: client });
 

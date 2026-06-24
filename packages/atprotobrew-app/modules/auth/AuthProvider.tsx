@@ -1,3 +1,4 @@
+import type { AtprotoDid } from "@atproto/did";
 import type { StoredAccount } from "@atprotobrew/common/account/types";
 import type { ReactNode } from "react";
 import { createContext, useContext } from "react";
@@ -9,8 +10,8 @@ interface AuthContextValue {
 	accounts: StoredAccount[];
 	login: (handle: string, handleResolver: string) => Promise<void>;
 	logout: () => Promise<void>;
-	switchAccount: (did: string) => Promise<void>;
-	deleteAccount: (did: string) => Promise<void>;
+	switchAccount: (did: AtprotoDid) => Promise<void>;
+	deleteAccount: (did: AtprotoDid) => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextValue | null>(null);

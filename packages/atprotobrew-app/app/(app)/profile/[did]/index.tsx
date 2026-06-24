@@ -18,17 +18,25 @@ export default function ProfileScreen() {
 		return null;
 	}
 
-	const isOwnProfile = did === authState.session.sub;
+	const isOwnProfile = did === authState.session.did;
 
 	return (
 		<View style={[a.h_full, a.w_full]}>
 			<UserProfileView
 				actor={did}
 				agent={authState.session}
-				currentUserDid={authState.session.sub}
-				onNavigateToFollows={() => router.push({ pathname: "/(app)/profile/[did]/follows", params: { did } })}
+				currentUserDid={authState.session.did}
+				onNavigateToFollows={() =>
+					router.push({
+						pathname: "/(app)/profile/[did]/follows",
+						params: { did },
+					})
+				}
 				onNavigateToFollowers={() =>
-					router.push({ pathname: "/(app)/profile/[did]/followers", params: { did } })
+					router.push({
+						pathname: "/(app)/profile/[did]/followers",
+						params: { did },
+					})
 				}
 				onEditProfile={isOwnProfile ? () => sheetRef.current?.open() : undefined}
 			/>

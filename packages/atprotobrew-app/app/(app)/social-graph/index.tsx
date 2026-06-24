@@ -12,7 +12,7 @@ function Screen() {
 		<SocialGraphListWithNav
 			actor={authState.session.sub}
 			agent={authState.session}
-			currentUserDid={authState.session.sub}
+			currentUserDid={authState.session.did}
 		/>
 	);
 }

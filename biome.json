@@ -10,7 +10,8 @@
 			"!**/lexicons/**/*.ts",
 			"!**/lexicons/**/*.json",
 			"!**/tokens/build/**/*.ts",
-			"!**/tokens/build/**/*.css"
+			"!**/tokens/build/**/*.css",
+			"!**/storybook.requires.ts"
 		]
 	},
 	"linter": {

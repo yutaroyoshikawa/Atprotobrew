@@ -1,3 +1,4 @@
+import type { AtprotoDid } from "@atproto/did";
 import type { StoredAccount } from "@atprotobrew/common/account/types";
 import { useUserProfile } from "@atprotobrew/common/user/modules/useUserProfile";
 import { LogOut, PlusCircle, Trash2, User } from "lucide-react";
@@ -8,8 +9,8 @@ interface UserMenuButtonProps {
 	actor: string;
 	accounts: StoredAccount[];
 	onLogout: () => void | Promise<void>;
-	onSwitchAccount: (did: string) => void | Promise<void>;
-	onDeleteAccount: (did: string) => void | Promise<void>;
+	onSwitchAccount: (did: AtprotoDid) => void | Promise<void>;
+	onDeleteAccount: (did: AtprotoDid) => void | Promise<void>;
 	onAddAccount: () => void;
 }
 
@@ -21,6 +22,9 @@ interface AccountItemProps {
 }
 
 function AccountItem({ account, isActive, onClick, onDelete }: AccountItemProps) {
+	const { data: profile } = useUserProfile(account.did);
+	const displayHandle = profile?.handle ?? account.handle ?? account.did;
+
 	return (
 		<div className="group flex items-center w-full">
 			<button
@@ -30,7 +34,7 @@ function AccountItem({ account, isActive, onClick, onDelete }: AccountItemProps)
 				className="flex items-center gap-3 flex-1 min-w-0 px-4 py-3 text-left text-text hover:bg-bgContrast50 transition-colors cursor-pointer"
 			>
 				<div className="w-7 h-7 rounded-full bg-bgContrast50 shrink-0" />
-				<span className={`text-sm flex-1 truncate ${isActive ? "font-semibold" : ""}`}>{account.handle}</span>
+				<span className={`text-sm flex-1 truncate ${isActive ? "font-semibold" : ""}`}>{displayHandle}</span>
 				{isActive && <span className="w-2 h-2 rounded-full bg-text shrink-0" />}
 			</button>
 
@@ -119,12 +123,12 @@ export function UserMenuButton({
 		return () => document.removeEventListener("mousedown", handleMouseDown);
 	}, [isOpen]);
 
-	const handleSwitch = async (did: string) => {
+	const handleSwitch = async (did: AtprotoDid) => {
 		close();
 		await onSwitchAccount(did);
 	};
 
-	const handleDelete = async (did: string) => {
+	const handleDelete = async (did: AtprotoDid) => {
 		close();
 		await onDeleteAccount(did);
 	};
@@ -155,7 +159,7 @@ export function UserMenuButton({
 				) : (
 					<div className="w-7 h-7 rounded-full bg-bgContrast50 shrink-0" />
 				)}
-				<span className="text-sm font-medium text-text max-w-[100px] truncate">{label}</span>
+				<span className="text-sm font-medium text-text max-w-25 truncate">{label}</span>
 			</button>
 
 			{isOpen && (
@@ -163,7 +167,7 @@ export function UserMenuButton({
 					id={menuId}
 					ref={menuRef}
 					role="menu"
-					className="absolute top-full right-0 mt-1 bg-bgContrast25 rounded-xl shadow-lg py-1 min-w-[200px] z-50"
+					className="absolute top-full right-0 mt-1 bg-bgContrast25 rounded-xl shadow-lg py-1 min-w-50 z-50"
 				>
 					{/* アカウント一覧 (ホバーで削除ボタンを表示) */}
 					<div className="border-b border-bgContrast50">

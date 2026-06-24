@@ -14,7 +14,7 @@ export default function FollowersScreen() {
 		<SocialGraphListWithNav
 			actor={did}
 			agent={authState.session}
-			currentUserDid={authState.session.sub}
+			currentUserDid={authState.session.did}
 			initialTab="followers"
 		/>
 	);

@@ -1,1 +1,4 @@
-/*eslint-disable*/import type{Messages}from"@lingui/core";export const messages=JSON.parse("{\"0VdcHu\":[\"ストア\"],\"0bJfxt\":[\"フォロワー\"],\"EFMoxH\":[\"他のデバイスで更新されました。一度閉じて再度開いてください。\"],\"Ew-rFW\":[\"プロフィール\"],\"H5yoYW\":[\"リダイレクト中…\"],\"K4Lx_J\":[\"保存に失敗しました。もう一度お試しください。\"],\"LvqbX6\":[\"キャンセル\"],\"XuEB3O\":[\"フォロー中\"],\"__xQFq\":[\"画像が大きすぎます。別の画像を選んでください。\"],\"_l7ZiB\":[\"チャンネル\"],\"i_H4mI\":[\"ログイン\"],\"jBG25x\":[\"保存\"],\"lZVy2y\":[\"このチャンネルについて\"],\"oPNSBX\":[\"AT Protocol サービスランチャー\"],\"wKj0zc\":[\"設定\"],\"yhHgFl\":[\"ソーシャルグラフ\"]}")as Messages;
+/*eslint-disable*/ import type { Messages } from "@lingui/core";
+export const messages = JSON.parse(
+	'{"0VdcHu":["ストア"],"0bJfxt":["フォロワー"],"EFMoxH":["他のデバイスで更新されました。一度閉じて再度開いてください。"],"Ew-rFW":["プロフィール"],"H5yoYW":["リダイレクト中…"],"K4Lx_J":["保存に失敗しました。もう一度お試しください。"],"LvqbX6":["キャンセル"],"XuEB3O":["フォロー中"],"__xQFq":["画像が大きすぎます。別の画像を選んでください。"],"_l7ZiB":["チャンネル"],"i_H4mI":["ログイン"],"jBG25x":["保存"],"lZVy2y":["このチャンネルについて"],"oPNSBX":["AT Protocol サービスランチャー"],"wKj0zc":["設定"],"yhHgFl":["ソーシャルグラフ"]}',
+) as Messages;

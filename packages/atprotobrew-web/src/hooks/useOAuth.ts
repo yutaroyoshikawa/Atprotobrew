@@ -1,306 +1,280 @@
+import { type AtIdentifierString, asAtIdentifierString, Client } from "@atproto/lex";
+import type { AtprotoDid, OAuthSession } from "@atproto/oauth-client-browser";
 import {
-  type AtIdentifierString,
-  Client,
-  asAtIdentifierString,
-} from "@atproto/lex";
-import type { OAuthSession } from "@atproto/oauth-client-browser";
-import {
-  ACCOUNT_STORE_KEY_WEB,
-  useAccountStore,
-} from "@atprotobrew/common/account/useAccountStore";
+	accountsAtom,
+	activeDidAtom,
+	addAccountAtom,
+	removeAccountAtom,
+	setActiveDidAtom,
+} from "@atprotobrew/common/account/accountStoreAtoms.web";
 import { useQueryClient } from "@tanstack/react-query";
+import { useAtomValue, useStore } from "jotai";
 import { useEffect, useRef, useState } from "react";
-import {
-  DEFAULT_HANDLE_RESOLVER,
-  getOAuthClient,
-  onSessionDeleted,
-} from "./useOAuthClient";
+import { DEFAULT_HANDLE_RESOLVER, getOAuthClient, onSessionDeleted } from "./useOAuthClient";
 
 export type AuthState =
-  | { status: "loading" }
-  | { status: "unauthenticated" }
-  | { status: "switching" }
-  | {
-      status: "authenticated";
-      client: Client;
-      session: OAuthSession;
-      identifier: AtIdentifierString;
-    };
-
-const localStorageAdapter = {
-  get: (key: string) => Promise.resolve(localStorage.getItem(key)),
-  set: (key: string, value: string) =>
-    Promise.resolve(localStorage.setItem(key, value)),
-  remove: (key: string) => Promise.resolve(localStorage.removeItem(key)),
-};
+	| { status: "loading" }
+	| { status: "unauthenticated" }
+	| { status: "switching" }
+	| {
+			status: "authenticated";
+			client: Client;
+			session: OAuthSession;
+			identifier: AtIdentifierString;
+	  };
 
 const OLD_RESOLVER_KEY = "atprotobrew:handleResolver";
 
-async function runMigration(
-  existingRaw: string | null,
-): Promise<string | null> {
-  if (existingRaw !== null) {
-    return existingRaw;
-  }
-
-  // 旧フォーマットの resolver を読む（handleResolver だけ分かる段階）
-  const oldResolver =
-    localStorage.getItem(OLD_RESOLVER_KEY) ?? DEFAULT_HANDLE_RESOLVER;
-
-  // OAuth callback があれば init() で DID が取れる
-  const oauthClient = await getOAuthClient(oldResolver);
-  const result = await oauthClient.init();
-
-  if (!result?.session) {
-    // セッション復元不可 → 旧データを残したまま何もしない
-    return null;
-  }
-
-  const did = result.session.sub;
-  const now = Date.now();
-  const initialState = {
-    accounts: [
-      {
-        did,
-        handle: did,
-        handleResolver: oldResolver,
-        addedAt: now,
-        lastUsedAt: now,
-      },
-    ],
-    activeDid: did,
-  };
-
-  localStorage.removeItem(OLD_RESOLVER_KEY);
-
-  return JSON.stringify(initialState);
-}
-
 function buildClient(session: OAuthSession): Client {
-  return new Client(session, { service: "did:web:brew.tarororo.org#brew_api" });
+	return new Client(session, { service: "did:web:brew.tarororo.org#brew_api" });
 }
 
 export function useOAuth() {
-  const [authState, setAuthState] = useState<AuthState>({ status: "loading" });
-  const sessionRef = useRef<OAuthSession | null>(null);
+	const [authState, setAuthState] = useState<AuthState>({ status: "loading" });
+	const sessionRef = useRef<OAuthSession | null>(null);
 
-  const queryClient = useQueryClient();
-  const accountStore = useAccountStore(
-    localStorageAdapter,
-    ACCOUNT_STORE_KEY_WEB,
-    runMigration,
-  );
+	const queryClient = useQueryClient();
+	const store = useStore();
 
-  useEffect(() => {
-    if (accountStore.isLoading) {
-      return;
-    }
+	const accounts = useAtomValue(accountsAtom);
 
-    let cancelled = false;
+	useEffect(() => {
+		let cancelled = false;
 
-    const unsubscribe = onSessionDeleted(() => {
-      sessionRef.current = null;
-      accountStore.setActiveDid(null).catch(() => {});
-      setAuthState({ status: "unauthenticated" });
-    });
+		const unsubscribe = onSessionDeleted(() => {
+			sessionRef.current = null;
+			store.set(setActiveDidAtom, null);
+			setAuthState({ status: "unauthenticated" });
+		});
 
-    const { activeDid } = accountStore;
+		const init = async () => {
+			// One-time migration: if store is empty and old resolver key exists, try
+			// to recover the session via an OAuth init call.
+			const currentAccounts = store.get(accountsAtom);
+			const oldResolver = localStorage.getItem(OLD_RESOLVER_KEY);
 
-    if (!activeDid) {
-      setAuthState({ status: "unauthenticated" });
+			if (currentAccounts.length === 0 && oldResolver) {
+				try {
+					const oauthClient = await getOAuthClient(oldResolver);
+					const result = await oauthClient.init();
 
-      return () => {
-        cancelled = true;
-        unsubscribe();
-      };
-    }
+					if (result?.session && !cancelled) {
+						const did = result.session.sub;
+						const now = Date.now();
 
-    const activeAccount = accountStore.accounts.find(
-      (a) => a.did === activeDid,
-    );
-    const handleResolver =
-      activeAccount?.handleResolver ?? DEFAULT_HANDLE_RESOLVER;
+						store.set(addAccountAtom, {
+							did,
+							handle: did,
+							handleResolver: oldResolver,
+							addedAt: now,
+							lastUsedAt: now,
+						});
+						store.set(setActiveDidAtom, did);
+						localStorage.removeItem(OLD_RESOLVER_KEY);
 
-    getOAuthClient(handleResolver)
-      .then(async (oauthClient) => {
-        // まず OAuth callback を処理する（リダイレクト戻り）
-        const initResult = await oauthClient.init();
+						sessionRef.current = result.session;
+						const client = buildClient(result.session);
 
-        if (cancelled) {
-          return;
-        }
+						setAuthState({
+							status: "authenticated",
+							client,
+							session: result.session,
+							identifier: asAtIdentifierString(did),
+						});
 
-        if (initResult?.session) {
-          const did = initResult.session.did;
+						return;
+					}
+				} catch {
+					// migration failure is non-fatal; clean up the stale key
+				}
 
-          // 新規アカウントの場合はストアに追加してアクティブ化
-          if (!accountStore.accounts.some((a) => a.did === did)) {
-            const now = Date.now();
-            await accountStore.addAccount({
-              did,
-              handle: did,
-              handleResolver,
-              addedAt: now,
-              lastUsedAt: now,
-            });
-          }
+				localStorage.removeItem(OLD_RESOLVER_KEY);
+			}
 
-          await accountStore.setActiveDid(did);
+			if (cancelled) {
+				return;
+			}
 
-          sessionRef.current = initResult.session;
-          const client = buildClient(initResult.session);
+			const currentActiveDid = store.get(activeDidAtom);
 
-          setAuthState({
-            status: "authenticated",
-            client,
-            session: initResult.session,
-            identifier: asAtIdentifierString(did),
-          });
+			if (!currentActiveDid) {
+				setAuthState({ status: "unauthenticated" });
+				return;
+			}
 
-          return;
-        }
+			const activeAccount = store.get(accountsAtom).find((a) => a.did === currentActiveDid);
+			const handleResolver = activeAccount?.handleResolver ?? DEFAULT_HANDLE_RESOLVER;
 
-        // callback なし → activeDid のセッションを明示的に復元
-        const session = await oauthClient.restore(activeDid);
+			try {
+				const oauthClient = await getOAuthClient(handleResolver);
 
-        if (cancelled) {
-          return;
-        }
+				// Process any pending OAuth callback redirect.
+				const initResult = await oauthClient.init();
 
-        sessionRef.current = session;
-        const client = buildClient(session);
+				if (cancelled) {
+					return;
+				}
 
-        setAuthState({
-          status: "authenticated",
-          client,
-          session,
-          identifier: asAtIdentifierString(activeDid),
-        });
-      })
-      .catch(() => {
-        if (!cancelled) {
-          accountStore.setActiveDid(null).catch(() => {});
-          setAuthState({ status: "unauthenticated" });
-        }
-      });
+				if (initResult?.session) {
+					const did = initResult.session.did;
 
-    return () => {
-      cancelled = true;
-      unsubscribe();
-    };
-  }, [
-    accountStore.isLoading,
-    accountStore.accounts.some,
-    accountStore.addAccount,
-    accountStore.accounts.find,
-    accountStore.setActiveDid,
-    accountStore,
-  ]);
+					if (!store.get(accountsAtom).some((a) => a.did === did)) {
+						const now = Date.now();
 
-  const login = async (handle: string, handleResolver: string) => {
-    const oauthClient = await getOAuthClient(handleResolver);
+						store.set(addAccountAtom, {
+							did,
+							handle: did,
+							handleResolver,
+							addedAt: now,
+							lastUsedAt: now,
+						});
+					}
 
-    // handleResolver は callback 後の migration で使えるよう sessionStorage に保存
-    sessionStorage.setItem("atprotobrew:pendingHandleResolver", handleResolver);
+					store.set(setActiveDidAtom, did);
+					sessionRef.current = initResult.session;
+					const client = buildClient(initResult.session);
 
-    await oauthClient.signInRedirect(handle);
-  };
+					setAuthState({
+						status: "authenticated",
+						client,
+						session: initResult.session,
+						identifier: asAtIdentifierString(did),
+					});
 
-  const logout = async () => {
-    const session = sessionRef.current;
+					return;
+				}
 
-    try {
-      await session?.signOut();
-    } catch {
-      // ignore errors during sign out
-    }
+				// No callback — restore existing session.
+				const session = await oauthClient.restore(currentActiveDid);
 
-    sessionRef.current = null;
-    await accountStore.setActiveDid(null).catch(() => {});
-    setAuthState({ status: "unauthenticated" });
-  };
+				if (cancelled) {
+					return;
+				}
 
-  const switchAccount = async (targetDid: string): Promise<void> => {
-    if (authState.status === "switching") {
-      return;
-    }
+				sessionRef.current = session;
+				const client = buildClient(session);
 
-    const currentDid =
-      authState.status === "authenticated" ? authState.session.sub : null;
+				setAuthState({
+					status: "authenticated",
+					client,
+					session,
+					identifier: asAtIdentifierString(currentActiveDid),
+				});
+			} catch {
+				if (!cancelled) {
+					store.set(setActiveDidAtom, null);
+					setAuthState({ status: "unauthenticated" });
+				}
+			}
+		};
 
-    if (targetDid === currentDid) {
-      return;
-    }
+		init().catch(() => {
+			if (!cancelled) {
+				setAuthState({ status: "unauthenticated" });
+			}
+		});
 
-    setAuthState({ status: "switching" });
+		return () => {
+			cancelled = true;
+			unsubscribe();
+		};
+	}, [store.get, store.set]);
 
-    await queryClient.cancelQueries();
-    queryClient.clear();
+	const login = async (handle: string, handleResolver: string) => {
+		const oauthClient = await getOAuthClient(handleResolver);
 
-    const targetAccount = accountStore.accounts.find(
-      (a) => a.did === targetDid,
-    );
-    const handleResolver =
-      targetAccount?.handleResolver ?? DEFAULT_HANDLE_RESOLVER;
+		sessionStorage.setItem("atprotobrew:pendingHandleResolver", handleResolver);
 
-    try {
-      const oauthClient = await getOAuthClient(handleResolver);
-      const session = await oauthClient.restore(targetDid);
+		await oauthClient.signInRedirect(handle);
+	};
 
-      await accountStore.setActiveDid(targetDid);
+	const logout = async () => {
+		const session = sessionRef.current;
 
-      sessionRef.current = session;
-      const client = buildClient(session);
+		try {
+			await session?.signOut();
+		} catch {
+			// ignore errors during sign out
+		}
 
-      setAuthState({
-        status: "authenticated",
-        client,
-        session,
-        identifier: asAtIdentifierString(targetDid),
-      });
-    } catch {
-      await accountStore.removeAccount(targetDid).catch(() => {});
-      setAuthState({ status: "unauthenticated" });
-    }
-  };
+		sessionRef.current = null;
+		store.set(setActiveDidAtom, null);
+		setAuthState({ status: "unauthenticated" });
+	};
 
-  const deleteAccount = async (targetDid: string): Promise<void> => {
-    setAuthState({ status: "switching" });
+	const switchAccount = async (targetDid: AtprotoDid): Promise<void> => {
+		if (authState.status === "switching") {
+			return;
+		}
 
-    const targetAccount = accountStore.accounts.find(
-      (a) => a.did === targetDid,
-    );
-    const handleResolver =
-      targetAccount?.handleResolver ?? DEFAULT_HANDLE_RESOLVER;
+		const currentDid = authState.status === "authenticated" ? authState.session.sub : null;
 
-    try {
-      const oauthClient = await getOAuthClient(handleResolver);
-      const session = await oauthClient.restore(targetDid);
+		if (targetDid === currentDid) {
+			return;
+		}
 
-      await session.signOut();
-    } catch {
-      // revoke failure is non-fatal
-    }
+		setAuthState({ status: "switching" });
 
-    await accountStore.removeAccount(targetDid);
+		await queryClient.cancelQueries();
+		queryClient.clear();
 
-    const remaining = accountStore.accounts.filter((a) => a.did !== targetDid);
-    const next = [...remaining].sort((a, b) => b.lastUsedAt - a.lastUsedAt)[0];
+		const targetAccount = store.get(accountsAtom).find((a) => a.did === targetDid);
+		const handleResolver = targetAccount?.handleResolver ?? DEFAULT_HANDLE_RESOLVER;
 
-    if (next) {
-      await switchAccount(next.did);
-    } else {
-      sessionRef.current = null;
-      setAuthState({ status: "unauthenticated" });
-    }
-  };
+		try {
+			const oauthClient = await getOAuthClient(handleResolver);
+			const session = await oauthClient.restore(targetDid);
 
-  return {
-    authState,
-    accounts: accountStore.accounts,
-    login,
-    logout,
-    switchAccount,
-    deleteAccount,
-  };
+			store.set(setActiveDidAtom, targetDid);
+			sessionRef.current = session;
+			const client = buildClient(session);
+
+			setAuthState({
+				status: "authenticated",
+				client,
+				session,
+				identifier: asAtIdentifierString(targetDid),
+			});
+		} catch {
+			store.set(removeAccountAtom, targetDid);
+			setAuthState({ status: "unauthenticated" });
+		}
+	};
+
+	const deleteAccount = async (targetDid: AtprotoDid): Promise<void> => {
+		setAuthState({ status: "switching" });
+
+		const targetAccount = store.get(accountsAtom).find((a) => a.did === targetDid);
+		const handleResolver = targetAccount?.handleResolver ?? DEFAULT_HANDLE_RESOLVER;
+
+		try {
+			const oauthClient = await getOAuthClient(handleResolver);
+			const session = await oauthClient.restore(targetDid);
+
+			await session.signOut();
+		} catch {
+			// revoke failure is non-fatal
+		}
+
+		store.set(removeAccountAtom, targetDid);
+
+		const remaining = store.get(accountsAtom);
+		const next = [...remaining].sort((a, b) => b.lastUsedAt - a.lastUsedAt)[0];
+
+		if (next) {
+			await switchAccount(next.did);
+		} else {
+			sessionRef.current = null;
+			setAuthState({ status: "unauthenticated" });
+		}
+	};
+
+	return {
+		authState,
+		accounts,
+		login,
+		logout,
+		switchAccount,
+		deleteAccount,
+	};
 }
