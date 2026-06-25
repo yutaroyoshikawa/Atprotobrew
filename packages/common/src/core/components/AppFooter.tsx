@@ -1,24 +1,40 @@
-import { Settings, Users } from "lucide-react-native";
+import { useLingui } from "@lingui/react/macro";
+import { Bell, Users } from "lucide-react-native";
 import { styled, useTheme, View, XStack } from "tamagui";
+import { NotificationBadge } from "../../features/notifications/components/NotificationBadge";
 import { AppButton } from "./AppButton";
 import { AtprotobrewLogoType } from "./AtprotobrewLogoType";
 
 interface AppFooterProps {
-	onRequestOpenSettings?: () => void;
+	onRequestOpenNotifications?: () => void;
+	unreadNotificationCount?: number;
 	onRequestOpenSocialGraph?: () => void;
 }
 
-export function AppFooter({ onRequestOpenSettings, onRequestOpenSocialGraph }: AppFooterProps) {
+export function AppFooter({ onRequestOpenNotifications, unreadNotificationCount = 0, onRequestOpenSocialGraph }: AppFooterProps) {
 	const t = useTheme();
+	const { t: tl } = useLingui();
+
+	const count = unreadNotificationCount;
+	const bellLabel = count > 0 ? tl`通知 ${count} 件の未読があります` : tl`通知`;
 
 	return (
 		<StyledWrapper>
 			<Background />
 
 			<StyledNavigation>
-				<AppButton onPress={onRequestOpenSettings} shape="circle" size="large" aria-label="設定">
-					<Settings color={t.textContrastMedium.val} />
-				</AppButton>
+				<View style={{ position: "relative" }}>
+					<AppButton
+						onPress={onRequestOpenNotifications}
+						shape="circle"
+						size="large"
+						aria-label={bellLabel}
+					>
+						<Bell color={t.textContrastMedium.val} />
+					</AppButton>
+
+					<NotificationBadge count={unreadNotificationCount} />
+				</View>
 
 				<View height={80} width={120} paddingTop="$4">
 					<AtprotobrewLogoType />

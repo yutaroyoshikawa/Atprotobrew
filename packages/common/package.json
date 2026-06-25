@@ -59,6 +59,12 @@
 		},
 		"./account/*": {
 			"import": "./src/features/account/*.ts"
+		},
+		"./notifications/components/*": {
+			"import": "./src/features/notifications/components/*.tsx"
+		},
+		"./notifications/modules/*": {
+			"import": "./src/features/notifications/modules/*.ts"
 		}
 	},
 	"dependencies": {
