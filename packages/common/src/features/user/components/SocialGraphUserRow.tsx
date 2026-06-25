@@ -50,6 +50,7 @@ export function SocialGraphUserRow({
 					gap: 12,
 					borderBottomWidth: 1,
 					borderBottomColor: tc.bgContrast25,
+					height: 80,
 				},
 			]}
 		>

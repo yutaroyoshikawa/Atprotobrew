@@ -1,7 +1,7 @@
 import type { AtprotoDid } from "@atproto/did";
 import { useLingui } from "@lingui/react/macro";
 import { Image } from "expo-image";
-import { LogOut, PlusCircle, Trash2, User } from "lucide-react-native";
+import { LogOut, PlusCircle, QrCode, Trash2, User } from "lucide-react-native";
 import { useRef } from "react";
 import { Pressable, Text, View } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
@@ -20,6 +20,7 @@ interface UserMenuItemsProps {
 	onDeleteAccount: (did: AtprotoDid) => void | Promise<void>;
 	onDismiss: () => void;
 	onNavigateToProfile?: () => void;
+	onShowQrCode?: () => void;
 }
 
 interface AccountRowProps {
@@ -122,6 +123,7 @@ export function UserMenuItems({
 	onDeleteAccount,
 	onDismiss,
 	onNavigateToProfile,
+	onShowQrCode,
 }: UserMenuItemsProps) {
 	const tc = useThemeColors();
 	const { t } = useLingui();
@@ -142,6 +144,11 @@ export function UserMenuItems({
 	const handleNavigateToProfile = () => {
 		onDismiss();
 		onNavigateToProfile?.();
+	};
+
+	const handleShowQrCode = () => {
+		onDismiss();
+		onShowQrCode?.();
 	};
 
 	return (
@@ -199,6 +206,28 @@ export function UserMenuItems({
 					>
 						<User size={20} color={tc.textContrastMedium} />
 						<Text style={{ color: tc.text, fontSize: 15 }}>{t`プロフィール`}</Text>
+					</Pressable>
+				)}
+
+				{/* QR コードで共有 */}
+				{onShowQrCode && (
+					<Pressable
+						onPress={handleShowQrCode}
+						accessibilityRole="button"
+						accessibilityLabel={t`QR コードで共有`}
+						style={({ pressed }) => [
+							a.flex_row,
+							a.items_center,
+							{
+								...divider,
+								gap: 12,
+								paddingVertical: 14,
+								opacity: pressed ? 0.7 : 1,
+							},
+						]}
+					>
+						<QrCode size={20} color={tc.textContrastMedium} />
+						<Text style={{ color: tc.text, fontSize: 15 }}>{t`QR コードで共有`}</Text>
 					</Pressable>
 				)}
 

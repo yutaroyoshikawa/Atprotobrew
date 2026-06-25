@@ -4,6 +4,7 @@ import type { StoredAccount } from "@atprotobrew/common/account/types";
 import { atoms as a } from "@atprotobrew/common/alf";
 import { useFetchLaunchers } from "@atprotobrew/common/channel/modules/launchersHooks";
 import { AppFooter } from "@atprotobrew/common/core/components/AppFooter";
+import { BubbleBackground } from "@atprotobrew/common/core/components/Background";
 import { router } from "expo-router";
 import { Suspense } from "react";
 import { ActivityIndicator, View } from "react-native";
@@ -44,6 +45,7 @@ function HomeScreenContent({ session, accounts, logout, switchAccount, deleteAcc
 
 	return (
 		<View style={[a.h_full]}>
+			<BubbleBackground />
 			<View style={[a.h_full, a.flex_col]}>
 				<LauncherScreen storeViews={data.body.items} />
 				<AppFooter
