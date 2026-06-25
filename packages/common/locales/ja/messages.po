@@ -34,13 +34,18 @@ msgstr "{sinceDate}から利用中"
 #~ msgid "AT Protocol サービスランチャー"
 #~ msgstr "AT Protocol サービスランチャー"
 
+#: src/features/user/components/UserMenuItems.tsx:217
+#: src/features/user/components/UserMenuItems.tsx:230
+msgid "QR コードで共有"
+msgstr "QR コードで共有"
+
 #: src/features/user/components/ProfileEditFormContent.tsx:207
 #: src/features/user/components/ProfileEditFormContent.tsx:214
 msgid "URLはhttps://またはhttp://から始めてください"
 msgstr "URLはhttps://またはhttp://から始めてください"
 
 #: src/features/user/components/UserMenuItems.tsx:174
-#: src/features/user/components/UserMenuItems.tsx:189
+#: src/features/user/components/UserMenuItems.tsx:187
 msgid "アカウントを追加"
 msgstr "アカウントを追加"
 
@@ -57,12 +62,16 @@ msgstr "インストール済み"
 msgid "ウェブサイト"
 msgstr "ウェブサイト"
 
+#: src/features/notifications/components/NotificationItem.tsx:63
+msgid "があなたをフォローしました"
+msgstr "があなたをフォローしました"
+
 #: src/features/user/components/ProfileEditFormContent.tsx:272
 msgid "キャンセル"
 msgstr "キャンセル"
 
-#: src/features/user/components/UserMenuItems.tsx:220
-#: src/features/user/components/UserMenuItems.tsx:234
+#: src/features/user/components/UserMenuItems.tsx:238
+#: src/features/user/components/UserMenuItems.tsx:250
 msgid "このアカウントからログアウト"
 msgstr "このアカウントからログアウト"
 
@@ -111,20 +120,24 @@ msgstr "フォローされています"
 
 #: src/features/user/components/FollowButton.tsx:25
 #: src/features/user/components/FollowButton.tsx:41
-#: src/features/user/components/SocialGraphList.tsx:75
+#: src/features/user/components/SocialGraphList.tsx:45
+#: src/features/user/components/SocialGraphList.web.tsx:75
 msgid "フォロー中"
 msgstr "フォロー中"
 
-#: src/features/user/components/SocialGraphList.tsx:120
+#: src/features/user/components/SocialGraphList.tsx:167
+#: src/features/user/components/SocialGraphList.web.tsx:120
 msgid "フォロー中のユーザーがいません"
 msgstr "フォロー中のユーザーがいません"
 
-#: src/features/user/components/SocialGraphList.tsx:75
+#: src/features/user/components/SocialGraphList.tsx:46
+#: src/features/user/components/SocialGraphList.web.tsx:75
 #: src/features/user/components/UserProfileHeader.tsx:157
 msgid "フォロワー"
 msgstr "フォロワー"
 
-#: src/features/user/components/SocialGraphList.tsx:120
+#: src/features/user/components/SocialGraphList.tsx:168
+#: src/features/user/components/SocialGraphList.web.tsx:120
 msgid "フォロワーがいません"
 msgstr "フォロワーがいません"
 
@@ -136,8 +149,8 @@ msgstr "ブロックされています"
 msgid "ブロック中"
 msgstr "ブロック中"
 
-#: src/features/user/components/UserMenuItems.tsx:197
-#: src/features/user/components/UserMenuItems.tsx:212
+#: src/features/user/components/UserMenuItems.tsx:195
+#: src/features/user/components/UserMenuItems.tsx:208
 msgid "プロフィール"
 msgstr "プロフィール"
 
@@ -149,6 +162,10 @@ msgstr "プロフィールの読み込みに失敗しました"
 msgid "プロフィールを編集"
 msgstr "プロフィールを編集"
 
+#: src/features/notifications/components/NotificationList.tsx:63
+msgid "まだ通知はありません"
+msgstr "まだ通知はありません"
+
 #: src/features/user/components/UserProfileHeader.tsx:112
 msgid "ミュート中"
 msgstr "ミュート中"
@@ -157,8 +174,8 @@ msgstr "ミュート中"
 msgid "ライト"
 msgstr "ライト"
 
-#: src/features/user/components/UserMenuItems.tsx:38
-#: src/features/user/components/UserMenuItems.tsx:50
+#: src/features/user/components/UserMenuItems.tsx:41
+#: src/features/user/components/UserMenuItems.tsx:52
 msgid "リストから削除"
 msgstr "リストから削除"
 
@@ -218,6 +235,20 @@ msgstr "表示名は64文字以内で入力してください"
 msgid "言語"
 msgstr "言語"
 
-#: src/features/user/components/SocialGraphList.tsx:87
+#: src/features/user/components/SocialGraphList.tsx:126
+#: src/features/user/components/SocialGraphList.web.tsx:87
 msgid "読み込みエラー"
 msgstr "読み込みエラー"
+
+#: src/core/components/AppFooter.tsx:19
+msgid "通知"
+msgstr "通知"
+
+#: src/core/components/AppFooter.tsx:19
+#: src/features/notifications/components/NotificationBadge.tsx:21
+msgid "通知 {count} 件の未読があります"
+msgstr "通知 {count} 件の未読があります"
+
+#: src/core/components/AppFooter.tsx:19
+#~ msgid "通知 {unreadNotificationCount} 件の未読があります"
+#~ msgstr "通知 {unreadNotificationCount} 件の未読があります"

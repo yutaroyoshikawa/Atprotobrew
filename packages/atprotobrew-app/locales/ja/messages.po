@@ -17,6 +17,14 @@ msgstr ""
 #~ msgid "AT Protocol サービスランチャー"
 #~ msgstr "AT Protocol サービスランチャー"
 
+#: app/(app)/social-graph/index.tsx:36
+msgid "QR コードで共有"
+msgstr "QR コードで共有"
+
+#: modules/user/ProfileQrCodeBottomSheet.tsx:103
+msgid "URLをコピー"
+msgstr "URLをコピー"
+
 #: modules/launcher/EditTopBar.tsx:31
 msgid "キャンセル"
 msgstr "キャンセル"
@@ -24,6 +32,15 @@ msgstr "キャンセル"
 #: app/(app)/store/[channelId]/index.tsx:97
 msgid "このチャンネルについて"
 msgstr "このチャンネルについて"
+
+#: modules/user/ProfileQrCodeBottomSheet.tsx:105
+msgid "コピー"
+msgstr "コピー"
+
+#: modules/user/ProfileQrCodeBottomSheet.tsx:113
+#: modules/user/ProfileQrCodeBottomSheet.tsx:115
+msgid "シェア"
+msgstr "シェア"
 
 #: app/(app)/store/_layout.tsx:6
 #~ msgid "ストア"
@@ -74,6 +91,11 @@ msgstr "保存に失敗しました。もう一度お試しください。"
 msgid "画像が大きすぎます。別の画像を選んでください。"
 msgstr "画像が大きすぎます。別の画像を選んでください。"
 
+#: app/(app)/home.tsx:74
 #: app/(app)/settings/_layout.tsx:12
 msgid "設定"
 msgstr "設定"
+
+#: app/(app)/notifications/_layout.tsx:12
+msgid "通知"
+msgstr "通知"

@@ -11,6 +11,7 @@ import { AtPassportCallback } from "./components/auth/AtPassportCallback";
 import { AuthGate } from "./components/auth/AuthGate";
 import { ChannelDetail } from "./components/launcher/ChannelDetail";
 import { Launcher } from "./components/launcher/Launcher";
+import { Notifications } from "./components/notifications/Notifications";
 import { Settings } from "./components/settings/Settings";
 import { Store } from "./components/store/Store";
 import { StoreItemDetail } from "./components/store/StoreItemDetail";
@@ -71,6 +72,7 @@ function Router() {
 				<Route path="/store/:id" element={<StoreItemDetail />} />
 				<Route path="/channel/:id" element={<ChannelDetailRoute />} />
 				<Route path="/settings" element={<SettingsRoute />} />
+				<Route path="/notifications" element={<NotificationsRoute />} />
 				<Route path="/social-graph" element={<SocialGraphRoute />} />
 				<Route path="/profile/:did/follows" element={<UserProfileFollowsRoute />} />
 				<Route path="/profile/:did/followers" element={<UserProfileFollowersRoute />} />
@@ -180,6 +182,20 @@ function SettingsRoute() {
 	}
 
 	return <Settings />;
+}
+
+function NotificationsRoute() {
+	const { authState } = useOutletContext<AuthContext>();
+
+	if (authState.status !== "authenticated") {
+		return null;
+	}
+
+	return (
+		<ProfilePageLayout backTo="/" title={<Trans>通知</Trans>}>
+			<Notifications client={authState.client} />
+		</ProfilePageLayout>
+	);
 }
 
 function SocialGraphRoute() {

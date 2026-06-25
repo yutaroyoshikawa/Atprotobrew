@@ -3,3 +3,6 @@
  */
 
 export * as defs from './notification/defs.js'
+export * as getUnreadCount from './notification/getUnreadCount.js'
+export * as listNotifications from './notification/listNotifications.js'
+export * as updateSeen from './notification/updateSeen.js'

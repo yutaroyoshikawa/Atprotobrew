@@ -48,6 +48,7 @@ export const atoms = StyleSheet.create({
 	py_2: { paddingVertical: 8 },
 	py_3: { paddingVertical: 12 },
 	py_4: { paddingVertical: 16 },
+	py_12: { paddingVertical: 48 },
 	pt_2: { paddingTop: 8 },
 	pt_4: { paddingTop: 16 },
 	pt_5: { paddingTop: 20 },
@@ -94,6 +95,12 @@ export const atoms = StyleSheet.create({
 	border: { borderWidth: 1 },
 	border_t: { borderTopWidth: 1 },
 	border_b: { borderBottomWidth: 1 },
+
+	// --- Inset edges ---
+	top_0: { top: 0 },
+	right_0: { right: 0 },
+	bottom_0: { bottom: 0 },
+	left_0: { left: 0 },
 
 	// --- Z-index ---
 	z_10: { zIndex: 10 },
