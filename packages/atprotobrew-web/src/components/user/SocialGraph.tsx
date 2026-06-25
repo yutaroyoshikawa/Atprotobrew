@@ -1,24 +1,30 @@
+import type { AtprotoDid } from "@atproto/did";
 import type { Client } from "@atproto/lex";
 import { FollowButton } from "@atprotobrew/common/user/components/FollowButton";
 import { useFollowActions } from "@atprotobrew/common/user/modules/useFollowActions";
 import { type SocialGraphProfile, useFollowers, useFollows } from "@atprotobrew/common/user/modules/useSocialGraph";
+import { useUserProfile } from "@atprotobrew/common/user/modules/useUserProfile";
 import { Trans, useLingui } from "@lingui/react/macro";
-import { useState } from "react";
+import { QrCode } from "lucide-react";
+import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import { ProfileQrCodeDialog, type ProfileQrCodeDialogMethods } from "./ProfileQrCodeDialog";
 
 type Tab = "follows" | "followers";
 
 interface SocialGraphProps {
 	client: Client;
-	currentUserDid: string;
-	actor?: string;
+	currentUserDid: AtprotoDid;
+	actor?: AtprotoDid;
 	initialTab?: Tab;
 }
 
 export function SocialGraph({ client, currentUserDid, actor, initialTab = "follows" }: SocialGraphProps) {
 	const { t } = useLingui();
 	const [activeTab, setActiveTab] = useState<Tab>(initialTab);
+	const qrDialogRef = useRef<ProfileQrCodeDialogMethods>(null);
 	const targetActor = actor ?? currentUserDid;
+	const { data: profile } = useUserProfile(currentUserDid);
 
 	const followsQuery = useFollows(targetActor, client);
 	const followersQuery = useFollowers(targetActor, client);
@@ -33,6 +39,26 @@ export function SocialGraph({ client, currentUserDid, actor, initialTab = "follo
 
 	return (
 		<div className="flex flex-col flex-1">
+			{/* ページヘッダー */}
+			<div className="flex items-center justify-between px-4 py-3 border-b border-bgContrast25">
+				<span className="text-sm font-semibold text-text">{t`ソーシャルグラフ`}</span>
+				<button
+					type="button"
+					aria-label={t`QR コードで共有`}
+					onClick={() => qrDialogRef.current?.showModal()}
+					className="flex items-center justify-center w-8 h-8 rounded-full hover:bg-bgContrast50 transition-colors cursor-pointer text-textContrastMedium hover:text-text"
+				>
+					<QrCode size={18} />
+				</button>
+			</div>
+
+			<ProfileQrCodeDialog
+				ref={qrDialogRef}
+				did={currentUserDid}
+				displayName={profile?.displayName}
+				handle={profile?.handle ?? currentUserDid}
+			/>
+
 			<div className="flex border-b border-bgContrast25">
 				{(["follows", "followers"] as const).map((tab) => (
 					<button

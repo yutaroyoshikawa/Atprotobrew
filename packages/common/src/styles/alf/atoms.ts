@@ -16,6 +16,7 @@ export const atoms = StyleSheet.create({
 	justify_between: { justifyContent: "space-between" },
 	self_start: { alignSelf: "flex-start" },
 	self_center: { alignSelf: "center" },
+	self_stretch: { alignSelf: "stretch" },
 	relative: { position: "relative" },
 	absolute: { position: "absolute" },
 	inset_0: { top: 0, right: 0, bottom: 0, left: 0 },
@@ -70,6 +71,7 @@ export const atoms = StyleSheet.create({
 	gap_2: { gap: 8 },
 	gap_3: { gap: 12 },
 	gap_4: { gap: 16 },
+	gap_5: { gap: 20 },
 	gap_6: { gap: 24 },
 
 	// --- Border radius ---

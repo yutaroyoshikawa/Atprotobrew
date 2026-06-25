@@ -52,6 +52,7 @@ const baseConfig: ExpoConfig = {
 		googleServicesFile: process.env.GOOGLE_SERVICES_INFO_PLIST ?? "./GoogleService-Info.plist",
 		supportsTablet: true,
 		bundleIdentifier: "org.tarororo.brew",
+		associatedDomains: ["applinks:brew.tarororo.org"],
 		infoPlist: {
 			ITSAppUsesNonExemptEncryption: false,
 		},
@@ -64,6 +65,20 @@ const baseConfig: ExpoConfig = {
 			backgroundImage: "./assets/images/android-icon-background.png",
 			monochromeImage: "./assets/images/android-icon-monochrome.png",
 		},
+		intentFilters: [
+			{
+				action: "VIEW",
+				autoVerify: true,
+				data: [
+					{
+						scheme: "https",
+						host: "brew.tarororo.org",
+						pathPrefix: "/profile",
+					},
+				],
+				category: ["BROWSABLE", "DEFAULT"],
+			},
+		],
 		predictiveBackGestureEnabled: false,
 		package: "org.tarororo.brew",
 	},

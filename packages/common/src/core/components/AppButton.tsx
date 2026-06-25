@@ -36,6 +36,13 @@ const StyledButton = styled(Button, {
 	pressStyle: { scale: 0.95 },
 
 	variants: {
+		variant: {
+			secondary: {
+				backgroundImage: "none",
+				backgroundColor: "$bgContrast50",
+				borderWidth: 0,
+			},
+		},
 		shape: {
 			tile: {
 				width: "100%",

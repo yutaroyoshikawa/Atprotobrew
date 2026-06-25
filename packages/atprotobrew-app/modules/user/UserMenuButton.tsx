@@ -4,12 +4,14 @@ import { modeAtom } from "@atprotobrew/common/launcher/launcherStore";
 import { useThemeColors } from "@atprotobrew/common/theme";
 import { UserMenuItems } from "@atprotobrew/common/user/components/UserMenuItems";
 import { UserMenuTrigger } from "@atprotobrew/common/user/components/UserMenuTrigger";
+import { useUserProfile } from "@atprotobrew/common/user/modules/useUserProfile";
 import { type BottomSheetMethods, BottomSheetModal, BottomSheetView } from "@expo/ui/community/bottom-sheet";
 import { router } from "expo-router";
 import { useAtomValue } from "jotai";
 import { useRef } from "react";
 import { StyleSheet, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { ProfileQrCodeBottomSheet, type ProfileQrCodeBottomSheetMethods } from "./ProfileQrCodeBottomSheet";
 
 interface UserMenuButtonProps {
 	did: AtprotoDid;
@@ -24,6 +26,8 @@ export function UserMenuButton({ did, accounts, onLogout, onSwitchAccount, onDel
 	const tc = useThemeColors();
 	const insets = useSafeAreaInsets();
 	const sheetRef = useRef<BottomSheetMethods>(null);
+	const qrSheetRef = useRef<ProfileQrCodeBottomSheetMethods>(null);
+	const { data: profile } = useUserProfile(did);
 
 	if (mode === "EDIT") {
 		return null;
@@ -56,9 +60,18 @@ export function UserMenuButton({ did, accounts, onLogout, onSwitchAccount, onDel
 						onDeleteAccount={onDeleteAccount}
 						onDismiss={() => sheetRef.current?.dismiss()}
 						onNavigateToProfile={handleNavigateToProfile}
+						onShowQrCode={() => qrSheetRef.current?.present()}
 					/>
 				</BottomSheetView>
 			</BottomSheetModal>
+
+			<ProfileQrCodeBottomSheet
+				ref={qrSheetRef}
+				did={did}
+				displayName={profile?.displayName}
+				handle={profile?.handle ?? did}
+				avatarUri={profile?.avatar}
+			/>
 		</>
 	);
 }
