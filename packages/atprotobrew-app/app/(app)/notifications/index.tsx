@@ -20,30 +20,19 @@ function Screen() {
 export default Screen;
 
 function ScreenContent({ session }: { session: { did: string } & Parameters<typeof useNotifications>[0] }) {
-	const {
-		data,
-		isPending,
-		isFetchingNextPage,
-		hasNextPage,
-		fetchNextPage,
-	} = useNotifications(session);
+	const { data, isPending, isFetchingNextPage, hasNextPage, fetchNextPage } = useNotifications(session);
 
 	const { mutate: markRead } = useMarkNotificationsRead(session);
 
 	const initialUnreadUris = useRef<Set<string> | null>(null);
 
-	const notifications = useMemo(
-		() => data?.pages.flatMap((p) => p.body.notifications) ?? [],
-		[data],
-	);
+	const notifications = useMemo(() => data?.pages.flatMap((p) => p.body.notifications) ?? [], [data]);
 
 	useEffect(() => {
 		if (data && initialUnreadUris.current === null) {
 			const firstPage = data.pages[0]?.body.notifications ?? [];
 
-			initialUnreadUris.current = new Set(
-				firstPage.filter((n) => !n.isRead).map((n) => n.uri),
-			);
+			initialUnreadUris.current = new Set(firstPage.filter((n) => !n.isRead).map((n) => n.uri));
 		}
 	}, [data]);
 

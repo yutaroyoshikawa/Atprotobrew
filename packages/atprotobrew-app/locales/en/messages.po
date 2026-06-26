@@ -51,8 +51,8 @@ msgid "ソーシャルグラフ"
 msgstr "Social graph"
 
 #: app/(app)/channels/_layout.tsx:12
-msgid "チャンネル"
-msgstr "Channel"
+#~ msgid "チャンネル"
+#~ msgstr "Channel"
 
 #: app/(app)/profile/_layout.tsx:18
 msgid "フォロー中"
@@ -91,7 +91,7 @@ msgstr "Failed to save. Please try again."
 msgid "画像が大きすぎます。別の画像を選んでください。"
 msgstr "The image is too large. Please choose another image."
 
-#: app/(app)/home.tsx:74
+#: app/(app)/home.tsx:81
 #: app/(app)/settings/_layout.tsx:12
 msgid "設定"
 msgstr "Settings"
@@ -99,3 +99,7 @@ msgstr "Settings"
 #: app/(app)/notifications/_layout.tsx:12
 msgid "通知"
 msgstr "Notifications"
+
+#: app/(app)/channels/_layout.tsx:24
+msgid "閉じる"
+msgstr "Close"

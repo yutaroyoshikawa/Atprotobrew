@@ -59,9 +59,7 @@ export function NotificationList({
 			}
 			ListEmptyComponent={
 				<View style={[a.justify_center, a.items_center, a.py_12]}>
-					<Text style={[a.text_sm, { color: tc.textContrastMedium }]}>
-						{t`まだ通知はありません`}
-					</Text>
+					<Text style={[a.text_sm, { color: tc.textContrastMedium }]}>{t`まだ通知はありません`}</Text>
 				</View>
 			}
 		/>

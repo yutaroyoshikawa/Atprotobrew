@@ -57,6 +57,8 @@ export const atoms = StyleSheet.create({
 	pt_8: { paddingTop: 32 },
 	pb_2: { paddingBottom: 8 },
 	pb_4: { paddingBottom: 16 },
+	pb_6: { paddingBottom: 32 },
+	pb_8: { paddingBottom: 64 },
 
 	// --- Margin ---
 	m_0: { margin: 0 },
@@ -109,6 +111,7 @@ export const atoms = StyleSheet.create({
 	// --- Typography (size + lineHeight をペアで) ---
 	text_xs: { fontSize: 12, lineHeight: 16 },
 	text_sm: { fontSize: 14, lineHeight: 20 },
+	text_base: { fontSize: 16, lineHeight: 22 },
 	text_md: { fontSize: 16, lineHeight: 24 },
 	text_lg: { fontSize: 18, lineHeight: 28 },
 	text_xl: { fontSize: 20, lineHeight: 30 },

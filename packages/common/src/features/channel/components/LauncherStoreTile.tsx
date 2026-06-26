@@ -10,7 +10,7 @@ export function LauncherStoreTile({ render, onPress }: LauncherStoreTileProps) {
 	const accent = theme.accent.get();
 
 	return (
-		<ChannelTile variant="compact" render={render} onPress={onPress}>
+		<ChannelTile intensity={0.3} variant="compact" render={render} onPress={onPress}>
 			<Svg width={48} height={48} viewBox="0 0 36 36" fill={accent}>
 				<Rect x="5" y="14" width="20" height="15" rx="3" />
 				<Path

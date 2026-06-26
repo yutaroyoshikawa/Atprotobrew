@@ -13,7 +13,7 @@ interface InstalledChannelTileProps extends Pick<ComponentProps<typeof ChannelTi
 export function InstalledChannelTile({ render, onPress, channelName, thumbnailUrl }: InstalledChannelTileProps) {
 	return (
 		<View style={{ backdropFilter: "blur(10px)" }}>
-			<ChannelTile render={render} onPress={onPress}>
+			<ChannelTile render={render} intensity={0.3} onPress={onPress}>
 				<AppVStack style={[a.items_center, a.gap_2]}>
 					<Image
 						src={thumbnailUrl}

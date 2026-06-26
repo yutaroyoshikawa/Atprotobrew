@@ -14,7 +14,7 @@ export function StoreChannelTile({ render, onPress }: StoreChannelTileProps) {
 	const accent = theme.accent.get();
 
 	return (
-		<ChannelTile render={render} onPress={onPress}>
+		<ChannelTile intensity={0.2} render={render} onPress={onPress}>
 			<AppVStack style={[a.items_center, a.gap_2]}>
 				<Svg width={80} height={80} viewBox="0 0 36 36" fill={accent}>
 					<Rect x="5" y="14" width="20" height="15" rx="3" />

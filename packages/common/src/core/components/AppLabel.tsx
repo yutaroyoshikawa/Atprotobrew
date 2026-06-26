@@ -14,9 +14,9 @@ export function AppLabel({ children, ...props }: AppLabelProps) {
 }
 
 const StyledLabel = styled(Label, {
-	height: "max-content",
-	fontSize: "0.875rem",
+	fontSize: 16,
 	lineHeight: "$1",
 	fontWeight: 800,
-	color: "gray",
+	color: "$text",
+	paddingVertical: "$3",
 });

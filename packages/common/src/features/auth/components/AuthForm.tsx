@@ -1,6 +1,6 @@
 "use client";
 
-import { Trans } from "@lingui/react/macro";
+import { Trans, useLingui } from "@lingui/react/macro";
 import { useForm } from "@tanstack/react-form";
 import { View } from "tamagui";
 import { AppButton } from "../../../core/components/AppButton";
@@ -8,6 +8,7 @@ import { AppCard } from "../../../core/components/AppCard";
 import { AppForm, AppFormTrigger } from "../../../core/components/AppForm";
 import { AppH1 } from "../../../core/components/AppH1";
 import { AppInput } from "../../../core/components/AppInput";
+import { AppLabel } from "../../../core/components/AppLabel";
 import { AppSeparator } from "../../../core/components/AppSeparator";
 import { AppText } from "../../../core/components/AppText";
 import { AppVStack } from "../../../core/components/AppVStack";
@@ -35,6 +36,7 @@ export function AuthForm({ onSubmit, onAtPassportLogin }: AuthFormProps) {
 		onSubmit: (props) => onSubmit?.(props.value),
 	});
 	const locale = useLocale();
+	const { t } = useLingui();
 
 	return (
 		<AppCard>
@@ -49,7 +51,7 @@ export function AuthForm({ onSubmit, onAtPassportLogin }: AuthFormProps) {
 							<form.Field name="handle">
 								{(field) => (
 									<>
-										<Trans render={AppText}>ハンドル</Trans>
+										<AppLabel>{t`ハンドル`}</AppLabel>
 										<AppInput
 											id={field.name}
 											prefix="@"
@@ -77,7 +79,7 @@ export function AuthForm({ onSubmit, onAtPassportLogin }: AuthFormProps) {
 							<form.Field name="handleResolver">
 								{(field) => (
 									<>
-										<AppText>PDS URL</AppText>
+										<AppLabel>PDS URL</AppLabel>
 										<AppInput
 											id={field.name}
 											value={field.state.value}
@@ -103,11 +105,17 @@ export function AuthForm({ onSubmit, onAtPassportLogin }: AuthFormProps) {
 							{([canSubmit, isSubmitting]) => (
 								<AppFormTrigger asChild disabled={!canSubmit}>
 									{isSubmitting ? (
-										<Trans render={AppButton}>リダイレクト中…</Trans>
+										<AppButton
+											variant="primary"
+											shape="tile"
+											disabled
+										>{t`リダイレクト中…`}</AppButton>
 									) : (
-										<Trans render={(props) => <AppButton {...props} onPress={form.handleSubmit} />}>
-											ログイン
-										</Trans>
+										<AppButton
+											variant="primary"
+											shape="tile"
+											onPress={form.handleSubmit}
+										>{t`ログイン`}</AppButton>
 									)}
 								</AppFormTrigger>
 							)}
