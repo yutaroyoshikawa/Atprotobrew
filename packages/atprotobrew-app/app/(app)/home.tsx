@@ -5,10 +5,12 @@ import { atoms as a } from "@atprotobrew/common/alf";
 import { useFetchLaunchers } from "@atprotobrew/common/channel/modules/launchersHooks";
 import { AppFooter } from "@atprotobrew/common/core/components/AppFooter";
 import { BubbleBackground } from "@atprotobrew/common/core/components/Background";
+import { modeAtom } from "@atprotobrew/common/launcher/launcherStore";
 import { useUnreadNotificationCount } from "@atprotobrew/common/notifications/modules/useNotifications";
 import { useThemeColors } from "@atprotobrew/common/theme";
 import { useLingui } from "@lingui/react/macro";
 import { router } from "expo-router";
+import { useAtomValue } from "jotai";
 import { Settings } from "lucide-react-native";
 import { Suspense } from "react";
 import { ActivityIndicator, Pressable, View } from "react-native";
@@ -51,6 +53,7 @@ function HomeScreenContent({ session, accounts, logout, switchAccount, deleteAcc
 	const tc = useThemeColors();
 	const insets = useSafeAreaInsets();
 	const { t } = useLingui();
+	const mode = useAtomValue(modeAtom);
 
 	return (
 		<View style={[a.h_full]}>
@@ -65,34 +68,38 @@ function HomeScreenContent({ session, accounts, logout, switchAccount, deleteAcc
 				/>
 			</View>
 
-			<View style={[a.absolute, a.z_10, { top: insets.top + 8, left: 16 }]}>
-				<Pressable
-					onPress={() => router.push("/(app)/settings")}
-					accessibilityRole="button"
-					style={({ pressed }) => [
-						a.flex_row,
-						a.items_center,
-						{
-							borderRadius: 999,
-							backgroundColor: tc.bgContrast25,
-							opacity: pressed ? 0.7 : 1,
-						},
-					]}
-					aria-label={t`設定`}
-				>
-					<View style={[a.p_3]}>
-						<Settings color={tc.textContrastMedium} />
-					</View>
-				</Pressable>
-			</View>
+			{mode === "VIEW" && (
+				<View style={[a.absolute, a.z_10, { top: insets.top + 8, left: 16 }]}>
+					<Pressable
+						onPress={() => router.push("/(app)/settings")}
+						accessibilityRole="button"
+						style={({ pressed }) => [
+							a.flex_row,
+							a.items_center,
+							{
+								borderRadius: 999,
+								backgroundColor: tc.bgContrast25,
+								opacity: pressed ? 0.7 : 1,
+							},
+						]}
+						aria-label={t`設定`}
+					>
+						<View style={[a.p_3]}>
+							<Settings color={tc.textContrastMedium} />
+						</View>
+					</Pressable>
+				</View>
+			)}
 
-			<UserMenuButton
-				did={session.did}
-				accounts={accounts}
-				onLogout={logout}
-				onSwitchAccount={switchAccount}
-				onDeleteAccount={deleteAccount}
-			/>
+			{mode === "VIEW" && (
+				<UserMenuButton
+					did={session.did}
+					accounts={accounts}
+					onLogout={logout}
+					onSwitchAccount={switchAccount}
+					onDeleteAccount={deleteAccount}
+				/>
+			)}
 		</View>
 	);
 }

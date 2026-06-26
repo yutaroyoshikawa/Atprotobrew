@@ -1,13 +1,11 @@
 import type { AtprotoDid } from "@atproto/oauth-client-expo";
 import type { StoredAccount } from "@atprotobrew/common/account/types";
-import { modeAtom } from "@atprotobrew/common/launcher/launcherStore";
 import { useThemeColors } from "@atprotobrew/common/theme";
 import { UserMenuItems } from "@atprotobrew/common/user/components/UserMenuItems";
 import { UserMenuTrigger } from "@atprotobrew/common/user/components/UserMenuTrigger";
 import { useUserProfile } from "@atprotobrew/common/user/modules/useUserProfile";
 import { type BottomSheetMethods, BottomSheetModal, BottomSheetView } from "@expo/ui/community/bottom-sheet";
 import { router } from "expo-router";
-import { useAtomValue } from "jotai";
 import { useRef } from "react";
 import { StyleSheet, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -22,16 +20,11 @@ interface UserMenuButtonProps {
 }
 
 export function UserMenuButton({ did, accounts, onLogout, onSwitchAccount, onDeleteAccount }: UserMenuButtonProps) {
-	const mode = useAtomValue(modeAtom);
 	const tc = useThemeColors();
 	const insets = useSafeAreaInsets();
 	const sheetRef = useRef<BottomSheetMethods>(null);
 	const qrSheetRef = useRef<ProfileQrCodeBottomSheetMethods>(null);
 	const { data: profile } = useUserProfile(did);
-
-	if (mode === "EDIT") {
-		return null;
-	}
 
 	const handleNavigateToProfile = () => {
 		router.push({ pathname: "/(app)/profile/[did]", params: { did } });
