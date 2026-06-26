@@ -3,7 +3,7 @@
 		"details": [
 			{
 				"appIDs": ["<TEAM_ID>.org.tarororo.brew"],
-				"components": [{ "/": "/profile/*" }]
+				"components": [{ "/": "/profile/*" }, { "/": "/atpassport/callback" }]
 			}
 		]
 	}

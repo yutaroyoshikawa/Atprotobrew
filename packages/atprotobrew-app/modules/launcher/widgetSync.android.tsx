@@ -11,9 +11,11 @@ function resolveBucket(info: WidgetInfo): SizeBucket {
 	if (info.width >= 250 && info.height >= 250) {
 		return "large";
 	}
+
 	if (info.width >= 250) {
 		return "medium";
 	}
+
 	return "small";
 }
 

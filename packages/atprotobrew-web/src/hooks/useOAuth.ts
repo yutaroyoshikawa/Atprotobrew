@@ -178,7 +178,7 @@ export function useOAuth() {
 			controller.abort();
 			unsubscribe();
 		};
-	}, [onSessionDelete, runInit]);
+	}, []);
 
 	const login = async (handle: string, handleResolver: string) => {
 		const oauthClient = await getOAuthClient(handleResolver);
