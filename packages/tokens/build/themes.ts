@@ -23,6 +23,9 @@ export const themes = {
     inputBorder: 'rgba(148, 163, 184, 1)',
     inputBorderFocus: 'rgba(6, 182, 212, 1)',
     buttonTileLabel: 'rgba(34, 211, 238, 1)',
+    pillGradientStart: 'rgba(93,180,255,1)',
+    pillGradientEnd: 'rgba(36,117,224,1)',
+    pillBorder: 'rgba(255,255,255,0.7)',
   },
   dark: {
     bg: 'rgba(15, 23, 42, 1)',
@@ -47,5 +50,8 @@ export const themes = {
     inputBorder: 'rgba(203, 213, 225, 1)',
     inputBorderFocus: 'rgba(14, 165, 233, 1)',
     buttonTileLabel: 'rgba(203, 213, 225, 1)',
+    pillGradientStart: 'rgba(93,180,255,1)',
+    pillGradientEnd: 'rgba(36,117,224,1)',
+    pillBorder: 'rgba(255,255,255,0.7)',
   },
 } as const;

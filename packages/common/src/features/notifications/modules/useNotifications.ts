@@ -30,8 +30,7 @@ export function useNotifications(agent: Agent, reasons?: string[]) {
 export function useUnreadNotificationCount(agent: Agent) {
 	return useQuery({
 		queryKey: ["notifications", "unread", agent.did],
-		queryFn: () =>
-			xrpc(agent, app.bsky.notification.getUnreadCount.main, { params: {} }),
+		queryFn: () => xrpc(agent, app.bsky.notification.getUnreadCount.main, { params: {} }),
 		select: (res) => res.body.count,
 		staleTime: 30_000,
 		refetchInterval: 60_000,

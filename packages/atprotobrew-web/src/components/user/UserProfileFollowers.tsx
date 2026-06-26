@@ -6,31 +6,20 @@ import { ProfilePageLayout } from "./ProfilePageLayout";
 import { SocialGraph } from "./SocialGraph";
 
 interface UserProfileFollowersProps {
-  client: Client;
-  currentUserDid: string;
+	client: Client;
+	currentUserDid: string;
 }
 
-export function UserProfileFollowers({
-  client,
-  currentUserDid,
-}: UserProfileFollowersProps) {
-  const { did } = useParams<{ did: string }>();
+export function UserProfileFollowers({ client, currentUserDid }: UserProfileFollowersProps) {
+	const { did } = useParams<{ did: string }>();
 
-  if (!did || !isAtprotoDid(did) || !isAtprotoDid(currentUserDid)) {
-    return null;
-  }
+	if (!did || !isAtprotoDid(did) || !isAtprotoDid(currentUserDid)) {
+		return null;
+	}
 
-  return (
-    <ProfilePageLayout
-      backTo={`/profile/${encodeURIComponent(did)}`}
-      title={<Trans>フォロワー</Trans>}
-    >
-      <SocialGraph
-        client={client}
-        currentUserDid={currentUserDid}
-        actor={did}
-        initialTab="followers"
-      />
-    </ProfilePageLayout>
-  );
+	return (
+		<ProfilePageLayout backTo={`/profile/${encodeURIComponent(did)}`} title={<Trans>フォロワー</Trans>}>
+			<SocialGraph client={client} currentUserDid={currentUserDid} actor={did} initialTab="followers" />
+		</ProfilePageLayout>
+	);
 }

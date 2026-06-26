@@ -1,9 +1,8 @@
 import { type Agent, asAtIdentifierString, xrpc } from "@atproto/lex";
 import * as app from "@atprotobrew/atproto/lexicons/app";
-import type { $OutputBody } from "@atprotobrew/atproto/lexicons/app/bsky/actor/getProfile";
 import { useQuery } from "@tanstack/react-query";
 
-export type UserProfile = $OutputBody;
+export type UserProfile = app.bsky.actor.getProfile.$OutputBody;
 
 const BSKY_PUBLIC_API = "https://public.api.bsky.app";
 

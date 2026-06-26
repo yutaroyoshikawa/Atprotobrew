@@ -9,7 +9,7 @@ interface LauncherInstalledTileProps extends Pick<ComponentProps<typeof ChannelT
 
 export function LauncherInstalledTile({ render, onPress, channelName, thumbnailUrl }: LauncherInstalledTileProps) {
 	return (
-		<ChannelTile variant="compact" render={render} onPress={onPress}>
+		<ChannelTile intensity={0.3} variant="compact" render={render} onPress={onPress}>
 			<Image
 				src={thumbnailUrl}
 				width={52}

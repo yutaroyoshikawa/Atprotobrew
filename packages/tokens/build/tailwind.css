@@ -282,6 +282,9 @@
   --color-input-border: rgba(148, 163, 184, 1);
   --color-input-border-focus: rgba(6, 182, 212, 1);
   --color-button-tile-label: rgba(34, 211, 238, 1);
+  --color-pill-gradient-start: rgba(93,180,255,1);
+  --color-pill-gradient-end: rgba(36,117,224,1);
+  --color-pill-border: rgba(255,255,255,0.7);
 }
 
 /* dark: セマンティック変数のみ上書き (変数名は light と同一) */
@@ -308,4 +311,7 @@
   --color-input-border: rgba(203, 213, 225, 1);
   --color-input-border-focus: rgba(14, 165, 233, 1);
   --color-button-tile-label: rgba(203, 213, 225, 1);
+  --color-pill-gradient-start: rgba(93,180,255,1);
+  --color-pill-gradient-end: rgba(36,117,224,1);
+  --color-pill-border: rgba(255,255,255,0.7);
 }

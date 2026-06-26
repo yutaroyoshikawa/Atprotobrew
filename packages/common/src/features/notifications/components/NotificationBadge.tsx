@@ -40,9 +40,7 @@ export function NotificationBadge({ count }: NotificationBadgeProps) {
 				},
 			]}
 		>
-			<Text style={[a.font_bold, { color: tc.bg, fontSize: 10, lineHeight: 18 }]}>
-				{label}
-			</Text>
+			<Text style={[a.font_bold, { color: tc.bg, fontSize: 10, lineHeight: 18 }]}>{label}</Text>
 		</View>
 	);
 }

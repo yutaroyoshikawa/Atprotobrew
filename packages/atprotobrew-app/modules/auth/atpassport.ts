@@ -5,7 +5,7 @@ import { DEFAULT_HANDLE_RESOLVER } from "./client";
 
 // ASWebAuthenticationSession intercepts this HTTPS redirect before the OS treats
 // it as a Universal Link, so no custom-scheme relay is needed.
-const CALLBACK_URL = "https://brew.taroroto.org/atpassport/callback";
+const CALLBACK_URL = "https://brew.tarororo.org/atpassport/callback";
 
 export async function loginWithAtPassport(
 	lang: AppLanguage,

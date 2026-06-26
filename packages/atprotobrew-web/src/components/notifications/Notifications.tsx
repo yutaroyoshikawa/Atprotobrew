@@ -14,30 +14,19 @@ interface NotificationsProps {
 export function Notifications({ client }: NotificationsProps) {
 	const { t, i18n } = useLingui();
 
-	const {
-		data,
-		isPending,
-		isFetchingNextPage,
-		hasNextPage,
-		fetchNextPage,
-	} = useNotifications(client);
+	const { data, isPending, isFetchingNextPage, hasNextPage, fetchNextPage } = useNotifications(client);
 
 	const { mutate: markRead } = useMarkNotificationsRead(client);
 
 	const initialUnreadUris = useRef<Set<string> | null>(null);
 
-	const notifications = useMemo(
-		() => data?.pages.flatMap((p) => p.body.notifications) ?? [],
-		[data],
-	);
+	const notifications = useMemo(() => data?.pages.flatMap((p) => p.body.notifications) ?? [], [data]);
 
 	useEffect(() => {
 		if (data && initialUnreadUris.current === null) {
 			const firstPage = data.pages[0]?.body.notifications ?? [];
 
-			initialUnreadUris.current = new Set(
-				firstPage.filter((n) => !n.isRead).map((n) => n.uri),
-			);
+			initialUnreadUris.current = new Set(firstPage.filter((n) => !n.isRead).map((n) => n.uri));
 		}
 	}, [data]);
 
@@ -77,9 +66,7 @@ export function Notifications({ client }: NotificationsProps) {
 							key={n.uri}
 							className="relative flex items-center gap-3 px-4 py-3 border-b border-bgContrast25"
 						>
-							{isInitiallyUnread && (
-								<span className="absolute left-0 top-0 bottom-0 w-0.5 bg-accent" />
-							)}
+							{isInitiallyUnread && <span className="absolute left-0 top-0 bottom-0 w-0.5 bg-accent" />}
 
 							<Link to={`/profile/${n.author.did}`} className="flex items-center gap-3 flex-1 min-w-0">
 								{n.author.avatar ? (
@@ -99,7 +86,9 @@ export function Notifications({ client }: NotificationsProps) {
 										{t`があなたをフォローしました`}
 									</p>
 									<p className="text-xs text-textContrastMedium mt-0.5 truncate">
-										@{n.author.handle}{"  ·  "}{relativeTime}
+										@{n.author.handle}
+										{"  ·  "}
+										{relativeTime}
 									</p>
 								</div>
 							</Link>

@@ -84,7 +84,7 @@ function ScreenContent({ session }: ScreenContentProps) {
 							</View>
 						</View>
 						<View style={[a.w_full, a.px_6]}>
-							<AppButton variant="outlined" disabled>
+							<AppButton shape="tile" disabled>
 								インストール済み
 							</AppButton>
 						</View>

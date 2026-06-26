@@ -39,9 +39,7 @@ export function NotificationItem({ notification, isInitiallyUnread, onPressAutho
 			]}
 		>
 			{isInitiallyUnread && (
-				<View
-					style={[a.absolute, a.top_0, a.bottom_0, a.left_0, { width: 3, backgroundColor: tc.accent }]}
-				/>
+				<View style={[a.absolute, a.top_0, a.bottom_0, a.left_0, { width: 3, backgroundColor: tc.accent }]} />
 			)}
 
 			{author.avatar ? (
@@ -51,9 +49,7 @@ export function NotificationItem({ notification, isInitiallyUnread, onPressAutho
 					accessibilityLabel=""
 				/>
 			) : (
-				<View
-					style={[a.rounded_full, { width: 44, height: 44, backgroundColor: tc.bgContrast50 }]}
-				/>
+				<View style={[a.rounded_full, { width: 44, height: 44, backgroundColor: tc.bgContrast50 }]} />
 			)}
 
 			<View style={[a.flex_1]}>
@@ -64,7 +60,9 @@ export function NotificationItem({ notification, isInitiallyUnread, onPressAutho
 				</Text>
 
 				<Text style={[a.text_xs, a.mt_1, { color: tc.textContrastMedium }]}>
-					@{author.handle}{"  ·  "}{relativeTime}
+					@{author.handle}
+					{"  ·  "}
+					{relativeTime}
 				</Text>
 			</View>
 		</Pressable>

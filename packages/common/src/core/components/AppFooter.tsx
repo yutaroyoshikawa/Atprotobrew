@@ -11,7 +11,11 @@ interface AppFooterProps {
 	onRequestOpenSocialGraph?: () => void;
 }
 
-export function AppFooter({ onRequestOpenNotifications, unreadNotificationCount = 0, onRequestOpenSocialGraph }: AppFooterProps) {
+export function AppFooter({
+	onRequestOpenNotifications,
+	unreadNotificationCount = 0,
+	onRequestOpenSocialGraph,
+}: AppFooterProps) {
 	const t = useTheme();
 	const { t: tl } = useLingui();
 
@@ -27,7 +31,8 @@ export function AppFooter({ onRequestOpenNotifications, unreadNotificationCount 
 					<AppButton
 						onPress={onRequestOpenNotifications}
 						shape="circle"
-						size="large"
+						variant="primary"
+						buttonSize="large"
 						aria-label={bellLabel}
 					>
 						<Bell color={t.textContrastMedium.val} />
@@ -40,7 +45,13 @@ export function AppFooter({ onRequestOpenNotifications, unreadNotificationCount 
 					<AtprotobrewLogoType />
 				</View>
 
-				<AppButton onPress={onRequestOpenSocialGraph} shape="circle" size="large" aria-label="ソーシャルグラフ">
+				<AppButton
+					onPress={onRequestOpenSocialGraph}
+					shape="circle"
+					variant="primary"
+					buttonSize="large"
+					aria-label="ソーシャルグラフ"
+				>
 					<Users color={t.textContrastMedium.val} />
 				</AppButton>
 			</StyledNavigation>

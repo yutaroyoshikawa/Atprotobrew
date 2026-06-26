@@ -49,7 +49,10 @@
 				"value": "{color.base.cyan-500}",
 				"type": "color"
 			},
-			"button-tile-label": { "value": "{color.base.cyan-400}", "type": "color" }
+			"button-tile-label": { "value": "{color.base.cyan-400}", "type": "color" },
+			"pill-gradient-start": { "value": "{glass.launch-button.gradient-top}",    "type": "color" },
+			"pill-gradient-end":   { "value": "{glass.launch-button.gradient-bottom}", "type": "color" },
+			"pill-border":         { "value": "{glass.launch-button.border}",          "type": "color" }
 		},
 		"dark": {
 			"bg": { "value": "{color.base.slate-900}", "type": "color" },
@@ -103,7 +106,10 @@
 			"button-tile-label": {
 				"value": "{color.base.slate-300}",
 				"type": "color"
-			}
+			},
+			"pill-gradient-start": { "value": "{glass.launch-button.gradient-top}",    "type": "color" },
+			"pill-gradient-end":   { "value": "{glass.launch-button.gradient-bottom}", "type": "color" },
+			"pill-border":         { "value": "{glass.launch-button.border}",          "type": "color" }
 		}
 	}
 }
