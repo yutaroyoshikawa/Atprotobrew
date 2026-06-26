@@ -48,6 +48,7 @@ export async function widgetTaskHandler(props: WidgetTaskHandlerProps): Promise<
 						<WidgetStateView state={snapshot.state} bucket={bucket} locale={snapshot.locale} theme="dark" />
 					),
 				});
+
 				break;
 			}
 
@@ -67,6 +68,7 @@ export async function widgetTaskHandler(props: WidgetTaskHandlerProps): Promise<
 					/>
 				),
 			});
+
 			break;
 		}
 		case "WIDGET_DELETED":

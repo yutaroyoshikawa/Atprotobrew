@@ -22,7 +22,15 @@
 				"noImplicitAnyLet": "error",
 				"noEvolvingTypes": "error"
 			},
-			"correctness": { "noUnknownTypeSelector": "off", "useExhaustiveDependencies": "info" },
+			"correctness": {
+				"noUnknownTypeSelector": "off",
+				"useExhaustiveDependencies": {
+					"level": "info",
+					"options": {
+						"hooks": [{ "name": "useEffectEvent", "stableResult": true }]
+					}
+				}
+			},
 			"complexity": { "noBannedTypes": "off", "noStaticOnlyClass": "off" },
 			"style": { "useBlockStatements": "error" }
 		}
