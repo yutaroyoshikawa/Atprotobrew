@@ -96,6 +96,10 @@ msgstr "ストア"
 msgid "ダーク"
 msgstr "ダーク"
 
+#: src/features/settings/components/GeneralSettings.tsx:17
+msgid "テーマ"
+msgstr "テーマ"
+
 #: src/features/user/components/ProfileEditFormContent.tsx:121
 msgid "バナーを変更"
 msgstr "バナーを変更"

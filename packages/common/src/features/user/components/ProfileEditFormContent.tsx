@@ -263,12 +263,12 @@ export function ProfileEditFormContent({
 						{([canSubmit, isSubmitting]) => (
 							<AppVStack gap="$2">
 								<AppFormTrigger asChild disabled={!canSubmit || isSubmitting}>
-									<AppButton disabled={!canSubmit || isSubmitting}>
+									<AppButton variant="glossy" shape="tile" disabled={!canSubmit || isSubmitting}>
 										{isSubmitting ? t`保存中…` : t`保存`}
 									</AppButton>
 								</AppFormTrigger>
 
-								<AppButton onPress={onCancel} disabled={isSubmitting} variant="outlined">
+								<AppButton variant="secondary" shape="tile" onPress={onCancel} disabled={isSubmitting}>
 									{t`キャンセル`}
 								</AppButton>
 							</AppVStack>

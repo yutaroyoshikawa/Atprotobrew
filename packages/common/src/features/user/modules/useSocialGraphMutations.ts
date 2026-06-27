@@ -6,6 +6,7 @@ import { useMutation } from "@tanstack/react-query";
 
 async function followUser(agent: Agent, subjectDid: DidString): Promise<CreateRecordOutput> {
 	const did = agent.did;
+
 	if (!did) {
 		throw new Error("Not authenticated");
 	}
@@ -22,11 +23,13 @@ async function followUser(agent: Agent, subjectDid: DidString): Promise<CreateRe
 			record,
 		},
 	});
+
 	return res.body;
 }
 
 async function unfollowUser(agent: Agent, followUri: string): Promise<void> {
 	const did = agent.did;
+
 	if (!did) {
 		throw new Error("Not authenticated");
 	}

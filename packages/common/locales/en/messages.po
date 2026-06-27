@@ -112,6 +112,10 @@ msgstr "Dark"
 #~ msgid "チャンネル"
 #~ msgstr "Channel"
 
+#: src/features/settings/components/GeneralSettings.tsx:17
+msgid "テーマ"
+msgstr "Theme"
+
 #: src/features/user/components/ProfileEditFormContent.tsx:121
 msgid "バナーを変更"
 msgstr "Change Banner"
@@ -280,4 +284,4 @@ msgstr "{count, plural, one {# unread notification} other {# unread notification
 
 #: src/core/components/AppFooter.tsx:19
 #~ msgid "通知 {unreadNotificationCount} 件の未読があります"
-#~ msgstr ""
+#~ msgstr "{unreadNotificationCount, plural, one {# unread notification} other {# unread notifications}}"

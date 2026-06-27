@@ -13,7 +13,7 @@ const widgetConfig: WithAndroidWidgetsParams = {
 			targetCellHeight: 2,
 			resizeMode: "horizontal|vertical",
 			description: "AT Protocol サービスのランチャー",
-			previewImage: "./assets/images/icon.png",
+			previewImage: "./assets/images/android-widget-thumbnail.png",
 		},
 	],
 };
@@ -84,9 +84,9 @@ const baseConfig: ExpoConfig = {
 				image: "./assets/images/splash-icon.png",
 				imageWidth: 200,
 				resizeMode: "contain",
-				backgroundColor: "#ffffff",
+				backgroundColor: "#B9E8F3",
 				dark: {
-					backgroundColor: "#000000",
+					backgroundColor: "#022945",
 				},
 			},
 		],
