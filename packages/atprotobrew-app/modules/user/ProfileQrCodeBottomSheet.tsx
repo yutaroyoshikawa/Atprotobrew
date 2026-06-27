@@ -97,6 +97,7 @@ export const ProfileQrCodeBottomSheet = forwardRef<ProfileQrCodeBottomSheetMetho
 					<View style={[a.flex_row, a.gap_3, a.self_stretch]}>
 						<AppButton
 							variant="secondary"
+							shape="tile"
 							flex={1}
 							onPress={handleCopy}
 							accessibilityRole="button"
@@ -107,6 +108,7 @@ export const ProfileQrCodeBottomSheet = forwardRef<ProfileQrCodeBottomSheetMetho
 
 						<AppButton
 							variant="secondary"
+							shape="tile"
 							flex={1}
 							onPress={handleShare}
 							accessibilityRole="button"

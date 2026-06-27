@@ -19,6 +19,7 @@ export function useFollowActions(agent: Agent) {
 					setFollowOverrides((prev) => {
 						const next = new Map(prev);
 						next.set(did, data.uri);
+
 						return next;
 					});
 				},
@@ -26,6 +27,7 @@ export function useFollowActions(agent: Agent) {
 					setMutatingDids((prev) => {
 						const next = new Set(prev);
 						next.delete(did);
+
 						return next;
 					});
 				},
@@ -35,7 +37,7 @@ export function useFollowActions(agent: Agent) {
 	);
 
 	const handleUnfollow = useCallback(
-		(did: string, followUri: string) => {
+		(did: DidString, followUri: string) => {
 			setMutatingDids((prev) => new Set(prev).add(did));
 
 			unfollowMutation.mutate(followUri, {
@@ -43,6 +45,7 @@ export function useFollowActions(agent: Agent) {
 					setFollowOverrides((prev) => {
 						const next = new Map(prev);
 						next.set(did, null);
+
 						return next;
 					});
 				},
@@ -50,6 +53,7 @@ export function useFollowActions(agent: Agent) {
 					setMutatingDids((prev) => {
 						const next = new Set(prev);
 						next.delete(did);
+
 						return next;
 					});
 				},
@@ -65,7 +69,7 @@ export function useFollowActions(agent: Agent) {
 		return profile.viewer?.following ?? null;
 	};
 
-	const isMutating = (did: string) => mutatingDids.has(did);
+	const isMutating = (did: DidString) => mutatingDids.has(did);
 
 	return { handleFollow, handleUnfollow, resolvedFollowUri, isMutating };
 }
